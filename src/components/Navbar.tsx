@@ -18,12 +18,12 @@ const Navbar = () => {
   return (
     <nav className="fixed top-[40px] sm:top-[46px] left-0 right-0 z-50 glass-surface border-b border-border/50">
       <div className="container flex items-center justify-between h-16">
-        <a href="#" className="flex items-center gap-2 font-bold text-lg">
+        <Link to="/" className="flex items-center gap-2 font-bold text-lg">
           <Shield className="w-6 h-6 text-primary" />
           <span>
             Invention<span className="text-primary">Proof</span>
           </span>
-        </a>
+        </Link>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
