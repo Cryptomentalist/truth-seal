@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Stamp, FileCheck, Scale, ArrowRight, Check } from "lucide-react";
+import { Stamp, FileCheck, Scale, Users, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const tiers = [
