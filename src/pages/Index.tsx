@@ -36,6 +36,7 @@ const Index = () => {
       <div id="esg">
         <ESGSection />
       </div>
+      <EcosystemSection />
       <CTASection />
       <ContactSection />
       <Footer />
