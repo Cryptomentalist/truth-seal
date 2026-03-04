@@ -70,12 +70,17 @@ const EcosystemSection = () => {
                 <p.icon className="w-5 h-5 text-accent" />
               </div>
               <div>
-                <h3 className="font-bold text-base mb-1">
+                <h3 className="font-bold text-base mb-1 flex items-center gap-2">
                   {p.link ? (
                     <a href={p.link} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors inline-flex items-center gap-1.5">
                       {p.name} <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   ) : p.name}
+                  {(p as any).tag && (
+                    <span className="text-[10px] font-mono uppercase tracking-wider bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                      {(p as any).tag}
+                    </span>
+                  )}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
               </div>
