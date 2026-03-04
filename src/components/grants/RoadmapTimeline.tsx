@@ -249,6 +249,9 @@ const RoadmapTimeline = () => {
             <div>
               <span className="text-xs font-semibold block">Wyjątek: Inwestor / Intrapreneur</span>
               <span className="text-[10px] text-muted-foreground">Nie musi wykazywać komplementarności — inwestuje w ekosystem.</span>
+              <a href="https://intrapreneurs.app" target="_blank" rel="noopener noreferrer" className="text-[10px] text-primary hover:underline mt-0.5 inline-flex items-center gap-1">
+                <ExternalLink className="w-2.5 h-2.5" /> intrapreneurs.app — serce ekosystemu
+              </a>
             </div>
           </div>
         </div>
