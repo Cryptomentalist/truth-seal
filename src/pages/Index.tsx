@@ -7,10 +7,6 @@ import BlockchainSection from "@/components/BlockchainSection";
 import DemoSection from "@/components/DemoSection";
 import DisclaimerSection from "@/components/DisclaimerSection";
 import TeamSection from "@/components/TeamSection";
-import ESGSection from "@/components/ESGSection";
-import NeurodiversitySection from "@/components/NeurodiversitySection";
-import EcosystemSection from "@/components/EcosystemSection";
-import EcosystemStructureSection from "@/components/EcosystemStructureSection";
 import CTASection from "@/components/CTASection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
@@ -35,12 +31,6 @@ const Index = () => {
       <div id="zespol">
         <TeamSection />
       </div>
-      <div id="esg">
-        <ESGSection />
-      </div>
-      <NeurodiversitySection />
-      <EcosystemSection />
-      <EcosystemStructureSection />
       <CTASection />
       <ContactSection />
       <Footer />

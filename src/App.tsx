@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Ekosystem from "./pages/Ekosystem";
 import FAQ from "./pages/FAQ";
 import Grants from "./pages/Grants";
+import Misja from "./pages/Misja";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/ekosystem" element={<Ekosystem />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/dotacje" element={<Grants />} />
+          <Route path="/misja" element={<Misja />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
