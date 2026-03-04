@@ -57,7 +57,7 @@ interface RoadmapStep {
   details: string;
   duration: string;
   maslow: MaslowLevel;
-  eco?: EcoLink;
+  eco?: EcoLink | EcoLink[];
 }
 
 export const roadmapSteps: RoadmapStep[] = [
@@ -146,7 +146,10 @@ export const roadmapSteps: RoadmapStep[] = [
     desc: "Audyt niefinansowy, strategia ESG, anty-greenwashing — realna odpowiedzialność społeczna i środowiskowa z certyfikacją.",
     details: "Raport niefinansowy, analiza śladu węglowego, strategia S-Impact, weryfikacja anty-greenwashingowa, compliance ESG dla inwestorów.",
     duration: "3–6 tyg.",
-    eco: { name: "esg.legal", url: "https://esg.legal" },
+    eco: [
+      { name: "esg.legal", url: "https://esg.legal" },
+      { name: "radakobiet.org", url: "https://radakobiet.org" },
+    ],
   },
   {
     icon: Award, title: "Certyfikat jakości & ekosystem", maslow: "jakosc",
@@ -313,19 +316,20 @@ const RoadmapTimeline = () => {
                     <span className={maslow.color}>{maslow.label}</span>
                   </span>
 
-                  {/* Ecosystem project link */}
-                  {step.eco && (
+                  {/* Ecosystem project links */}
+                  {step.eco && (Array.isArray(step.eco) ? step.eco : [step.eco]).map((link, li) => (
                     <a
-                      href={step.eco.url}
-                      target={step.eco.url.startsWith("http") ? "_blank" : undefined}
-                      rel={step.eco.url.startsWith("http") ? "noopener noreferrer" : undefined}
+                      key={li}
+                      href={link.url}
+                      target={link.url.startsWith("http") ? "_blank" : undefined}
+                      rel={link.url.startsWith("http") ? "noopener noreferrer" : undefined}
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 border border-primary/25 text-primary hover:bg-primary/20 transition-colors"
                     >
                       <ExternalLink className="w-2.5 h-2.5" />
-                      {step.eco.name}
+                      {link.name}
                     </a>
-                  )}
+                  ))}
                 </div>
 
                 {isInvestor && (
