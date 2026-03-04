@@ -194,8 +194,6 @@ const Ekosystem = () => {
           </motion.div>
         </div>
       </section>
-        </div>
-      </section>
 
       {/* Projects Grid */}
       <section className="py-12 px-4 md:px-8">
