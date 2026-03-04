@@ -56,7 +56,7 @@ const categories = [
     questions: [
       {
         q: "Czym jest MindMark™?",
-        a: "MindMark™ to niepodważalny cyfrowy dowód istnienia wynalazku, tworzony na etapie pre-patentowym. Wykorzystuje kryptografię 256-bit i znacznik czasowy, by udowodnić autorstwo pomysłu zanim trafi on do jakiejkolwiek instytucji — chroniąc przed kradzieżą technologii na etapie R&D.",
+        a: "MindMark™ to nasza usługa ochrony własności intelektualnej na etapie pre-patentowym. Wykorzystuje infrastrukturę blockchain (rozproszony zapis cyfrowy) z kryptografią 256-bit i znacznikiem czasowym, by stworzyć niepodważalny dowód autorstwa — zanim pomysł trafi do jakiejkolwiek instytucji.",
       },
       {
         q: "Czym różni się InventionProof od patentu?",

@@ -188,7 +188,7 @@ const DemoSection = () => {
                 <div className="flex items-center gap-3 mb-3">
                   <CheckCircle2 className="w-6 h-6 text-primary" />
                   <span className="font-semibold text-primary">
-                    Dowód zapieczętowany w rejestrze MindMark™!
+                    Dowód zapieczętowany w usłudze MindMark™!
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground">
@@ -263,8 +263,8 @@ const DemoSection = () => {
 
         {/* Disclaimer */}
         <p className="text-center text-xs text-muted-foreground mt-8 max-w-md mx-auto">
-          To symulacja edukacyjna. W produkcji InventionProof.org używa technologii MindMark™ 
-          — rozproszonego zapisu cyfrowego nie do podrobienia i nie do wymazania.
+          To symulacja edukacyjna. W produkcji InventionProof.org oferuje usługę MindMark™ 
+          — ochronę IP opartą na infrastrukturze blockchain (rozproszonego zapisu cyfrowego).
         </p>
       </div>
     </section>

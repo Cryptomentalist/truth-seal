@@ -53,14 +53,15 @@ const BlockchainSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-sm font-mono text-primary uppercase tracking-widest">Technologia MindMark™</span>
+          <span className="text-sm font-mono text-primary uppercase tracking-widest">Infrastruktura technologiczna</span>
           <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mt-4 mb-6">
-            Rozproszony zapis cyfrowy zmienia{" "}
-            <span className="text-gradient-primary">zasady gry</span>
+            Blockchain jako{" "}
+            <span className="text-gradient-primary">fundament MindMark™</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Po raz pierwszy innowator nie musi ufać jedynie systemowi. Może zabezpieczyć się sam 
-            — dzięki technologii, która tworzy dowód nie do podrobienia i nie do wymazania.
+            MindMark™ to nasza usługa ochrony własności intelektualnej. Pod spodem wykorzystuje
+            sprawdzoną infrastrukturę blockchain — rozproszony zapis cyfrowy, który tworzy dowód
+            nie do podrobienia i nie do wymazania.
           </p>
         </motion.div>
 

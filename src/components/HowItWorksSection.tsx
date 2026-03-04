@@ -10,9 +10,9 @@ const tiers = [
     price: "0 zł",
     priceNote: "bezpłatnie",
     description:
-      "Rozproszony zapis cyfrowy tworzy niepodważalny dowód istnienia Twojego dokumentu z dokładną datą — bez pośredników, bez opłat notarialnych.",
+      "Usługa MindMark™ rejestruje niepodważalny dowód istnienia Twojego dokumentu z dokładną datą na blockchainie — bez pośredników, bez opłat notarialnych.",
     features: [
-      "Hash SHA-256 na blockchainie",
+      "Cyfrowy odcisk palca (SHA-256) na blockchainie",
       "Certyfikat z datą pewną",
       "Nieograniczona trwałość zapisu",
     ],
