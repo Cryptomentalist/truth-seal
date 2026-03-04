@@ -314,6 +314,66 @@ const Ekosystem = () => {
         </div>
       </section>
 
+      {/* Domeny na sprzedaż */}
+      <section className="py-12 px-4 md:px-8">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <Globe className="w-6 h-6 text-accent" />
+              <h2 className="text-xl sm:text-2xl font-bold">Domeny premium na sprzedaż</h2>
+            </div>
+            <div className="glass-surface rounded-xl p-6 sm:p-8 mb-5">
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4">
+                Kupując domenę z naszej listy, wspierasz{" "}
+                <span className="text-accent font-semibold">Fundację Konstelacja.org</span> i zyskujesz
+                coś więcej niż adres — zyskujesz <span className="text-accent font-semibold">pomoc w rozwinięciu biznesu</span> opartego
+                o tę domenę. Masz domenę? Pomożemy Ci stworzyć pomysł i go zrealizować.
+              </p>
+              <div className="flex items-center gap-2 mb-6 p-3 rounded-lg bg-accent/5 border border-accent/10">
+                <Sparkles className="w-4 h-4 text-accent flex-shrink-0" />
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  Każda domena posiada wartość kolekcjonerską jako <span className="text-accent font-semibold">NFT</span> — cyfrowy certyfikat własności zapisany w blockchain.
+                </p>
+              </div>
+
+              <div className="grid gap-3">
+                {[
+                  { domain: "przykład1.pl", hint: "Link i cena wkrótce" },
+                  { domain: "przykład2.com", hint: "Link i cena wkrótce" },
+                  { domain: "przykład3.eu", hint: "Link i cena wkrótce" },
+                  { domain: "przykład4.pl", hint: "Link i cena wkrótce" },
+                  { domain: "przykład5.com", hint: "Link i cena wkrótce" },
+                ].map((d, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.05 }}
+                    className="flex items-center justify-between p-3 rounded-lg bg-background/50 border border-border/30 hover:border-accent/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-3">
+                      <Globe className="w-4 h-4 text-accent/60" />
+                      <span className="font-mono text-sm font-semibold">{d.domain}</span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">{d.hint}</span>
+                  </motion.div>
+                ))}
+              </div>
+
+              <p className="text-xs text-muted-foreground mt-5 italic text-center">
+                Pełna lista domen i ceny zostaną uzupełnione. Zakup = wsparcie fundacji + pomoc w budowie biznesu.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Referencje */}
       <section className="py-12 px-4 md:px-8">
         <div className="container max-w-4xl">
