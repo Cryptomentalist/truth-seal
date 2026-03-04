@@ -22,6 +22,7 @@ import {
   CheckCircle2,
   Gem,
   Handshake,
+  Leaf,
   UserCheck,
 } from "lucide-react";
 
