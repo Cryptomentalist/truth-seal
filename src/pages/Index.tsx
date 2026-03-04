@@ -8,6 +8,7 @@ import DemoSection from "@/components/DemoSection";
 import TeamSection from "@/components/TeamSection";
 import ESGSection from "@/components/ESGSection";
 import CTASection from "@/components/CTASection";
+import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
 const Index = () => {
