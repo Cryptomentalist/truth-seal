@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Stamp, FileCheck, Scale, ArrowRight, Check } from "lucide-react";
+import { Stamp, FileCheck, Scale, Users, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const tiers = [
@@ -56,6 +56,25 @@ const tiers = [
     popular: false,
     link: { label: "Czym jest PRE-COURT? →", href: "#pre-court" },
   },
+  {
+    icon: Users,
+    title: "MindMark HR",
+    headline: "Ochrona pomysłów w zespole",
+    price: "Wycena indywidualna",
+    priceNote: "dla firm",
+    description:
+      "Oprogramowanie do zabezpieczania nawet drobnych pomysłów wewnątrz organizacji. Idealne dla agencji reklamowych, PR i kreatywnych zespołów — nikt nie przypisze sobie cudzego wkładu.",
+    features: [
+      "Hashowanie SHA-256 z podpisem cyfrowym autora",
+      "Algorytm motywacyjny — docenia każdy wkład",
+      "Raporty wkładu intelektualnego w projekt",
+      "Od drobnych idei po decyzje strategiczne",
+      "Bez blockchain — lekkie, wewnętrzne rozwiązanie",
+    ],
+    accent: false,
+    popular: false,
+    link: null,
+  },
 ];
 
 const HowItWorksSection = () => (
@@ -76,7 +95,7 @@ const HowItWorksSection = () => (
         </p>
       </motion.div>
 
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {tiers.map((tier, i) => {
           const Icon = tier.icon;
           return (
