@@ -64,6 +64,9 @@ const ProblemSection = () => {
             Przypadek <span className="text-foreground font-semibold">kompozytu kwantowego BIPV</span> — wynalazku Ady Margo Marglewskiej — ujawnił,
             że nadużycia mogą zaczynać się w procedurach, które miały wspierać innowatorów.
           </p>
+          <p className="text-muted-foreground leading-relaxed mt-4 italic">
+            Potrzeba jest matką wynalazku — <span className="text-foreground font-semibold">InventionProof.org</span> i <span className="text-foreground font-semibold">MindMark™</span> powstały właśnie dlatego, że ich twórczyni sama doświadczyła kradzieży technologii i braku narzędzi ochrony na etapie pre-patentowym.
+          </p>
         </motion.div>
       </div>
     </section>
