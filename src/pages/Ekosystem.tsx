@@ -263,6 +263,63 @@ const Ekosystem = () => {
         </div>
       </section>
 
+      {/* Publikacje */}
+      <section className="py-12 px-4 md:px-8">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-xl sm:text-2xl font-bold mb-6">Publikacje</h2>
+            <div className="glass-surface rounded-xl p-6 sm:p-8 text-center">
+              <p className="text-muted-foreground text-sm sm:text-base">
+                Sekcja w przygotowaniu — wkrótce pojawią się artykuły, wywiady i materiały prasowe.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Referencje */}
+      <section className="py-12 px-4 md:px-8">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-xl sm:text-2xl font-bold mb-6">Referencje</h2>
+            <div className="glass-surface rounded-xl p-6 sm:p-8 text-center">
+              <p className="text-muted-foreground text-sm sm:text-base">
+                Sekcja w przygotowaniu — wkrótce pojawią się opinie partnerów, klientów i ekspertów.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Webinary */}
+      <section className="py-12 px-4 md:px-8">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-xl sm:text-2xl font-bold mb-6">Webinary</h2>
+            <div className="glass-surface rounded-xl p-6 sm:p-8 text-center">
+              <p className="text-muted-foreground text-sm sm:text-base">
+                Sekcja w przygotowaniu — wkrótce pojawią się nagrania i zapisy na nadchodzące webinary.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Mission */}
       <section className="py-12 pb-20 px-4 md:px-8">
         <div className="container max-w-4xl">
