@@ -24,7 +24,7 @@ const pillars = [
   },
   {
     icon: Flag,
-    title: "Marka „Polska"",
+    title: 'Marka "Polska"',
     subtitle: "Transformacja wizerunku na arenie globalnej",
     points: [
       "Bezpieczny ekosystem dla innowatorów",
