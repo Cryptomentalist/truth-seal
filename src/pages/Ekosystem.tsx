@@ -1,0 +1,254 @@
+import { motion } from "framer-motion";
+import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Lightbulb, Users, TrendingUp, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+
+const GlossaryTerm = ({ term, explanation, children }: { term?: string; explanation: string; children: React.ReactNode }) => (
+  <Tooltip>
+    <TooltipTrigger asChild>
+      <span className="underline decoration-accent/50 decoration-dotted underline-offset-4 cursor-help text-accent font-semibold hover:decoration-accent transition-colors">
+        {children}
+      </span>
+    </TooltipTrigger>
+    <TooltipContent side="top" className="max-w-xs text-sm leading-relaxed bg-card border-border/80 p-4">
+      {term && <strong className="block mb-1 text-primary">{term}</strong>}
+      {explanation}
+    </TooltipContent>
+  </Tooltip>
+);
+
+const projects = [
+  {
+    icon: ShieldCheck,
+    name: "InventionProof",
+    desc: "Ochrona własności intelektualnej z cyfrowym dowodem autorstwa — bez patentów, bez prawników, w kilka minut.",
+  },
+  {
+    icon: Rocket,
+    name: "AI Start-up Studio",
+    desc: "Inkubacja i akceleracja projektów opartych o sztuczną inteligencję. Wspieramy od pomysłu do rynku.",
+  },
+  {
+    icon: ArrowRightLeft,
+    name: "BarterChain",
+    desc: "Wymiana wartości i usług między projektami ekosystemu — bez pośredników i kosztów transakcyjnych.",
+  },
+  {
+    icon: Network,
+    name: "Kolejne projekty",
+    desc: "Każdy nowy projekt uzupełnia pozostałe, tworząc samowystarczalny organizm gospodarczy odporny na kryzysy.",
+  },
+];
+
+const Ekosystem = () => {
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 glass-surface border-b border-border/50">
+        <div className="container flex items-center h-16 gap-4">
+          <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="w-4 h-4" />
+            <span className="text-sm">Powrót</span>
+          </Link>
+          <div className="h-5 w-px bg-border" />
+          <span className="font-bold text-sm sm:text-base">
+            AI Venture Anticrisis <span className="text-accent">Integrator</span>
+          </span>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="pt-28 pb-16 px-4 md:px-8">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="text-sm font-mono text-accent uppercase tracking-widest">
+              Ekosystem
+            </span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mt-4 mb-6 leading-tight">
+              AI Venture Anticrisis{" "}
+              <span className="text-gradient-primary">Integrator</span>
+            </h1>
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed max-w-3xl">
+              Samowystarczalny{" "}
+              <GlossaryTerm explanation="Grupa wzajemnie powiązanych projektów i usług, które wspólnie tworzą większą wartość niż każdy z osobna — jak organy w organizmie.">
+                ekosystem
+              </GlossaryTerm>{" "}
+              komplementarnych przedsięwzięć. Każdy projekt uzupełnia pozostałe — do tego stopnia, że możliwa jest bezpośrednia{" "}
+              <GlossaryTerm explanation="Wymiana dóbr i usług bezpośrednio między stronami, bez użycia pieniędzy jako pośrednika. Eliminuje koszty transakcyjne i zależność od instytucji finansowych.">
+                wymiana barterowa
+              </GlossaryTerm>{" "}
+              wartości, usług i zasobów między nimi.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Win-Win Section */}
+      <section className="py-12 px-4 md:px-8">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="glass-surface rounded-xl p-6 sm:p-8"
+          >
+            <div className="flex items-center gap-3 mb-5">
+              <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Users className="w-5 h-5 text-primary" />
+              </div>
+              <h2 className="text-xl sm:text-2xl font-bold">Wspieramy obie strony</h2>
+            </div>
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-4">
+              Wspieramy{" "}
+              <GlossaryTerm explanation="Osoba zakładająca nową firmę (start-up), która bierze na siebie ryzyko stworzenia innowacyjnego produktu lub usługi.">
+                założycieli start-upów
+              </GlossaryTerm>{" "}
+              i potencjalnych ich{" "}
+              <GlossaryTerm explanation="Osoba lub instytucja, która lokuje pieniądze w projekty z nadzieją na zysk. W naszym ekosystemie inwestor zyskuje zweryfikowane, przejrzyste projekty z udowodnioną wartością intelektualną.">
+                inwestorów
+              </GlossaryTerm>{" "}
+              — minimalizując ryzyko niepowodzenia projektów.
+            </p>
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-4">
+              Ten{" "}
+              <GlossaryTerm explanation="Sytuacja, w której obie strony transakcji odnoszą korzyść. Nikt nie traci — zyskują założyciele, inwestorzy i cały ekosystem.">
+                win-win
+              </GlossaryTerm>{" "}
+              dla obu stron jest także naszym sukcesem — pośrednika i{" "}
+              <GlossaryTerm explanation="Osoba lub firma, która łączy innowatorów z inwestorami, ułatwia transakcje i negocjacje, dbając o interesy obu stron.">
+                brokera innowacji
+              </GlossaryTerm>.
+            </p>
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-6">
+              Jesteśmy praktykami od{" "}
+              <GlossaryTerm explanation="Proces wspierania nowego projektu od pomysłu do gotowego produktu — obejmuje mentoring, zasoby, strategię i ochronę własności intelektualnej.">
+                inkubacji
+              </GlossaryTerm>{" "}
+              i{" "}
+              <GlossaryTerm explanation="Niestandardowe sposoby budowania i prowadzenia firmy, które łamią utarte schematy — np. barter zamiast gotówki, ekosystem zamiast konkurencji.">
+                innowacyjnych modeli biznesowych
+              </GlossaryTerm>.
+              Opiekujemy się <span className="text-accent font-semibold">WARTOŚCIĄ</span> i dbamy o korzyści — od jednostki do celu nadrzędnego.
+            </p>
+
+            {/* Audio link */}
+            <a
+              href="#"
+              className="inline-flex items-center gap-3 px-5 py-3 rounded-lg bg-accent/10 hover:bg-accent/20 text-accent font-semibold transition-colors text-sm sm:text-base"
+            >
+              <Volume2 className="w-5 h-5" />
+              <div className="text-left">
+                <span className="block">Wypowiedź ekspertki Ady Margo Marglewskiej</span>
+                <span className="block text-xs text-muted-foreground font-normal">MRiT — zjazd ekspertów, spotkanie praktyków z osobami decyzyjnymi</span>
+              </div>
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Projects Grid */}
+      <section className="py-12 px-4 md:px-8">
+        <div className="container max-w-4xl">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-xl sm:text-2xl font-bold mb-8"
+          >
+            Projekty w ekosystemie
+          </motion.h2>
+          <div className="grid sm:grid-cols-2 gap-5">
+            {projects.map((p, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="glass-surface rounded-xl p-6 flex gap-4 items-start"
+              >
+                <div className="w-11 h-11 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                  <p.icon className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base mb-1">{p.name}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Barter Highlight */}
+      <section className="py-12 px-4 md:px-8">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="glass-surface rounded-xl p-6 sm:p-8 text-center"
+          >
+            <ArrowRightLeft className="w-8 h-8 text-accent mx-auto mb-4" />
+            <h2 className="text-lg sm:text-xl font-bold mb-3">
+              Wymiana barterowa wewnątrz ekosystemu
+            </h2>
+            <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed max-w-2xl mx-auto">
+              Projekty są{" "}
+              <GlossaryTerm explanation="Uzupełniające się wzajemnie — każdy projekt dostarcza coś, czego potrzebują pozostałe, tworząc zamknięty obieg wartości.">
+                komplementarne
+              </GlossaryTerm>{" "}
+              na tyle, że wymiana wartości odbywa się bezpośrednio — bez zbędnych pośredników i{" "}
+              <GlossaryTerm explanation="Opłaty i prowizje ponoszone przy każdej wymianie handlowej — np. prowizje bankowe, opłaty za przelewy, marże pośredników.">
+                kosztów transakcyjnych
+              </GlossaryTerm>.
+            </p>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+              To samowystarczalny organizm gospodarczy odporny na kryzysy — jak w{" "}
+              <GlossaryTerm explanation="Teoria psychologa Abrahama Maslowa mówiąca, że człowiek musi zaspokoić podstawowe potrzeby (jedzenie, bezpieczeństwo) zanim zajmie się wyższymi (rozwój, samorealizacja). Nasz ekosystem zaspokaja wszystkie 'poziomy' potrzeb biznesowych.">
+                piramidzie Maslowa
+              </GlossaryTerm>
+              : zaspokajamy wszystkie potrzeby do funkcjonowania.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Mission */}
+      <section className="py-12 pb-20 px-4 md:px-8">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <blockquote className="text-lg sm:text-xl md:text-2xl font-medium text-secondary-foreground italic max-w-3xl mx-auto leading-relaxed">
+              „Tworzymy wartość, jakość dla wzrostu gospodarczego. Zmieniamy definicję sukcesu. Tworzymy wymierne wskaźniki rezultatu."
+            </blockquote>
+            <p className="text-muted-foreground mt-6 max-w-2xl mx-auto leading-relaxed">
+              Promujemy markę <span className="text-accent font-semibold">Made in Poland · Polish Quality</span> — na arenie międzynarodowej.
+            </p>
+            <div className="w-12 h-0.5 bg-gradient-to-r from-primary to-accent mx-auto mt-6" />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer link back */}
+      <footer className="py-8 px-4 border-t border-border/30 text-center">
+        <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+          ← Powrót do strony głównej InventionProof
+        </Link>
+      </footer>
+    </div>
+  );
+};
+
+export default Ekosystem;
