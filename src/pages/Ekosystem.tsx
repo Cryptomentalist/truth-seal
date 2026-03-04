@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Lightbulb, Users, TrendingUp, Heart } from "lucide-react";
+import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Users, Heart, HandCoins, MessageCircleHeart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
@@ -32,6 +32,12 @@ const projects = [
     icon: ArrowRightLeft,
     name: "BarterChain",
     desc: "Wymiana wartości i usług między projektami ekosystemu — bez pośredników i kosztów transakcyjnych.",
+  },
+  {
+    icon: MessageCircleHeart,
+    name: "GenBridge",
+    desc: "Komunikacja międzypokoleniowa — budujemy mosty między generacjami, łącząc doświadczenie z innowacją.",
+    link: "#", // placeholder — link do projektu GenBridge
   },
   {
     icon: Network,
@@ -147,6 +153,43 @@ const Ekosystem = () => {
                 <span className="block text-xs text-muted-foreground font-normal">MRiT — zjazd ekspertów, spotkanie praktyków z osobami decyzyjnymi</span>
               </div>
             </a>
+
+            {/* GenBridge */}
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mt-6">
+              Buduje z nami komunikację międzypokoleniową{" "}
+              <a href="#" className="text-accent font-semibold underline decoration-accent/50 underline-offset-4 hover:decoration-accent transition-colors">
+                GenBridge
+              </a>{" "}
+              — łączymy doświadczenie starszych pokoleń z energią i innowacyjnością młodych.
+            </p>
+          </motion.div>
+
+          {/* Zrzutka + 1.5% */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="glass-surface rounded-xl p-6 sm:p-8 mt-6 text-center"
+          >
+            <HandCoins className="w-10 h-10 text-accent mx-auto mb-4" />
+            <h3 className="text-xl sm:text-2xl font-bold mb-3">Wesprzyj naszą misję</h3>
+            <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-2 max-w-2xl mx-auto">
+              Możesz przekazać <span className="text-accent font-semibold">1,5% swojego podatku</span> na rozwój ekosystemu innowacji. Każda złotówka wspiera polskich innowatorów i buduje markę <span className="text-accent font-semibold">Made in Poland</span>.
+            </p>
+            <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-2xl mx-auto">
+              Możesz nas także wesprzeć bezpośrednio przez zrzutkę — każdy wkład ma znaczenie.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                href="#"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent/10 hover:bg-accent/20 text-accent font-semibold transition-colors text-sm sm:text-base"
+              >
+                <Heart className="w-4 h-4" />
+                Wesprzyj na zrzutka.pl
+              </a>
+              <span className="text-xs text-muted-foreground">Link zostanie dodany wkrótce</span>
+            </div>
           </motion.div>
         </div>
       </section>
