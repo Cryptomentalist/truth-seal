@@ -54,11 +54,18 @@ const team = [
     color: "primary" as const,
   },
   {
-    name: "Maksymilian",
-    role: "Koordynator",
+    name: "Maksymilian Nałęcz",
+    role: "Koordynator / Pitch-deck",
     description:
-      "Obsługa klienta sponsorów i członków ekosystemu AI Venture, problem solver support.",
+      "Obsługa klienta sponsorów i członków ekosystemu AI Venture, odpowiada za przygotowanie pitch-decków przed inwestorami, problem solver support.",
     color: "accent" as const,
+  },
+  {
+    name: "Mateusz Skałoń",
+    role: "Inżynier / Innowator / Przedsiębiorca",
+    description:
+      "Inżynier i innowator z doświadczeniem przedsiębiorczym — wsparcie technologiczne i biznesowe ekosystemu.",
+    color: "primary" as const,
   },
   {
     name: "Marcin Suchy",
