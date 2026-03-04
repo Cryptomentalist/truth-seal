@@ -140,7 +140,7 @@ const NewIndex = () => {
             Constellation<span className="text-accent">.love</span>
           </h1>
           <p className="text-muted-foreground mt-3 text-base sm:text-lg max-w-2xl mx-auto">
-            Stars Roadmap: 18 Steps to Scale Your Invention — bo tu „Stars" symbolizuje każdy ważny punkt/etap. Dołącz do samowystarczalnego antykryzysowego ekosystemu z Gentleman Agreement Club i poczuj korzyści oraz wsparcie na każdym etapie rozwoju. Dla inwestorów, innowatorów i start-upów w każdym wieku. Zarabiaj z nami, doświadczaj, integruj się, ucz się i kochaj!
+            Stars Roadmap: 18 Steps to Scale Your Invention. Dołącz do samowystarczalnego antykryzysowego ekosystemu z Gentleman Agreement Club i poczuj korzyści oraz wsparcie na każdym etapie rozwoju. Dla inwestorów, innowatorów i start-upów w każdym wieku. Zarabiaj z nami, doświadczaj, integruj się, ucz się i kochaj!
           </p>
         </motion.div>
       </header>
