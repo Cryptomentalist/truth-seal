@@ -8,6 +8,7 @@ import DemoSection from "@/components/DemoSection";
 import DisclaimerSection from "@/components/DisclaimerSection";
 import TeamSection from "@/components/TeamSection";
 import CTASection from "@/components/CTASection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
