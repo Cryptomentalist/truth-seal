@@ -53,9 +53,9 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
         >
-          Chroń innowację,{" "}
-          <span className="text-gradient-primary">zanim ktokolwiek</span>{" "}
-          ją zobaczy
+          Potwierdzenie autorstwa,{" "}
+          <span className="text-gradient-primary">bez ujawniania</span>{" "}
+          pomysłu
         </motion.h1>
 
         <motion.p
