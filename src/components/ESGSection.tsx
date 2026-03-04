@@ -118,8 +118,14 @@ const ESGSection = () => {
             Część ekosystemu
           </p>
           <h3 className="text-xl sm:text-2xl font-bold mb-3">AI Venture Integrator</h3>
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed">
+            To ekosystem, który działa jak państwo w państwie — ale w tym białym, a nie czarnym znaczeniu. Tworzymy komplementarne przedsięwzięcia, aby ekosystem był samowystarczalny i odporny na kryzysy.
+          </p>
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed">
+            To jak w piramidzie Maslowa: zaspokajamy wszystkie potrzeby do życia. InventionProof jest elementem komplementarnym w tym ekosystemie — chroni innowacje, które napędzają cały system.
+          </p>
           <p className="text-sm sm:text-base text-muted-foreground mb-6 leading-relaxed">
-            Ekosystem, który działa jak państwo w państwie — w tym białym znaczeniu. Tworzymy komplementarne przedsięwzięcia, aby ekosystem był samowystarczalny i odporny na kryzysy. To jak w piramidzie Maslowa: zaspokajamy wszystkie potrzeby do życia.
+            Razem budujemy markę <span className="text-accent font-semibold">Made in Poland · Polish Quality</span> — na arenie międzynarodowej.
           </p>
           <a
             href="https://www.linkedin.com/in/ada-margo-marglewska/"
