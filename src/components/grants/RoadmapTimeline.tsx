@@ -18,6 +18,11 @@ import {
   ClipboardCheck,
   ExternalLink,
   Triangle,
+  Filter,
+  CheckCircle2,
+  Gem,
+  Handshake,
+  UserCheck,
 } from "lucide-react";
 
 /* ── Maslow levels ──────────────────────────────── */
