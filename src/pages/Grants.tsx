@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import RoadmapTimeline from "@/components/grants/RoadmapTimeline";
 import TaxCalculator from "@/components/grants/TaxCalculator";
+import EcosystemMindMap from "@/components/grants/EcosystemMindMap";
+import BrandEmploymentOffer from "@/components/grants/BrandEmploymentOffer";
 
 /* ── Data ────────────────────────────────────────────── */
 
