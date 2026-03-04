@@ -133,7 +133,7 @@ const HowItWorksSection = () => (
               <a href="#kontakt">
                 <Button
                   variant={tier.popular ? "hero" : "heroOutline"}
-                  className="w-full"
+                  className="w-full text-sm"
                 >
                   {tier.price === "0 zł" ? "Zacznij za darmo" : "Skontaktuj się"}
                 </Button>
