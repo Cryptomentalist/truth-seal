@@ -21,7 +21,7 @@ const Navbar = () => {
     <nav className="fixed top-[40px] sm:top-[46px] left-0 right-0 z-50 glass-surface border-b border-border/50">
       <div className="container flex items-center justify-between h-16">
         <Link to="/" className="flex items-center gap-2 font-bold text-lg">
-          <Shield className="w-6 h-6 text-primary" />
+          <img src={constellationLogo} alt="Constellation.love" className="w-8 h-8 rounded-full object-cover" />
           <span>
             Constellation<span className="text-primary">.love</span>
           </span>
