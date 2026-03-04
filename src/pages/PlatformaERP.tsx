@@ -18,6 +18,7 @@ import {
   Download,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import ROICalculator from "@/components/erp/ROICalculator";
 
 /* ── Module data ─────────────────────────────────── */
 
@@ -427,6 +428,9 @@ const PlatformaERP = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* ROI Calculator */}
+      <ROICalculator />
 
       {/* Strategic recommendation */}
       <section className="py-12 px-4 md:px-8">
