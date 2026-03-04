@@ -140,7 +140,7 @@ const NewIndex = () => {
             Constellation<span className="text-accent">.love</span>
           </h1>
           <p className="text-muted-foreground mt-3 text-base sm:text-lg max-w-xl mx-auto">
-            Ekosystem 18 komplementarnych projektów — roadmapa od rejestracji po pełną autonomię.
+            Ekosystem 18 komplementarnych (uzupełniających się zasobami) projektów — gwiazd Stars Road Map od rejestracji po pełną autonomię.
           </p>
         </motion.div>
       </header>
