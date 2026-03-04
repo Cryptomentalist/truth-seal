@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import RoadmapTimeline from "@/components/grants/RoadmapTimeline";
 import TaxCalculator from "@/components/grants/TaxCalculator";
+import EcosystemMindMap from "@/components/grants/EcosystemMindMap";
+import BrandEmploymentOffer from "@/components/grants/BrandEmploymentOffer";
 
 /* ── Data ────────────────────────────────────────────── */
 
@@ -99,6 +101,21 @@ const GrantsPage = () => {
 
           <RoadmapTimeline />
         </motion.div>
+
+        {/* ── MIND MAP ── */}
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.18 }} className="mb-20">
+          <h2 className="text-2xl font-bold mb-2 flex items-center gap-3">
+            <span className="w-1.5 h-7 rounded-full bg-primary inline-block" />
+            Mapa ekosystemu — projekty i narzędzia
+          </h2>
+          <p className="text-sm text-muted-foreground mb-8 ml-5">
+            Wszystkie projekty, narzędzia i inicjatywy w jednym miejscu. Każdy element uzupełnia pozostałe.
+          </p>
+          <EcosystemMindMap />
+        </motion.div>
+
+        {/* ── BRAND EMPLOYMENT ── */}
+        <BrandEmploymentOffer />
 
         {/* ── CASE STUDIES ── */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.25 }} className="mb-20">

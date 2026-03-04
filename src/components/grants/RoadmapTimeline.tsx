@@ -63,8 +63,8 @@ interface RoadmapStep {
 export const roadmapSteps: RoadmapStep[] = [
   {
     icon: Handshake, title: "Franczyza — gotowy biznes z filtrem jakości", maslow: "zasoby",
-    desc: "Nie masz pomysłu na biznes? Chcesz być swoim szefem? Wybierz przefiltrowanego przez nasz filtr jakości franczyzodawcę i zarabiaj z naszym wsparciem.",
-    details: "Weryfikacja franczyzodawców filtrem komplementarności i jakości ekosystemu. Gotowy model biznesowy, sprawdzony rynek, wsparcie operacyjne i mentoring od pierwszego dnia.",
+    desc: "Nie masz pomysłu na biznes? Chcesz być swoim szefem? Wybierz przefiltrowanego przez nasz filtr jakości franczyzodawcę i zarabiaj z naszym wsparciem. Prowadzimy rozmowy z MiR, aby projekty franczyzodawców mogły być dofinansowane z UE dla podniesienia wzrostu gospodarczego.",
+    details: "Weryfikacja franczyzodawców filtrem komplementarności i jakości ekosystemu. Gotowy model biznesowy, sprawdzony rynek, wsparcie operacyjne i mentoring od pierwszego dnia. Współpraca z Ministerstwem Rozwoju (MiR) nad możliwością dofinansowania projektów franczyzowych ze środków UE — w celu podniesienia wzrostu gospodarczego i aktywizacji przedsiębiorców.",
     duration: "2–4 tyg.",
     eco: { name: "AI Venture Integrator", url: "/ekosystem" },
   },
@@ -120,7 +120,10 @@ export const roadmapSteps: RoadmapStep[] = [
     desc: "Budowa minimalnego produktu zdolnego do walidacji rynkowej i pozyskania feedbacku.",
     details: "Prototypowanie, iteracje z użytkownikami, testy użyteczności, zbieranie danych do dalszego rozwoju.",
     duration: "8–16 tyg.",
-    eco: { name: "AI Start-up Studio", url: "https://inventionproof.org" },
+    eco: [
+      { name: "AI Start-up Studio", url: "https://inventionproof.org" },
+      { name: "intrapreneurs.app", url: "https://intrapreneurs.app" },
+    ],
   },
   {
     icon: ClipboardCheck, title: "Due Diligence", maslow: "zaufanie",
@@ -141,6 +144,13 @@ export const roadmapSteps: RoadmapStep[] = [
     details: "Programy wdrożeniowe PARP, RPO, Kredyt Technologiczny, dotacje na pierwszą produkcję.",
     duration: "8–16 tyg.",
     eco: { name: "Dotacje UE & Granty", url: "/dotacje" },
+  },
+  {
+    icon: Search, title: "Budowa B+R Lab", maslow: "rozwoj",
+    desc: "Utworzenie własnego laboratorium badawczo-rozwojowego — zaplecze technologiczne dla innowacji ekosystemu.",
+    details: "Projektowanie i wyposażenie laboratorium B+R, rekrutacja zespołu naukowego, akredytacja, integracja z projektami ekosystemu. Baza do prowadzenia prac badawczych kwalifikowanych do ulg B+R i IP Box.",
+    duration: "12–24 tyg.",
+    eco: { name: "AI Venture Integrator", url: "/ekosystem" },
   },
   {
     icon: BarChart3, title: "5P Business Tool & Implementation", maslow: "rozwoj",
@@ -239,6 +249,9 @@ const RoadmapTimeline = () => {
             <div>
               <span className="text-xs font-semibold block">Wyjątek: Inwestor / Intrapreneur</span>
               <span className="text-[10px] text-muted-foreground">Nie musi wykazywać komplementarności — inwestuje w ekosystem.</span>
+              <a href="https://intrapreneurs.app" target="_blank" rel="noopener noreferrer" className="text-[10px] text-primary hover:underline mt-0.5 inline-flex items-center gap-1">
+                <ExternalLink className="w-2.5 h-2.5" /> intrapreneurs.app — serce ekosystemu
+              </a>
             </div>
           </div>
         </div>
