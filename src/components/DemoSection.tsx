@@ -93,7 +93,7 @@ const DemoSection = () => {
           <span className="text-sm font-mono text-primary uppercase tracking-widest">
             Interaktywne demo
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mt-4 mb-6">
             Zobacz, jak działa{" "}
             <span className="text-gradient-primary">MindMark™</span>
           </h2>

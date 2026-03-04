@@ -17,7 +17,7 @@ const CTASection = () => {
             <Shield className="w-10 h-10 text-primary" />
           </div>
 
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-6">
             Czy chronimy pomysł wtedy, kiedy{" "}
             <span className="text-gradient-primary">naprawdę</span> jest to potrzebne?
           </h2>

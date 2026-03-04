@@ -54,7 +54,7 @@ const BlockchainSection = () => {
           className="text-center mb-16"
         >
           <span className="text-sm font-mono text-primary uppercase tracking-widest">Technologia MindMark™</span>
-          <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mt-4 mb-6">
             Rozproszony zapis cyfrowy zmienia{" "}
             <span className="text-gradient-primary">zasady gry</span>
           </h2>

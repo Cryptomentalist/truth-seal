@@ -29,7 +29,7 @@ const DisclaimerSection = () => {
           <span className="text-sm font-mono text-accent uppercase tracking-widest">
             Ważne informacje
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4 mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 mb-6">
             Czym <span className="text-gradient-primary">jest</span>, a czym{" "}
             <span className="text-muted-foreground">nie jest</span> InventionProof?
           </h2>
