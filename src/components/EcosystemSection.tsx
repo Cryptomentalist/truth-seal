@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Network, ArrowRightLeft, Rocket, ShieldCheck, ExternalLink } from "lucide-react";
 
 const projects = [
