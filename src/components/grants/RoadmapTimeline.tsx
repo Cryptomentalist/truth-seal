@@ -146,7 +146,10 @@ export const roadmapSteps: RoadmapStep[] = [
     desc: "Audyt niefinansowy, strategia ESG, anty-greenwashing — realna odpowiedzialność społeczna i środowiskowa z certyfikacją.",
     details: "Raport niefinansowy, analiza śladu węglowego, strategia S-Impact, weryfikacja anty-greenwashingowa, compliance ESG dla inwestorów.",
     duration: "3–6 tyg.",
-    eco: { name: "esg.legal", url: "https://esg.legal" },
+    eco: [
+      { name: "esg.legal", url: "https://esg.legal" },
+      { name: "radakobiet.org", url: "https://radakobiet.org" },
+    ],
   },
   {
     icon: Award, title: "Certyfikat jakości & ekosystem", maslow: "jakosc",
