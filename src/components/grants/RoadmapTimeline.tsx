@@ -120,7 +120,10 @@ export const roadmapSteps: RoadmapStep[] = [
     desc: "Budowa minimalnego produktu zdolnego do walidacji rynkowej i pozyskania feedbacku.",
     details: "Prototypowanie, iteracje z użytkownikami, testy użyteczności, zbieranie danych do dalszego rozwoju.",
     duration: "8–16 tyg.",
-    eco: { name: "AI Start-up Studio", url: "https://inventionproof.org" },
+    eco: [
+      { name: "AI Start-up Studio", url: "https://inventionproof.org" },
+      { name: "intrapreneurs.app", url: "https://intrapreneurs.app" },
+    ],
   },
   {
     icon: ClipboardCheck, title: "Due Diligence", maslow: "zaufanie",
