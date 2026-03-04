@@ -10,37 +10,11 @@ import {
   Banknote,
   ShieldCheck,
   Briefcase,
-  Lightbulb,
-  Search,
-  Rocket,
-  Shield,
-  Target,
-  BarChart3,
-  Users,
-  CheckCircle2,
-  CircleDot,
 } from "lucide-react";
+import RoadmapTimeline from "@/components/grants/RoadmapTimeline";
+import TaxCalculator from "@/components/grants/TaxCalculator";
 
 /* ── Data ────────────────────────────────────────────── */
-
-const roadmapSteps = [
-  { icon: Lightbulb, title: "Koncepcja", desc: "Walidacja pomysłu, identyfikacja potrzeby rynkowej i wstępna analiza wykonalności." },
-  { icon: Target, title: "UVP — Unique Valuable Product", desc: "Wypracowanie unikalnej propozycji wartości i przewagi konkurencyjnej produktu." },
-  { icon: Search, title: "Analiza SWOT & Business Tools", desc: "Weryfikacja modelu biznesowego narzędziami strategicznymi: SWOT, Lean Canvas, Value Proposition Canvas." },
-  { icon: Banknote, title: "Pozyskanie finansowania na start", desc: "Granty pre-seed, dotacje na założenie firmy, finansowanie pomostowe." },
-  { icon: Briefcase, title: "Rejestracja podmiotu", desc: "Założenie spółki, wpis do KRS, przygotowanie dokumentacji korporacyjnej." },
-  { icon: FileCheck, title: "Pozyskanie dotacji na B+R", desc: "Aplikowanie o fundusze na prace badawczo-rozwojowe (NCBiR, FENG, Horizon)." },
-  { icon: Shield, title: "Ochrona pre-patentowa", desc: "Zabezpieczenie IP przed ujawnieniem — zgłoszenie tymczasowe, NDA, dokumentacja wynalazku." },
-  { icon: Rocket, title: "Stworzenie MVP", desc: "Budowa minimalnego produktu zdolnego do walidacji rynkowej i pozyskania feedbacku." },
-  { icon: ShieldCheck, title: "Ochrona patentowa", desc: "Pełne zgłoszenie patentowe — krajowe i międzynarodowe (PCT, EPO)." },
-  { icon: Landmark, title: "Pozyskanie dotacji", desc: "Kolejne rundy dotacyjne na wdrożenie, komercjalizację i rozwój technologii." },
-  { icon: BarChart3, title: "5P Business Tool & Implementation", desc: "Wdrożenie strategii marketingowej 5P: Product, Price, Place, Promotion, People." },
-  { icon: Award, title: "Certyfikat jakości & ekosystem", desc: "Certyfikacja, dopasowanie komplementarności, wycena wartości i pasowanie na członka ekosystemu AI Venture Integrator." },
-  { icon: Search, title: "Dopracowanie modelu biznesowego", desc: "Iteracja modelu po badaniach rynku — pivotowanie, optymalizacja unit economics." },
-  { icon: TrendingUp, title: "Business Development", desc: "Rozwój sprzedaży, partnerstwa strategiczne, ekspansja na nowe rynki." },
-  { icon: Rocket, title: "Dotacja na skalowanie biznesu", desc: "Pozyskanie finansowania na skalowanie — fundusze wzrostowe, granty na internacjonalizację." },
-  { icon: Users, title: "Pozyskanie inwestorów", desc: "Równolegle na każdym etapie: pitch-deck, roadshow, negocjacje z aniołami biznesu i VC." },
-];
 
 const grants = [
   { icon: Landmark, title: "Dotacje UE & fundusze strukturalne", desc: "PARP, NCBiR, RPO, FENG, programy ramowe Horizon — kompleksowe pozyskiwanie od audytu pomysłu po rozliczenie projektu." },
@@ -57,7 +31,7 @@ const taxReliefs = [
 ];
 
 const caseStudies = [
-  { name: "DeepTech AI sp. z o.o.", sector: "Sztuczna inteligencja", stage: "MVP → Skalowanie", grants: "FENG + NCBiR", amount: "2,4 mln PLN", result: "Wdrożenie systemu AI w 3 krajach UE, 12 patentów, wejście VC w rundzie A." },
+  { name: "Start-up DeepTech AI", sector: "Sztuczna inteligencja", stage: "MVP → Skalowanie", grants: "FENG + NCBiR", amount: "2,4 mln PLN", result: "Wdrożenie systemu AI w 3 krajach UE, 12 patentów, wejście VC w rundzie A." },
   { name: "GreenBuild Technologies", sector: "CleanTech / Budownictwo", stage: "Koncepcja → B+R", grants: "PARP + Fundusze norweskie", amount: "1,8 mln PLN", result: "Prototyp ekologicznego materiału budowlanego, certyfikacja CE, 2 zgłoszenia patentowe." },
   { name: "MedSense Diagnostics", sector: "MedTech", stage: "B+R → Komercjalizacja", grants: "Horizon Europe + RPO", amount: "3,1 mln PLN", result: "Urządzenie diagnostyczne klasy IIa, 8 szpitali pilotażowych, ulga IP Box — 5% CIT." },
 ];
@@ -116,47 +90,14 @@ const GrantsPage = () => {
             <span className="w-1.5 h-7 rounded-full bg-accent inline-block" />
             Ścieżka rozwoju startupu
           </h2>
-          <p className="text-sm text-muted-foreground mb-10 ml-5">
+          <p className="text-sm text-muted-foreground mb-2 ml-5">
             Sprawdzony proces od zera do skalowalnego biznesu — z dotacjami, ochroną IP i inwestorami na każdym etapie.
           </p>
+          <p className="text-xs text-accent mb-10 ml-5">
+            ▸ Kliknij w dowolny etap, aby zobaczyć szczegóły i szacunkowy czas realizacji.
+          </p>
 
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-5 sm:left-6 top-0 bottom-0 w-px bg-border" />
-
-            <div className="space-y-6">
-              {roadmapSteps.map((step, i) => {
-                const isInvestor = i === roadmapSteps.length - 1;
-                return (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.35, delay: 0.2 + i * 0.05 }}
-                    className={`relative flex gap-4 sm:gap-5 items-start pl-0 ${isInvestor ? "" : ""}`}
-                  >
-                    {/* Node */}
-                    <div className={`relative z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                      isInvestor ? "bg-primary/15 ring-2 ring-primary/30" : "bg-accent/10"
-                    }`}>
-                      <step.icon className={`w-5 h-5 ${isInvestor ? "text-primary" : "text-accent"}`} />
-                    </div>
-                    {/* Content */}
-                    <div className="glass-surface rounded-xl p-4 sm:p-5 flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[10px] font-mono text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
-                        <h3 className="font-bold text-sm sm:text-base">{step.title}</h3>
-                      </div>
-                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
-                      {isInvestor && (
-                        <p className="text-xs text-primary font-medium mt-2">↻ Równolegle na każdym etapie ścieżki</p>
-                      )}
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
+          <RoadmapTimeline />
         </motion.div>
 
         {/* ── CASE STUDIES ── */}
@@ -166,18 +107,12 @@ const GrantsPage = () => {
             Case studies
           </h2>
           <p className="text-sm text-muted-foreground mb-8 ml-5">
-            Przykłady firm, którym pozyskaliśmy finansowanie i przeprowadziliśmy przez ścieżkę rozwoju.
+            Reprezentatywne przykłady firm, którym pozyskaliśmy finansowanie i przeprowadziliśmy przez ścieżkę rozwoju.
           </p>
 
           <div className="grid gap-5">
             {caseStudies.map((cs, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-                className="glass-surface rounded-xl p-6 border-l-2 border-l-primary/40"
-              >
+              <motion.div key={i} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }} className="glass-surface rounded-xl p-6 border-l-2 border-l-primary/40">
                 <div className="flex flex-wrap items-center gap-3 mb-3">
                   <h3 className="font-bold text-base">{cs.name}</h3>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-accent/10 text-accent">{cs.sector}</span>
@@ -249,6 +184,9 @@ const GrantsPage = () => {
             ))}
           </div>
         </motion.div>
+
+        {/* ── TAX CALCULATOR ── */}
+        <TaxCalculator />
 
         {/* CTA */}
         <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.6 }} className="glass-surface rounded-2xl p-8 sm:p-10 text-center border border-accent/15">
