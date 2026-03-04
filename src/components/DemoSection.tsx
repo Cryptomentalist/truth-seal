@@ -263,8 +263,8 @@ const DemoSection = () => {
 
         {/* Disclaimer */}
         <p className="text-center text-xs text-muted-foreground mt-8 max-w-md mx-auto">
-          To symulacja edukacyjna. W produkcji InventionProof.org używa technologii MindMark™ 
-          — rozproszonego zapisu cyfrowego nie do podrobienia i nie do wymazania.
+          To symulacja edukacyjna. W produkcji InventionProof.org oferuje usługę MindMark™ 
+          — ochronę IP opartą na infrastrukturze blockchain (rozproszonego zapisu cyfrowego).
         </p>
       </div>
     </section>

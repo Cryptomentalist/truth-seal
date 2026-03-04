@@ -12,7 +12,7 @@ const tiers = [
     description:
       "Usługa MindMark™ rejestruje niepodważalny dowód istnienia Twojego dokumentu z dokładną datą na blockchainie — bez pośredników, bez opłat notarialnych.",
     features: [
-      "Hash SHA-256 na blockchainie",
+      "Cyfrowy odcisk palca (SHA-256) na blockchainie",
       "Certyfikat z datą pewną",
       "Nieograniczona trwałość zapisu",
     ],
