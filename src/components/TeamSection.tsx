@@ -89,6 +89,13 @@ const team = [
       "Marketing dla firm, obsługa start-upów z Norwegii i grantów polsko-norweskich.",
     color: "primary" as const,
   },
+  {
+    name: "Mateusz Mścioszczyk",
+    role: "Programista / Inwestor operacyjny / Doradca",
+    description:
+      "Programista front & backend, inwestor operacyjny (wykonawczy) i doradca strategiczny wspierający rozwój ekosystemu.",
+    color: "accent" as const,
+  },
 ];
 
 const partners = [
