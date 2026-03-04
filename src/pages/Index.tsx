@@ -38,6 +38,7 @@ const Index = () => {
         <ESGSection />
       </div>
       <EcosystemSection />
+      <EcosystemStructureSection />
       <CTASection />
       <ContactSection />
       <Footer />
