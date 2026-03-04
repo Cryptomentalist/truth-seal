@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ProblemSection from "@/components/ProblemSection";
 import BlockchainSection from "@/components/BlockchainSection";
+import DemoSection from "@/components/DemoSection";
 import TeamSection from "@/components/TeamSection";
 import ESGSection from "@/components/ESGSection";
 import CTASection from "@/components/CTASection";
