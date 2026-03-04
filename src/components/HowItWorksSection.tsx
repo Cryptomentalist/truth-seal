@@ -75,6 +75,7 @@ const tiers = [
     popular: false,
     link: null,
   },
+];
 
 const HowItWorksSection = () => (
   <section id="cennik" className="section-padding relative overflow-hidden">
