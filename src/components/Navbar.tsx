@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Shield, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import constellationLogo from "@/assets/constellation-logo.jpg";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
