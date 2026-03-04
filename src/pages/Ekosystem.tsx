@@ -273,9 +273,41 @@ const Ekosystem = () => {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-xl sm:text-2xl font-bold mb-6">Publikacje</h2>
+
+            {/* Artykuł: Fundacje współpracujące */}
+            <div className="glass-surface rounded-xl p-6 sm:p-8 mb-5">
+              <h3 className="font-bold text-base sm:text-lg mb-3">
+                Fundacje, które przeszły przez nasz filtr jakości
+              </h3>
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed mb-4">
+                Współpracujemy wyłącznie z organizacjami, które spełniają nasze rygorystyczne kryteria jakości i transparentności. Poniższe fundacje zostały zweryfikowane i działają na rzecz dobrostanu społecznego — wspólnie budujemy lepszy ekosystem wsparcia.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  { name: "Fundacja 1", placeholder: true },
+                  { name: "Fundacja 2", placeholder: true },
+                  { name: "Fundacja 3", placeholder: true },
+                ].map((f, i) => (
+                  <li key={i}>
+                    <a
+                      href="#"
+                      className="inline-flex items-center gap-2 text-accent font-semibold hover:underline underline-offset-4 text-sm sm:text-base"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                      {f.name}
+                      <span className="text-xs text-muted-foreground font-normal">(link wkrótce)</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <p className="text-xs text-muted-foreground mt-4 italic">
+                Linki do poszczególnych fundacji zostaną uzupełnione.
+              </p>
+            </div>
+
             <div className="glass-surface rounded-xl p-6 sm:p-8 text-center">
               <p className="text-muted-foreground text-sm sm:text-base">
-                Sekcja w przygotowaniu — wkrótce pojawią się artykuły, wywiady i materiały prasowe.
+                Więcej artykułów, wywiadów i materiałów prasowych — wkrótce.
               </p>
             </div>
           </motion.div>
