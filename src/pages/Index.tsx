@@ -35,12 +35,6 @@ const Index = () => {
       <div id="zespol">
         <TeamSection />
       </div>
-      <div id="esg">
-        <ESGSection />
-      </div>
-      <NeurodiversitySection />
-      <EcosystemSection />
-      <EcosystemStructureSection />
       <CTASection />
       <ContactSection />
       <Footer />
