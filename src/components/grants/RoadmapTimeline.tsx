@@ -183,6 +183,47 @@ const RoadmapTimeline = () => {
 
   return (
     <div className="relative">
+      {/* Quality & Complementarity Filter */}
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-8 glass-surface rounded-2xl p-5 sm:p-6 border-l-4 border-l-accent"
+      >
+        <div className="flex items-center gap-2 mb-3">
+          <Filter className="w-5 h-5 text-accent" />
+          <h3 className="font-bold text-sm sm:text-base">
+            Filtr jakości i komplementarności
+          </h3>
+        </div>
+        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4">
+          Każdy podmiot wchodzący do ekosystemu przechodzi weryfikację. Każdy etap roadmapy to osobna oferta — razem tworzą zamknięty, samowystarczalny organizm.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="flex items-start gap-2.5 bg-accent/5 rounded-lg p-3 border border-accent/10">
+            <CheckCircle2 className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+            <div>
+              <span className="text-xs font-semibold block">Komplementarność</span>
+              <span className="text-[10px] text-muted-foreground">Czy projekt uzupełnia istniejące elementy ekosystemu?</span>
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5 bg-accent/5 rounded-lg p-3 border border-accent/10">
+            <Gem className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
+            <div>
+              <span className="text-xs font-semibold block">Jakość & przydatność</span>
+              <span className="text-[10px] text-muted-foreground">Minimalizm i jakość ponad ilość — filtr dobrostanu.</span>
+            </div>
+          </div>
+          <div className="flex items-start gap-2.5 bg-primary/5 rounded-lg p-3 border border-primary/10">
+            <UserCheck className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+            <div>
+              <span className="text-xs font-semibold block">Wyjątek: Inwestor / Intrapreneur</span>
+              <span className="text-[10px] text-muted-foreground">Nie musi wykazywać komplementarności — inwestuje w ekosystem.</span>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Maslow legend */}
       <div className="mb-6 flex flex-wrap gap-2 justify-center">
         {Object.entries(maslowMeta).map(([key, meta]) => (
