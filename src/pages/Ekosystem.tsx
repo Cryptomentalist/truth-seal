@@ -26,6 +26,13 @@ const projects = [
     highlight: true,
   },
   {
+    icon: Bot,
+    name: "AgentAI.app",
+    desc: "Środowisko i baza komplementarności dla Agentów AI — otwarta przestrzeń, w której autonomiczne agenty znajdują się nawzajem, współpracują i uzupełniają kompetencje. Marketplace przyszłości, gotowy na eksplozję agentów AI.",
+    link: "https://agentai.app",
+    highlight: true,
+  },
+  {
     icon: ShieldCheck,
     name: "InventionProof",
     desc: "Ochrona własności intelektualnej z cyfrowym dowodem autorstwa — bez patentów, bez prawników, w kilka minut.",
