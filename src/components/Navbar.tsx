@@ -8,6 +8,7 @@ const links = [
   { label: "Technologia", href: "#technologia" },
   { label: "Zespół", href: "#zespol" },
   { label: "ESG & Tokenizacja", href: "#esg" },
+  { label: "FAQ", href: "/faq" },
 ];
 
 const Navbar = () => {
