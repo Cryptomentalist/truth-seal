@@ -86,7 +86,7 @@ const ESGSection = () => {
           ))}
         </div>
 
-        {/* Quote */}
+        {/* Mission Statement */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -94,11 +94,38 @@ const ESGSection = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-16 text-center"
         >
-          <blockquote className="text-xl md:text-2xl font-medium text-secondary-foreground italic max-w-3xl mx-auto">
-            „Kraj, który nie tylko tworzy technologię, ale potrafi ją chronić,
-            rozliczać, mierzyć i udowadniać jej wpływ."
+          <blockquote className="text-lg sm:text-xl md:text-2xl font-medium text-secondary-foreground italic max-w-3xl mx-auto leading-relaxed">
+            „Tworzymy wartość, jakość i wymierne wskaźniki rezultatu dla wzrostu gospodarczego. Zmieniamy definicję sukcesu — na patriotyzm zapobiegawczy."
           </blockquote>
+          <p className="text-base sm:text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
+            Jesteśmy siłą przeciw systemowi niesprawiedliwości. Jak <span className="text-accent font-semibold">AI Spiderman</span>, który tworzy sieć tego, co wartościowe — i podnosi dobrostan.
+          </p>
           <div className="w-12 h-0.5 bg-gradient-to-r from-primary to-accent mx-auto mt-6" />
+        </motion.div>
+
+        {/* AI Venture Integrator */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mt-12 glass-surface rounded-xl p-6 sm:p-8 text-center max-w-2xl mx-auto"
+        >
+          <p className="text-sm font-mono text-accent uppercase tracking-widest mb-3">
+            Część ekosystemu
+          </p>
+          <h3 className="text-xl sm:text-2xl font-bold mb-3">AI Venture Integrator</h3>
+          <p className="text-sm sm:text-base text-muted-foreground mb-6 leading-relaxed">
+            Ekosystem, który działa jak państwo w państwie — w tym białym znaczeniu. Tworzymy komplementarne przedsięwzięcia, aby ekosystem był samowystarczalny i odporny na kryzysy. To jak w piramidzie Maslowa: zaspokajamy wszystkie potrzeby do życia.
+          </p>
+          <a
+            href="https://www.linkedin.com/in/ada-margo-marglewska/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent/10 hover:bg-accent/20 text-accent font-semibold transition-colors text-sm sm:text-base"
+          >
+            🔗 Dowiedz się, jak działa AI Venture Integrator
+          </a>
         </motion.div>
       </div>
     </section>
