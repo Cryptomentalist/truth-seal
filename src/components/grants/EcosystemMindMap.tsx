@@ -49,11 +49,11 @@ const branches: MapNode[] = [
     ],
   },
   {
-    name: "AgentAI.app",
+    name: "AIagent.gratis",
     icon: Globe,
     color: "text-teal-400",
     children: [
-      { name: "Baza Agentów AI", url: "https://agentai.app" },
+      { name: "Baza Agentów AI", url: "https://aiagent.gratis" },
       { name: "Komplementarność agentów" },
       { name: "Marketplace autonomicznych AI" },
       { name: "Integracja z projektami ekosystemu" },
