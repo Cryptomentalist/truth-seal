@@ -146,6 +146,13 @@ export const roadmapSteps: RoadmapStep[] = [
     eco: { name: "Dotacje UE & Granty", url: "/dotacje" },
   },
   {
+    icon: Search, title: "Budowa B+R Lab", maslow: "rozwoj",
+    desc: "Utworzenie własnego laboratorium badawczo-rozwojowego — zaplecze technologiczne dla innowacji ekosystemu.",
+    details: "Projektowanie i wyposażenie laboratorium B+R, rekrutacja zespołu naukowego, akredytacja, integracja z projektami ekosystemu. Baza do prowadzenia prac badawczych kwalifikowanych do ulg B+R i IP Box.",
+    duration: "12–24 tyg.",
+    eco: { name: "AI Venture Integrator", url: "/ekosystem" },
+  },
+  {
     icon: BarChart3, title: "5P Business Tool & Implementation", maslow: "rozwoj",
     desc: "Wdrożenie strategii marketingowej 5P: Product, Price, Place, Promotion, People.",
     details: "Strategia cenowa, kanały dystrybucji, plan promocji, budowa zespołu sprzedażowego, marketing automation.",
