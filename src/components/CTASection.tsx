@@ -35,7 +35,7 @@ const CTASection = () => {
               </Button>
             </a>
             <a href="#kontakt">
-              <Button variant="heroOutline" size="lg" className="text-base px-8 py-6">
+              <Button variant="heroOutline" size="lg" className="text-sm sm:text-base px-6 sm:px-8 py-4 sm:py-6">
                 Skontaktuj się z nami
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Button>
