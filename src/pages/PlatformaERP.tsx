@@ -30,7 +30,7 @@ const modules = [
     ringColor: "ring-emerald-400/30",
     desc: "Kompensaty bezgotówkowe między podmiotami ekosystemu — nowy typ transakcji w ERP XL.",
     features: [
-      "Typ transakcji „barter" z automatycznym bilansowaniem wartości",
+      'Typ transakcji "barter" z automatycznym bilansowaniem wartości',
       "Dokumenty WZ/PZ generowane automatycznie",
       "Rozliczenie VAT zgodne z polskim prawem podatkowym",
       "Wielostronne kompensaty między N podmiotami",
