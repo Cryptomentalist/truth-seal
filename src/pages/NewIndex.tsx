@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import constellationLogo from "@/assets/constellation-logo.jpg";
+import TopBanner from "@/components/TopBanner";
+import Navbar from "@/components/Navbar";
 
 const projects = [
   {
