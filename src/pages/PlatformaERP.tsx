@@ -429,6 +429,9 @@ const PlatformaERP = () => {
         </div>
       </section>
 
+      {/* ROI Calculator */}
+      <ROICalculator />
+
       {/* Strategic recommendation */}
       <section className="py-12 px-4 md:px-8">
         <div className="container max-w-5xl">
