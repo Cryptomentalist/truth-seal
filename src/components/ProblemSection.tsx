@@ -4,9 +4,9 @@ import { AlertTriangle, Eye, Users, TrendingDown, Scale, Building } from "lucide
 const threats = [
   { icon: Eye, text: "Przejęcia koncepcji przez silniejszych graczy" },
   { icon: Users, text: "Wyciszanie i marginalizacja wynalazców" },
-  { icon: TrendingDown, text: "Ciche „wypłynięcie" technologii w rękach innych" },
-  { icon: Scale, text: "Zmagania mrówki ze słoniem — asymetria siły" },
-  { icon: Building, text: "Nadużycia w procedurach grantowych i oceniających" },
+  { icon: TrendingDown, text: 'Ciche "wyplywanie" technologii w rekach innych' },
+  { icon: Scale, text: "Zmagania mrowki ze sloniem - asymetria sily" },
+  { icon: Building, text: "Naduzycia w procedurach grantowych i oceniajacych" },
   { icon: AlertTriangle, text: "Brak narzędzi obrony na etapie pre-patentowym" },
 ];
 
