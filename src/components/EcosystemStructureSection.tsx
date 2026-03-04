@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import maslowImg from "@/assets/maslow-ecosystem.jpg";
 
 const nodes = [
   { id: "core", label: "AI Venture\nIntegrator", x: 50, y: 50, size: 80, color: "primary", glow: true },
