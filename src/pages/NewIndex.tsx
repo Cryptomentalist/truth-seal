@@ -110,6 +110,9 @@ const NewIndex = () => {
           </div>
         </div>
       </div>
+
+      {/* Stars Roadmap visual */}
+      <StarsRoadmap />
     </div>
   );
 };
