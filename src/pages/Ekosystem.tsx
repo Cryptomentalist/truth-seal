@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Users, Heart, HandCoins, MessageCircleHeart, Globe, Sparkles, HeartHandshake, Bot } from "lucide-react";
+import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Users, Heart, HandCoins, MessageCircleHeart, Globe, Sparkles, HeartHandshake, Bot, Building2, Landmark } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
@@ -246,6 +246,55 @@ const Ekosystem = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Strategic Partners */}
+      <section className="py-12 px-4 md:px-8">
+        <div className="container max-w-4xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-xl sm:text-2xl font-bold mb-6">Partnerzy strategiczni</h2>
+            <div className="grid sm:grid-cols-2 gap-5">
+              {/* Comarch */}
+              <div className="glass-surface rounded-xl p-6 flex gap-4 items-start border-2 border-primary/20">
+                <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Building2 className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base mb-1 flex items-center gap-2">
+                    <a href="https://comarch.pl" target="_blank" rel="noopener noreferrer" className="hover:underline text-primary transition-colors">
+                      Comarch
+                    </a>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary">Implementacja</span>
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Nasze moduły ekosystemowe są implementowane we współpracy z firmą Comarch — liderem rozwiązań IT i systemów ERP. Comarch zapewnia infrastrukturę technologiczną i wdrożeniową dla narzędzi ekosystemu.
+                  </p>
+                </div>
+              </div>
+
+              {/* MRiT */}
+              <div className="glass-surface rounded-xl p-6 flex gap-4 items-start border-2 border-accent/20">
+                <div className="w-11 h-11 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                  <Landmark className="w-5 h-5 text-accent" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base mb-1 flex items-center gap-2">
+                    Ministerstwo Rozwoju i Technologii
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-accent/10 text-accent">Patronat</span>
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Nasze projekty dla wzrostu gospodarczego wspiera patronat Ministerstwa Rozwoju i Technologii — potwierdzenie, że ekosystem AI Venture Integrator wpisuje się w strategię rozwoju innowacyjności i konkurencyjności polskiej gospodarki.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
