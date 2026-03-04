@@ -84,6 +84,20 @@ const HeroSection = () => {
           </Button>
         </motion.div>
 
+        {/* Elevator pitch */}
+        <motion.div
+          className="mt-10 inline-flex items-center gap-3 glass-surface rounded-full px-6 py-3 border border-accent/20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.55 }}
+        >
+          <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+          <span className="text-xs sm:text-sm text-muted-foreground">
+            <span className="text-accent font-semibold">AI Venture Integrator</span>
+            {" "}— samowystarczalny ekosystem, w którym inwestor jest jednocześnie klientem, a komplementarne projekty wymieniają wartość bez pośredników.
+          </span>
+        </motion.div>
+
         {/* Stats */}
         <motion.div
           className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto"
