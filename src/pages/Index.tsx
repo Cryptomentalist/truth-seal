@@ -34,6 +34,7 @@ const Index = () => {
         <ESGSection />
       </div>
       <CTASection />
+      <ContactSection />
       <Footer />
     </div>
   );
