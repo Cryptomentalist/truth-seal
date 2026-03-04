@@ -77,7 +77,7 @@ const categories = [
       },
       {
         q: "Dlaczego stawiacie na neuroróżnorodność?",
-        a: "Bo największe przełomy rodzą się w umysłach, które widzą świat inaczej. Nasz ekosystem jest zaprojektowany tak, by dopasować wsparcie do umysłu — nie umysł do systemu. „Po równo" nie oznacza „sprawiedliwie".",
+        a: 'Bo najwi\u0119ksze prze\u0142omy rodz\u0105 si\u0119 w umys\u0142ach, kt\u00f3re widz\u0105 \u015bwiat inaczej. Nasz ekosystem jest zaprojektowany tak, by dopasowa\u0107 wsparcie do umys\u0142u \u2014 nie umys\u0142 do systemu. "Po r\u00f3wno" nie oznacza "sprawiedliwie".',
       },
       {
         q: "Czy projekt działa pod patronatem instytucjonalnym?",
