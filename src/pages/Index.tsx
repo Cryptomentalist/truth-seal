@@ -1,5 +1,7 @@
+import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
+import HowItWorksSection from "@/components/HowItWorksSection";
 import ProblemSection from "@/components/ProblemSection";
 import BlockchainSection from "@/components/BlockchainSection";
 import DemoSection from "@/components/DemoSection";
@@ -11,8 +13,10 @@ import Footer from "@/components/Footer";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <TopBanner />
       <Navbar />
       <HeroSection />
+      <HowItWorksSection />
       <div id="problem">
         <ProblemSection />
       </div>
