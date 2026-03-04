@@ -63,8 +63,8 @@ interface RoadmapStep {
 export const roadmapSteps: RoadmapStep[] = [
   {
     icon: Handshake, title: "Franczyza — gotowy biznes z filtrem jakości", maslow: "zasoby",
-    desc: "Nie masz pomysłu na biznes? Chcesz być swoim szefem? Wybierz przefiltrowanego przez nasz filtr jakości franczyzodawcę i zarabiaj z naszym wsparciem.",
-    details: "Weryfikacja franczyzodawców filtrem komplementarności i jakości ekosystemu. Gotowy model biznesowy, sprawdzony rynek, wsparcie operacyjne i mentoring od pierwszego dnia.",
+    desc: "Nie masz pomysłu na biznes? Chcesz być swoim szefem? Wybierz przefiltrowanego przez nasz filtr jakości franczyzodawcę i zarabiaj z naszym wsparciem. Prowadzimy rozmowy z MiR, aby projekty franczyzodawców mogły być dofinansowane z UE dla podniesienia wzrostu gospodarczego.",
+    details: "Weryfikacja franczyzodawców filtrem komplementarności i jakości ekosystemu. Gotowy model biznesowy, sprawdzony rynek, wsparcie operacyjne i mentoring od pierwszego dnia. Współpraca z Ministerstwem Rozwoju (MiR) nad możliwością dofinansowania projektów franczyzowych ze środków UE — w celu podniesienia wzrostu gospodarczego i aktywizacji przedsiębiorców.",
     duration: "2–4 tyg.",
     eco: { name: "AI Venture Integrator", url: "/ekosystem" },
   },
