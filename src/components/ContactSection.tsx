@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Phone, Mail, MapPin, Landmark, Heart, ExternalLink } from "lucide-react";
+import { Phone, Mail, MapPin, Landmark, Heart, ExternalLink, MessageCircle, Linkedin } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const teamMembers = [
   {
@@ -31,48 +32,60 @@ const ContactSection = () => (
         transition={{ duration: 0.6 }}
         className="text-center mb-14"
       >
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
           <span className="text-gradient-primary">Kontakt</span> & Zespół
         </h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base">
           Skontaktuj się z nami — odpowiadamy w ciągu 24 godzin.
         </p>
       </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
         {/* Team / Ada */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="glass-surface rounded-xl p-8"
+          className="glass-surface rounded-xl p-5 sm:p-8"
         >
           {teamMembers.map((m) => (
             <div key={m.name}>
-              <h3 className="text-xl font-bold mb-1">{m.name}</h3>
-              <p className="text-sm text-primary font-medium mb-3">{m.role}</p>
-              <p className="text-muted-foreground text-sm leading-relaxed mb-5">
+              <h3 className="text-lg sm:text-xl font-bold mb-1">{m.name}</h3>
+              <p className="text-xs sm:text-sm text-primary font-medium mb-3">{m.role}</p>
+              <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed mb-5">
                 {m.description}
               </p>
+
+              {/* LinkedIn CTA */}
+              <a
+                href={m.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block mb-4"
+              >
+                <Button variant="hero" size="default" className="w-full sm:w-auto gap-2">
+                  <Linkedin className="w-5 h-5" />
+                  Napisz do mnie na LinkedIn
+                </Button>
+              </a>
+
               <div className="flex flex-wrap gap-3">
-                <a
-                  href={m.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-accent transition-colors"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  LinkedIn
-                </a>
                 <a
                   href={m.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-accent transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-primary hover:text-accent transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  WhatsApp
+                </a>
+                <a
+                  href={`tel:${m.phone.replace(/\s/g, "")}`}
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-primary hover:text-accent transition-colors"
                 >
                   <Phone className="w-4 h-4" />
-                  WhatsApp {m.phone}
+                  {m.phone}
                 </a>
               </div>
             </div>
@@ -80,13 +93,13 @@ const ContactSection = () => (
 
           <hr className="border-border/40 my-6" />
 
-          <h4 className="font-semibold mb-4 flex items-center gap-2">
+          <h4 className="font-semibold mb-4 flex items-center gap-2 text-sm sm:text-base">
             <Phone className="w-4 h-4 text-primary" />
             Telefony kontaktowe
           </h4>
           <ul className="space-y-2.5">
             {contactLines.map((c) => (
-              <li key={c.label} className="flex items-center justify-between text-sm">
+              <li key={c.label} className="flex items-center justify-between text-xs sm:text-sm">
                 <span className="text-muted-foreground">{c.label}</span>
                 {c.phone ? (
                   <a
@@ -98,7 +111,7 @@ const ContactSection = () => (
                 ) : (
                   <a
                     href={`mailto:${c.email}`}
-                    className="font-mono text-foreground hover:text-primary transition-colors"
+                    className="font-mono text-foreground hover:text-primary transition-colors text-xs"
                   >
                     {c.email}
                   </a>
@@ -114,14 +127,14 @@ const ContactSection = () => (
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="glass-surface rounded-xl p-8"
+          className="glass-surface rounded-xl p-5 sm:p-8"
         >
           <div className="flex items-center gap-2 mb-5">
             <Landmark className="w-5 h-5 text-primary" />
-            <h3 className="text-xl font-bold">Fundacja Konstelacja.org</h3>
+            <h3 className="text-lg sm:text-xl font-bold">Fundacja Konstelacja.org</h3>
           </div>
 
-          <dl className="space-y-3 text-sm">
+          <dl className="space-y-3 text-xs sm:text-sm">
             <div className="flex items-start gap-3">
               <MapPin className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
               <div>
@@ -130,7 +143,7 @@ const ContactSection = () => (
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-3 pt-2">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 pt-2">
               <div>
                 <dt className="text-muted-foreground text-xs uppercase tracking-wider mb-0.5">KRS</dt>
                 <dd className="font-mono text-foreground">0000974966</dd>
@@ -149,7 +162,7 @@ const ContactSection = () => (
 
             <div>
               <dt className="text-muted-foreground text-xs uppercase tracking-wider mb-1">Nr konta bankowego</dt>
-              <dd className="font-mono text-foreground text-base tracking-wide">
+              <dd className="font-mono text-foreground text-xs sm:text-base tracking-wide break-all">
                 58 1090 1098 0000 0001 5075 4767
               </dd>
             </div>
@@ -157,22 +170,22 @@ const ContactSection = () => (
 
           <hr className="border-border/40 my-6" />
 
-          <div className="flex items-center gap-3 p-4 rounded-lg bg-primary/5 border border-primary/20">
+          <div className="flex items-center gap-3 p-3 sm:p-4 rounded-lg bg-primary/5 border border-primary/20">
             <Heart className="w-6 h-6 text-primary shrink-0" />
             <div>
-              <p className="font-semibold text-sm">Przekaż 1,5% podatku</p>
+              <p className="font-semibold text-xs sm:text-sm">Przekaż 1,5% podatku</p>
               <p className="text-xs text-muted-foreground">
                 Wspólnie zmieniamy przyszłość edukacji i gospodarki.
               </p>
             </div>
           </div>
 
-          <div className="mt-6 flex gap-3">
+          <div className="mt-6 flex flex-wrap gap-3">
             <a
               href="https://konstelacja.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-accent transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-primary hover:text-accent transition-colors"
             >
               <ExternalLink className="w-4 h-4" />
               Konstelacja.org
@@ -181,7 +194,7 @@ const ContactSection = () => (
               href="https://constellation.love"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:text-accent transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-primary hover:text-accent transition-colors"
             >
               <ExternalLink className="w-4 h-4" />
               Constellation.love

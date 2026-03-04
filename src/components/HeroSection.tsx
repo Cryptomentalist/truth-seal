@@ -48,7 +48,7 @@ const HeroSection = () => {
         </motion.div>
 
         <motion.h1
-          className="text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6"
+          className="text-3xl sm:text-4xl md:text-7xl font-bold leading-tight mb-6"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
@@ -59,7 +59,7 @@ const HeroSection = () => {
         </motion.h1>
 
         <motion.p
-          className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
+          className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
