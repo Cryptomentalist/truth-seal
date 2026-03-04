@@ -42,7 +42,7 @@ const HeroSection = () => {
           <div className="inline-flex items-center gap-2 glass-surface rounded-full px-4 py-2 mb-8">
             <Lock className="w-4 h-4 text-primary" />
             <span className="text-sm font-mono text-muted-foreground">
-              MindMark™ · Pre-patent · Deep-tech
+              Zaufana platforma blockchain dla innowatorów
             </span>
           </div>
         </motion.div>
@@ -53,9 +53,9 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
         >
-          Chroń innowację,{" "}
-          <span className="text-gradient-primary">zanim ktokolwiek</span>{" "}
-          ją zobaczy
+          Potwierdzenie autorstwa,{" "}
+          <span className="text-gradient-primary">bez ujawniania</span>{" "}
+          pomysłu
         </motion.h1>
 
         <motion.p
@@ -64,8 +64,8 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Niepodważalny cyfrowy dowód istnienia wynalazku na etapie pre-patentowym.
-          Tarcza, która działa przed kradzieżą — nie po fakcie.
+          Zabezpiecz swoje pomysły poprzez kryptograficzny zapis, który potwierdza
+          Twoje prawo do wynalazku bez ujawniania szczegółów.
         </motion.p>
 
         <motion.div
