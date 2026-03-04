@@ -7,6 +7,7 @@ const projects = [
     icon: ShieldCheck,
     name: "InventionProof",
     desc: "Ochrona własności intelektualnej z cyfrowym dowodem autorstwa",
+    link: "https://inventionproof.org",
   },
   {
     icon: Rocket,
@@ -63,7 +64,13 @@ const EcosystemSection = () => {
                 <p.icon className="w-5 h-5 text-accent" />
               </div>
               <div>
-                <h3 className="font-bold text-base mb-1">{p.name}</h3>
+                <h3 className="font-bold text-base mb-1">
+                  {p.link ? (
+                    <a href={p.link} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors inline-flex items-center gap-1.5">
+                      {p.name} <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  ) : p.name}
+                </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
               </div>
             </motion.div>
