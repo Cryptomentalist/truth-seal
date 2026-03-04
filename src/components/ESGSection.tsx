@@ -95,10 +95,13 @@ const ESGSection = () => {
           className="mt-16 text-center"
         >
           <blockquote className="text-lg sm:text-xl md:text-2xl font-medium text-secondary-foreground italic max-w-3xl mx-auto leading-relaxed">
-            „Tworzymy wartość, jakość i wymierne wskaźniki rezultatu dla wzrostu gospodarczego. Zmieniamy definicję sukcesu — na patriotyzm zapobiegawczy."
+            „Tworzymy wartość, jakość dla wzrostu gospodarczego. Zmieniamy definicję sukcesu i patriotyzm zapobiegawczy. Tworzymy wymierne wskaźniki rezultatu."
           </blockquote>
-          <p className="text-base sm:text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
-            Jesteśmy siłą przeciw systemowi niesprawiedliwości. Jak <span className="text-accent font-semibold">AI Spiderman</span>, który tworzy sieć tego, co wartościowe — i podnosi dobrostan.
+          <p className="text-base sm:text-lg text-muted-foreground mt-6 max-w-2xl mx-auto leading-relaxed">
+            Jesteśmy siłą przeciw systemowi niesprawiedliwości. Jesteśmy jak <span className="text-accent font-semibold">AI Spiderman</span>, który tworzy sieć tego, co wartościowe — i podnosi dobrostan.
+          </p>
+          <p className="text-base sm:text-lg text-muted-foreground mt-4 max-w-2xl mx-auto leading-relaxed">
+            Promujemy markę Polski na arenie międzynarodowej: <span className="text-accent font-semibold">Made in Poland</span> — <span className="text-accent font-semibold">Polish Quality</span>. Bo Polska zasługuje na to, by być rozpoznawana z innowacji, jakości i odwagi.
           </p>
           <div className="w-12 h-0.5 bg-gradient-to-r from-primary to-accent mx-auto mt-6" />
         </motion.div>
