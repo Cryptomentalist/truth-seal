@@ -32,6 +32,7 @@ const Index = () => {
       <div id="zespol">
         <TeamSection />
       </div>
+      <TestimonialsSection />
       <CTASection />
       <ContactSection />
       <Footer />
