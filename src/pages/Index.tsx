@@ -17,15 +17,15 @@ const Index = () => {
       <TopBanner />
       <Navbar />
       <HeroSection />
-      <HowItWorksSection />
       <div id="problem">
         <ProblemSection />
       </div>
-      <div id="technologia">
-        <BlockchainSection />
-      </div>
+      <HowItWorksSection />
       <div id="demo">
         <DemoSection />
+      </div>
+      <div id="technologia">
+        <BlockchainSection />
       </div>
       <DisclaimerSection />
       <div id="zespol">
