@@ -220,13 +220,20 @@ const Ekosystem = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="glass-surface rounded-xl p-6 flex gap-4 items-start"
+                className={`glass-surface rounded-xl p-6 flex gap-4 items-start ${(p as any).highlight ? 'border-2 border-rose-400/30 sm:col-span-2' : ''}`}
               >
-                <div className="w-11 h-11 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
-                  <p.icon className="w-5 h-5 text-accent" />
+                <div className={`w-11 h-11 rounded-lg flex items-center justify-center flex-shrink-0 ${(p as any).highlight ? 'bg-rose-400/10' : 'bg-accent/10'}`}>
+                  <p.icon className={`w-5 h-5 ${(p as any).highlight ? 'text-rose-400' : 'text-accent'}`} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-base mb-1">{p.name}</h3>
+                  <h3 className="font-bold text-base mb-1 flex items-center gap-2">
+                    {(p as any).link && (p as any).link !== '#' ? (
+                      <a href={(p as any).link} target="_blank" rel="noopener noreferrer" className={`hover:underline ${(p as any).highlight ? 'text-rose-400' : 'hover:text-accent'} transition-colors`}>
+                        {p.name}
+                      </a>
+                    ) : p.name}
+                    {(p as any).highlight && <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-rose-400/10 text-rose-400">❤ serce ekosystemu</span>}
+                  </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
                 </div>
               </motion.div>
