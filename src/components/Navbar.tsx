@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Shield, Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const links = [
@@ -8,6 +9,7 @@ const links = [
   { label: "Technologia", href: "#technologia" },
   { label: "Zespół", href: "#zespol" },
   { label: "ESG & Tokenizacja", href: "#esg" },
+  { label: "Dotacje & Ulgi", href: "/dotacje" },
   { label: "FAQ", href: "/faq" },
 ];
 
@@ -26,15 +28,25 @@ const Navbar = () => {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {l.label}
-            </a>
-          ))}
+          {links.map((l) =>
+            l.href.startsWith("/") ? (
+              <Link
+                key={l.href}
+                to={l.href}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {l.label}
+              </Link>
+            ) : (
+              <a
+                key={l.href}
+                href={l.href}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                {l.label}
+              </a>
+            )
+          )}
           <Button variant="hero" size="sm">
             Zabezpiecz IP
           </Button>
@@ -60,16 +72,27 @@ const Navbar = () => {
             className="md:hidden overflow-hidden glass-surface border-t border-border/30"
           >
             <div className="container py-4 flex flex-col gap-3">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="text-sm text-muted-foreground hover:text-foreground py-2"
-                >
-                  {l.label}
-                </a>
-              ))}
+              {links.map((l) =>
+                l.href.startsWith("/") ? (
+                  <Link
+                    key={l.href}
+                    to={l.href}
+                    onClick={() => setOpen(false)}
+                    className="text-sm text-muted-foreground hover:text-foreground py-2"
+                  >
+                    {l.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className="text-sm text-muted-foreground hover:text-foreground py-2"
+                  >
+                    {l.label}
+                  </a>
+                )
+              )}
               <Button variant="hero" size="sm" className="mt-2">
                 Zabezpiecz IP
               </Button>
