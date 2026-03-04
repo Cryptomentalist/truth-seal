@@ -35,6 +35,12 @@ const projects = [
     desc: "Wymiana wartości i usług między projektami ekosystemu — bez pośredników i kosztów transakcyjnych.",
   },
   {
+    icon: MessageCircleHeart,
+    name: "GenBridge",
+    desc: "Komunikacja międzypokoleniowa — budujemy mosty między generacjami, łącząc doświadczenie z innowacją.",
+    link: "#", // placeholder — link do projektu GenBridge
+  },
+  {
     icon: Network,
     name: "Kolejne projekty",
     desc: "Każdy nowy projekt uzupełnia pozostałe, tworząc samowystarczalny organizm gospodarczy odporny na kryzysy.",
