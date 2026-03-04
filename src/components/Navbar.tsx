@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const links = [
+  { label: "Home", href: "/" },
   { label: "Oferta", href: "/oferta" },
   { label: "Misja & ESG", href: "/misja" },
   { label: "Dotacje & Ulgi", href: "/dotacje" },
@@ -21,7 +22,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-2 font-bold text-lg">
           <Shield className="w-6 h-6 text-primary" />
           <span>
-            Invention<span className="text-primary">Proof</span>
+            Constellation<span className="text-primary">.love</span>
           </span>
         </Link>
 
