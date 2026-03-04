@@ -22,7 +22,7 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-2 font-bold text-lg">
           <Shield className="w-6 h-6 text-primary" />
           <span>
-            Invention<span className="text-primary">Proof</span>
+            Constellation<span className="text-primary">.love</span>
           </span>
         </Link>
 
