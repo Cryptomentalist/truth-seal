@@ -102,23 +102,35 @@
     color: black !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
+    font-size: 11pt;
   }
 
-  header, .print\\:hidden, nav {
+  /* Hide non-content elements */
+  header, footer, nav,
+  .print\:hidden,
+  [class*="TopBanner"],
+  [class*="fixed"] {
     display: none !important;
+  }
+
+  /* Remove dark backgrounds, make readable */
+  * {
+    color: #1a1a1a !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    backdrop-filter: none !important;
   }
 
   section {
     break-inside: avoid;
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
   }
 
   .glass-surface {
     background: #f8f9fa !important;
     border-color: #dee2e6 !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
   }
 
   .text-muted-foreground {
@@ -127,7 +139,61 @@
 
   .text-gradient-primary {
     background: none !important;
-    -webkit-text-fill-color: #6366f1 !important;
+    -webkit-text-fill-color: #4f46e5 !important;
+    color: #4f46e5 !important;
+  }
+
+  /* Primary / accent colored text */
+  .text-primary,
+  [class*="text-emerald"],
+  [class*="text-sky"],
+  [class*="text-amber"],
+  [class*="text-green"],
+  [class*="text-violet"] {
+    color: #2563eb !important;
+  }
+
+  .text-accent {
+    color: #b45309 !important;
+  }
+
+  /* Borders visible */
+  [class*="border"] {
+    border-color: #d1d5db !important;
+  }
+
+  /* Colored backgrounds for cards → light tint */
+  [class*="bg-emerald"],
+  [class*="bg-sky"],
+  [class*="bg-amber"],
+  [class*="bg-green"],
+  [class*="bg-violet"],
+  [class*="bg-primary"],
+  [class*="bg-accent"] {
+    background: #f0f4ff !important;
+  }
+
+  /* Links */
+  a {
+    text-decoration: none !important;
+    color: #1a1a1a !important;
+  }
+
+  /* Remove top padding from first section (no header) */
+  .min-h-screen > section:first-of-type,
+  .min-h-screen > div:first-child > section:first-of-type {
+    padding-top: 0.5rem !important;
+  }
+
+  /* Page breaks */
+  h1, h2, h3 {
+    break-after: avoid;
+    color: #111 !important;
+  }
+
+  img {
+    max-width: 100% !important;
+    break-inside: avoid;
   }
 
   @page {
