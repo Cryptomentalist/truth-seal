@@ -139,8 +139,8 @@ const NewIndex = () => {
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
             Constellation<span className="text-accent">.love</span>
           </h1>
-          <p className="text-muted-foreground mt-3 text-base sm:text-lg max-w-xl mx-auto">
-            Kompleksowa oferta 18 projektów — gwiazd Stars Road Map: od bezpiecznej rejestracji firmy i patentów po skalowanie.
+          <p className="text-muted-foreground mt-3 text-base sm:text-lg max-w-2xl mx-auto">
+            Kompleksowa oferta 18 kosmicznie przemyślanych usług — gwiazd Stars Road Map: od bezpiecznej rejestracji firmy i patentów po skalowanie. Dołącz do samowystarczalnego antykryzysowego ekosystemu z Gentleman Agreement Club i poczuj korzyści oraz wsparcie na każdym etapie rozwoju. Dla inwestorów, innowatorów i start-upów w każdym wieku. Zarabiaj z nami, doświadczaj, integruj się, ucz się i kochaj!
           </p>
         </motion.div>
       </header>
