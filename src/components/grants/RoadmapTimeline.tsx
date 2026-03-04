@@ -57,7 +57,7 @@ interface RoadmapStep {
   details: string;
   duration: string;
   maslow: MaslowLevel;
-  eco?: EcoLink;
+  eco?: EcoLink | EcoLink[];
 }
 
 export const roadmapSteps: RoadmapStep[] = [
