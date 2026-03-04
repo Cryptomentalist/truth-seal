@@ -75,7 +75,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.45 }}
         >
           <a href="#kontakt">
-            <Button variant="hero" size="lg" className="text-base px-8 py-6">
+            <Button variant="hero" size="lg" className="text-sm sm:text-base px-6 sm:px-8 py-4 sm:py-6">
               <Shield className="w-5 h-5 mr-2" />
               Zabezpiecz swój wynalazek
             </Button>
