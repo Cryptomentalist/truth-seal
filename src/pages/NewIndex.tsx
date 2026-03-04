@@ -3,6 +3,7 @@ import { ExternalLink } from "lucide-react";
 import constellationLogo from "@/assets/constellation-logo.jpg";
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
+import StarsRoadmap from "@/components/StarsRoadmap";
 
 const projects = [
   { step: 1, name: "Rejestruj.biz", domain: "https://rejestruj.biz", desc: "Pomysł i inspiracja — warsztat generowania innowacyjnych pomysłów, ocena potencjału rynkowego." },
