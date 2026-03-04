@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Network, ArrowRightLeft, Rocket, ShieldCheck, ExternalLink } from "lucide-react";
+import { Network, ArrowRightLeft, Rocket, ShieldCheck, Users, ExternalLink } from "lucide-react";
 
 const projects = [
   {
@@ -18,6 +18,12 @@ const projects = [
     icon: ArrowRightLeft,
     name: "BarterChain",
     desc: "Wymiana wartości i usług między projektami ekosystemu — bez pośredników",
+  },
+  {
+    icon: Users,
+    name: "MindMark HR",
+    tag: "Biz Tool",
+    desc: "Oprogramowanie do ochrony pomysłów w zespołach — od drobnych idei po strategiczne decyzje. Raporty wkładu intelektualnego i algorytm motywacyjny.",
   },
   {
     icon: Network,
@@ -64,12 +70,17 @@ const EcosystemSection = () => {
                 <p.icon className="w-5 h-5 text-accent" />
               </div>
               <div>
-                <h3 className="font-bold text-base mb-1">
+                <h3 className="font-bold text-base mb-1 flex items-center gap-2">
                   {p.link ? (
                     <a href={p.link} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors inline-flex items-center gap-1.5">
                       {p.name} <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   ) : p.name}
+                  {(p as any).tag && (
+                    <span className="text-[10px] font-mono uppercase tracking-wider bg-primary/10 text-primary px-2 py-0.5 rounded-full">
+                      {(p as any).tag}
+                    </span>
+                  )}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{p.desc}</p>
               </div>
