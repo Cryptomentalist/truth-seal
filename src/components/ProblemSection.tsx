@@ -59,9 +59,9 @@ const ProblemSection = () => {
           className="mt-12 glass-surface rounded-xl p-8 border-l-4 border-l-accent"
         >
           <p className="text-muted-foreground leading-relaxed">
-            Przypadek <span className="text-foreground font-semibold">Saule Technologies</span> pokazał,
+            Przypadek <span className="text-foreground font-semibold">Saule Technologies</span> (Olga Malinkiewicz, kompozyt na bazie perowskitów) pokazał,
             jak łatwo można zatrzymać rozwój polskiej technologii światowego kalibru.
-            Przypadek <span className="text-foreground font-semibold">kompozytu kwantowego BIPV</span> ujawnił,
+            Przypadek <span className="text-foreground font-semibold">kompozytu kwantowego BIPV</span> — wynalazku Ady Margo Marglewskiej — ujawnił,
             że nadużycia mogą zaczynać się w procedurach, które miały wspierać innowatorów.
           </p>
         </motion.div>

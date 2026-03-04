@@ -54,7 +54,7 @@ Polskie technologie giną na etapie, gdy twórca musi ujawnić pomysł doradcom,
 - Nadużycia w procedurach grantowych i oceniających
 - Brak narzędzi obrony na etapie pre-patentowym
 
-> Przypadek **Saule Technologies** pokazał, jak łatwo można zatrzymać rozwój polskiej technologii światowego kalibru. Przypadek **kompozytu kwantowego BIPV** ujawnił, że nadużycia mogą zaczynać się w procedurach, które miały wspierać innowatorów.
+> Przypadek **Saule Technologies** (Olga Malinkiewicz, kompozyt na bazie perowskitów) pokazał, jak łatwo można zatrzymać rozwój polskiej technologii światowego kalibru. Przypadek **kompozytu kwantowego BIPV** — wynalazku Ady Margo Marglewskiej — ujawnił, że nadużycia mogą zaczynać się w procedurach, które miały wspierać innowatorów.
 
 ---
 
