@@ -17,8 +17,8 @@ const categories = [
         a: "To samowystarczalny ekosystem komplementarnych projektów technologicznych, działający na zasadzie piramidy Maslowa dla biznesu. Każdy projekt uzupełnia pozostałe, tworząc odporną na kryzysy sieć, w której wartość wymieniana jest bezpośrednio — bez zbędnych pośredników.",
       },
       {
-        q: "Co oznacza „dual use" — inwestor jest jednocześnie klientem?",
-        a: "W naszym modelu inwestor nie tylko finansuje projekt, ale korzysta z jego produktów i usług. To eliminuje klasyczny problem „chicken & egg" w startupach i radykalnie zmniejsza ryzyko obu stron. Inwestor widzi wartość od pierwszego dnia.",
+        q: 'Co oznacza "dual use" \u2014 inwestor jest jednocze\u015bnie klientem?',
+        a: 'W naszym modelu inwestor nie tylko finansuje projekt, ale korzysta z jego produkt\u00f3w i us\u0142ug. To eliminuje klasyczny problem "chicken & egg" w startupach i radykalnie zmniejsza ryzyko obu stron. Inwestor widzi warto\u015b\u0107 od pierwszego dnia.',
       },
       {
         q: "Jak działa wymiana barterowa wewnątrz ekosystemu?",
