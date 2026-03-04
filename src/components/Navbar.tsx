@@ -12,6 +12,7 @@ const links = [
   { label: "Zespół", href: "#zespol" },
   { label: "Misja & ESG", href: "/misja" },
   { label: "Dotacje & Ulgi", href: "/dotacje" },
+  { label: "Platforma ERP AI", href: "/platforma-erp-ai" },
   { label: "FAQ", href: "/faq" },
 ];
 

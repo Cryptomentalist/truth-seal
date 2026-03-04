@@ -8,6 +8,7 @@ import Ekosystem from "./pages/Ekosystem";
 import FAQ from "./pages/FAQ";
 import Grants from "./pages/Grants";
 import Misja from "./pages/Misja";
+import PlatformaERP from "./pages/PlatformaERP";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
