@@ -62,6 +62,13 @@ interface RoadmapStep {
 
 export const roadmapSteps: RoadmapStep[] = [
   {
+    icon: Handshake, title: "Franczyza — gotowy biznes z filtrem jakości", maslow: "zasoby",
+    desc: "Nie masz pomysłu na biznes? Chcesz być swoim szefem? Wybierz przefiltrowanego przez nasz filtr jakości franczyzodawcę i zarabiaj z naszym wsparciem.",
+    details: "Weryfikacja franczyzodawców filtrem komplementarności i jakości ekosystemu. Gotowy model biznesowy, sprawdzony rynek, wsparcie operacyjne i mentoring od pierwszego dnia.",
+    duration: "2–4 tyg.",
+    eco: { name: "AI Venture Integrator", url: "/ekosystem" },
+  },
+  {
     icon: Lightbulb, title: "Koncepcja", maslow: "zasoby",
     desc: "Walidacja pomysłu, identyfikacja potrzeby rynkowej i wstępna analiza wykonalności.",
     details: "Warsztat design thinking, analiza trendów rynkowych, identyfikacja grupy docelowej, wstępna mapa wartości.",
