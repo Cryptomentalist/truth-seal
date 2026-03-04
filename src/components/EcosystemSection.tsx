@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Network, ArrowRightLeft, Rocket, ShieldCheck, Users, ExternalLink } from "lucide-react";
+import { Network, ArrowRightLeft, Rocket, ShieldCheck, Users, ExternalLink, Bot } from "lucide-react";
 
 const projects = [
   {
@@ -24,6 +24,13 @@ const projects = [
     name: "MindMark HR",
     tag: "Biz Tool",
     desc: "Oprogramowanie do ochrony pomysłów w zespołach — od drobnych idei po strategiczne decyzje. Raporty wkładu intelektualnego i algorytm motywacyjny.",
+  },
+  {
+    icon: Bot,
+    name: "AgentAI.app",
+    tag: "AI Agents",
+    desc: "Środowisko komplementarności dla Agentów AI — baza, w której autonomiczne agenty współpracują, uzupełniają się i tworzą wartość.",
+    link: "https://agentai.app",
   },
   {
     icon: Network,

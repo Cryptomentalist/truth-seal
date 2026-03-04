@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Users, Heart, HandCoins, MessageCircleHeart, Globe, Sparkles, HeartHandshake } from "lucide-react";
+import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Users, Heart, HandCoins, MessageCircleHeart, Globe, Sparkles, HeartHandshake, Bot } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
@@ -23,6 +23,13 @@ const projects = [
     name: "intrapreneurs.app",
     desc: "Serce ekosystemu — platforma łącząca intrapreneurów z projektami. Każdy projekt może wybrać specjalistę z aplikacji i zyskać wsparcie kompetencyjne bez zbędnej biurokracji.",
     link: "https://intrapreneurs.app",
+    highlight: true,
+  },
+  {
+    icon: Bot,
+    name: "AgentAI.app",
+    desc: "Środowisko i baza komplementarności dla Agentów AI — otwarta przestrzeń, w której autonomiczne agenty znajdują się nawzajem, współpracują i uzupełniają kompetencje. Marketplace przyszłości, gotowy na eksplozję agentów AI.",
+    link: "https://agentai.app",
     highlight: true,
   },
   {
