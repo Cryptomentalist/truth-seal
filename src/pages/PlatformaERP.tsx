@@ -18,6 +18,7 @@ import {
   Download,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import ROICalculator from "@/components/erp/ROICalculator";
 
 /* ── Module data ─────────────────────────────────── */
 
