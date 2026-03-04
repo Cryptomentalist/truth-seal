@@ -95,10 +95,13 @@ const ESGSection = () => {
           className="mt-16 text-center"
         >
           <blockquote className="text-lg sm:text-xl md:text-2xl font-medium text-secondary-foreground italic max-w-3xl mx-auto leading-relaxed">
-            „Tworzymy wartość, jakość i wymierne wskaźniki rezultatu dla wzrostu gospodarczego. Zmieniamy definicję sukcesu — na patriotyzm zapobiegawczy."
+            „Tworzymy wartość, jakość dla wzrostu gospodarczego. Zmieniamy definicję sukcesu i patriotyzm zapobiegawczy. Tworzymy wymierne wskaźniki rezultatu."
           </blockquote>
-          <p className="text-base sm:text-lg text-muted-foreground mt-6 max-w-2xl mx-auto">
-            Jesteśmy siłą przeciw systemowi niesprawiedliwości. Jak <span className="text-accent font-semibold">AI Spiderman</span>, który tworzy sieć tego, co wartościowe — i podnosi dobrostan.
+          <p className="text-base sm:text-lg text-muted-foreground mt-6 max-w-2xl mx-auto leading-relaxed">
+            Jesteśmy siłą przeciw systemowi niesprawiedliwości. Jesteśmy jak <span className="text-accent font-semibold">AI Spiderman</span>, który tworzy sieć tego, co wartościowe — i podnosi dobrostan.
+          </p>
+          <p className="text-base sm:text-lg text-muted-foreground mt-4 max-w-2xl mx-auto leading-relaxed">
+            Promujemy markę Polski na arenie międzynarodowej: <span className="text-accent font-semibold">Made in Poland</span> — <span className="text-accent font-semibold">Polish Quality</span>. Bo Polska zasługuje na to, by być rozpoznawana z innowacji, jakości i odwagi.
           </p>
           <div className="w-12 h-0.5 bg-gradient-to-r from-primary to-accent mx-auto mt-6" />
         </motion.div>
@@ -115,8 +118,14 @@ const ESGSection = () => {
             Część ekosystemu
           </p>
           <h3 className="text-xl sm:text-2xl font-bold mb-3">AI Venture Integrator</h3>
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed">
+            To ekosystem, który działa jak państwo w państwie — ale w tym białym, a nie czarnym znaczeniu. Tworzymy komplementarne przedsięwzięcia, aby ekosystem był samowystarczalny i odporny na kryzysy.
+          </p>
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed">
+            To jak w piramidzie Maslowa: zaspokajamy wszystkie potrzeby do życia. InventionProof jest elementem komplementarnym w tym ekosystemie — chroni innowacje, które napędzają cały system.
+          </p>
           <p className="text-sm sm:text-base text-muted-foreground mb-6 leading-relaxed">
-            Ekosystem, który działa jak państwo w państwie — w tym białym znaczeniu. Tworzymy komplementarne przedsięwzięcia, aby ekosystem był samowystarczalny i odporny na kryzysy. To jak w piramidzie Maslowa: zaspokajamy wszystkie potrzeby do życia.
+            Razem budujemy markę <span className="text-accent font-semibold">Made in Poland · Polish Quality</span> — na arenie międzynarodowej.
           </p>
           <a
             href="https://www.linkedin.com/in/ada-margo-marglewska/"
