@@ -27,9 +27,9 @@ const projects = [
   },
   {
     icon: Bot,
-    name: "AgentAI.app",
+    name: "AIagent.gratis",
     desc: "Środowisko i baza komplementarności dla Agentów AI — otwarta przestrzeń, w której autonomiczne agenty znajdują się nawzajem, współpracują i uzupełniają kompetencje. Marketplace przyszłości, gotowy na eksplozję agentów AI.",
-    link: "https://agentai.app",
+    link: "https://aiagent.gratis",
     highlight: true,
   },
   {
