@@ -64,8 +64,8 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Niepodważalny cyfrowy dowód istnienia wynalazku na etapie pre-patentowym.
-          Tarcza, która działa przed kradzieżą — nie po fakcie.
+          Zabezpiecz swoje pomysły poprzez kryptograficzny zapis, który potwierdza
+          Twoje prawo do wynalazku bez ujawniania szczegółów.
         </motion.p>
 
         <motion.div
