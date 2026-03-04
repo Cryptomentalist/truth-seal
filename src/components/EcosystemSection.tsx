@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { Network, ArrowRightLeft, Rocket, ShieldCheck, ExternalLink } from "lucide-react";
 
 const projects = [
@@ -84,15 +85,13 @@ const EcosystemSection = () => {
           <p className="text-sm sm:text-base text-muted-foreground mb-6 leading-relaxed">
             Projekty są komplementarne na tyle, że wymiana wartości odbywa się bezpośrednio — bez zbędnych pośredników i kosztów transakcyjnych. To samowystarczalny organizm gospodarczy odporny na kryzysy.
           </p>
-          <a
-            href="https://www.linkedin.com/in/ada-margo-marglewska/"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/ekosystem"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-accent/10 hover:bg-accent/20 text-accent font-semibold transition-colors text-sm sm:text-base"
           >
             <ExternalLink className="w-4 h-4" />
             Zobacz listę projektów i start-upów
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>
