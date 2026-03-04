@@ -60,7 +60,7 @@ const categories = [
       },
       {
         q: "Czym różni się InventionProof od patentu?",
-        a: "Patent chroni po ujawnieniu — InventionProof chroni przed ujawnieniem. Wypełniamy „lukę pre-patentową": okres, w którym wynalazca musi dzielić się pomysłem z instytucjami (laboratoria, inwestorzy, partnerzy), ale nie ma jeszcze żadnej formalnej ochrony.",
+        a: 'Patent chroni po ujawnieniu \u2014 InventionProof chroni przed ujawnieniem. Wype\u0142niamy "luk\u0119 pre-patentow\u0105": okres, w kt\u00f3rym wynalazca musi dzieli\u0107 si\u0119 pomys\u0142em z instytucjami (laboratoria, inwestorzy, partnerzy), ale nie ma jeszcze \u017cadnej formalnej ochrony.',
       },
       {
         q: "Jaka jest rola COMARCH w ekosystemie?",
