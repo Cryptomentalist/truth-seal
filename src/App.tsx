@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Ekosystem from "./pages/Ekosystem";
 import FAQ from "./pages/FAQ";
 import Grants from "./pages/Grants";
+import Misja from "./pages/Misja";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
