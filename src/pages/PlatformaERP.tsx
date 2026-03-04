@@ -168,9 +168,18 @@ const PlatformaERP = () => {
           <span className="font-bold text-sm sm:text-base">
             Platforma <span className="text-primary">ERP AI</span>
           </span>
-          <span className="ml-auto text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
-            DOKUMENT POUFNY
-          </span>
+          <div className="ml-auto flex items-center gap-2">
+            <button
+              onClick={() => window.print()}
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg bg-accent/10 text-accent hover:bg-accent/20 transition-colors border border-accent/20 print:hidden"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Pobierz PDF
+            </button>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+              DOKUMENT POUFNY
+            </span>
+          </div>
         </div>
       </header>
 
