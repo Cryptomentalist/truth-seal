@@ -33,27 +33,14 @@ const NewIndex = () => {
       <Navbar />
       {/* Logo + Header */}
       <header className="pt-28 pb-8 flex flex-col items-center gap-6">
-        <motion.img
-          src={constellationLogo}
-          alt="Constellation.love logo"
-          className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6 }}
-        />
-        <motion.div
-          className="text-center"
+        <motion.p
+          className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto text-center"
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5 }}
         >
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
-            Constellation<span className="text-accent">.love</span>
-          </h1>
-          <p className="text-muted-foreground mt-3 text-base sm:text-lg max-w-2xl mx-auto">
-            Stars Roadmap: 18 Steps to Scale Your Invention. Dołącz do samowystarczalnego antykryzysowego ekosystemu z Gentleman Agreement Club i poczuj korzyści oraz wsparcie na każdym etapie rozwoju. Dla inwestorów, innowatorów i start-upów w każdym wieku. Zarabiaj z nami, doświadczaj, integruj się, ucz się i kochaj!
-          </p>
-        </motion.div>
+          Stars Roadmap: 18 Steps to Scale Your Invention. Dołącz do samowystarczalnego antykryzysowego ekosystemu z Gentleman Agreement Club i poczuj korzyści oraz wsparcie na każdym etapie rozwoju. Dla inwestorów, innowatorów i start-upów w każdym wieku. Zarabiaj z nami, doświadczaj, integruj się, ucz się i kochaj!
+        </motion.p>
       </header>
 
       {/* Roadmap connector line */}
