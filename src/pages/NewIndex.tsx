@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import constellationLogo from "@/assets/constellation-logo.jpg";
+import TopBanner from "@/components/TopBanner";
+import Navbar from "@/components/Navbar";
 
 const projects = [
   {
@@ -116,8 +118,10 @@ const projects = [
 const NewIndex = () => {
   return (
     <div className="min-h-screen bg-background">
+      <TopBanner />
+      <Navbar />
       {/* Logo + Header */}
-      <header className="pt-12 pb-8 flex flex-col items-center gap-6">
+      <header className="pt-28 pb-8 flex flex-col items-center gap-6">
         <motion.img
           src={constellationLogo}
           alt="Constellation.love logo"
