@@ -72,16 +72,27 @@ const Navbar = () => {
             className="md:hidden overflow-hidden glass-surface border-t border-border/30"
           >
             <div className="container py-4 flex flex-col gap-3">
-              {links.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="text-sm text-muted-foreground hover:text-foreground py-2"
-                >
-                  {l.label}
-                </a>
-              ))}
+              {links.map((l) =>
+                l.href.startsWith("/") ? (
+                  <Link
+                    key={l.href}
+                    to={l.href}
+                    onClick={() => setOpen(false)}
+                    className="text-sm text-muted-foreground hover:text-foreground py-2"
+                  >
+                    {l.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    onClick={() => setOpen(false)}
+                    className="text-sm text-muted-foreground hover:text-foreground py-2"
+                  >
+                    {l.label}
+                  </a>
+                )
+              )}
               <Button variant="hero" size="sm" className="mt-2">
                 Zabezpiecz IP
               </Button>
