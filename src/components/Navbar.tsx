@@ -5,11 +5,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const links = [
-  { label: "Problem", href: "#problem" },
-  { label: "Cennik", href: "#cennik" },
-  { label: "Demo", href: "#demo" },
-  { label: "Technologia", href: "#technologia" },
-  { label: "Zespół", href: "#zespol" },
+  { label: "Oferta", href: "/oferta" },
   { label: "Misja & ESG", href: "/misja" },
   { label: "Dotacje & Ulgi", href: "/dotacje" },
   { label: "Platforma ERP AI", href: "/platforma-erp-ai" },
