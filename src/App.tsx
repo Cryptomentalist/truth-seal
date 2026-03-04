@@ -8,6 +8,7 @@ import Ekosystem from "./pages/Ekosystem";
 import FAQ from "./pages/FAQ";
 import Grants from "./pages/Grants";
 import Misja from "./pages/Misja";
+import PlatformaERP from "./pages/PlatformaERP";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/faq" element={<FAQ />} />
           <Route path="/dotacje" element={<Grants />} />
           <Route path="/misja" element={<Misja />} />
+          <Route path="/platforma-erp-ai" element={<PlatformaERP />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
