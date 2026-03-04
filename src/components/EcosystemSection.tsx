@@ -7,6 +7,7 @@ const projects = [
     icon: ShieldCheck,
     name: "InventionProof",
     desc: "Ochrona własności intelektualnej z cyfrowym dowodem autorstwa",
+    link: "https://inventionproof.org",
   },
   {
     icon: Rocket,
