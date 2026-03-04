@@ -56,7 +56,25 @@ const tiers = [
     popular: false,
     link: { label: "Czym jest PRE-COURT? →", href: "#pre-court" },
   },
-];
+  {
+    icon: Users,
+    title: "MindMark HR",
+    headline: "Ochrona pomysłów w zespole",
+    price: "Wycena indywidualna",
+    priceNote: "dla firm",
+    description:
+      "Oprogramowanie do zabezpieczania nawet drobnych pomysłów wewnątrz organizacji. Idealne dla agencji reklamowych, PR i kreatywnych zespołów — nikt nie przypisze sobie cudzego wkładu.",
+    features: [
+      "Hashowanie SHA-256 z podpisem cyfrowym autora",
+      "Algorytm motywacyjny — docenia każdy wkład",
+      "Raporty wkładu intelektualnego w projekt",
+      "Od drobnych idei po decyzje strategiczne",
+      "Bez blockchain — lekkie, wewnętrzne rozwiązanie",
+    ],
+    accent: false,
+    popular: false,
+    link: null,
+  },
 
 const HowItWorksSection = () => (
   <section id="cennik" className="section-padding relative overflow-hidden">
