@@ -47,7 +47,7 @@ const ESGSection = () => {
           className="text-center mb-16"
         >
           <span className="text-sm font-mono text-accent uppercase tracking-widest">
-            Blockchain + Tokenizacja
+            MindMark™ + Tokenizacja
           </span>
           <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6">
             Nowa waluta{" "}

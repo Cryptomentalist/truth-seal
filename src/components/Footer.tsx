@@ -11,7 +11,7 @@ const Footer = () => {
           </span>
         </div>
         <p className="text-sm text-muted-foreground text-center">
-          Blockchain · Pre-patent · Deep-tech · S-Impact
+          MindMark™ · Pre-patent · Deep-tech · S-Impact
         </p>
         <p className="text-xs text-muted-foreground">
           © {new Date().getFullYear()} InventionProof.org

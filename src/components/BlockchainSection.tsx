@@ -1,16 +1,16 @@
 import { motion } from "framer-motion";
-import { Shield, Fingerprint, Globe, Lock, Hash, Layers } from "lucide-react";
+import { Shield, Fingerprint, Globe, Lock, FileCheck, Layers } from "lucide-react";
 
 const features = [
   {
-    icon: Hash,
-    title: "Kryptograficzny hash",
-    desc: "Zapis SHA-256 dokumentacji R&D tworzący niepodrabialny dowód istnienia.",
+    icon: FileCheck,
+    title: "Cyfrowy odcisk palca",
+    desc: "Unikalna sygnatura Twojej dokumentacji R&D — niepodrabialna i niepowtarzalna.",
   },
   {
     icon: Lock,
     title: "Nieodwracalność",
-    desc: "Raz zapisany dowód nie może zostać cofnięty, zmieniony ani usunięty.",
+    desc: "Raz zapisany dowód nie może zostać cofnięty, zmieniony ani usunięty przez nikogo.",
   },
   {
     icon: Fingerprint,
@@ -20,7 +20,7 @@ const features = [
   {
     icon: Globe,
     title: "Globalny świadek",
-    desc: "Rozproszona sieć, której nie da się przekupić ani zmanipulować.",
+    desc: "Rozproszona sieć tysięcy niezależnych serwerów, której nie da się przekupić ani zmanipulować.",
   },
   {
     icon: Shield,
@@ -30,7 +30,7 @@ const features = [
   {
     icon: Layers,
     title: "Zgodność z WIPO & EUIPO",
-    desc: "Wpisuje się w światowe standardy blockchainowego IP.",
+    desc: "Wpisuje się w światowe standardy cyfrowej ochrony własności intelektualnej.",
   },
 ];
 
@@ -53,13 +53,14 @@ const BlockchainSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-sm font-mono text-primary uppercase tracking-widest">Technologia</span>
+          <span className="text-sm font-mono text-primary uppercase tracking-widest">Technologia MindMark™</span>
           <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6">
-            Blockchain zmienia{" "}
+            Rozproszony zapis cyfrowy zmienia{" "}
             <span className="text-gradient-primary">zasady gry</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Po raz pierwszy innowator nie musi ufać jedynie systemowi. Może zabezpieczyć się sam.
+            Po raz pierwszy innowator nie musi ufać jedynie systemowi. Może zabezpieczyć się sam 
+            — dzięki technologii, która tworzy dowód nie do podrobienia i nie do wymazania.
           </p>
         </motion.div>
 

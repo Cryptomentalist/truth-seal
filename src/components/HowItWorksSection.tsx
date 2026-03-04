@@ -7,7 +7,7 @@ const tiers = [
     title: "Podstawowa",
     headline: "Jak data pewna u notariusza",
     description:
-      "Blockchain tworzy niepodważalny, kryptograficzny dowód istnienia Twojego dokumentu z dokładną datą — bez pośredników, bez opłat notarialnych.",
+      "Rozproszony zapis cyfrowy tworzy niepodważalny dowód istnienia Twojego dokumentu z dokładną datą — bez pośredników, bez opłat notarialnych.",
     accent: false,
     link: null,
   },

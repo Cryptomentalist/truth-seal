@@ -5,6 +5,7 @@ import HowItWorksSection from "@/components/HowItWorksSection";
 import ProblemSection from "@/components/ProblemSection";
 import BlockchainSection from "@/components/BlockchainSection";
 import DemoSection from "@/components/DemoSection";
+import DisclaimerSection from "@/components/DisclaimerSection";
 import TeamSection from "@/components/TeamSection";
 import ESGSection from "@/components/ESGSection";
 import CTASection from "@/components/CTASection";
@@ -27,6 +28,7 @@ const Index = () => {
       <div id="demo">
         <DemoSection />
       </div>
+      <DisclaimerSection />
       <div id="zespol">
         <TeamSection />
       </div>

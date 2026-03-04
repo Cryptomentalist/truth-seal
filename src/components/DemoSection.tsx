@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Hash, Lock, Clock, CheckCircle2, FileText, ArrowDown, Blocks } from "lucide-react";
+import { Fingerprint, Lock, Clock, CheckCircle2, FileText, ArrowDown, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Simple simulated hash function (visual only)
-function simulateHash(input: string): string {
+// Simple simulated digital fingerprint function (visual only)
+function generateFingerprint(input: string): string {
   if (!input) return "";
   let h = 0x6a09e667;
   for (let i = 0; i < input.length; i++) {
@@ -22,35 +22,34 @@ function simulateHash(input: string): string {
   return hex(h) + hex(h2) + hex(h3) + hex(h4) + hex(h5) + hex(h6) + hex(h7) + hex(h8);
 }
 
-type Step = "input" | "hashing" | "registered";
+type Step = "input" | "sealing" | "registered";
 
-interface BlockRecord {
-  hash: string;
+interface SealRecord {
+  fingerprint: string;
   timestamp: string;
-  blockNumber: number;
+  sealNumber: number;
   preview: string;
 }
 
 const DemoSection = () => {
   const [text, setText] = useState("");
   const [step, setStep] = useState<Step>("input");
-  const [currentHash, setCurrentHash] = useState("");
-  const [blocks, setBlocks] = useState<BlockRecord[]>([]);
-  const [hashingProgress, setHashingProgress] = useState(0);
+  const [currentFingerprint, setCurrentFingerprint] = useState("");
+  const [seals, setSeals] = useState<SealRecord[]>([]);
+  const [sealingProgress, setSealingProgress] = useState(0);
 
-  // Live hash preview
+  // Live fingerprint preview
   useEffect(() => {
-    setCurrentHash(simulateHash(text));
+    setCurrentFingerprint(generateFingerprint(text));
   }, [text]);
 
   const handleRegister = () => {
     if (!text.trim()) return;
-    setStep("hashing");
-    setHashingProgress(0);
+    setStep("sealing");
+    setSealingProgress(0);
 
-    // Simulate hashing animation
     const interval = setInterval(() => {
-      setHashingProgress((p) => {
+      setSealingProgress((p) => {
         if (p >= 100) {
           clearInterval(interval);
           return 100;
@@ -61,16 +60,16 @@ const DemoSection = () => {
 
     setTimeout(() => {
       clearInterval(interval);
-      setHashingProgress(100);
+      setSealingProgress(100);
 
-      const record: BlockRecord = {
-        hash: simulateHash(text),
+      const record: SealRecord = {
+        fingerprint: generateFingerprint(text),
         timestamp: new Date().toISOString(),
-        blockNumber: 19_847_231 + blocks.length,
+        sealNumber: 19_847_231 + seals.length,
         preview: text.length > 40 ? text.slice(0, 40) + "..." : text,
       };
 
-      setBlocks((prev) => [record, ...prev]);
+      setSeals((prev) => [record, ...prev]);
       setStep("registered");
 
       setTimeout(() => {
@@ -96,10 +95,10 @@ const DemoSection = () => {
           </span>
           <h2 className="text-3xl md:text-5xl font-bold mt-4 mb-6">
             Zobacz, jak działa{" "}
-            <span className="text-gradient-primary">ochrona</span>
+            <span className="text-gradient-primary">MindMark™</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Wpisz opis swojego pomysłu i zobacz, jak blockchain tworzy niepodważalny dowód.
+            Wpisz opis swojego pomysłu i zobacz, jak system tworzy niepodważalny cyfrowy dowód.
           </p>
         </motion.div>
 
@@ -126,9 +125,9 @@ const DemoSection = () => {
             />
           </div>
 
-          {/* Live hash preview */}
+          {/* Live fingerprint preview */}
           <AnimatePresence>
-            {currentHash && step === "input" && (
+            {currentFingerprint && step === "input" && (
               <motion.div
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
@@ -136,22 +135,22 @@ const DemoSection = () => {
                 className="mb-6"
               >
                 <label className="flex items-center gap-2 text-sm font-mono text-muted-foreground mb-3">
-                  <Hash className="w-4 h-4" />
-                  KROK 2 — Hash SHA-256 (podgląd na żywo)
+                  <Fingerprint className="w-4 h-4" />
+                  KROK 2 — Cyfrowy odcisk palca (podgląd na żywo)
                 </label>
                 <div className="bg-background/80 border border-primary/20 rounded-xl px-5 py-4 font-mono text-xs text-primary break-all leading-relaxed">
-                  {currentHash}
+                  {currentFingerprint}
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
-                  Zmień choćby jedną literę — cały hash zmieni się całkowicie.
+                  Zmień choćby jedną literę — cały odcisk zmieni się całkowicie. To Twoje unikalne DNA cyfrowe.
                 </p>
               </motion.div>
             )}
           </AnimatePresence>
 
-          {/* Hashing animation */}
+          {/* Sealing animation */}
           <AnimatePresence>
-            {step === "hashing" && (
+            {step === "sealing" && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -159,19 +158,19 @@ const DemoSection = () => {
                 className="mb-6"
               >
                 <label className="flex items-center gap-2 text-sm font-mono text-primary mb-3">
-                  <Blocks className="w-4 h-4 animate-spin" />
-                  Rejestracja w sieci blockchain...
+                  <ShieldCheck className="w-4 h-4 animate-spin" />
+                  Pieczętowanie w rozproszonym rejestrze...
                 </label>
                 <div className="w-full bg-secondary rounded-full h-3 overflow-hidden">
                   <motion.div
                     className="h-full bg-gradient-to-r from-primary to-accent rounded-full"
-                    style={{ width: `${Math.min(hashingProgress, 100)}%` }}
+                    style={{ width: `${Math.min(sealingProgress, 100)}%` }}
                     transition={{ duration: 0.1 }}
                   />
                 </div>
                 <div className="flex justify-between mt-2 text-xs font-mono text-muted-foreground">
                   <span>Tworzenie dowodu...</span>
-                  <span>{Math.min(Math.round(hashingProgress), 100)}%</span>
+                  <span>{Math.min(Math.round(sealingProgress), 100)}%</span>
                 </div>
               </motion.div>
             )}
@@ -189,11 +188,11 @@ const DemoSection = () => {
                 <div className="flex items-center gap-3 mb-3">
                   <CheckCircle2 className="w-6 h-6 text-primary" />
                   <span className="font-semibold text-primary">
-                    Dowód zarejestrowany na blockchainie!
+                    Dowód zapieczętowany w rejestrze MindMark™!
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Twój wynalazek jest teraz chroniony niepodważalnym, kryptograficznym dowodem.
+                  Twój wynalazek jest teraz chroniony niepodważalnym cyfrowym dowodem.
                   Nikt nie może go cofnąć, zmienić ani usunąć.
                 </p>
               </motion.div>
@@ -210,13 +209,13 @@ const DemoSection = () => {
               onClick={handleRegister}
             >
               <Lock className="w-5 h-5 mr-2" />
-              Zarejestruj dowód na blockchainie
+              Zapieczętuj dowód w MindMark™
             </Button>
           )}
         </motion.div>
 
-        {/* Registered blocks */}
-        {blocks.length > 0 && (
+        {/* Registered seals */}
+        {seals.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -225,15 +224,15 @@ const DemoSection = () => {
             <div className="flex items-center justify-center gap-2 mb-6">
               <ArrowDown className="w-4 h-4 text-muted-foreground" />
               <span className="text-sm font-mono text-muted-foreground">
-                Zarejestrowane bloki
+                Zapieczętowane dowody
               </span>
               <ArrowDown className="w-4 h-4 text-muted-foreground" />
             </div>
 
             <div className="space-y-3">
-              {blocks.map((block, i) => (
+              {seals.map((seal, i) => (
                 <motion.div
-                  key={block.timestamp}
+                  key={seal.timestamp}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }}
@@ -241,21 +240,21 @@ const DemoSection = () => {
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
                     <div className="flex items-center gap-2">
-                      <Blocks className="w-4 h-4 text-primary" />
+                      <ShieldCheck className="w-4 h-4 text-primary" />
                       <span className="font-mono text-sm font-semibold">
-                        Blok #{block.blockNumber.toLocaleString()}
+                        Pieczęć #{seal.sealNumber.toLocaleString()}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-xs text-muted-foreground font-mono">
                       <Clock className="w-3 h-3" />
-                      {new Date(block.timestamp).toLocaleString("pl-PL")}
+                      {new Date(seal.timestamp).toLocaleString("pl-PL")}
                     </div>
                   </div>
                   <div className="text-xs text-muted-foreground mb-2">
-                    Dokument: <span className="text-secondary-foreground">{block.preview}</span>
+                    Dokument: <span className="text-secondary-foreground">{seal.preview}</span>
                   </div>
                   <div className="font-mono text-xs text-primary/80 break-all bg-background/50 rounded-lg px-3 py-2">
-                    {block.hash}
+                    {seal.fingerprint}
                   </div>
                 </motion.div>
               ))}
@@ -265,8 +264,8 @@ const DemoSection = () => {
 
         {/* Disclaimer */}
         <p className="text-center text-xs text-muted-foreground mt-8 max-w-md mx-auto">
-          To symulacja edukacyjna. W produkcji InventionProof.org używa prawdziwej sieci blockchain
-          z kryptograficznym hashowaniem SHA-256.
+          To symulacja edukacyjna. W produkcji InventionProof.org używa technologii MindMark™ 
+          — rozproszonego zapisu cyfrowego nie do podrobienia i nie do wymazania.
         </p>
       </div>
     </section>
