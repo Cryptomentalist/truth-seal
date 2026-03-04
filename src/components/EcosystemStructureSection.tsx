@@ -149,6 +149,30 @@ const EcosystemStructureSection = () => {
           </svg>
         </motion.div>
 
+        {/* Maslow Pyramid */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="mt-14"
+        >
+          <h3 className="text-xl sm:text-2xl font-bold text-center mb-2">
+            Piramida Maslowa <span className="text-accent">dla ekosystemu</span>
+          </h3>
+          <p className="text-sm text-muted-foreground text-center mb-8 max-w-xl mx-auto">
+            Koncepcja Ady Margo Marglewskiej — komplementarne zasoby, dual use (inwestor = klient), jakość i minimalizm jako fundament samowystarczalności.
+          </p>
+          <div className="glass-surface rounded-2xl p-4 sm:p-8 max-w-2xl mx-auto">
+            <img
+              src={maslowImg}
+              alt="Piramida Maslowa dla ekosystemu AI Venture — koncepcja Ady Margo Marglewskiej"
+              className="w-full rounded-xl"
+              loading="lazy"
+            />
+          </div>
+        </motion.div>
+
         {/* Legend */}
         <div className="flex flex-wrap justify-center gap-6 mt-8 text-xs text-muted-foreground">
           <div className="flex items-center gap-2">
