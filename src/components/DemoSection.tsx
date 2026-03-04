@@ -204,7 +204,7 @@ const DemoSection = () => {
             <Button
               variant="hero"
               size="lg"
-              className="w-full py-4 sm:py-6 text-sm sm:text-base"
+              className="w-full py-4 sm:py-6 text-sm sm:text-base justify-start sm:justify-center pl-4 sm:pl-8"
               disabled={!text.trim()}
               onClick={handleRegister}
             >
