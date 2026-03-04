@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Users, Heart, HandCoins, MessageCircleHeart, Globe, Sparkles } from "lucide-react";
+import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Users, Heart, HandCoins, MessageCircleHeart, Globe, Sparkles, HeartHandshake } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
