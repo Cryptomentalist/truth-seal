@@ -19,7 +19,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="fixed top-[26px] sm:top-[32px] left-0 right-0 z-50 glass-surface border-b border-border/50">
+    <nav className="fixed top-[40px] sm:top-[46px] left-0 right-0 z-50 glass-surface border-b border-border/50">
       <div className="container flex items-center justify-between h-16">
         <a href="#" className="flex items-center gap-2 font-bold text-lg">
           <Shield className="w-6 h-6 text-primary" />
