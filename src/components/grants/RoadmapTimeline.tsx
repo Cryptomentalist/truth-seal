@@ -148,6 +148,7 @@ export const roadmapSteps: RoadmapStep[] = [
     duration: "3–6 tyg.",
     eco: [
       { name: "esg.legal", url: "https://esg.legal" },
+      { name: "ESG SDG Mapper", url: "https://esg-sdg-mapper.lovable.app" },
       { name: "radakobiet.org", url: "https://radakobiet.org" },
     ],
   },
