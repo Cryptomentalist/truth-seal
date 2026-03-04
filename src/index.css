@@ -122,6 +122,12 @@
     backdrop-filter: none !important;
   }
 
+  /* Force all framer-motion animated elements to be visible */
+  [style*="opacity"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   section {
     break-inside: avoid;
     padding-top: 0.75rem !important;

@@ -24,7 +24,7 @@ const steps = [
 
 const StarsRoadmap = () => {
   return (
-    <section className="py-16 sm:py-24 relative overflow-hidden">
+    <section className="py-16 sm:py-24 relative overflow-hidden print:overflow-visible">
       {/* Background stars effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-background via-primary/5 to-background" />
 
