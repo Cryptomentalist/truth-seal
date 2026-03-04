@@ -21,7 +21,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <PrintButton />
+        
         <Routes>
           <Route path="/" element={<NewIndex />} />
           <Route path="/oferta" element={<Oferta />} />
