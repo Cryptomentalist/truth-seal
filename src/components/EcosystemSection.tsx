@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Network, ArrowRightLeft, Rocket, ShieldCheck, ExternalLink } from "lucide-react";
+import { Network, ArrowRightLeft, Rocket, ShieldCheck, Users, ExternalLink } from "lucide-react";
 
 const projects = [
   {
@@ -18,6 +18,12 @@ const projects = [
     icon: ArrowRightLeft,
     name: "BarterChain",
     desc: "Wymiana wartości i usług między projektami ekosystemu — bez pośredników",
+  },
+  {
+    icon: Users,
+    name: "MindMark HR",
+    tag: "Biz Tool",
+    desc: "Oprogramowanie do ochrony pomysłów w zespołach — od drobnych idei po strategiczne decyzje. Raporty wkładu intelektualnego i algorytm motywacyjny.",
   },
   {
     icon: Network,
