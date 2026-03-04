@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Lightbulb, Users, TrendingUp, Heart } from "lucide-react";
+import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Users, Heart, HandCoins, MessageCircleHeart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
-import { Heart, HandCoins, MessageCircleHeart } from "lucide-react";
 
 const GlossaryTerm = ({ term, explanation, children }: { term?: string; explanation: string; children: React.ReactNode }) => (
   <Tooltip>
