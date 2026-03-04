@@ -19,6 +19,8 @@ const Index = () => {
       <div id="technologia">
         <BlockchainSection />
       </div>
+      <div id="demo">
+        <DemoSection />
       <div id="zespol">
         <TeamSection />
       </div>
