@@ -28,14 +28,18 @@ const CTASection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="hero" size="lg" className="text-base px-8 py-6">
-              <Shield className="w-5 h-5 mr-2" />
-              Zacznij chronić swoje IP
-            </Button>
-            <Button variant="heroOutline" size="lg" className="text-base px-8 py-6">
-              Skontaktuj się z nami
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
+            <a href="#kontakt">
+              <Button variant="hero" size="lg" className="text-base px-8 py-6">
+                <Shield className="w-5 h-5 mr-2" />
+                Zacznij chronić swoje IP
+              </Button>
+            </a>
+            <a href="#kontakt">
+              <Button variant="heroOutline" size="lg" className="text-base px-8 py-6">
+                Skontaktuj się z nami
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </a>
           </div>
         </motion.div>
       </div>
