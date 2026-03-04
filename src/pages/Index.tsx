@@ -8,6 +8,7 @@ import DemoSection from "@/components/DemoSection";
 import DisclaimerSection from "@/components/DisclaimerSection";
 import TeamSection from "@/components/TeamSection";
 import ESGSection from "@/components/ESGSection";
+import NeurodiversitySection from "@/components/NeurodiversitySection";
 import EcosystemSection from "@/components/EcosystemSection";
 import EcosystemStructureSection from "@/components/EcosystemStructureSection";
 import CTASection from "@/components/CTASection";
@@ -37,6 +38,7 @@ const Index = () => {
       <div id="esg">
         <ESGSection />
       </div>
+      <NeurodiversitySection />
       <EcosystemSection />
       <EcosystemStructureSection />
       <CTASection />
