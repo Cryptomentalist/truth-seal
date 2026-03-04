@@ -19,6 +19,13 @@ const GlossaryTerm = ({ term, explanation, children }: { term?: string; explanat
 
 const projects = [
   {
+    icon: HeartHandshake,
+    name: "intrapreneurs.app",
+    desc: "Serce ekosystemu — platforma łącząca intrapreneurów z projektami. Każdy projekt może wybrać specjalistę z aplikacji i zyskać wsparcie kompetencyjne bez zbędnej biurokracji.",
+    link: "https://intrapreneurs.app",
+    highlight: true,
+  },
+  {
     icon: ShieldCheck,
     name: "InventionProof",
     desc: "Ochrona własności intelektualnej z cyfrowym dowodem autorstwa — bez patentów, bez prawników, w kilka minut.",
@@ -37,7 +44,7 @@ const projects = [
     icon: MessageCircleHeart,
     name: "GenBridge",
     desc: "Komunikacja międzypokoleniowa — budujemy mosty między generacjami, łącząc doświadczenie z innowacją.",
-    link: "#", // placeholder — link do projektu GenBridge
+    link: "#",
   },
   {
     icon: Network,
