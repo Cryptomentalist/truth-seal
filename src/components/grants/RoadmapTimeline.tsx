@@ -162,8 +162,9 @@ export const roadmapSteps: RoadmapStep[] = [
   {
     icon: Search, title: "Dopracowanie modelu biznesowego", maslow: "rozwoj",
     desc: "Iteracja modelu po badaniach rynku — pivotowanie, optymalizacja unit economics.",
-    details: "Badania rynkowe, analiza kohort, optymalizacja CAC/LTV, walidacja modelu przychodowego, stress-testy.",
+    details: "Badania rynkowe, analiza kohort, optymalizacja CAC/LTV, walidacja modelu przychodowego, stress-testy. Fraktalna gospodarka i mierzalne wskaźniki rezultatu.",
     duration: "3–6 tyg.",
+    eco: { name: "Fractaleco.com", url: "https://fractaleco.com" },
   },
   {
     icon: TrendingUp, title: "Business Development", maslow: "samow",
