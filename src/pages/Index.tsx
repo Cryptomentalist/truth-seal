@@ -11,6 +11,7 @@ import CTASection from "@/components/CTASection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import EcosystemPhilosophySection from "@/components/EcosystemPhilosophySection";
 
 const Index = () => {
   return (
@@ -28,6 +29,7 @@ const Index = () => {
       <div id="technologia">
         <BlockchainSection />
       </div>
+      <EcosystemPhilosophySection />
       <DisclaimerSection />
       <div id="zespol">
         <TeamSection />
