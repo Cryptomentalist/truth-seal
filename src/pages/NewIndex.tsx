@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Heart } from "lucide-react";
 
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
