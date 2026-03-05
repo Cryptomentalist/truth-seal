@@ -90,6 +90,13 @@ const team = [
     color: "primary" as const,
   },
   {
+    name: "Maciej Malicki",
+    role: "Product Manager (Londyn)",
+    description:
+      "Product Manager z Londynu — zarządzanie produktem i koordynacja rozwoju w ekosystemie. Tel. +44 7867 776421.",
+    color: "accent" as const,
+  },
+  {
     name: "Mateusz Mścioszczyk",
     role: "Programista / Inwestor operacyjny / Doradca",
     description:
