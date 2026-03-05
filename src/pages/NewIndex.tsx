@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Heart, Calendar, Linkedin } from "lucide-react";
+import { ExternalLink, Heart, Calendar, Linkedin, GraduationCap, BarChart3, Award, ArrowRight } from "lucide-react";
 import adaMargoPhoto from "@/assets/ada-margo.jpg";
 import { Button } from "@/components/ui/button";
 
