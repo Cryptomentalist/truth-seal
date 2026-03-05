@@ -102,15 +102,15 @@ const NewIndex = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
-                className={`group relative flex flex-col rounded-xl border border-border p-4 transition-all hover:border-accent hover:shadow-lg hover:shadow-accent/10 ${
+                className={`group relative flex flex-col rounded-xl border p-4 transition-all hover:shadow-lg bg-gradient-to-br ${projectColors[i]} ${
                   p.domain === "#"
-                    ? "opacity-50 cursor-default"
-                    : "cursor-pointer"
-                } bg-card`}
+                    ? "opacity-60 cursor-default"
+                    : "cursor-pointer hover:scale-[1.03]"
+                }`}
               >
                 {/* Step badge */}
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="w-8 h-8 rounded-full bg-accent/15 text-accent text-sm font-bold flex items-center justify-center font-mono">
+                  <span className={`w-8 h-8 rounded-full text-sm font-bold flex items-center justify-center font-mono ${badgeColors[i]}`}>
                     {p.step}
                   </span>
                   {p.domain !== "#" && (
