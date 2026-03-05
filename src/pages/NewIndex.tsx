@@ -283,7 +283,7 @@ const NewIndex = () => {
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button variant="hero" size="lg" asChild>
                   <a
-                    href="https://www.linkedin.com/in/adamargo/"
+                    href="https://www.linkedin.com/in/ada-margo-marglewska-31699a251/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2"
