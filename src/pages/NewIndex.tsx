@@ -236,6 +236,88 @@ const NewIndex = () => {
         </motion.div>
       </section>
 
+      {/* Oferta dla Dyrektorów Szkół */}
+      <section className="container max-w-5xl px-4 pb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="rounded-2xl border border-emerald-400/20 bg-gradient-to-br from-emerald-500/5 via-background to-sky-500/5 p-8 md:p-12"
+        >
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            {/* Left – content */}
+            <div className="flex-1">
+              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-4">
+                <GraduationCap className="w-4 h-4" />
+                Oferta dla Dyrektorów Szkół
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 leading-tight">
+                Wspólnie budujmy przedsiębiorczość w polskich szkołach
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Dyrektorze — z przyjemnością udostępnię Ci gotowy program warsztatów z przedsiębiorczości, 
+                dostosuję go do potrzeb Twojej szkoły i przygotuję wymierne wskaźniki rezultatu. 
+                Razem pokażemy, że edukacja i biznes mogą iść w parze.
+              </p>
+
+              {/* Benefits */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                <div className="rounded-xl border border-border/50 bg-card/50 p-4 text-center">
+                  <Award className="w-6 h-6 text-amber-400 mx-auto mb-2" />
+                  <h4 className="text-sm font-bold mb-1">Gotowy program</h4>
+                  <p className="text-xs text-muted-foreground">Sprawdzony program warsztatowy do wdrożenia w Twojej szkole</p>
+                </div>
+                <div className="rounded-xl border border-border/50 bg-card/50 p-4 text-center">
+                  <BarChart3 className="w-6 h-6 text-sky-400 mx-auto mb-2" />
+                  <h4 className="text-sm font-bold mb-1">Wskaźniki rezultatu</h4>
+                  <p className="text-xs text-muted-foreground">Przygotowane KPI i mierzalne efekty dla raportu i ewaluacji</p>
+                </div>
+                <div className="rounded-xl border border-border/50 bg-card/50 p-4 text-center">
+                  <Award className="w-6 h-6 text-emerald-400 mx-auto mb-2" />
+                  <h4 className="text-sm font-bold mb-1">Promocja liderów</h4>
+                  <p className="text-xs text-muted-foreground">Wypromujemy dyrektorów, którzy budują przedsiębiorczość w Polsce</p>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button variant="hero" size="lg" asChild>
+                  <a
+                    href="https://www.linkedin.com/in/adamargo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2"
+                  >
+                    <ArrowRight className="w-4 h-4" />
+                    Napisz do mnie — udostępnię program
+                  </a>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <a
+                    href="https://www.linkedin.com/in/adamargo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2"
+                  >
+                    <Linkedin className="w-4 h-4" />
+                    LinkedIn
+                  </a>
+                </Button>
+              </div>
+            </div>
+
+            {/* Right – photo */}
+            <div className="w-full md:w-64 flex-shrink-0">
+              <img
+                src={adaMargoPhoto}
+                alt="Ada Margo Marglewska"
+                className="w-full h-64 md:h-80 object-cover object-top rounded-xl"
+              />
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
       {/* Stars Roadmap visual */}
       <StarsRoadmap />
     </div>
