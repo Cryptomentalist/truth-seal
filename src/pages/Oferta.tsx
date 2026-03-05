@@ -7,6 +7,7 @@ import BlockchainSection from "@/components/BlockchainSection";
 import DemoSection from "@/components/DemoSection";
 import DisclaimerSection from "@/components/DisclaimerSection";
 import TeamSection from "@/components/TeamSection";
+import InnovationsSection from "@/components/InnovationsSection";
 import CTASection from "@/components/CTASection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
