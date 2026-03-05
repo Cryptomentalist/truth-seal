@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Heart } from "lucide-react";
+import { ExternalLink, Heart, Calendar, Linkedin } from "lucide-react";
+import adaMargoPhoto from "@/assets/ada-margo.jpg";
+import { Button } from "@/components/ui/button";
 
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
@@ -172,6 +174,65 @@ const NewIndex = () => {
             Odwiedź konstelacja.org
             <ExternalLink className="w-4 h-4" />
           </a>
+        </motion.div>
+      </section>
+
+      {/* CTA – Warsztaty z Adą Margo */}
+      <section className="container max-w-5xl px-4 pb-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/5 via-background to-primary/5 overflow-hidden"
+        >
+          <div className="flex flex-col md:flex-row items-center gap-0">
+            {/* Photo */}
+            <div className="w-full md:w-2/5 flex-shrink-0">
+              <img
+                src={adaMargoPhoto}
+                alt="Ada Margo Marglewska — prowadząca warsztaty z przedsiębiorczości"
+                className="w-full h-72 md:h-full object-cover object-top"
+              />
+            </div>
+
+            {/* Content */}
+            <div className="flex-1 p-8 md:p-10 text-center md:text-left">
+              <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent mb-3">
+                Warsztaty & Szkolenia
+              </span>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 leading-tight">
+                Poprowadzę warsztaty z przedsiębiorczości dla Twojego zespołu
+              </h2>
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                Jestem Ada Margo Marglewska — buduję ekosystem innowacji od ponad dekady. Prowadzę warsztaty z wdrażania narzędzi biznesowych, case studies przedsiębiorczości i strategii antykryzysowych. Dla dyrektorów, menedżerów i zespołów, które chcą rosnąć.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+                <Button variant="hero" size="lg" asChild>
+                  <a
+                    href="https://www.linkedin.com/in/adamargo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    Umów warsztaty
+                  </a>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <a
+                    href="https://www.linkedin.com/in/adamargo/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2"
+                  >
+                    <Linkedin className="w-4 h-4" />
+                    LinkedIn
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </section>
 
