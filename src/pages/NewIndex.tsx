@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Heart } from "lucide-react";
+import { ExternalLink, Heart, Calendar, Linkedin } from "lucide-react";
+import adaMargoPhoto from "@/assets/ada-margo.jpg";
+import { Button } from "@/components/ui/button";
 
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
