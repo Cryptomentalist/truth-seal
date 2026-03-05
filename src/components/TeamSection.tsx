@@ -84,9 +84,9 @@ const team = [
   },
   {
     name: "Pola Wicher",
-    role: "Marketing & Granty",
+    role: "Product Manager (Norwegia) / Marketing & Granty",
     description:
-      "Marketing dla firm, obsługa start-upów z Norwegii i grantów polsko-norweskich.",
+      "Marketing dla firm, obsługa start-upów z Norwegii i grantów polsko-norweskich. Tel. +47 47 73 98 64.",
     color: "primary" as const,
   },
   {
