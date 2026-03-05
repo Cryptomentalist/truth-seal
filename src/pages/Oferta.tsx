@@ -31,6 +31,9 @@ const Index = () => {
         <BlockchainSection />
       </div>
       <EcosystemPhilosophySection />
+      <div id="innowacje">
+        <InnovationsSection />
+      </div>
       <DisclaimerSection />
       <div id="zespol">
         <TeamSection />
