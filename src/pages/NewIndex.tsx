@@ -64,7 +64,7 @@ const projects = [
   { step: 14, name: "MindMark HR", domain: "#", desc: "Narzędzie HR do ochrony pomysłów i raportowania wkładu intelektualnego." },
   { step: 15, name: "Constellation.love", domain: "https://constellation.love", desc: "Hub koordynujący ekosystem — sprzedaż i model ACECRA." },
   { step: 16, name: "Gentleman Agreement Club", domain: "#", desc: "Rozwój zespołu, mentoring i kultura oparta na zaufaniu." },
-  { step: 17, name: "EnergyTech Diversity", domain: "#", desc: "Skalowanie operacyjne — zielona energia i technologie przyszłości." },
+  { step: 17, name: "FUTU.BE", domain: "#", desc: "Modele Biznesowe — hybrydowy ekosystem Smart Business Village z tokenizacją, CBR i Metawersum." },
   { step: 18, name: "Monitoring & Iteracja", domain: "#", desc: "KPI, feedback i ciągła optymalizacja ekosystemu." },
 ];
 
