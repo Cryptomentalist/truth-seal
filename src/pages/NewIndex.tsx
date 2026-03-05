@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Heart } from "lucide-react";
 
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
@@ -97,6 +97,41 @@ const NewIndex = () => {
           </div>
         </div>
       </div>
+
+      {/* Fundacja Konstelacja.org */}
+      <section className="container max-w-4xl px-4 pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-accent/5 p-8 md:p-10 text-center"
+        >
+          <Heart className="w-8 h-8 text-primary mx-auto mb-4" />
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            <a
+              href="https://konstelacja.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors"
+            >
+              Konstelacja.org
+            </a>
+          </h2>
+          <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            Misją naszej fundacji jest promowanie marki Polski na arenie międzynarodowej. Budujemy mosty międzypokoleniowe, pokazujemy potencjał w neuroróżnorodności. Tworzymy innowacyjne modele biznesowe dla podniesienia jakości i wzrostu gospodarczego. Kreujemy narzędzia dla szybszego wdrażania 17 SDGs i działamy z fokusem na S-impact w obszarach ESG.
+          </p>
+          <a
+            href="https://konstelacja.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 mt-6 text-sm font-semibold text-primary hover:text-accent transition-colors"
+          >
+            Odwiedź konstelacja.org
+            <ExternalLink className="w-4 h-4" />
+          </a>
+        </motion.div>
+      </section>
 
       {/* Stars Roadmap visual */}
       <StarsRoadmap />
