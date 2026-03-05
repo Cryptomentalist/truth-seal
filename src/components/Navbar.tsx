@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button";
 const links = [
   { label: "Home", href: "/" },
   { label: "Oferta", href: "/oferta" },
+  { label: "Innowacje", href: "/innowacje" },
+  { label: "Piszą o nas", href: "/pisza-o-nas" },
   { label: "Misja & ESG", href: "/misja" },
   { label: "Dotacje & Ulgi", href: "/dotacje" },
   { label: "Platforma ERP AI", href: "/platforma-erp-ai" },
