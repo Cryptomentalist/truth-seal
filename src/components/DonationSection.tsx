@@ -45,6 +45,7 @@ const fadeUp = {
 };
 
 const DonationSection = () => {
+  const [showDetails, setShowDetails] = useState(false);
   return (
     <section className="relative py-20 overflow-hidden">
       {/* Starfield */}
