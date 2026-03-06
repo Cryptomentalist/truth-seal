@@ -319,6 +319,9 @@ const NewIndex = () => {
         </motion.div>
       </section>
 
+      {/* Donation 1.5% */}
+      <DonationSection />
+
       {/* Stars Roadmap visual */}
       <StarsRoadmap />
     </div>
