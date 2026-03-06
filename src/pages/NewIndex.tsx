@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
 import StarsRoadmap from "@/components/StarsRoadmap";
+import DonationSection from "@/components/DonationSection";
 
 const projectColors = [
   "from-rose-500/20 to-rose-600/10 border-rose-400/30",
