@@ -88,6 +88,9 @@ const NewIndex = () => {
         </motion.p>
       </header>
 
+      {/* Donation 1.5% */}
+      <DonationSection />
+
       {/* Roadmap connector line */}
       <div className="container max-w-7xl px-4 pb-20">
         {/* Horizontal scrollable roadmap */}
