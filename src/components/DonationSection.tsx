@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const benefits = [
   {
@@ -44,6 +45,7 @@ const fadeUp = {
 };
 
 const DonationSection = () => {
+  const [showDetails, setShowDetails] = useState(false);
   return (
     <section className="relative py-20 overflow-hidden">
       {/* Starfield */}
@@ -208,7 +210,7 @@ const DonationSection = () => {
           custom={9}
           className="text-center"
         >
-          <p className="text-xs tracking-[0.12em] uppercase text-amber-600 font-semibold mb-5">
+          <p className="text-xs tracking-[0.12em] uppercase text-accent font-semibold mb-5">
             🔥 Oferta ważna do 30 marca — liczba miejsc limitowana
           </p>
           <p
@@ -221,14 +223,59 @@ const DonationSection = () => {
           <p className="text-sm text-muted-foreground font-light mb-8">
             Odezwiemy się z wszystkimi szczegółami. To naprawdę takie proste.
           </p>
-          <a
-            href="https://www.podatki.gov.pl/pit/twoj-e-pit/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-gradient-to-r from-amber-700 via-amber-500 to-accent text-background font-bold text-sm tracking-[0.14em] uppercase px-11 py-4 shadow-[0_0_30px_hsl(var(--accent)/0.2)] hover:-translate-y-0.5 hover:shadow-[0_8px_40px_hsl(var(--accent)/0.35)] transition-all"
+          <button
+            onClick={() => setShowDetails(!showDetails)}
+            className="inline-block bg-gradient-to-r from-accent/80 via-accent to-accent/80 text-background font-bold text-sm tracking-[0.14em] uppercase px-11 py-4 shadow-[0_0_30px_hsl(var(--accent)/0.2)] hover:-translate-y-0.5 hover:shadow-[0_8px_40px_hsl(var(--accent)/0.35)] transition-all cursor-pointer border-none"
           >
-            Przekaż 1,5% teraz
-          </a>
+            {showDetails ? "Ukryj dane" : "Przekaż 1,5% teraz"}
+          </button>
+
+          <AnimatePresence>
+            {showDetails && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden"
+              >
+                <div className="mt-8 border border-accent/25 bg-gradient-to-br from-accent/[0.05] to-accent/[0.02] px-8 py-7 text-left space-y-4">
+                  <h4
+                    className="text-lg font-bold text-center mb-5"
+                    style={{ fontFamily: "'Playfair Display', serif" }}
+                  >
+                    Jak przekazać 1,5% podatku
+                  </h4>
+
+                  <div className="space-y-3">
+                    <div>
+                      <p className="text-[11px] tracking-[0.18em] uppercase text-accent mb-1">Numer KRS</p>
+                      <p className="text-2xl font-black tracking-wide" style={{ fontFamily: "'Playfair Display', serif" }}>
+                        0000270261
+                      </p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] tracking-[0.18em] uppercase text-accent mb-1">Cel szczegółowy</p>
+                      <p className="text-base font-bold">KONSTELACJA ORG 24177</p>
+                    </div>
+                    <div>
+                      <p className="text-[11px] tracking-[0.18em] uppercase text-accent mb-1">Numer konta</p>
+                      <p className="text-base font-bold tracking-wider">35 2030 0045 1110 0000 0382 5640</p>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent my-4" />
+
+                  <div className="space-y-2 text-sm text-muted-foreground">
+                    <p><span className="text-foreground font-semibold">1.</span> Wypełnij PIT na <a href="https://www.podatki.gov.pl/pit/twoj-e-pit/" target="_blank" rel="noopener noreferrer" className="text-accent underline hover:text-accent/80">podatki.gov.pl</a></p>
+                    <p><span className="text-foreground font-semibold">2.</span> W poz. 147 wpisz KRS: <span className="text-foreground font-medium">0000270261</span></p>
+                    <p><span className="text-foreground font-semibold">3.</span> W poz. 149 wpisz cel: <span className="text-foreground font-medium">KONSTELACJA ORG 24177</span></p>
+                    <p><span className="text-foreground font-semibold">4.</span> Zaznacz zgodę w poz. 150 ✓</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </motion.div>
 
         {/* Footer */}
