@@ -12,6 +12,7 @@ import FAQ from "./pages/FAQ";
 import Grants from "./pages/Grants";
 import Misja from "./pages/Misja";
 import PlatformaERP from "./pages/PlatformaERP";
+import PolishAssets from "./pages/PolishAssets";
 import NotFound from "./pages/NotFound";
 
 
