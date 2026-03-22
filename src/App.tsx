@@ -12,6 +12,7 @@ import FAQ from "./pages/FAQ";
 import Grants from "./pages/Grants";
 import Misja from "./pages/Misja";
 import PlatformaERP from "./pages/PlatformaERP";
+import PolishAssets from "./pages/PolishAssets";
 import NotFound from "./pages/NotFound";
 
 
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/dotacje" element={<Grants />} />
           <Route path="/misja" element={<Misja />} />
           <Route path="/platforma-erp-ai" element={<PlatformaERP />} />
+          <Route path="/polishassets" element={<PolishAssets />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
