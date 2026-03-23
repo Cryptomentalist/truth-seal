@@ -195,9 +195,10 @@ const NewIndex = () => {
             {/* Right – photo */}
             <div className="w-full md:w-64 flex-shrink-0">
               <img
-                src={adaMargoPhoto}
-                alt="Ada Margo Marglewska"
+                src={esgPhilosophyPhoto}
+                alt="Filozofia ESG — zrównoważony rozwój i innowacje"
                 className="w-full h-64 md:h-80 object-cover object-top rounded-xl"
+                loading="lazy"
               />
             </div>
           </div>
