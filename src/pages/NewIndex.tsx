@@ -57,7 +57,7 @@ const projects = [
   { step: 4, name: "GOD.legal", domain: "https://god.legal", desc: "Artificial Superintelligence — Global Omniverse Developers." },
   { step: 5, name: "HIT.legal", domain: "https://hit.legal", desc: "Holding Innowacji Technologicznych — ochrona i komercjalizacja technologii." },
   { step: 6, name: "Pre-Patent", domain: "#", desc: "Ochrona własności intelektualnej — certyfikaty PRE-PATENT i PRE-COURT." },
-  { step: 7, name: "WomanOnBoards.app", domain: "https://womanonboards.app", desc: "Szkolenia dla kobiet przygotowujące do egzaminu na członkinie rad nadzorczych." },
+  { step: 7, name: "WomenOnBoards.app", domain: "https://womenonboards.app", desc: "Szkolenia dla kobiet przygotowujące do egzaminu na członkinie rad nadzorczych." },
   { step: 8, name: "Fractaleco.com", domain: "https://fractaleco.com", desc: "Optymalizacja modelu biznesowego i fraktalna analiza ekosystemu." },
   { step: 9, name: "Intrapreneurs.app", domain: "https://intrapreneurs.app", desc: "Platforma liderów-intrapreneurów — serce ekosystemu rekrutacyjnego." },
   { step: 10, name: "AIagent.gratis", domain: "https://aiagent.gratis", desc: "Środowisko i marketplace autonomicznych agentów AI." },
