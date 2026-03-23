@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ExternalLink, Heart, Calendar, Linkedin, GraduationCap, BarChart3, Award, ArrowRight } from "lucide-react";
 import adaMargoPhoto from "@/assets/ada-margo.jpg";
+import esgPhilosophyPhoto from "@/assets/esg-philosophy.jpg";
 import { Button } from "@/components/ui/button";
 
 import TopBanner from "@/components/TopBanner";
@@ -194,9 +195,10 @@ const NewIndex = () => {
             {/* Right – photo */}
             <div className="w-full md:w-64 flex-shrink-0">
               <img
-                src={adaMargoPhoto}
-                alt="Ada Margo Marglewska"
+                src={esgPhilosophyPhoto}
+                alt="Filozofia ESG — zrównoważony rozwój i innowacje"
                 className="w-full h-64 md:h-80 object-cover object-top rounded-xl"
+                loading="lazy"
               />
             </div>
           </div>
