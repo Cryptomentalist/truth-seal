@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 
 const links = [
   { label: "Home", href: "/" },
+  { label: "Projekty", href: "/projekty" },
   { label: "PolishAssets", href: "/polishassets" },
   { label: "Oferta", href: "/oferta" },
   { label: "Innowacje", href: "/innowacje" },
