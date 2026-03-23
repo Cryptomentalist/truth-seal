@@ -28,6 +28,7 @@ const App = () => (
         
         <Routes>
           <Route path="/" element={<NewIndex />} />
+          <Route path="/projekty" element={<Projekty />} />
           <Route path="/oferta" element={<Oferta />} />
           <Route path="/innowacje" element={<Innowacje />} />
           <Route path="/pisza-o-nas" element={<PiszaONas />} />
