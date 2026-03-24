@@ -98,9 +98,15 @@ const NewIndex = () => {
             Czym jest sukces?
           </h2>
           <blockquote className="border-l-4 border-primary/40 pl-6 mb-6">
-            <p className="text-muted-foreground leading-relaxed italic text-base md:text-lg">
+            <p className="text-muted-foreground leading-relaxed italic text-base md:text-lg mb-4">
               „Sukcesu nie powinno się mierzyć zajmowaną pozycją ani samym osiągnięciem celu — ale ilością kłód rzucanych pod nogi, które trzeba było pokonać, żeby tam dotrzeć."
             </p>
+            <footer className="text-sm text-foreground/80 not-italic">
+              <strong className="text-primary">— Ada Margo Marglewska</strong>
+              <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                Praktyk zrównoważonego biznesu, pedagog, przedsiębiorca · Intrapreneur & Interim Manager · Tworczyni ekosystemu opartego na myśleniu systemowym, Efekcie Wydmy i Gospodarce Fraktalnej · Coach z 20-letnim doświadczeniem · Pisarka, publicystka i innowatorka
+              </p>
+            </footer>
           </blockquote>
           <p className="text-muted-foreground leading-relaxed mb-6">
             W świecie, gdzie „sukces" definiuje się tytułami, majątkiem i rankingami, zapominamy o tym, co naprawdę buduje wartość: odporność, wytrwałość i zdolność do podnoszenia się po porażkach. Prawdziwy lider ESG to nie ten, kto miał łatwą drogę — to ten, kto mimo przeszkód nie zatracił etyki, nie porzucił wartości i nie przestał pomagać innym.
