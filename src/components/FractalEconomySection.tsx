@@ -47,9 +47,13 @@ const FractalEconomySection = () => {
           className="rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/5 to-primary/5 p-8 md:p-12 text-center mb-20"
         >
           <p className="text-xs uppercase tracking-[0.2em] text-accent mb-6 font-semibold">Teza fundamentalna</p>
-          <p className="text-lg md:text-xl italic text-foreground/90 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl italic text-foreground/90 leading-relaxed max-w-3xl mx-auto mb-4">
             „Wyrzeźbione przez czas i okoliczności, każde ziarnko piasku jest unikalne. Tylko w połączeniu z innymi tworzy piasek — a z piasku powstaje wydma, struktura zdolna zmieniać krajobraz."
           </p>
+          <footer className="text-sm text-foreground/70 not-italic">
+            <strong className="text-accent">— Ada Margo Marglewska</strong>
+            <span className="block text-xs text-muted-foreground mt-1">Praktyk zrównoważonego biznesu · Intrapreneur & Interim Manager · Tworczyni Gospodarki Fraktalnej</span>
+          </footer>
         </motion.blockquote>
 
         {/* 01 — Filozofia · Efekt Wydmy */}
