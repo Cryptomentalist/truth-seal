@@ -14,17 +14,7 @@ const NewIndex = () => {
     <div className="min-h-screen bg-background">
       <TopBanner />
       <Navbar />
-      {/* Logo + Header */}
-      <header className="pt-28 pb-8 flex flex-col items-center gap-6">
-        <motion.p
-          className="text-muted-foreground text-base sm:text-lg max-w-2xl mx-auto text-center"
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          Stars Roadmap: 18 Steps to Scale Your Invention. Dołącz do samowystarczalnego antykryzysowego ekosystemu z Gentleman Agreement Club i poczuj korzyści oraz wsparcie na każdym etapie rozwoju. Dla inwestorów, innowatorów i start-upów w każdym wieku. Zarabiaj z nami, doświadczaj, integruj się, ucz się i kochaj!
-        </motion.p>
-      </header>
+      <header className="pt-28 pb-8" />
 
       {/* Definicja Sukcesu w ESG */}
       <section className="container max-w-4xl px-4 pb-16">
