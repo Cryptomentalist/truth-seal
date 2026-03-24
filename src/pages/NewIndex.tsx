@@ -26,6 +26,62 @@ const NewIndex = () => {
         </motion.p>
       </header>
 
+      {/* Definicja Sukcesu w ESG */}
+      <section className="container max-w-4xl px-4 pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/5 via-background to-primary/5 p-8 md:p-12"
+        >
+          <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent mb-4">
+            ESG & Etyka w biznesie
+          </span>
+          <h2 className="text-2xl md:text-3xl font-bold mb-6 leading-tight">
+            Czym jest sukces?
+          </h2>
+          <blockquote className="border-l-4 border-primary/40 pl-6 mb-6">
+            <p className="text-muted-foreground leading-relaxed italic text-base md:text-lg">
+              „Sukcesu nie powinno się mierzyć zajmowaną pozycją ani samym osiągnięciem celu — ale ilością kłód rzucanych pod nogi, które trzeba było pokonać, żeby tam dotrzeć."
+            </p>
+          </blockquote>
+          <p className="text-muted-foreground leading-relaxed mb-6">
+            W świecie, gdzie „sukces" definiuje się tytułami, majątkiem i rankingami, zapominamy o tym, co naprawdę buduje wartość: odporność, wytrwałość i zdolność do podnoszenia się po porażkach. Prawdziwy lider ESG to nie ten, kto miał łatwą drogę — to ten, kto mimo przeszkód nie zatracił etyki, nie porzucił wartości i nie przestał pomagać innym.
+          </p>
+
+          <div className="rounded-xl border border-primary/20 bg-primary/5 p-6 mb-6">
+            <h3 className="text-lg font-bold mb-3 text-primary">
+              Po równo nie oznacza sprawiedliwie.
+            </h3>
+            <p className="text-muted-foreground leading-relaxed text-sm">
+              Równość to danie każdemu tego samego. Sprawiedliwość to danie każdemu tego, czego potrzebuje. W naszym ekosystemie nie dzielimy po równo — budujemy systemy, które rozpoznają indywidualny potencjał i wspierają tam, gdzie wsparcie jest naprawdę potrzebne. Dlatego stawiamy na neuroróżnorodność, kobiety w biznesie i innowatorów, którym system nie dał szansy.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-amber-400/20 bg-amber-500/5 p-6">
+            <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
+              <span className="text-2xl">🇳🇴</span>
+              Napisz, dlaczego tak uważasz — i wygraj weekend w Norwegii!
+            </h3>
+            <p className="text-muted-foreground leading-relaxed text-sm mb-4">
+              Podziel się swoją definicją sukcesu w kontekście ESG i etyki. Najlepsza odpowiedź wygrywa ekskluzywny weekend w hotelu-coworkingu między Oslo a Bergen (Kongsvegen). Przestrzeń do pracy, natury i inspiracji.
+            </p>
+            <Button variant="hero" size="lg" asChild>
+              <a
+                href="https://www.linkedin.com/in/ada-margo-marglewska-31699a251/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2"
+              >
+                <ArrowRight className="w-4 h-4" />
+                Wyślij swoją odpowiedź
+              </a>
+            </Button>
+          </div>
+        </motion.div>
+      </section>
+
       {/* Donation 1.5% */}
       <DonationSection />
 
