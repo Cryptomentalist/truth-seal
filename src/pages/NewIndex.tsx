@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
 import DonationSection from "@/components/DonationSection";
+import FractalEconomySection from "@/components/FractalEconomySection";
 
 const NewIndex = () => {
   return (
@@ -27,6 +28,9 @@ const NewIndex = () => {
 
       {/* Donation 1.5% */}
       <DonationSection />
+
+      {/* Gospodarka Fraktalna & Efekt Wydmy */}
+      <FractalEconomySection />
 
       {/* Fundacja Konstelacja.org */}
       <section className="container max-w-4xl px-4 pb-16">
