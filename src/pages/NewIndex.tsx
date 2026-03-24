@@ -29,6 +29,9 @@ const NewIndex = () => {
       {/* Donation 1.5% */}
       <DonationSection />
 
+      {/* Gospodarka Fraktalna & Efekt Wydmy */}
+      <FractalEconomySection />
+
       {/* Fundacja Konstelacja.org */}
       <section className="container max-w-4xl px-4 pb-16">
         <motion.div
