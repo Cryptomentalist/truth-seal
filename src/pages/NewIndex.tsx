@@ -14,7 +14,73 @@ const NewIndex = () => {
     <div className="min-h-screen bg-background">
       <TopBanner />
       <Navbar />
-      <header className="pt-28 pb-8" />
+      <header className="pt-28 pb-4" />
+
+      {/* ESG & S-Impact Definition */}
+      <section className="container max-w-4xl px-4 pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 p-8 md:p-12"
+        >
+          <span className="inline-block text-xs font-semibold uppercase tracking-wider text-primary mb-4">
+            Fundament ekosystemu
+          </span>
+          <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
+            Czym jest <span className="text-primary">ESG</span>?
+          </h1>
+          <p className="text-muted-foreground leading-relaxed mb-6 text-base">
+            <strong>ESG</strong> to trzy filary zrównoważonego rozwoju: <strong>E</strong>nvironmental (środowisko), <strong>S</strong>ocial (społeczeństwo), <strong>G</strong>overnance (ład korporacyjny). To nie compliance i nie raport — to sposób myślenia o biznesie, który generuje wartość dla wszystkich interesariuszy.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            <div className="rounded-xl border border-border/50 bg-card/50 p-5 text-center">
+              <span className="text-3xl mb-3 block">🌍</span>
+              <h3 className="text-sm font-bold mb-1">E — Environment</h3>
+              <p className="text-xs text-muted-foreground">Klimat, zasoby, energia odnawialna, ślad węglowy</p>
+            </div>
+            <div className="rounded-xl border border-primary/30 bg-primary/10 p-5 text-center ring-2 ring-primary/20">
+              <span className="text-3xl mb-3 block">🤝</span>
+              <h3 className="text-sm font-bold mb-1 text-primary">S — Social Impact</h3>
+              <p className="text-xs text-muted-foreground">Ludzie, różnorodność, edukacja, wspólnota, sprawiedliwość</p>
+            </div>
+            <div className="rounded-xl border border-border/50 bg-card/50 p-5 text-center">
+              <span className="text-3xl mb-3 block">⚖️</span>
+              <h3 className="text-sm font-bold mb-1">G — Governance</h3>
+              <p className="text-xs text-muted-foreground">Transparentność, etyka, ład korporacyjny, odpowiedzialność</p>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-primary/20 bg-primary/5 p-6">
+            <h3 className="text-lg font-bold mb-3">
+              Dlaczego stawiamy na <span className="text-primary">S-Impact</span>?
+            </h3>
+            <p className="text-muted-foreground leading-relaxed text-sm mb-4">
+              W naszym ekosystemie „S" to nie dodatek — to serce całego systemu. S-Impact oznacza mierzalny, udokumentowany wpływ społeczny. Wykorzystujemy tokenizację i rozproszony zapis cyfrowy jako matematyczny dowód realnych działań społecznych — eliminując social-washing i budując zaufanie oparte na faktach.
+            </p>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">✦</span>
+                <span>Wspieramy neuroróżnorodność, kobiety w biznesie i innowatorów wykluczonych przez system</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">✦</span>
+                <span>Budujemy mosty międzypokoleniowe — dziecko i babcia uczą się razem</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">✦</span>
+                <span>Każde działanie społeczne jest tokenizowane — niezmiennie zapisane i weryfikowalne</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-primary mt-0.5">✦</span>
+                <span>Promujemy markę Polski na arenie międzynarodowej poprzez etyczny biznes</span>
+              </li>
+            </ul>
+          </div>
+        </motion.div>
+      </section>
 
       {/* Definicja Sukcesu w ESG */}
       <section className="container max-w-4xl px-4 pb-16">
