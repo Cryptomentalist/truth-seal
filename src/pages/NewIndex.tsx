@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
 import DonationSection from "@/components/DonationSection";
+import FractalEconomySection from "@/components/FractalEconomySection";
 
 const NewIndex = () => {
   return (
