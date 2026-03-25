@@ -23,7 +23,7 @@ const NewIndex = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 p-8 md:p-12"
+          className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 p-5 sm:p-8 md:p-12 overflow-hidden"
         >
           <span className="inline-block text-xs font-semibold uppercase tracking-wider text-primary mb-4">
             Fundament ekosystemu
@@ -89,7 +89,7 @@ const NewIndex = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/5 via-background to-primary/5 p-8 md:p-12"
+          className="rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/5 via-background to-primary/5 p-5 sm:p-8 md:p-12 overflow-hidden"
         >
           <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent mb-4">
             ESG & Etyka w biznesie
@@ -122,9 +122,9 @@ const NewIndex = () => {
           </div>
 
           <div className="rounded-xl border border-amber-400/20 bg-amber-500/5 p-6">
-            <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
-              <span className="text-2xl">🇳🇴</span>
-              Napisz, dlaczego tak uważasz — i wygraj weekend w Norwegii!
+            <h3 className="text-base sm:text-lg font-bold mb-3 flex items-start gap-2">
+              <span className="text-2xl shrink-0">🇳🇴</span>
+              <span>Napisz, dlaczego tak uważasz — i wygraj weekend w Norwegii!</span>
             </h3>
             <p className="text-muted-foreground leading-relaxed text-sm mb-4">
               Podziel się swoją definicją sukcesu w kontekście ESG i etyki. Najlepsza odpowiedź wygrywa ekskluzywny weekend w hotelu-coworkingu między Oslo a Bergen (Kongsvegen). Przestrzeń do pracy, natury i inspiracji.
@@ -134,9 +134,9 @@ const NewIndex = () => {
                 href="https://www.linkedin.com/in/ada-margo-marglewska-31699a251/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2"
+                className="inline-flex items-center gap-2 whitespace-normal text-center text-xs sm:text-sm"
               >
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 shrink-0" />
                 Wyślij swoją odpowiedź
               </a>
             </Button>
