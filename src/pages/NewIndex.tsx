@@ -219,9 +219,6 @@ const NewIndex = () => {
           <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
             Misją naszej fundacji jest promowanie marki Polski na arenie międzynarodowej. Budujemy mosty międzypokoleniowe, pokazujemy potencjał w neuroróżnorodności. Tworzymy innowacyjne modele biznesowe dla podniesienia jakości i wzrostu gospodarczego. Kreujemy narzędzia dla szybszego wdrażania 17 SDGs i działamy z fokusem na S-impact w obszarach ESG.
           </p>
-          <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto mt-4 text-sm italic">
-            Łączymy jakość, tworzymy wartość, mierzymy i promujemy efekty interesariuszy ekosystemu na arenie międzynarodowej.
-          </p>
           <a
             href="https://konstelacja.org"
             target="_blank"
