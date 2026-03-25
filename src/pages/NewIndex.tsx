@@ -117,7 +117,7 @@ const NewIndex = () => {
               Po równo nie oznacza sprawiedliwie.
             </h3>
             <p className="text-muted-foreground leading-relaxed text-sm">
-              Równość to danie każdemu tego samego. Sprawiedliwość to danie każdemu tego, czego potrzebuje. W naszym ekosystemie nie dzielimy po równo — budujemy systemy, które rozpoznają indywidualny potencjał i wspierają tam, gdzie wsparcie jest naprawdę potrzebne. Dlatego stawiamy na neuroróżnorodność, kobiety w biznesie i innowatorów, którym system nie dał szansy.
+              Inwestowanie w osoby neuroróżnorodne i niepełnosprawne to nie tylko etyka — to strategia wzrostu gospodarczego. Wystarczy stworzyć środowisko, w którym mogą się rozwijać ludzie, którym jest ciężej. Nie chodzi o dawanie wszystkim tego samego — chodzi o dawanie każdemu tego, czego potrzebuje, by wnieść maksymalną wartość. To właśnie jest sprawiedliwość, która napędza innowacje i buduje realną przewagę konkurencyjną.
             </p>
           </div>
 
