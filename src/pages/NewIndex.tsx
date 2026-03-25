@@ -144,6 +144,45 @@ const NewIndex = () => {
         </motion.div>
       </section>
 
+      {/* Projekt: WomenOnBoards.app */}
+      <section className="container max-w-4xl px-4 pb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="rounded-2xl border border-pink-400/20 bg-gradient-to-br from-pink-500/5 via-background to-primary/5 p-5 sm:p-8 md:p-10 text-center overflow-hidden"
+        >
+          <span className="inline-block text-xs font-semibold uppercase tracking-wider text-pink-400 mb-3">
+            Projekt ekosystemu
+          </span>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4">
+            <a
+              href="https://womenonboards.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors"
+            >
+              WomenOnBoards.app
+            </a>
+          </h2>
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-6">
+            Czujesz się kobietą. Chcesz zdobyć dobrą pracę. Dołącz na Women on Boards — szkolenia dla członkiń rad nadzorczych, mentoring i społeczność kobiet, które zmieniają biznes.
+          </p>
+          <Button variant="hero" size="lg" asChild>
+            <a
+              href="https://womenonboards.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 whitespace-normal text-xs sm:text-sm"
+            >
+              <ArrowRight className="w-4 h-4 shrink-0" />
+              Dołącz do Women on Boards
+            </a>
+          </Button>
+        </motion.div>
+      </section>
+
       {/* Donation 1.5% */}
       <DonationSection />
 
