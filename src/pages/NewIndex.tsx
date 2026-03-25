@@ -122,9 +122,9 @@ const NewIndex = () => {
           </div>
 
           <div className="rounded-xl border border-amber-400/20 bg-amber-500/5 p-6">
-            <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
-              <span className="text-2xl">🇳🇴</span>
-              Napisz, dlaczego tak uważasz — i wygraj weekend w Norwegii!
+            <h3 className="text-base sm:text-lg font-bold mb-3 flex items-start gap-2">
+              <span className="text-2xl shrink-0">🇳🇴</span>
+              <span>Napisz, dlaczego tak uważasz — i wygraj weekend w Norwegii!</span>
             </h3>
             <p className="text-muted-foreground leading-relaxed text-sm mb-4">
               Podziel się swoją definicją sukcesu w kontekście ESG i etyki. Najlepsza odpowiedź wygrywa ekskluzywny weekend w hotelu-coworkingu między Oslo a Bergen (Kongsvegen). Przestrzeń do pracy, natury i inspiracji.
