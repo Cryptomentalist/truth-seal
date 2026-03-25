@@ -183,14 +183,19 @@ const FractalEconomySection = () => {
             </motion.h3>
           </motion.div>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-muted-foreground leading-relaxed max-w-3xl mb-8"
+            className="max-w-3xl mb-8 space-y-4"
           >
-            Autonomiczny ekosystem wartości, działający w ramach istniejącej gospodarki, ale według własnych zasad jakości, współpracy i selekcji — może zarządzać zasobami, generować przychody i pomagać słabszym bez rozrzutności publicznej.
-          </motion.p>
+            <p className="text-muted-foreground leading-relaxed">
+              Autonomiczny ekosystem wartości stanowi alternatywną architekturę gospodarczą, osadzoną w realiach rynkowych, lecz zarządzaną według własnych zasad efektywności, jakości i odpowiedzialności. Jego przewaga wynika z selektywnej integracji podmiotów, komplementarności zasobów oraz zdolności do zamykania obiegu wartości wewnątrz systemu. W praktyce oznacza to wyższą produktywność kapitału, większą odporność na kryzysy oraz możliwość finansowania funkcji społecznych bez marnotrawienia środków publicznych.
+            </p>
+            <p className="text-muted-foreground leading-relaxed">
+              To nie jest alternatywa dla gospodarki rynkowej, lecz jej bardziej efektywna warstwa operacyjna — ograniczająca chaos, marnotrawstwo i przypadkowość poprzez świadomą selekcję jakości, kapitału relacyjnego i zasobów.
+            </p>
+          </motion.div>
 
           <div className="grid gap-4 md:grid-cols-2 mb-12">
             {[
