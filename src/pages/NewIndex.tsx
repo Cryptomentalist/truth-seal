@@ -180,6 +180,9 @@ const NewIndex = () => {
               Dołącz do Women on Boards
             </a>
           </Button>
+          <p className="mt-4 text-[11px] text-muted-foreground/70 italic">
+            * Projekt wpisuje się w doktrynę ESG z focusem na S-Impact
+          </p>
         </motion.div>
       </section>
 
