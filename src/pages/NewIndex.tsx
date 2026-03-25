@@ -263,10 +263,16 @@ const NewIndex = () => {
               <h2 className="text-lg sm:text-xl md:text-3xl font-bold mb-4 leading-[1.15] break-words">
                 Wspólnie rozwijajmy przedsiębiorczość w polskich szkołach
               </h2>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4">
                 Dyrektorze — z przyjemnością udostępnię Ci gotowy program warsztatów z przedsiębiorczości, 
                 dostosuję go do potrzeb Twojej szkoły i przygotuję wymierne wskaźniki rezultatu. 
                 Razem pokażemy, że edukacja i biznes mogą iść w parze.
+              </p>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4">
+                <strong className="text-foreground">Dyrektorze, Librus to nie problem</strong> na drodze do rozwijania przedsiębiorczości wśród dzieci. Mamy poparcie MRiT. Warsztaty przedsiębiorczości można prowadzić na zaproszenie i wspólnie z nauczycielem zatrudnionym na umowę o pracę.
+              </p>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
+                <strong className="text-foreground">Zadzwoń i umów warsztaty.</strong> Każdy przedmiot w szkole można poprowadzić tak, aby dziecko zrozumiało, jak tę wiedzę zmonetyzować. Alternatywą jest zorganizowanie dodatkowych godzin.
               </p>
 
               {/* Benefits */}
