@@ -103,6 +103,13 @@ const team = [
       "Programista front & backend, inwestor operacyjny (wykonawczy) i doradca strategiczny wspierający rozwój ekosystemu.",
     color: "accent" as const,
   },
+  {
+    name: "Natalia Mastalerz",
+    role: "Sesje mentoringowo-energetyczne",
+    description:
+      "Łączy pracę z energią Źródła Miłości z głęboką świadomością ciała i emocji. Pomaga uwolnić blokady, napięcia i stare historie zapisane w ciele. Transformacja przekonań i emocji — uwalnianie lęków, przestarzałych wzorców i schematów reakcji. Sesje to połączenie energii, obecności i głębokiej pracy z wnętrzem: uwolnienie emocjonalnych blokad, ukojenie systemu nerwowego, większa jasność, intuicja i spokój.",
+    color: "primary" as const,
+  },
 ];
 
 const partners = [
