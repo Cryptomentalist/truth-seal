@@ -119,9 +119,9 @@ const partners = [
     icon: Award,
   },
   {
-    name: "Rada Kobiet.org",
-    role: "Współpraca",
-    description: "Partnerska współpraca na rzecz wspierania kobiet w biznesie i innowacjach.",
+    name: "Semiconductor.no AS",
+    role: "Brokerzy Innowacji",
+    description: "Przestrzeń co-workingowa w Norwegii dla interesariuszy ekosystemu.",
     icon: Handshake,
   },
 ];
