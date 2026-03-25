@@ -81,7 +81,7 @@ const categories = [
       },
       {
         q: "Czy projekt działa pod patronatem instytucjonalnym?",
-        a: "Tak — ekosystem posiada patronat MRiT (Ministerstwo Rozwoju i Technologii), partnerstwo z COMARCH, współpracę z Rada Kobiet.org oraz działa pod parasolem Fundacji Konstelacja.org (KRS, NIP, REGON — pełna transparentność).",
+        a: "Tak — ekosystem posiada patronat MRiT (Ministerstwo Rozwoju i Technologii), partnerstwo z COMARCH, współpracę z Semiconductor.no AS oraz działa pod parasolem Fundacji Konstelacja.org (KRS, NIP, REGON — pełna transparentność).",
       },
     ],
   },
