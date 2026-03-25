@@ -89,7 +89,7 @@ const NewIndex = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/5 via-background to-primary/5 p-8 md:p-12"
+          className="rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/5 via-background to-primary/5 p-5 sm:p-8 md:p-12 overflow-hidden"
         >
           <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent mb-4">
             ESG & Etyka w biznesie
