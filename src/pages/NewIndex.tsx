@@ -14,7 +14,11 @@ const NewIndex = () => {
     <div className="min-h-screen bg-background">
       <TopBanner />
       <Navbar />
-      <header className="pt-28 pb-4" />
+      <header className="pt-28 pb-4">
+        <p className="text-center text-[11px] sm:text-xs text-muted-foreground/70 italic mt-1">
+          Łączymy jakość, tworzymy wartość, mierzymy i promujemy efekty interesariuszy ekosystemu na arenie międzynarodowej.
+        </p>
+      </header>
 
       {/* ESG & S-Impact Definition */}
       <section className="container max-w-4xl px-4 pb-16">
