@@ -200,7 +200,6 @@ const FractalEconomySection = () => {
           <div className="grid gap-4 md:grid-cols-2 mb-12">
             {[
               "Model fraktalny jest skalowalny — od jednostki przez projekt po gospodarkę narodową.",
-              "Wsparcie słabszych nie wymaga rozrzutności — wymaga systemu i selekcji.",
               "Selekcja oparta na wartościach buduje trwalszą wartość niż selekcja wyłącznie kapitałowa.",
               "Open source dla świata — gdy eksperyment się powiedzie, model zostaje udostępniony. Jak Linux. Jak Wikipedia.",
             ].map((text, i) => (
