@@ -261,7 +261,7 @@ const NewIndex = () => {
                 Oferta dla Dyrektorów Szkół
               </span>
               <h2 className="text-xl md:text-3xl font-bold mb-4 leading-tight">
-                Wspólnie budujmy przedsiębiorczość w polskich szkołach
+                Wspólnie rozwijajmy przedsiębiorczość w polskich szkołach
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Dyrektorze — z przyjemnością udostępnię Ci gotowy program warsztatów z przedsiębiorczości, 
