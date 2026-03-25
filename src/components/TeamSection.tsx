@@ -107,7 +107,7 @@ const team = [
     name: "Natalia Mastalerz",
     role: "Sesje mentoringowo-energetyczne",
     description:
-      "Łączy pracę z energią Źródła Miłości z głęboką świadomością ciała i emocji. Pomaga uwolnić blokady, napięcia i stare historie zapisane w ciele. Transformacja przekonań i emocji — uwalnianie lęków, przestarzałych wzorców i schematów reakcji. Sesje to połączenie energii, obecności i głębokiej pracy z wnętrzem: uwolnienie emocjonalnych blokad, ukojenie systemu nerwowego, większa jasność, intuicja i spokój.",
+      "Łączy pracę z energią Źródła Miłości z głęboką świadomością ciała i emocji. Pomaga uwolnić blokady, napięcia i stare historie zapisane w ciele. Transformacja przekonań i emocji — uwalnianie lęków, przestarzałych wzorców i schematów reakcji. Sesje to połączenie energii, obecności i głębokiej pracy z wnętrzem: uwolnienie emocjonalnych blokad, ukojenie systemu nerwowego, większa jasność, intuicja i spokój. Tel. +48 508 850 631.",
     color: "primary" as const,
   },
 ];
