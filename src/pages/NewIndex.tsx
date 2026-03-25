@@ -251,19 +251,19 @@ const NewIndex = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-emerald-400/20 bg-gradient-to-br from-emerald-500/5 via-background to-sky-500/5 p-8 md:p-12"
+          className="rounded-2xl border border-emerald-400/20 bg-gradient-to-br from-emerald-500/5 via-background to-sky-500/5 p-5 sm:p-6 md:p-12 overflow-hidden"
         >
           <div className="flex flex-col md:flex-row gap-8 items-start">
             {/* Left – content */}
-            <div className="flex-1">
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-emerald-400 mb-4">
-                <GraduationCap className="w-4 h-4" />
+            <div className="flex-1 min-w-0">
+              <span className="inline-flex max-w-full items-center gap-2 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.12em] sm:tracking-wider text-emerald-400 mb-3 sm:mb-4">
+                <GraduationCap className="w-4 h-4 shrink-0" />
                 Oferta dla Dyrektorów Szkół
               </span>
-              <h2 className="text-xl md:text-3xl font-bold mb-4 leading-tight">
+              <h2 className="text-lg sm:text-xl md:text-3xl font-bold mb-4 leading-[1.15] break-words">
                 Wspólnie rozwijajmy przedsiębiorczość w polskich szkołach
               </h2>
-              <p className="text-muted-foreground leading-relaxed mb-6">
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6">
                 Dyrektorze — z przyjemnością udostępnię Ci gotowy program warsztatów z przedsiębiorczości, 
                 dostosuję go do potrzeb Twojej szkoły i przygotuję wymierne wskaźniki rezultatu. 
                 Razem pokażemy, że edukacja i biznes mogą iść w parze.
