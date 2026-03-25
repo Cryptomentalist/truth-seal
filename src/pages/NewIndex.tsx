@@ -251,7 +251,7 @@ const NewIndex = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-emerald-400/20 bg-gradient-to-br from-emerald-500/5 via-background to-sky-500/5 p-5 sm:p-6 md:p-12 overflow-hidden"
+          className="rounded-2xl border border-emerald-400/20 bg-gradient-to-br from-emerald-500/5 via-background to-sky-500/5 p-4 sm:p-6 md:p-12 overflow-hidden"
         >
           <div className="flex flex-col md:flex-row gap-8 items-start">
             {/* Left – content */}
