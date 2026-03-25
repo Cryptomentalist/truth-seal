@@ -6,7 +6,7 @@ const team = [
     name: "Ada Margo Marglewska",
     role: "CEO",
     description:
-      "Łączy kropki, pozyskiwanie dotacji, strategie ESG, audyt niefinansowy. Wsparcie inwestorów i start-upów, anty-greenwashing PR, koordynator ekosystemu AI Venture Integrator, problem solver support.",
+      "Intrapreneur, Interim Manager, Coach, Pedagog. Praktyk w biznesie — nauczyciel przedsiębiorczości. Wynalazca nowej funkcjonalności — zastosowania kropek kwantowych. Strateg Błękitnego Oceanu, koordynator ekosystemu AI Venture Integrator.",
     color: "primary" as const,
     image: "https://rejestruj.biz/assets/ada-margo-2014-Ct-45GxR.jpg",
     linkedin: "https://linkedin.com/in/ada-margo-marglewska-31699a251",
