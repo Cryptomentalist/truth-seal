@@ -270,8 +270,8 @@ const FractalEconomySection = () => {
                 text: "ESG nie jako compliance, lecz jako kultura. Gentleman Agreement jako standard współpracy.",
               },
               {
-                title: "Odpowiedzialność bez rozrzutności",
-                text: "Pomoc słabszym przez system — nie przez dotacje bez struktury.",
+              title: "Myślenie systemowe",
+                text: "Fokus na wartości i jakość prowadzi do optymalizacji zarządzania zasobami organizacji — i wzrostu poczucia stabilizacji i bezpieczeństwa.",
               },
             ].map((item, i) => (
               <motion.div
