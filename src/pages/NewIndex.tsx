@@ -300,9 +300,9 @@ const NewIndex = () => {
                     href="https://www.linkedin.com/in/ada-margo-marglewska-31699a251/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm whitespace-normal text-center"
                   >
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 shrink-0" />
                     Napisz do mnie — udostępnię program
                   </a>
                 </Button>
