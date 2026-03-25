@@ -251,7 +251,7 @@ const NewIndex = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-emerald-400/20 bg-gradient-to-br from-emerald-500/5 via-background to-sky-500/5 p-5 sm:p-6 md:p-12 overflow-hidden"
+          className="rounded-2xl border border-emerald-400/20 bg-gradient-to-br from-emerald-500/5 via-background to-sky-500/5 p-4 sm:p-6 md:p-12 overflow-hidden"
         >
           <div className="flex flex-col md:flex-row gap-8 items-start">
             {/* Left – content */}
@@ -300,9 +300,9 @@ const NewIndex = () => {
                     href="https://www.linkedin.com/in/ada-margo-marglewska-31699a251/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2"
+                    className="inline-flex items-center gap-2 text-xs sm:text-sm whitespace-normal text-center"
                   >
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 shrink-0" />
                     Napisz do mnie — udostępnię program
                   </a>
                 </Button>
@@ -321,11 +321,11 @@ const NewIndex = () => {
             </div>
 
             {/* Right – photo */}
-            <div className="w-full md:w-64 flex-shrink-0">
+            <div className="hidden md:block w-64 flex-shrink-0">
               <img
                 src={esgPhilosophyPhoto}
                 alt="Filozofia ESG — zrównoważony rozwój i innowacje"
-                className="w-full h-64 md:h-80 object-cover object-top rounded-xl"
+                className="w-full h-80 object-cover object-top rounded-xl"
                 loading="lazy"
               />
             </div>
