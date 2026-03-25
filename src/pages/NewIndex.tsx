@@ -134,9 +134,9 @@ const NewIndex = () => {
                 href="https://www.linkedin.com/in/ada-margo-marglewska-31699a251/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2"
+                className="inline-flex items-center gap-2 whitespace-normal text-center text-xs sm:text-sm"
               >
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 shrink-0" />
                 Wyślij swoją odpowiedź
               </a>
             </Button>
