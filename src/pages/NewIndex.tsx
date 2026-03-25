@@ -321,11 +321,11 @@ const NewIndex = () => {
             </div>
 
             {/* Right – photo */}
-            <div className="w-full md:w-64 flex-shrink-0">
+            <div className="hidden md:block w-64 flex-shrink-0">
               <img
                 src={esgPhilosophyPhoto}
                 alt="Filozofia ESG — zrównoważony rozwój i innowacje"
-                className="w-full h-64 md:h-80 object-cover object-top rounded-xl"
+                className="w-full h-80 object-cover object-top rounded-xl"
                 loading="lazy"
               />
             </div>
