@@ -87,6 +87,14 @@ const NewIndex = () => {
               <p className="text-sm text-muted-foreground leading-relaxed">
                 <a href="https://womenonboards.app" target="_blank" rel="noopener noreferrer" className="text-primary font-semibold hover:underline">WomenOnBoards.app</a> — projekt Constellation.love wspierający kobiety w drodze do zarządów i rad nadzorczych. Mierzalny wpływ społeczny: tokenizowany mentoring, transparentne ścieżki rozwoju, realne dane o postępach.
               </p>
+              <div className="mt-3 space-y-1">
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  📌 Odpowiada <strong className="text-foreground">Celowi 5 SDGs: Równość płci</strong>
+                </p>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  Dodatkowo powiązany z <strong className="text-foreground">Celem 8: Wzrost gospodarczy i godna praca</strong> oraz <strong className="text-foreground">Celem 10: Mniej nierówności</strong>
+                </p>
+              </div>
             </div>
           </div>
         </motion.div>
