@@ -100,9 +100,11 @@ const Navbar = () => {
                   </a>
                 )
               )}
-              <Button variant="hero" size="sm" className="mt-2">
-                Zabezpiecz IP
-              </Button>
+              <a href="https://inventionproof.org" target="_blank" rel="noopener noreferrer">
+                <Button variant="hero" size="sm" className="mt-2">
+                  Zabezpiecz IP
+                </Button>
+              </a>
             </div>
           </motion.div>
         )}
