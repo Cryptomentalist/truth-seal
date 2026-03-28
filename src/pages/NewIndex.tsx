@@ -117,7 +117,7 @@ const NewIndex = () => {
           </h2>
           <blockquote className="border-l-4 border-primary/40 pl-6 mb-6">
             <p className="text-muted-foreground leading-relaxed italic text-base md:text-lg mb-4">
-              „Sukcesu nie powinno się mierzyć zajmowaną pozycją ani samym osiągnięciem celu — ale ilością kłód rzucanych pod nogi, które trzeba było pokonać, żeby tam dotrzeć."
+              „W Constellation.love sukcesu nie mierzymy pozycją, statusem ani samym wynikiem. Po równo nie znaczy sprawiedliwie. Prawdziwą wartość człowieka i projektu pokazuje to, ile przeszkód musiał i potrafił pokonać po drodze, oraz czy zrobił to bez utraty kręgosłupa moralnego."
             </p>
             <footer className="text-sm text-foreground/80 not-italic">
               <strong className="text-primary">— Ada Margo Marglewska</strong>
