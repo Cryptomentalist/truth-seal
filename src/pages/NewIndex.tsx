@@ -82,6 +82,12 @@ const NewIndex = () => {
                 <span>Promujemy markę Polski na arenie międzynarodowej poprzez etyczny biznes</span>
               </li>
             </ul>
+            <div className="mt-4 pt-4 border-t border-primary/10">
+              <p className="text-xs text-muted-foreground mb-1 font-mono uppercase tracking-wider text-accent">Przykład S-Impact w praktyce:</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <a href="https://womenonboard.app" target="_blank" rel="noopener noreferrer" className="text-primary font-semibold hover:underline">WomenOnBoard.app</a> — projekt Constellation.love wspierający kobiety w drodze do zarządów i rad nadzorczych. Mierzalny wpływ społeczny: tokenizowany mentoring, transparentne ścieżki rozwoju, realne dane o postępach.
+              </p>
+            </div>
           </div>
         </motion.div>
       </section>
