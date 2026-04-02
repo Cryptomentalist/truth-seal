@@ -22,7 +22,7 @@ const categories = [
       },
       {
         q: "Jak działa wymiana barterowa wewnątrz ekosystemu?",
-        a: "Projekty są komplementarne na tyle, że mogą wymieniać usługi, zasoby i wartość bezpośrednio — np. InventionProof chroni IP startupu z AI Studio, który z kolei dostarcza technologię do BarterChain. Obniża to koszty transakcyjne niemal do zera.",
+        a: "Projekty są komplementarne na tyle, że mogą wymieniać usługi, zasoby i wartość bezpośrednio — np. InventorProof chroni IP startupu z AI Studio, który z kolei dostarcza technologię do BarterChain. Obniża to koszty transakcyjne niemal do zera.",
       },
       {
         q: "Dlaczego ekosystem, a nie pojedynczy startup?",
@@ -35,11 +35,11 @@ const categories = [
     questions: [
       {
         q: "Jaki jest model przychodowy ekosystemu?",
-        a: "Ekosystem generuje przychody wielokanałowo: licencje technologiczne (InventionProof, MindMark™), usługi konsultingowe i audytowe (ESG, rejestracja firm), integracje ERP (COMARCH), oraz opłaty transakcyjne w BarterChain. Dywersyfikacja źródeł to klucz do odporności.",
+        a: "Ekosystem generuje przychody wielokanałowo: licencje technologiczne (InventorProof, MindMark™), usługi konsultingowe i audytowe (ESG, rejestracja firm), integracje ERP (COMARCH), oraz opłaty transakcyjne w BarterChain. Dywersyfikacja źródeł to klucz do odporności.",
       },
       {
         q: "Na jakim etapie rozwoju jest projekt?",
-        a: "Ekosystem działa — posiada patronat MRiT (Ministerstwo Rozwoju i Technologii), partnerstwo z COMARCH, działającą platformę InventionProof.com oraz zespół z 20+ latami doświadczenia w pozyskiwaniu dotacji i budowaniu startupów.",
+        a: "Ekosystem działa — posiada patronat MRiT (Ministerstwo Rozwoju i Technologii), partnerstwo z COMARCH, działającą platformę InventorProof.com oraz zespół z 20+ latami doświadczenia w pozyskiwaniu dotacji i budowaniu startupów.",
       },
       {
         q: "Czy ekosystem pozyskuje dotacje UE?",
@@ -47,7 +47,7 @@ const categories = [
       },
       {
         q: "Jak minimalizujecie ryzyko inwestycyjne?",
-        a: "Trzypoziomowo: (1) dual use — inwestor korzysta z produktów od dnia pierwszego, (2) komplementarność — dywersyfikacja wewnątrz ekosystemu, (3) InventionProof — ochrona IP na etapie pre-patentowym chroni przed kradzieżą technologii zanim dojdzie do komercjalizacji.",
+        a: "Trzypoziomowo: (1) dual use — inwestor korzysta z produktów od dnia pierwszego, (2) komplementarność — dywersyfikacja wewnątrz ekosystemu, (3) InventorProof — ochrona IP na etapie pre-patentowym chroni przed kradzieżą technologii zanim dojdzie do komercjalizacji.",
       },
     ],
   },
@@ -59,8 +59,8 @@ const categories = [
         a: "MindMark™ to nasza usługa ochrony własności intelektualnej na etapie pre-patentowym. Wykorzystuje infrastrukturę blockchain (rozproszony zapis cyfrowy) z kryptografią 256-bit i znacznikiem czasowym, by stworzyć niepodważalny dowód autorstwa — zanim pomysł trafi do jakiejkolwiek instytucji.",
       },
       {
-        q: "Czym różni się InventionProof od patentu?",
-        a: 'Patent chroni po ujawnieniu \u2014 InventionProof chroni przed ujawnieniem. Wype\u0142niamy "luk\u0119 pre-patentow\u0105": okres, w kt\u00f3rym wynalazca musi dzieli\u0107 si\u0119 pomys\u0142em z instytucjami (laboratoria, inwestorzy, partnerzy), ale nie ma jeszcze \u017cadnej formalnej ochrony.',
+        q: "Czym różni się InventorProof od patentu?",
+        a: 'Patent chroni po ujawnieniu \u2014 InventorProof chroni przed ujawnieniem. Wype\u0142niamy "luk\u0119 pre-patentow\u0105": okres, w kt\u00f3rym wynalazca musi dzieli\u0107 si\u0119 pomys\u0142em z instytucjami (laboratoria, inwestorzy, partnerzy), ale nie ma jeszcze \u017cadnej formalnej ochrony.',
       },
       {
         q: "Jaka jest rola COMARCH w ekosystemie?",

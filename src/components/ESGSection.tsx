@@ -122,7 +122,7 @@ const ESGSection = () => {
             To ekosystem, który działa jak państwo w państwie — ale w tym białym, a nie czarnym znaczeniu. Tworzymy komplementarne przedsięwzięcia, aby ekosystem był samowystarczalny i odporny na kryzysy.
           </p>
           <p className="text-sm sm:text-base text-muted-foreground mb-4 leading-relaxed">
-            To jak w piramidzie Maslowa: zaspokajamy wszystkie potrzeby do życia. InventionProof jest elementem komplementarnym w tym ekosystemie — chroni innowacje, które napędzają cały system.
+            To jak w piramidzie Maslowa: zaspokajamy wszystkie potrzeby do życia. InventorProof jest elementem komplementarnym w tym ekosystemie — chroni innowacje, które napędzają cały system.
           </p>
           <p className="text-sm sm:text-base text-muted-foreground mb-6 leading-relaxed">
             Razem budujemy markę <span className="text-accent font-semibold">Made in Poland · Polish Quality</span> — na arenie międzynarodowej.

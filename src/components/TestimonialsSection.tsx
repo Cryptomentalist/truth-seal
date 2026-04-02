@@ -4,7 +4,7 @@ import { Quote, Star } from "lucide-react";
 const testimonials = [
   {
     quote:
-      "Dzięki InventionProof zabezpieczyłem swój wynalazek w 10 minut — zanim jeszcze złożyłem wniosek patentowy. To dało mi spokój ducha na negocjacjach z inwestorem.",
+      "Dzięki InventorProof zabezpieczyłem swój wynalazek w 10 minut — zanim jeszcze złożyłem wniosek patentowy. To dało mi spokój ducha na negocjacjach z inwestorem.",
     author: "Marek K.",
     role: "Wynalazca, sektor cleantech",
     stars: 5,
@@ -18,7 +18,7 @@ const testimonials = [
   },
   {
     quote:
-      "Jako rzecznik patentowy polecam InventionProof każdemu klientowi na etapie pre-patentowym. To profesjonalne narzędzie, którego brakowało na rynku.",
+      "Jako rzecznik patentowy polecam InventorProof każdemu klientowi na etapie pre-patentowym. To profesjonalne narzędzie, którego brakowało na rynku.",
     author: "Tomasz L.",
     role: "Rzecznik patentowy",
     stars: 5,

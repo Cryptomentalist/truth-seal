@@ -147,7 +147,7 @@ const modulesROI: ModuleROI[] = [
   },
   {
     icon: ShieldCheck,
-    title: "MindMark™ / InventionProof",
+    title: "MindMark™ / InventorProof",
     color: "text-amber-400",
     bg: "bg-amber-400/10 border-amber-400/20",
     sliders: [

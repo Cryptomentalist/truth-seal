@@ -31,7 +31,7 @@ const DisclaimerSection = () => {
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mt-4 mb-6">
             Czym <span className="text-gradient-primary">jest</span>, a czym{" "}
-            <span className="text-muted-foreground">nie jest</span> InventionProof?
+            <span className="text-muted-foreground">nie jest</span> InventorProof?
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Transparentność buduje zaufanie. Oto jasne wyjaśnienie granic naszej usługi.
@@ -51,7 +51,7 @@ const DisclaimerSection = () => {
               <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                 <CheckCircle2 className="w-5 h-5 text-primary" />
               </div>
-              <h3 className="text-lg font-bold">InventionProof JEST</h3>
+              <h3 className="text-lg font-bold">InventorProof JEST</h3>
             </div>
             <ul className="space-y-4">
               {isItems.map((item, i) => (
@@ -75,7 +75,7 @@ const DisclaimerSection = () => {
               <div className="w-10 h-10 rounded-lg bg-destructive/10 flex items-center justify-center">
                 <XCircle className="w-5 h-5 text-destructive" />
               </div>
-              <h3 className="text-lg font-bold">InventionProof NIE JEST</h3>
+              <h3 className="text-lg font-bold">InventorProof NIE JEST</h3>
             </div>
             <ul className="space-y-4">
               {isNotItems.map((item, i) => (
@@ -99,7 +99,7 @@ const DisclaimerSection = () => {
           <Info className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
           <p className="text-sm text-muted-foreground leading-relaxed">
             <span className="font-semibold text-secondary-foreground">Nota prawna:</span>{" "}
-            InventionProof.com oferuje usługę MindMark™ — ochronę własności intelektualnej 
+            InventorProof.com oferuje usługę MindMark™ — ochronę własności intelektualnej 
             opartą na infrastrukturze blockchain (rozproszonego zapisu cyfrowego). Dowód ten 
             może stanowić element materiału dowodowego, ale nie zastępuje formalnej 
             ochrony patentowej. W celu pełnej ochrony IP rekomendujemy współpracę z 

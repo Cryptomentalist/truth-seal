@@ -73,7 +73,7 @@ export const roadmapSteps: RoadmapStep[] = [
     desc: "Walidacja pomysłu, identyfikacja potrzeby rynkowej i wstępna analiza wykonalności.",
     details: "Warsztat design thinking, analiza trendów rynkowych, identyfikacja grupy docelowej, wstępna mapa wartości.",
     duration: "1–2 tyg.",
-    eco: { name: "AI Start-up Studio", url: "https://inventionproof.com" },
+    eco: { name: "AI Start-up Studio", url: "https://inventorproof.com" },
   },
   {
     icon: Search, title: "UVP — Unique Valuable Product", maslow: "jakosc",
@@ -113,7 +113,7 @@ export const roadmapSteps: RoadmapStep[] = [
     desc: "Zabezpieczenie IP przed ujawnieniem — cyfrowy dowód istnienia wynalazku z technologią MindMark™.",
     details: "Zgłoszenie tymczasowe do UPRP, przygotowanie opisu wynalazku, NDA z partnerami, rejestr tajemnic przedsiębiorstwa. MindMark™ tworzy niepodważalny dowód pierwszeństwa.",
     duration: "2–4 tyg.",
-    eco: { name: "InventionProof.com", url: "https://inventionproof.com" },
+    eco: { name: "InventorProof.com", url: "https://inventorproof.com" },
   },
   {
     icon: Rocket, title: "Stworzenie MVP", maslow: "rozwoj",
@@ -121,7 +121,7 @@ export const roadmapSteps: RoadmapStep[] = [
     details: "Prototypowanie, iteracje z użytkownikami, testy użyteczności, zbieranie danych do dalszego rozwoju.",
     duration: "8–16 tyg.",
     eco: [
-      { name: "AI Start-up Studio", url: "https://inventionproof.com" },
+      { name: "AI Start-up Studio", url: "https://inventorproof.com" },
       { name: "intrapreneurs.app", url: "https://intrapreneurs.app" },
     ],
   },
@@ -136,7 +136,7 @@ export const roadmapSteps: RoadmapStep[] = [
     desc: "Pełne zgłoszenie patentowe — krajowe i międzynarodowe (PCT, EPO).",
     details: "Redakcja zastrzeżeń patentowych, zgłoszenie do UPRP, procedura PCT dla ochrony międzynarodowej, strategia IP.",
     duration: "4–12 tyg.",
-    eco: { name: "InventionProof.com", url: "https://inventionproof.com" },
+    eco: { name: "InventorProof.com", url: "https://inventorproof.com" },
   },
   {
     icon: Landmark, title: "Dotacja na wdrożenie", maslow: "rozwoj",
@@ -188,7 +188,7 @@ export const roadmapSteps: RoadmapStep[] = [
     desc: "Rozwój sprzedaży, partnerstwa strategiczne, ekspansja na nowe rynki.",
     details: "Pipeline sprzedażowy, partnerstwa B2B, ekspansja zagraniczna, programy pilotażowe z korporacjami.",
     duration: "ciągły",
-    eco: { name: "BarterChain", url: "https://inventionproof.com" },
+    eco: { name: "BarterChain", url: "https://inventorproof.com" },
   },
   {
     icon: Rocket, title: "Dotacja na skalowanie biznesu", maslow: "samow",

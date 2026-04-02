@@ -3,7 +3,7 @@ import maslowImg from "@/assets/maslow-ecosystem.jpg";
 
 const nodes = [
   { id: "core", label: "AI Venture\nIntegrator", x: 50, y: 50, size: 80, color: "primary", glow: true },
-  { id: "invention", label: "InventionProof", x: 18, y: 18, size: 52, color: "accent" },
+  { id: "invention", label: "InventorProof", x: 18, y: 18, size: 52, color: "accent" },
   { id: "startup", label: "AI Start-up\nStudio", x: 82, y: 18, size: 52, color: "accent" },
   { id: "barter", label: "BarterChain", x: 15, y: 75, size: 48, color: "accent" },
   { id: "comarch", label: "COMARCH\nERP XL", x: 85, y: 75, size: 48, color: "accent" },
