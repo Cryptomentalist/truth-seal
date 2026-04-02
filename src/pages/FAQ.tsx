@@ -39,7 +39,7 @@ const categories = [
       },
       {
         q: "Na jakim etapie rozwoju jest projekt?",
-        a: "Ekosystem działa — posiada patronat MRiT (Ministerstwo Rozwoju i Technologii), partnerstwo z COMARCH, działającą platformę InventionProof.org oraz zespół z 20+ latami doświadczenia w pozyskiwaniu dotacji i budowaniu startupów.",
+        a: "Ekosystem działa — posiada patronat MRiT (Ministerstwo Rozwoju i Technologii), partnerstwo z COMARCH, działającą platformę InventionProof.com oraz zespół z 20+ latami doświadczenia w pozyskiwaniu dotacji i budowaniu startupów.",
       },
       {
         q: "Czy ekosystem pozyskuje dotacje UE?",

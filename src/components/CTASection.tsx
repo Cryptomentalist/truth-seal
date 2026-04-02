@@ -24,7 +24,7 @@ const CTASection = () => {
 
           <p className="text-muted-foreground text-lg mb-10 max-w-xl mx-auto">
             Teraz wreszcie — jest to możliwe.
-            InventionProof.org to brakujący bezpiecznik polskiego systemu innowacji.
+            InventionProof.com to brakujący bezpiecznik polskiego systemu innowacji.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

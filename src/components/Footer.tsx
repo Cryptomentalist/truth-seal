@@ -14,7 +14,7 @@ const Footer = () => {
           MindMark™ · Pre-patent · Deep-tech · S-Impact
         </p>
         <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} InventionProof.org
+          © {new Date().getFullYear()} InventionProof.com
         </p>
       </div>
     </footer>
