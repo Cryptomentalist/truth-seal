@@ -23,7 +23,7 @@ const branches: MapNode[] = [
     icon: ShieldCheck,
     color: "text-emerald-400",
     children: [
-      { name: "InventionProof.org", url: "https://inventionproof.org" },
+      { name: "InventionProof.com", url: "https://inventionproof.com" },
       { name: "MindMark™ (pre-patent)" },
       { name: "Patenty krajowe & PCT" },
     ],

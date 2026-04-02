@@ -99,7 +99,7 @@ const DisclaimerSection = () => {
           <Info className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
           <p className="text-sm text-muted-foreground leading-relaxed">
             <span className="font-semibold text-secondary-foreground">Nota prawna:</span>{" "}
-            InventionProof.org oferuje usługę MindMark™ — ochronę własności intelektualnej 
+            InventionProof.com oferuje usługę MindMark™ — ochronę własności intelektualnej 
             opartą na infrastrukturze blockchain (rozproszonego zapisu cyfrowego). Dowód ten 
             może stanowić element materiału dowodowego, ale nie zastępuje formalnej 
             ochrony patentowej. W celu pełnej ochrony IP rekomendujemy współpracę z 
