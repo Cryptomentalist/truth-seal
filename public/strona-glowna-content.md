@@ -1,4 +1,4 @@
-# InventionProof.org — Strona Główna (pełna treść)
+# InventionProof.com — Strona Główna (pełna treść)
 
 ---
 
@@ -90,7 +90,7 @@ Zmień choćby jedną literę — cały odcisk zmieni się całkowicie. To Twoje
 
 [Zapieczętuj dowód w MindMark™]
 
-> To symulacja edukacyjna. W produkcji InventionProof.org używa technologii MindMark™ — rozproszonego zapisu cyfrowego nie do podrobienia i nie do wymazania.
+> To symulacja edukacyjna. W produkcji InventionProof.com używa technologii MindMark™ — rozproszonego zapisu cyfrowego nie do podrobienia i nie do wymazania.
 
 ---
 
@@ -110,7 +110,7 @@ Transparentność buduje zaufanie. Oto jasne wyjaśnienie granic naszej usługi.
 - Nie stanowi porady prawnej — zalecamy konsultację z rzecznikiem patentowym
 - Nie jest oficjalnym dokumentem urzędowym
 
-**Nota prawna:** InventionProof.org wykorzystuje technologię MindMark™ — rozproszony zapis cyfrowy nie do podrobienia i nie do wymazania — do tworzenia dowodu istnienia dokumentacji. Dowód ten może stanowić element materiału dowodowego, ale nie zastępuje formalnej ochrony patentowej. W celu pełnej ochrony IP rekomendujemy współpracę z rzecznikiem patentowym.
+**Nota prawna:** InventionProof.com wykorzystuje technologię MindMark™ — rozproszony zapis cyfrowy nie do podrobienia i nie do wymazania — do tworzenia dowodu istnienia dokumentacji. Dowód ten może stanowić element materiału dowodowego, ale nie zastępuje formalnej ochrony patentowej. W celu pełnej ochrony IP rekomendujemy współpracę z rzecznikiem patentowym.
 
 ---
 
@@ -236,7 +236,7 @@ Sprawiedliwość to nie dawanie każdemu tego samego — to dawanie każdemu teg
 
 Komplementarne przedsięwzięcia połączone w jeden ekosystem. Każdy projekt uzupełnia pozostałe — do tego stopnia, że możliwa jest bezpośrednia wymiana barterowa wartości, usług i zasobów między nimi.
 
-- **InventionProof** — Ochrona własności intelektualnej z cyfrowym dowodem autorstwa (https://inventionproof.org)
+- **InventionProof** — Ochrona własności intelektualnej z cyfrowym dowodem autorstwa (https://inventionproof.com)
 - **AI Start-up Studio** — Inkubacja i akceleracja projektów opartych o sztuczną inteligencję
 - **BarterChain** — Wymiana wartości i usług między projektami ekosystemu — bez pośredników
 - **Więcej projektów…** — Każdy projekt uzupełnia pozostałe, tworząc samowystarczalny organizm gospodarczy
@@ -276,7 +276,7 @@ Legenda:
 
 ### Czy chronimy pomysł wtedy, kiedy naprawdę jest to potrzebne?
 
-Teraz wreszcie — jest to możliwe. InventionProof.org to brakujący bezpiecznik polskiego systemu innowacji.
+Teraz wreszcie — jest to możliwe. InventionProof.com to brakujący bezpiecznik polskiego systemu innowacji.
 
 [Zacznij chronić swoje IP] [Skontaktuj się z nami]
 
@@ -319,6 +319,6 @@ Intrapreneur w Sant‑Tech Sp. z o.o., laureatka nagrody Mikroprzedsiębiorca Ro
 
 ## Stopka
 
-InventionProof.org · MindMark™ · Pre-patent · Deep-tech · S-Impact
+InventionProof.com · MindMark™ · Pre-patent · Deep-tech · S-Impact
 
-© 2026 InventionProof.org
+© 2026 InventionProof.com
