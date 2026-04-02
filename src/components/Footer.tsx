@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="flex items-center gap-2 font-bold">
           <Shield className="w-5 h-5 text-primary" />
           <span>
-            Invention<span className="text-primary">Proof</span>.org
+            Inventor<span className="text-primary">Proof</span>.com
           </span>
         </div>
         <p className="text-sm text-muted-foreground text-center">
