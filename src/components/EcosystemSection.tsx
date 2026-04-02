@@ -5,9 +5,9 @@ import { Network, ArrowRightLeft, Rocket, ShieldCheck, Users, ExternalLink, Bot 
 const projects = [
   {
     icon: ShieldCheck,
-    name: "InventionProof",
+    name: "InventorProof",
     desc: "Ochrona własności intelektualnej z cyfrowym dowodem autorstwa",
-    link: "https://inventionproof.com",
+    link: "https://inventorproof.com",
   },
   {
     icon: Rocket,

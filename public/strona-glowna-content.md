@@ -1,4 +1,4 @@
-# InventionProof.com — Strona Główna (pełna treść)
+# InventorProof.com — Strona Główna (pełna treść)
 
 ---
 
@@ -90,27 +90,27 @@ Zmień choćby jedną literę — cały odcisk zmieni się całkowicie. To Twoje
 
 [Zapieczętuj dowód w MindMark™]
 
-> To symulacja edukacyjna. W produkcji InventionProof.com używa technologii MindMark™ — rozproszonego zapisu cyfrowego nie do podrobienia i nie do wymazania.
+> To symulacja edukacyjna. W produkcji InventorProof.com używa technologii MindMark™ — rozproszonego zapisu cyfrowego nie do podrobienia i nie do wymazania.
 
 ---
 
-## Ważne informacje — Czym jest, a czym nie jest InventionProof?
+## Ważne informacje — Czym jest, a czym nie jest InventorProof?
 
 Transparentność buduje zaufanie. Oto jasne wyjaśnienie granic naszej usługi.
 
-### InventionProof JEST:
+### InventorProof JEST:
 - Niepodważalny cyfrowy dowód istnienia dokumentu z dokładną datą
 - Narzędzie do zabezpieczenia pierwszeństwa przed złożeniem patentu
 - Dowód uzupełniający w postępowaniach sądowych i arbitrażowych
 - Ochrona dostępna natychmiast, bez czekania na decyzję urzędu
 
-### InventionProof NIE JEST:
+### InventorProof NIE JEST:
 - Nie zastępuje patentu ani żadnej formalnej rejestracji IP
 - Nie gwarantuje ochrony patentowej bez dalszych kroków prawnych
 - Nie stanowi porady prawnej — zalecamy konsultację z rzecznikiem patentowym
 - Nie jest oficjalnym dokumentem urzędowym
 
-**Nota prawna:** InventionProof.com wykorzystuje technologię MindMark™ — rozproszony zapis cyfrowy nie do podrobienia i nie do wymazania — do tworzenia dowodu istnienia dokumentacji. Dowód ten może stanowić element materiału dowodowego, ale nie zastępuje formalnej ochrony patentowej. W celu pełnej ochrony IP rekomendujemy współpracę z rzecznikiem patentowym.
+**Nota prawna:** InventorProof.com wykorzystuje technologię MindMark™ — rozproszony zapis cyfrowy nie do podrobienia i nie do wymazania — do tworzenia dowodu istnienia dokumentacji. Dowód ten może stanowić element materiału dowodowego, ale nie zastępuje formalnej ochrony patentowej. W celu pełnej ochrony IP rekomendujemy współpracę z rzecznikiem patentowym.
 
 ---
 
@@ -210,7 +210,7 @@ Promujemy markę Polski na arenie międzynarodowej: **Made in Poland** — **Pol
 
 To ekosystem, który działa jak państwo w państwie — ale w tym białym, a nie czarnym znaczeniu. Tworzymy komplementarne przedsięwzięcia, aby ekosystem był samowystarczalny i odporny na kryzysy.
 
-To jak w piramidzie Maslowa: zaspokajamy wszystkie potrzeby do życia. InventionProof jest elementem komplementarnym w tym ekosystemie — chroni innowacje, które napędzają cały system.
+To jak w piramidzie Maslowa: zaspokajamy wszystkie potrzeby do życia. InventorProof jest elementem komplementarnym w tym ekosystemie — chroni innowacje, które napędzają cały system.
 
 Razem budujemy markę **Made in Poland · Polish Quality** — na arenie międzynarodowej.
 
@@ -236,7 +236,7 @@ Sprawiedliwość to nie dawanie każdemu tego samego — to dawanie każdemu teg
 
 Komplementarne przedsięwzięcia połączone w jeden ekosystem. Każdy projekt uzupełnia pozostałe — do tego stopnia, że możliwa jest bezpośrednia wymiana barterowa wartości, usług i zasobów między nimi.
 
-- **InventionProof** — Ochrona własności intelektualnej z cyfrowym dowodem autorstwa (https://inventionproof.com)
+- **InventorProof** — Ochrona własności intelektualnej z cyfrowym dowodem autorstwa (https://inventorproof.com)
 - **AI Start-up Studio** — Inkubacja i akceleracja projektów opartych o sztuczną inteligencję
 - **BarterChain** — Wymiana wartości i usług między projektami ekosystemu — bez pośredników
 - **Więcej projektów…** — Każdy projekt uzupełnia pozostałe, tworząc samowystarczalny organizm gospodarczy
@@ -252,7 +252,7 @@ Każdy element ekosystemu jest połączony z pozostałymi — tworząc samowysta
 
 Elementy mapy:
 - **AI Venture Integrator** (centrum)
-- InventionProof
+- InventorProof
 - AI Start-up Studio
 - BarterChain
 - COMARCH ERP XL
@@ -276,7 +276,7 @@ Legenda:
 
 ### Czy chronimy pomysł wtedy, kiedy naprawdę jest to potrzebne?
 
-Teraz wreszcie — jest to możliwe. InventionProof.com to brakujący bezpiecznik polskiego systemu innowacji.
+Teraz wreszcie — jest to możliwe. InventorProof.com to brakujący bezpiecznik polskiego systemu innowacji.
 
 [Zacznij chronić swoje IP] [Skontaktuj się z nami]
 
@@ -319,6 +319,6 @@ Intrapreneur w Sant‑Tech Sp. z o.o., laureatka nagrody Mikroprzedsiębiorca Ro
 
 ## Stopka
 
-InventionProof.com · MindMark™ · Pre-patent · Deep-tech · S-Impact
+InventorProof.com · MindMark™ · Pre-patent · Deep-tech · S-Impact
 
-© 2026 InventionProof.com
+© 2026 InventorProof.com

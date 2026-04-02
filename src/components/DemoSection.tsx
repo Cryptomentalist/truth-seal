@@ -263,7 +263,7 @@ const DemoSection = () => {
 
         {/* Disclaimer */}
         <p className="text-center text-xs text-muted-foreground mt-8 max-w-md mx-auto">
-          To symulacja edukacyjna. W produkcji InventionProof.com oferuje usługę MindMark™ 
+          To symulacja edukacyjna. W produkcji InventorProof.com oferuje usługę MindMark™ 
           — ochronę IP opartą na infrastrukturze blockchain (rozproszonego zapisu cyfrowego).
         </p>
       </div>

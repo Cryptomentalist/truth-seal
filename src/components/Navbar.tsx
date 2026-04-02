@@ -52,7 +52,7 @@ const Navbar = () => {
               </a>
             )
           )}
-          <a href="https://inventionproof.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://inventorproof.com" target="_blank" rel="noopener noreferrer">
             <Button variant="hero" size="sm">
               Zabezpiecz IP
             </Button>
@@ -100,7 +100,7 @@ const Navbar = () => {
                   </a>
                 )
               )}
-              <a href="https://inventionproof.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://inventorproof.com" target="_blank" rel="noopener noreferrer">
                 <Button variant="hero" size="sm" className="mt-2">
                   Zabezpiecz IP
                 </Button>

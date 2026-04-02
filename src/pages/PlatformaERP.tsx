@@ -64,7 +64,7 @@ const modules = [
   {
     icon: ShieldCheck,
     tag: "Projekty / R&D",
-    title: "MindMark™ / InventionProof",
+    title: "MindMark™ / InventorProof",
     color: "text-amber-400",
     bg: "bg-amber-400/10 border-amber-400/20",
     ringColor: "ring-amber-400/30",
@@ -138,7 +138,7 @@ const roadmapPhases = [
     icon: Target,
     color: "text-amber-400",
     bg: "bg-amber-400/10 border-amber-400/20",
-    modules: ["MindMark™ / InventionProof", "ESG Compliance"],
+    modules: ["MindMark™ / InventorProof", "ESG Compliance"],
     reason: "Presja regulacyjna CSRD 2026 + rosnące zapotrzebowanie na ochronę IP w sektorze innowacji.",
   },
   {

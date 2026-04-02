@@ -34,7 +34,7 @@ const projects = [
   },
   {
     icon: ShieldCheck,
-    name: "InventionProof",
+    name: "InventorProof",
     desc: "Ochrona własności intelektualnej z cyfrowym dowodem autorstwa — bez patentów, bez prawników, w kilka minut.",
   },
   {
@@ -506,7 +506,7 @@ const Ekosystem = () => {
       {/* Footer link back */}
       <footer className="py-8 px-4 border-t border-border/30 text-center">
         <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-          ← Powrót do strony głównej InventionProof
+          ← Powrót do strony głównej InventorProof
         </Link>
       </footer>
     </div>
