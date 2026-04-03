@@ -3,6 +3,7 @@ import { Layers, Search, Link2, Rocket, TrendingUp, Quote, Gem, Users, Globe, Sp
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -92,6 +93,7 @@ const operationalSteps = [
 const PolishAssets = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead title="PolishAssets" description="Polska platforma waloryzacji aktywów — piramida wartości, tokenizacja i promocja polskich innowacji na arenie międzynarodowej." path="/polishassets" />
       <TopBanner />
       <Navbar />
 

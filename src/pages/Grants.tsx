@@ -15,6 +15,7 @@ import RoadmapTimeline from "@/components/grants/RoadmapTimeline";
 import TaxCalculator from "@/components/grants/TaxCalculator";
 import EcosystemMindMap from "@/components/grants/EcosystemMindMap";
 import BrandEmploymentOffer from "@/components/grants/BrandEmploymentOffer";
+import SEOHead from "@/components/SEOHead";
 
 /* ── Data ────────────────────────────────────────────── */
 
@@ -50,7 +51,7 @@ const achievements = [
 const GrantsPage = () => {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      <SEOHead title="Dotacje & Ulgi" description="Strategia grantowa, ulgi podatkowe IP Box i B+R — finansowanie innowacji w ekosystemie Constellation.love." path="/dotacje" />
       <div className="glass-surface border-b border-border/50 sticky top-0 z-50">
         <div className="container flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 font-bold text-lg">

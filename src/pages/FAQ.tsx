@@ -7,6 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import SEOHead from "@/components/SEOHead";
 
 const categories = [
   {
@@ -90,7 +91,7 @@ const categories = [
 const FAQ = () => {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      <SEOHead title="FAQ" description="Najczęściej zadawane pytania o ekosystem Constellation.love, model dual use, Gospodarkę Fraktalną i technologie." path="/faq" />
       <div className="glass-surface border-b border-border/50">
         <div className="container flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 font-bold text-lg">
