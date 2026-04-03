@@ -93,7 +93,8 @@ const operationalSteps = [
 const PolishAssets = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title="PolishAssets" description="Polska platforma waloryzacji aktywów — piramida wartości, tokenizacja i promocja polskich innowacji na arenie międzynarodowej." path="/polishassets" />
+      <SEOHead title="PolishAssets.com" description="PolishAssets.com — platforma waloryzacji aktywów — piramida wartości, tokenizacja i promocja polskich innowacji na arenie międzynarodowej." path="/polishassets" />
+
       <TopBanner />
       <Navbar />
 
@@ -214,7 +215,7 @@ const PolishAssets = () => {
             Model operacyjny
           </span>
           <h2 className="text-2xl sm:text-4xl font-black leading-tight mb-4">
-            PolishAssets
+            PolishAssets.com
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             PolishAssets is not a platform. It is a system that identifies assets, evaluates their potential, and connects them into value-generating structures.
