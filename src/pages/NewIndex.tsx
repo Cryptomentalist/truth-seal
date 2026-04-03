@@ -8,10 +8,16 @@ import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
 import DonationSection from "@/components/DonationSection";
 import FractalEconomySection from "@/components/FractalEconomySection";
+import SEOHead from "@/components/SEOHead";
 
 const NewIndex = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="AI Venture Anticrisis Integrator"
+        description="Samowystarczalny ekosystem oparty na Gospodarce Fraktalnej. InventorProof, MindMark, PolishAssets — myśl lateralnie, twórz Blue Ocean."
+        path="/"
+      />
       <TopBanner />
       <Navbar />
       <header className="pt-28 pb-4">

@@ -4,6 +4,7 @@ import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import StarsRoadmap from "@/components/StarsRoadmap";
+import SEOHead from "@/components/SEOHead";
 
 const projectColors = [
   "from-rose-500/20 to-rose-600/10 border-rose-400/30",
@@ -71,6 +72,11 @@ const projects = [
 const Projekty = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Projekty — Stars Roadmap"
+        description="18 kroków do skalowania innowacji. Poznaj projekty ekosystemu Constellation.love: InventorProof, MindMark, PolishAssets i więcej."
+        path="/projekty"
+      />
       <TopBanner />
       <Navbar />
 

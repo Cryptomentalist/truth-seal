@@ -3,6 +3,7 @@ import { Lightbulb, Compass, Waves, Zap, Brain, ArrowRight } from "lucide-react"
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 
 const facts = [
   {
@@ -38,6 +39,11 @@ const facts = [
 const Ciekawostki = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHead
+        title="Ciekawostki & Filozofia"
+        description="Myśl lateralnie, twórz Blue Ocean. Filozofia ekosystemu: Efekt Wydmy, Gospodarka Fraktalna, Dual Use i myślenie systemowe."
+        path="/ciekawostki"
+      />
       <TopBanner />
       <Navbar />
 

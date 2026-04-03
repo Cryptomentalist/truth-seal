@@ -13,10 +13,16 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import EcosystemPhilosophySection from "@/components/EcosystemPhilosophySection";
+import SEOHead from "@/components/SEOHead";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Oferta — InventorProof"
+        description="Kryptograficzny dowód istnienia wynalazku na etapie pre-patentowym. Blockchain chroni Twoje IP zanim ktokolwiek je zobaczy."
+        path="/oferta"
+      />
       <TopBanner />
       <Navbar />
       <HeroSection />
