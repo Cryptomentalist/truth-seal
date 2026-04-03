@@ -18,6 +18,11 @@ import SEOHead from "@/components/SEOHead";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Oferta — InventorProof"
+        description="Kryptograficzny dowód istnienia wynalazku na etapie pre-patentowym. Blockchain chroni Twoje IP zanim ktokolwiek je zobaczy."
+        path="/oferta"
+      />
       <TopBanner />
       <Navbar />
       <HeroSection />

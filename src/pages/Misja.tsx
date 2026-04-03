@@ -11,6 +11,11 @@ import SEOHead from "@/components/SEOHead";
 const Misja = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Misja & ESG"
+        description="Misja ekosystemu Constellation.love — neuroróżnorodność, ESG, zrównoważony rozwój i Gospodarka Fraktalna."
+        path="/misja"
+      />
       <TopBanner />
       <Navbar />
       <section className="pt-32 pb-12 text-center container max-w-3xl">

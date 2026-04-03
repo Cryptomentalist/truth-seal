@@ -72,6 +72,11 @@ const projects = [
 const Projekty = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="Projekty — Stars Roadmap"
+        description="18 kroków do skalowania innowacji. Poznaj projekty ekosystemu Constellation.love: InventorProof, MindMark, PolishAssets i więcej."
+        path="/projekty"
+      />
       <TopBanner />
       <Navbar />
 

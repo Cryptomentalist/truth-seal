@@ -39,6 +39,11 @@ const facts = [
 const Ciekawostki = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHead
+        title="Ciekawostki & Filozofia"
+        description="Myśl lateralnie, twórz Blue Ocean. Filozofia ekosystemu: Efekt Wydmy, Gospodarka Fraktalna, Dual Use i myślenie systemowe."
+        path="/ciekawostki"
+      />
       <TopBanner />
       <Navbar />
 
