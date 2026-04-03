@@ -3,6 +3,7 @@ import { Lightbulb, Compass, Waves, Zap, Brain, ArrowRight } from "lucide-react"
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 
 const facts = [
   {

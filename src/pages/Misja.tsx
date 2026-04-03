@@ -6,6 +6,7 @@ import EcosystemSection from "@/components/EcosystemSection";
 import EcosystemStructureSection from "@/components/EcosystemStructureSection";
 import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
+import SEOHead from "@/components/SEOHead";
 
 const Misja = () => {
   return (
