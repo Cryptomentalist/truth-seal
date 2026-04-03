@@ -4,6 +4,7 @@ import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
+import HomoPredictusManifesto from "@/components/HomoPredictusManifesto";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
