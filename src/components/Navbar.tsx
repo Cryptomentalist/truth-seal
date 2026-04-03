@@ -15,6 +15,7 @@ const links = [
   { label: "Misja & ESG", href: "/misja" },
   { label: "Dotacje & Ulgi", href: "/dotacje" },
   { label: "Platforma ERP AI", href: "/platforma-erp-ai" },
+  { label: "Ciekawostki", href: "/ciekawostki" },
   { label: "FAQ", href: "/faq" },
 ];
 

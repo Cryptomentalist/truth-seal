@@ -14,6 +14,7 @@ import Grants from "./pages/Grants";
 import Misja from "./pages/Misja";
 import PlatformaERP from "./pages/PlatformaERP";
 import PolishAssets from "./pages/PolishAssets";
+import Ciekawostki from "./pages/Ciekawostki";
 import NotFound from "./pages/NotFound";
 
 
