@@ -93,7 +93,7 @@ const operationalSteps = [
 const PolishAssets = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title="PolishAssets" description="Polska platforma waloryzacji aktywów — piramida wartości, tokenizacja i promocja polskich innowacji na arenie międzynarodowej." path="/polishassets" />
+      <SEOHead title="PolishAssets.com" description="PolishAssets.com — platforma waloryzacji aktywów — piramida wartości, tokenizacja i promocja polskich innowacji na arenie międzynarodowej." path="/polishassets" />
 
       <TopBanner />
       <Navbar />
