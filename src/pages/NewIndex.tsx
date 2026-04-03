@@ -128,7 +128,7 @@ const NewIndex = () => {
             <footer className="text-sm text-foreground/80 not-italic">
               <strong className="text-primary">— Ada Margo Marglewska</strong>
               <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                Praktyk zrównoważonego biznesu, pedagog, przedsiębiorca · Intrapreneur & Interim Manager · Tworczyni ekosystemu opartego na myśleniu systemowym, Efekcie Wydmy i Gospodarce Fraktalnej · Coach z 20-letnim doświadczeniem · Pisarka, publicystka i innowatorka
+                Praktyk zrównoważonego biznesu, pedagog, przedsiębiorca · Intrapreneur & Interim Manager · Współtwórczyni ekosystemu opartego na myśleniu systemowym, Efekcie Wydmy i Gospodarce Fraktalnej · Coach z 20-letnim doświadczeniem · Pisarka, publicystka i innowatorka
               </p>
             </footer>
           </blockquote>
@@ -276,10 +276,10 @@ const NewIndex = () => {
                 Warsztaty & Szkolenia
               </span>
               <h2 className="text-2xl md:text-3xl font-bold mb-4 leading-tight">
-                Poprowadzę warsztaty z przedsiębiorczości dla Twojego zespołu
+                Poprowadzimy warsztaty z przedsiębiorczości dla Twojego zespołu
               </h2>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Jestem Ada Margo Marglewska — buduję ekosystem innowacji od ponad dekady. Prowadzę warsztaty z wdrażania narzędzi biznesowych, case studies przedsiębiorczości i strategii antykryzysowych. Dla dyrektorów, menedżerów i zespołów, które chcą rosnąć.
+                Zespół Constellation.love buduje ekosystem innowacji od ponad dekady. Prowadzimy warsztaty z wdrażania narzędzi biznesowych, case studies przedsiębiorczości i strategii antykryzysowych. Dla dyrektorów, menedżerów i zespołów, które chcą rosnąć.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
                 <Button variant="hero" size="lg" asChild>
