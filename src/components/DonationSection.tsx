@@ -114,7 +114,7 @@ const DonationSection = () => {
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           Twój 1,5% podatku
-          <em className="not-italic block text-accent">wspiera polskie innowacje i promuje markę Polski na arenie międzynarodowej.</em>
+          <em className="not-italic block text-accent">wspiera polskie innowacje i promuje markę Polski na arenie międzynarodowej. Przekonujemy by myśleć systemowo i komplementarnie podnosząc jakość i dostępność.</em>
         </motion.h2>
 
         {/* Subtitle */}
