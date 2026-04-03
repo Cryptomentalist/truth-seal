@@ -496,7 +496,7 @@ const Ekosystem = () => {
               „Tworzymy wartość, jakość dla wzrostu gospodarczego. Zmieniamy definicję sukcesu. Tworzymy wymierne wskaźniki rezultatu."
             </blockquote>
             <p className="text-muted-foreground mt-6 max-w-2xl mx-auto leading-relaxed">
-              Promujemy markę <span className="text-accent font-semibold">Made in Poland · Polish Quality</span> — na arenie międzynarodowej.
+              Promujemy markę <span className="text-accent font-semibold">Made in Poland · Polish Quality</span> — na arenie międzynarodowej. Przekonujemy by myśleć systemowo i komplementarnie podnosząc jakość i dostępność.
             </p>
             <div className="w-12 h-0.5 bg-gradient-to-r from-primary to-accent mx-auto mt-6" />
           </motion.div>
