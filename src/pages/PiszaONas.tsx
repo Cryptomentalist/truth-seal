@@ -14,7 +14,7 @@ const pressItems = [
     summary:
       "Polish CEO and entrepreneur Ada Margo Marglewska is developing Capsule Piezoelectric Courts – the world's first squash courts that generate energy from every movement of the players.",
     quote:
-      "\"From the beginning, I knew I wanted to create something more than just another sports facility. I wanted sport and energy to coexist in one self-sufficient capsule.\"",
+      "\"From the beginning, we knew we wanted to create something more than just another sports facility. We wanted sport and energy to coexist in one self-sufficient capsule.\"",
     image: "/images/squash-capsule-hero.jpg",
     url: "https://squashplayermag.com/blogs/news/squash-in-a-capsule",
   },

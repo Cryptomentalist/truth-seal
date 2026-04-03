@@ -193,7 +193,7 @@ const PolishAssets = () => {
           <p className="text-lg sm:text-xl font-semibold italic leading-relaxed max-w-xl mx-auto">
             Most people manage assets.
             <br />
-            I design systems that activate and multiply them.
+            We design systems that activate and multiply them.
           </p>
           <cite className="block mt-3 text-sm text-accent not-italic font-medium">
             — Ada Margo Marglewska
