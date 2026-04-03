@@ -214,7 +214,7 @@ const PolishAssets = () => {
             Model operacyjny
           </span>
           <h2 className="text-2xl sm:text-4xl font-black leading-tight mb-4">
-            PolishAssets
+            PolishAssets.com
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
             PolishAssets is not a platform. It is a system that identifies assets, evaluates their potential, and connects them into value-generating structures.
