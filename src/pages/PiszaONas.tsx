@@ -36,6 +36,7 @@ const fade = {
 
 const PiszaONas = () => (
   <div className="min-h-screen bg-background">
+    <SEOHead title="Piszą o nas" description="Publikacje prasowe i medialne o ekosystemie Constellation.love, Capsule Piezoelectric Courts i Ada Margo Marglewska." path="/pisza-o-nas" />
     <TopBanner />
     <Navbar />
 
