@@ -23,7 +23,7 @@ const facts = [
     icon: Brain,
     title: "Gospodarka Fraktalna",
     content:
-      "W rozdrobnionym świecie bycie „wszystkim" oznacza bycie niczym. Ale w systemie — kompleksowość oznacza jakość wynikającą z właściwego połączenia elementów. Różnorodność daje moc do tworzenia lepszego świata.",
+      'W rozdrobnionym świecie bycie \u201Ewszystkim\u201D oznacza bycie niczym. Ale w systemie \u2014 kompleksowość oznacza jakość wynikającą z właściwego połączenia elementów. Różnorodność daje moc do tworzenia lepszego świata.',
     accent: "primary" as const,
   },
   {
