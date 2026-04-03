@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Newspaper, ExternalLink, Quote } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SEOHead from "@/components/SEOHead";
 
 const pressItems = [
   {

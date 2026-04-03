@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { Atom, Zap, Sun, Thermometer, Battery, Layers, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import SEOHead from "@/components/SEOHead";
 
 const fade = {
   hidden: { opacity: 0, y: 24 },
@@ -12,6 +13,7 @@ const fade = {
 
 const Innowacje = () => (
   <div className="min-h-screen bg-background">
+    <SEOHead title="Innowacje" description="Piezoelektryczne korty, Deep-tech i innowacje technologiczne ekosystemu Constellation.love." path="/innowacje" />
     <TopBanner />
     <Navbar />
 

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Volume2, ShieldCheck, Rocket, ArrowRightLeft, Network, Users, Heart, HandCoins, MessageCircleHeart, Globe, Sparkles, HeartHandshake, Bot, Building2, Landmark } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
+import SEOHead from "@/components/SEOHead";
 
 const GlossaryTerm = ({ term, explanation, children }: { term?: string; explanation: string; children: React.ReactNode }) => (
   <Tooltip>
@@ -63,7 +64,7 @@ const projects = [
 const Ekosystem = () => {
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
+      <SEOHead title="Ekosystem" description="Architektura AI Venture Anticrisis Integrator — piramida Maslowa dla biznesu, BarterChain i komplementarne projekty." path="/ekosystem" />
       <header className="fixed top-0 left-0 right-0 z-50 glass-surface border-b border-border/50">
         <div className="container flex items-center h-16 gap-4">
           <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">

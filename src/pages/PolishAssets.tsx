@@ -3,6 +3,7 @@ import { Layers, Search, Link2, Rocket, TrendingUp, Quote, Gem, Users, Globe, Sp
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SEOHead from "@/components/SEOHead";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
