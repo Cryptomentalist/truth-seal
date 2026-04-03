@@ -379,7 +379,8 @@ const PolishAssets = () => {
             To nie jest projekt. To nie jest startup.
           </h2>
           <p className="text-2xl sm:text-3xl font-black text-accent mb-6">
-            To jest nowa kategoria myślenia.
+            To jest nowa era rozumowania człowieka i jego intencji:{" "}
+            <a href="https://homopredictus.com" target="_blank" rel="noopener noreferrer" className="underline decoration-accent/50 underline-offset-4 hover:decoration-accent transition-colors">HomoPredictus.com</a>
           </p>
           <div className="flex flex-wrap gap-3 justify-center text-xs font-semibold">
             <span className="px-3 py-1.5 rounded-full bg-accent/10 text-accent border border-accent/20">✔ Assets Framework</span>
