@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://constellation.love/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://constellation.love/projekty</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://constellation.love/oferta</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://constellation.love/innowacje</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://constellation.love/pisza-o-nas</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://constellation.love/ekosystem</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://constellation.love/misja</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://constellation.love/dotacje</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://constellation.love/platforma-erp-ai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://constellation.love/polishassets</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://constellation.love/ciekawostki</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://constellation.love/faq</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+</urlset>
