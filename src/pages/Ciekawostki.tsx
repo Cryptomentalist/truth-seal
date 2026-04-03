@@ -6,13 +6,6 @@ import Footer from "@/components/Footer";
 
 const facts = [
   {
-    icon: Compass,
-    title: "Myśl lateralnie, nie wertykalnie",
-    content:
-      "Twórz Blue Ocean zamiast kopiować ten czerwony. Większość tworzy agentów AI. Czego brakuje? Środowiska i infrastruktury dla tych agentów. Nie buduj kolejnego produktu — buduj ekosystem, w którym produkty mogą żyć.",
-    accent: "primary" as const,
-  },
-  {
     icon: Waves,
     title: "Efekt Wydmy",
     content:
