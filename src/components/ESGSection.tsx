@@ -125,7 +125,7 @@ const ESGSection = () => {
             To jak w piramidzie Maslowa: zaspokajamy wszystkie potrzeby do życia. InventorProof jest elementem komplementarnym w tym ekosystemie — chroni innowacje, które napędzają cały system.
           </p>
           <p className="text-sm sm:text-base text-muted-foreground mb-6 leading-relaxed">
-            Razem budujemy markę <span className="text-accent font-semibold">Made in Poland · Polish Quality</span> — na arenie międzynarodowej.
+            Razem budujemy markę <span className="text-accent font-semibold">Made in Poland · Polish Quality</span> — na arenie międzynarodowej. Przekonujemy by myśleć systemowo i komplementarnie podnosząc jakość i dostępność.
           </p>
           <a
             href="https://www.linkedin.com/in/ada-margo-marglewska/"
