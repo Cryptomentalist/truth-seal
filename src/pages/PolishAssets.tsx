@@ -391,6 +391,8 @@ const PolishAssets = () => {
         </motion.div>
       </section>
 
+      <HomoPredictusManifesto />
+
       <Footer />
     </div>
   );
