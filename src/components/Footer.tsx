@@ -1,6 +1,9 @@
 import { Shield } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className="border-t border-border/50 py-12 px-4">
       <div className="container max-w-5xl flex flex-col md:flex-row items-center justify-between gap-6">
@@ -14,7 +17,7 @@ const Footer = () => {
           MindMark™ · Pre-patent · Deep-tech · S-Impact
         </p>
         <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} InventorProof.com
+          © {new Date().getFullYear()} {t("footer.copyright")}
         </p>
       </div>
     </footer>

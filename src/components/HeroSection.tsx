@@ -1,9 +1,12 @@
 import { motion } from "framer-motion";
 import { Shield, Lock, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const HeroSection = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-20">
       {/* Background */}
@@ -42,7 +45,7 @@ const HeroSection = () => {
           <div className="inline-flex items-center gap-2 glass-surface rounded-full px-4 py-2 mb-8">
             <Lock className="w-4 h-4 text-primary" />
             <span className="text-sm font-mono text-muted-foreground">
-              MindMark™ · Pre-patent · Deep-tech
+              {t("hero.badge")}
             </span>
           </div>
         </motion.div>
@@ -53,9 +56,9 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15 }}
         >
-          Potwierdzenie autorstwa,{" "}
-          <span className="text-gradient-primary">bez ujawniania</span>{" "}
-          pomysłu
+          {t("hero.title1")}{" "}
+          <span className="text-gradient-primary">{t("hero.titleHighlight")}</span>{" "}
+          {t("hero.title2")}
         </motion.h1>
 
         <motion.p
@@ -64,8 +67,7 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Niepodważalny cyfrowy dowód istnienia wynalazku na etapie pre-patentowym.
-          Tarcza, która działa przed kradzieżą — nie po fakcie.
+          {t("hero.description")}
         </motion.p>
 
         <motion.div
@@ -77,12 +79,12 @@ const HeroSection = () => {
           <a href="#kontakt">
             <Button variant="hero" size="lg" className="text-sm sm:text-base px-6 sm:px-8 py-4 sm:py-6">
               <Shield className="w-5 h-5 mr-2" />
-              Zabezpiecz swój wynalazek
+              {t("hero.ctaPrimary")}
             </Button>
           </a>
           <a href="#cennik">
             <Button variant="heroOutline" size="lg" className="text-sm sm:text-base px-6 sm:px-8 py-4 sm:py-6">
-              Zobacz cennik
+              {t("hero.ctaSecondary")}
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </a>
@@ -98,7 +100,7 @@ const HeroSection = () => {
           <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
           <span className="text-xs sm:text-sm text-muted-foreground">
             <span className="text-accent font-semibold">AI Venture Integrator</span>
-            {" "}— samowystarczalny ekosystem, w którym inwestor jest jednocześnie klientem, a komplementarne projekty wymieniają wartość bez pośredników.
+            {" "}{t("hero.elevatorPitch")}
           </span>
         </motion.div>
 
@@ -110,9 +112,9 @@ const HeroSection = () => {
           transition={{ duration: 1, delay: 0.7 }}
         >
           {[
-            { value: "256-bit", label: "Zabezpieczenie" },
-            { value: "∞", label: "Trwałość zapisu" },
-            { value: "0", label: "Możliwość manipulacji" },
+            { value: "256-bit", label: t("hero.stat1") },
+            { value: "\u221e", label: t("hero.stat2") },
+            { value: "0", label: t("hero.stat3") },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-2xl md:text-3xl font-bold font-mono text-primary">{stat.value}</div>

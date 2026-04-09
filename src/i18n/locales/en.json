@@ -1,0 +1,69 @@
+{
+  "nav": {
+    "home": "Home",
+    "projekty": "Projects",
+    "polishAssets": "PolishAssets",
+    "oferta": "Offer",
+    "innowacje": "Innovations",
+    "press": "Press",
+    "mission": "Mission & ESG",
+    "grants": "Grants & Tax Relief",
+    "erp": "ERP AI Platform",
+    "ciekawostki": "Fun Facts",
+    "faq": "FAQ",
+    "secureCta": "Secure IP"
+  },
+  "topBanner": {
+    "protectIP": "Protect your IP",
+    "underConstruction": "Site under construction - we appreciate constructive feedback!",
+    "contactAda": "Write to Ada Margo Marglewska"
+  },
+  "footer": {
+    "copyright": "InventorProof.com"
+  },
+  "home": {
+    "subtitle": "We connect quality, create value, measure and promote the effects of ecosystem stakeholders on the international stage. We encourage systemic and complementary thinking to raise quality and accessibility.",
+    "esgFoundation": "Ecosystem foundation",
+    "whatIsESG": "What is ESG?",
+    "esgDescription": "ESG stands for three pillars of sustainable development: Environmental, Social, and Governance. It is not compliance or a report - it is a way of thinking about business that generates value for all stakeholders.",
+    "environment": "E - Environment",
+    "environmentDesc": "Climate, resources, renewable energy, carbon footprint",
+    "social": "S - Social Impact",
+    "socialDesc": "People, diversity, education, community, justice",
+    "governance": "G - Governance",
+    "governanceDesc": "Transparency, ethics, corporate governance, accountability",
+    "whySImpact": "Why do we focus on S-Impact?",
+    "sImpactDesc": "In our ecosystem, S is not an add-on - it is the heart of the entire system. S-Impact means measurable, documented social impact.",
+    "sImpactBullet1": "We support neurodiversity, women in business, and innovators excluded by the system",
+    "sImpactBullet2": "We build intergenerational bridges - children and grandparents learn together",
+    "sImpactBullet3": "Every social action is tokenized - immutably recorded and verifiable",
+    "sImpactBullet4": "We promote the Polish brand internationally through ethical business",
+    "sImpactExample": "S-Impact in practice:",
+    "whatIsSuccess": "What is success?",
+    "successQuote": "At Constellation.love, we do not measure success by position, status, or results alone. Equal does not mean fair.",
+    "fairNotEqual": "Equal does not mean fair.",
+    "workshops": "Workshops & Training",
+    "workshopsTitle": "We will lead entrepreneurship workshops for your team",
+    "bookWorkshops": "Book workshops",
+    "schoolOffer": "Offer for School Principals",
+    "schoolTitle": "Let us develop entrepreneurship in Polish schools together",
+    "schoolCta": "Write to me - I will share the program",
+    "visitKonstelacja": "Visit konstelacja.org",
+    "joinWOB": "Join Women on Boards",
+    "sendAnswer": "Send your answer",
+    "ecosystemProject": "Ecosystem project"
+  },
+  "hero": {
+    "badge": "MindMark - Pre-patent - Deep-tech",
+    "title1": "Proof of authorship,",
+    "titleHighlight": "without revealing",
+    "title2": "the idea",
+    "description": "Irrefutable digital proof of invention existence at the pre-patent stage. A shield that works before theft - not after.",
+    "ctaPrimary": "Secure your invention",
+    "ctaSecondary": "See pricing",
+    "elevatorPitch": "- a self-sufficient ecosystem where the investor is also the client, and complementary projects exchange value without intermediaries.",
+    "stat1": "Security",
+    "stat2": "Record permanence",
+    "stat3": "Manipulation possibility"
+  }
+}
