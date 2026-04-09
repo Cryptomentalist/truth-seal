@@ -4,23 +4,26 @@ import { Menu, X } from "lucide-react";
 import constellationLogo from "@/assets/constellation-logo.jpg";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-
-const links = [
-  { label: "Home", href: "/" },
-  { label: "Projekty", href: "/projekty" },
-  { label: "PolishAssets", href: "/polishassets" },
-  { label: "Oferta", href: "/oferta" },
-  { label: "Innowacje", href: "/innowacje" },
-  { label: "Piszą o nas", href: "/pisza-o-nas" },
-  { label: "Misja & ESG", href: "/misja" },
-  { label: "Dotacje & Ulgi", href: "/dotacje" },
-  { label: "Platforma ERP AI", href: "/platforma-erp-ai" },
-  { label: "Ciekawostki", href: "/ciekawostki" },
-  { label: "FAQ", href: "/faq" },
-];
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
+
+  const links = [
+    { label: t("nav.home"), href: "/" },
+    { label: t("nav.projekty"), href: "/projekty" },
+    { label: t("nav.polishAssets"), href: "/polishassets" },
+    { label: t("nav.oferta"), href: "/oferta" },
+    { label: t("nav.innowacje"), href: "/innowacje" },
+    { label: t("nav.press"), href: "/pisza-o-nas" },
+    { label: t("nav.mission"), href: "/misja" },
+    { label: t("nav.grants"), href: "/dotacje" },
+    { label: t("nav.erp"), href: "/platforma-erp-ai" },
+    { label: t("nav.ciekawostki"), href: "/ciekawostki" },
+    { label: t("nav.faq"), href: "/faq" },
+  ];
 
   return (
     <nav className="fixed top-[40px] sm:top-[46px] left-0 right-0 z-50 glass-surface border-b border-border/50">
@@ -34,28 +37,19 @@ const Navbar = () => {
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-8">
-          {links.map((l) =>
-            l.href.startsWith("/") ? (
-              <Link
-                key={l.href}
-                to={l.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {l.label}
-              </Link>
-            ) : (
-              <a
-                key={l.href}
-                href={l.href}
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-              >
-                {l.label}
-              </a>
-            )
-          )}
+          {links.map((l) => (
+            <Link
+              key={l.href}
+              to={l.href}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {l.label}
+            </Link>
+          ))}
+          <LanguageSwitcher />
           <a href="https://inventorproof.com" target="_blank" rel="noopener noreferrer">
             <Button variant="hero" size="sm">
-              Zabezpiecz IP
+              {t("nav.secureCta")}
             </Button>
           </a>
         </div>
@@ -80,30 +74,22 @@ const Navbar = () => {
             className="md:hidden overflow-hidden glass-surface border-t border-border/30"
           >
             <div className="container py-4 flex flex-col gap-3">
-              {links.map((l) =>
-                l.href.startsWith("/") ? (
-                  <Link
-                    key={l.href}
-                    to={l.href}
-                    onClick={() => setOpen(false)}
-                    className="text-sm text-muted-foreground hover:text-foreground py-2"
-                  >
-                    {l.label}
-                  </Link>
-                ) : (
-                  <a
-                    key={l.href}
-                    href={l.href}
-                    onClick={() => setOpen(false)}
-                    className="text-sm text-muted-foreground hover:text-foreground py-2"
-                  >
-                    {l.label}
-                  </a>
-                )
-              )}
+              {links.map((l) => (
+                <Link
+                  key={l.href}
+                  to={l.href}
+                  onClick={() => setOpen(false)}
+                  className="text-sm text-muted-foreground hover:text-foreground py-2"
+                >
+                  {l.label}
+                </Link>
+              ))}
+              <div className="py-2">
+                <LanguageSwitcher />
+              </div>
               <a href="https://inventorproof.com" target="_blank" rel="noopener noreferrer">
                 <Button variant="hero" size="sm" className="mt-2">
-                  Zabezpiecz IP
+                  {t("nav.secureCta")}
                 </Button>
               </a>
             </div>
