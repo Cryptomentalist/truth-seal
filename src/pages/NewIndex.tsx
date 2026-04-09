@@ -12,6 +12,8 @@ import FractalEconomySection from "@/components/FractalEconomySection";
 import SEOHead from "@/components/SEOHead";
 
 const NewIndex = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
@@ -23,7 +25,7 @@ const NewIndex = () => {
       <Navbar />
       <header className="pt-28 pb-4">
         <p className="text-center text-[11px] sm:text-xs text-muted-foreground/70 italic mt-1">
-          Łączymy jakość, tworzymy wartość, mierzymy i promujemy efekty interesariuszy ekosystemu na arenie międzynarodowej. Przekonujemy by myśleć systemowo i komplementarnie podnosząc jakość i dostępność.
+          {t("home.subtitle")}
         </p>
       </header>
 
