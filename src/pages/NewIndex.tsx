@@ -3,6 +3,7 @@ import { ExternalLink, Heart, Calendar, Linkedin, GraduationCap, BarChart3, Awar
 import adaMargoPhoto from "@/assets/ada-margo.jpg";
 import esgPhilosophyPhoto from "@/assets/esg-philosophy.jpg";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 import TopBanner from "@/components/TopBanner";
 import Navbar from "@/components/Navbar";
