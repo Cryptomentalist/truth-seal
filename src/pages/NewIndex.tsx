@@ -39,10 +39,10 @@ const NewIndex = () => {
           className="rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 via-background to-accent/5 p-5 sm:p-8 md:p-12 overflow-hidden"
         >
           <span className="inline-block text-xs font-semibold uppercase tracking-wider text-primary mb-4">
-            Fundament ekosystemu
+            {t("home.esgFoundation")}
           </span>
           <h1 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
-            Czym jest <span className="text-primary">ESG</span>?
+            {t("home.whatIsESG")}
           </h1>
           <p className="text-muted-foreground leading-relaxed mb-6 text-base">
             <strong>ESG</strong> to trzy filary zrównoważonego rozwoju: <strong>E</strong>nvironmental (środowisko), <strong>S</strong>ocial (społeczeństwo), <strong>G</strong>overnance (ład korporacyjny). To nie compliance i nie raport — to sposób myślenia o biznesie, który generuje wartość dla wszystkich interesariuszy.
@@ -51,18 +51,18 @@ const NewIndex = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
             <div className="rounded-xl border border-border/50 bg-card/50 p-5 text-center">
               <span className="text-3xl mb-3 block">🌍</span>
-              <h3 className="text-sm font-bold mb-1">E — Environment</h3>
-              <p className="text-xs text-muted-foreground">Klimat, zasoby, energia odnawialna, ślad węglowy</p>
+             <h3 className="text-sm font-bold mb-1">{t("home.environment")}</h3>
+              <p className="text-xs text-muted-foreground">{t("home.environmentDesc")}</p>
             </div>
             <div className="rounded-xl border border-primary/30 bg-primary/10 p-5 text-center ring-2 ring-primary/20">
               <span className="text-3xl mb-3 block">🤝</span>
-              <h3 className="text-sm font-bold mb-1 text-primary">S — Social Impact</h3>
-              <p className="text-xs text-muted-foreground">Ludzie, różnorodność, edukacja, wspólnota, sprawiedliwość</p>
+              <h3 className="text-sm font-bold mb-1 text-primary">{t("home.social")}</h3>
+              <p className="text-xs text-muted-foreground">{t("home.socialDesc")}</p>
             </div>
             <div className="rounded-xl border border-border/50 bg-card/50 p-5 text-center">
               <span className="text-3xl mb-3 block">⚖️</span>
-              <h3 className="text-sm font-bold mb-1">G — Governance</h3>
-              <p className="text-xs text-muted-foreground">Transparentność, etyka, ład korporacyjny, odpowiedzialność</p>
+              <h3 className="text-sm font-bold mb-1">{t("home.governance")}</h3>
+              <p className="text-xs text-muted-foreground">{t("home.governanceDesc")}</p>
             </div>
           </div>
 
