@@ -14,13 +14,16 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import EcosystemPhilosophySection from "@/components/EcosystemPhilosophySection";
 import SEOHead from "@/components/SEOHead";
+import { useTranslation } from "react-i18next";
 
 const Index = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
-        title="Oferta — InventorProof"
-        description="Kryptograficzny dowód istnienia wynalazku na etapie pre-patentowym. Blockchain chroni Twoje IP zanim ktokolwiek je zobaczy."
+        title={t("oferta.seoTitle")}
+        description={t("oferta.seoDesc")}
         path="/oferta"
       />
       <TopBanner />
