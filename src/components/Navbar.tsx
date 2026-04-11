@@ -10,7 +10,18 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
+  const handleNavClick = useCallback((href: string) => {
+    setOpen(false);
+    if (href.includes("#")) {
+      const [path, hash] = href.split("#");
+      navigate(path);
+      setTimeout(() => {
+        document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  }, [navigate]);
   const links = [
     { label: t("nav.home"), href: "/" },
     { label: t("nav.projekty"), href: "/projekty" },
