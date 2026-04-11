@@ -53,6 +53,7 @@ const Navbar = () => {
             <Link
               key={l.href}
               to={l.href}
+              onClick={l.href.includes("#") ? (e) => { e.preventDefault(); handleNavClick(l.href); } : undefined}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               {l.label}
@@ -90,7 +91,7 @@ const Navbar = () => {
                 <Link
                   key={l.href}
                   to={l.href}
-                  onClick={() => setOpen(false)}
+                  onClick={l.href.includes("#") ? (e) => { e.preventDefault(); handleNavClick(l.href); } : () => setOpen(false)}
                   className="text-sm text-muted-foreground hover:text-foreground py-2"
                 >
                   {l.label}
