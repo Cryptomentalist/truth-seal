@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import constellationLogo from "@/assets/constellation-logo.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
@@ -10,7 +10,18 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
+  const handleNavClick = useCallback((href: string) => {
+    setOpen(false);
+    if (href.includes("#")) {
+      const [path, hash] = href.split("#");
+      navigate(path);
+      setTimeout(() => {
+        document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    }
+  }, [navigate]);
   const links = [
     { label: t("nav.home"), href: "/" },
     { label: t("nav.projekty"), href: "/projekty" },
@@ -23,6 +34,7 @@ const Navbar = () => {
     { label: t("nav.erp"), href: "/platforma-erp-ai" },
     { label: t("nav.ciekawostki"), href: "/ciekawostki" },
     { label: t("nav.faq"), href: "/faq" },
+    { label: t("nav.kontakt"), href: "/oferta#kontakt" },
   ];
 
   return (
@@ -41,6 +53,7 @@ const Navbar = () => {
             <Link
               key={l.href}
               to={l.href}
+              onClick={l.href.includes("#") ? (e) => { e.preventDefault(); handleNavClick(l.href); } : undefined}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               {l.label}
@@ -78,7 +91,7 @@ const Navbar = () => {
                 <Link
                   key={l.href}
                   to={l.href}
-                  onClick={() => setOpen(false)}
+                  onClick={l.href.includes("#") ? (e) => { e.preventDefault(); handleNavClick(l.href); } : () => setOpen(false)}
                   className="text-sm text-muted-foreground hover:text-foreground py-2"
                 >
                   {l.label}
