@@ -10,6 +10,8 @@ import {
   Banknote,
   ShieldCheck,
   Briefcase,
+  FileText,
+  Download,
 } from "lucide-react";
 import RoadmapTimeline from "@/components/grants/RoadmapTimeline";
 import TaxCalculator from "@/components/grants/TaxCalculator";
@@ -76,6 +78,31 @@ const GrantsPage = () => {
             {t("grants.subtitle")}
           </p>
         </motion.div>
+
+        {/* EU 2026 PDF Download */}
+        <motion.a
+          href="/documents/EU2026.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.08 }}
+          className="group glass-surface rounded-2xl p-6 sm:p-7 mb-12 border border-accent/20 hover:border-accent/50 transition-all flex items-center gap-5 sm:gap-6"
+        >
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
+            <FileText className="w-7 h-7 sm:w-8 sm:h-8 text-accent" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-[10px] font-mono uppercase tracking-widest text-accent mb-1">PDF · {isEn ? "EU Funds 2026" : "Fundusze UE 2026"}</div>
+            <h3 className="font-bold text-base sm:text-lg break-words">
+              {isEn ? "EU Funds 2026 — Full Guide" : "Fundusze Europejskie 2026 — pełen przewodnik"}
+            </h3>
+            <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+              {isEn ? "Download the complete document with available programs and deadlines." : "Pobierz pełen dokument z dostępnymi programami i terminami."}
+            </p>
+          </div>
+          <Download className="w-5 h-5 text-accent flex-shrink-0 group-hover:translate-y-0.5 transition-transform" />
+        </motion.a>
 
         {/* Achievements */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-16">
