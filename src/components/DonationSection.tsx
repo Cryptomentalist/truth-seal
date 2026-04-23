@@ -96,10 +96,10 @@ const DonationSection = () => {
           className="mb-8"
         >
           <span
-            className="inline-block bg-gradient-to-r from-amber-600 to-amber-500 text-background font-bold text-xs tracking-[0.15em] uppercase px-5 py-2.5"
+            className="inline-block bg-gradient-to-r from-amber-600 to-amber-500 text-background font-bold text-[10px] sm:text-xs tracking-[0.15em] uppercase px-4 py-2"
             style={{ clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%)" }}
           >
-            ⏳ Tylko do 30 marca · Limitowane miejsca
+            ⏳ Tylko do 30 maja · Limitowane miejsca
           </span>
         </motion.div>
 
@@ -110,11 +110,11 @@ const DonationSection = () => {
           whileInView="visible"
           viewport={{ once: true }}
           custom={2}
-          className="text-4xl sm:text-5xl md:text-6xl font-black leading-[1.1] mb-5"
+          className="text-2xl sm:text-3xl md:text-4xl font-black leading-[1.15] mb-4"
           style={{ fontFamily: "'Playfair Display', serif" }}
         >
           Twój 1,5% podatku
-          <em className="not-italic block text-accent">wspiera polskie innowacje i promuje markę Polski na arenie międzynarodowej. Przekonujemy by myśleć systemowo i komplementarnie podnosząc jakość i dostępność.</em>
+          <em className="not-italic block text-accent text-xl sm:text-2xl md:text-3xl mt-2">wspiera polskie innowacje i promuje markę Polski na arenie międzynarodowej. Przekonujemy by myśleć systemowo i komplementarnie podnosząc jakość i dostępność.</em>
         </motion.h2>
 
         {/* Subtitle */}
@@ -124,7 +124,7 @@ const DonationSection = () => {
           whileInView="visible"
           viewport={{ once: true }}
           custom={3}
-          className="text-base font-light text-muted-foreground leading-relaxed max-w-[540px] mb-12"
+          className="text-sm font-light text-muted-foreground leading-relaxed max-w-[540px] mb-10"
         >
           I w zamian — zyskujesz coś wyjątkowego dla siebie i swojego dziecka.
           Przekaż 1,5% podatku i odbierz benefity, które naprawdę mają wartość.
@@ -157,17 +157,17 @@ const DonationSection = () => {
             custom={5 + i}
             className="grid grid-cols-[56px_1fr] gap-5 items-start mb-8"
           >
-            <div className="w-14 h-14 border border-accent/30 rounded bg-accent/5 flex items-center justify-center text-[26px] flex-shrink-0">
+            <div className="w-12 h-12 border border-accent/30 rounded bg-accent/5 flex items-center justify-center text-[20px] flex-shrink-0">
               {b.icon}
             </div>
             <div>
               <h3
-                className="text-lg font-bold mb-1"
+                className="text-base font-bold mb-1"
                 style={{ fontFamily: "'Playfair Display', serif" }}
               >
                 {b.title}
               </h3>
-              <p className="text-sm font-light text-muted-foreground leading-relaxed">
+              <p className="text-xs font-light text-muted-foreground leading-relaxed">
                 {b.desc}
               </p>
             </div>
@@ -188,12 +188,12 @@ const DonationSection = () => {
             Numer KRS
           </p>
           <p
-            className="text-3xl md:text-4xl font-black tracking-wide mb-3"
+            className="text-2xl md:text-3xl font-black tracking-wide mb-3"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             0000270261
           </p>
-          <p className="text-xs text-muted-foreground tracking-wide">
+          <p className="text-[11px] text-muted-foreground tracking-wide">
             Cel szczegółowy:{" "}
             <span className="text-foreground font-medium">
               KONSTELACJA ORG 24177
@@ -210,22 +210,22 @@ const DonationSection = () => {
           custom={9}
           className="text-center"
         >
-          <p className="text-xs tracking-[0.12em] uppercase text-accent font-semibold mb-5">
-            🔥 Oferta ważna do 30 marca — liczba miejsc limitowana
+          <p className="text-[11px] tracking-[0.12em] uppercase text-accent font-semibold mb-4">
+            🔥 Oferta ważna do 30 maja — liczba miejsc limitowana
           </p>
           <p
-            className="text-2xl leading-snug mb-2"
+            className="text-lg sm:text-xl leading-snug mb-2"
             style={{ fontFamily: "'Playfair Display', serif" }}
           >
             Wypełnij PIT, wpisz numer KRS
             <br />i prześlij nam potwierdzenie.
           </p>
-          <p className="text-sm text-muted-foreground font-light mb-8">
+          <p className="text-xs text-muted-foreground font-light mb-7">
             Odezwiemy się z wszystkimi szczegółami. To naprawdę takie proste.
           </p>
           <button
             onClick={() => setShowDetails(!showDetails)}
-            className="inline-block bg-gradient-to-r from-accent/80 via-accent to-accent/80 text-background font-bold text-sm tracking-[0.14em] uppercase px-11 py-4 shadow-[0_0_30px_hsl(var(--accent)/0.2)] hover:-translate-y-0.5 hover:shadow-[0_8px_40px_hsl(var(--accent)/0.35)] transition-all cursor-pointer border-none"
+            className="inline-block bg-gradient-to-r from-accent/80 via-accent to-accent/80 text-background font-bold text-xs tracking-[0.14em] uppercase px-9 py-3.5 shadow-[0_0_30px_hsl(var(--accent)/0.2)] hover:-translate-y-0.5 hover:shadow-[0_8px_40px_hsl(var(--accent)/0.35)] transition-all cursor-pointer border-none"
           >
             {showDetails ? "Ukryj dane" : "Przekaż 1,5% teraz"}
           </button>
