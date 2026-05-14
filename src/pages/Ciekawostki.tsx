@@ -43,6 +43,7 @@ const Ciekawostki = () => {
         title="Ciekawostki & Filozofia"
         description="Myśl lateralnie, twórz Blue Ocean. Filozofia ekosystemu: Efekt Wydmy, Gospodarka Fraktalna, Dual Use i myślenie systemowe."
         path="/ciekawostki"
+        image="/og/ekosystem.jpg"
       />
       <TopBanner />
       <Navbar />

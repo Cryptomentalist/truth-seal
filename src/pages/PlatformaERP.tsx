@@ -159,7 +159,7 @@ const roadmapPhases = [
 const PlatformaERP = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title="Platforma ERP AI" description="Inteligentna platforma ERP z AI — automatyzacja procesów biznesowych, analityka i integracja ekosystemu." path="/platforma-erp-ai" />
+      <SEOHead title="Platforma ERP AI" description="Inteligentna platforma ERP z AI — automatyzacja procesów biznesowych, analityka i integracja ekosystemu." path="/platforma-erp-ai" image="/og/erp.jpg" />
       <header className="fixed top-0 left-0 right-0 z-50 glass-surface border-b border-border/50">
         <div className="container flex items-center h-16 gap-4">
           <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
