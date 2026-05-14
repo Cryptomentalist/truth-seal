@@ -5,11 +5,13 @@ interface SEOHeadProps {
   description: string;
   path: string;
   type?: string;
+  image?: string; // absolute URL or path starting with "/"
 }
 
-const BASE_URL = "https://constellation.love";
+const BASE_URL = "https://konstelacja.org";
+const DEFAULT_IMAGE = "/og/home.jpg";
 
-const SEOHead = ({ title, description, path, type = "website" }: SEOHeadProps) => {
+const SEOHead = ({ title, description, path, type = "website", image }: SEOHeadProps) => {
   useEffect(() => {
     const fullTitle = `${title} — Constellation.love`;
     document.title = fullTitle;
@@ -24,13 +26,21 @@ const SEOHead = ({ title, description, path, type = "website" }: SEOHeadProps) =
       el.setAttribute("content", content);
     };
 
+    const img = image || DEFAULT_IMAGE;
+    const absoluteImg = img.startsWith("http") ? img : `${BASE_URL}${img}`;
+
     setMeta("name", "description", description);
     setMeta("property", "og:title", fullTitle);
     setMeta("property", "og:description", description);
     setMeta("property", "og:url", `${BASE_URL}${path}`);
     setMeta("property", "og:type", type);
+    setMeta("property", "og:image", absoluteImg);
+    setMeta("property", "og:image:width", "1216");
+    setMeta("property", "og:image:height", "640");
+    setMeta("name", "twitter:card", "summary_large_image");
     setMeta("name", "twitter:title", fullTitle);
     setMeta("name", "twitter:description", description);
+    setMeta("name", "twitter:image", absoluteImg);
 
     let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!canonical) {
@@ -39,7 +49,7 @@ const SEOHead = ({ title, description, path, type = "website" }: SEOHeadProps) =
       document.head.appendChild(canonical);
     }
     canonical.setAttribute("href", `${BASE_URL}${path}`);
-  }, [title, description, path, type]);
+  }, [title, description, path, type, image]);
 
   return null;
 };
