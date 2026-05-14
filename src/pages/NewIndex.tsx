@@ -20,6 +20,7 @@ const NewIndex = () => {
         title="AI Venture Anticrisis Integrator"
         description="Samowystarczalny ekosystem oparty na Gospodarce Fraktalnej. InventorProof, MindMark, PolishAssets — myśl lateralnie, twórz Blue Ocean."
         path="/"
+        image="/og/home.jpg"
       />
       <TopBanner />
       <Navbar />

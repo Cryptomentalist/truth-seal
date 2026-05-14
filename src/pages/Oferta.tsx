@@ -25,6 +25,7 @@ const Index = () => {
         title={t("oferta.seoTitle")}
         description={t("oferta.seoDesc")}
         path="/oferta"
+        image="/og/oferta.jpg"
       />
       <TopBanner />
       <Navbar />
