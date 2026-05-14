@@ -30,7 +30,7 @@ const Innowacje = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title={t("nav.innowacje")} description={t("innovations.subtitle")} path="/innowacje" />
+      <SEOHead title={t("nav.innowacje")} description={t("innovations.subtitle")} path="/innowacje" image="/og/innowacje.jpg" />
       <TopBanner />
       <Navbar />
 

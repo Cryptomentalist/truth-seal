@@ -76,6 +76,7 @@ const Projekty = () => {
         title="Projekty — Stars Roadmap"
         description="18 kroków do skalowania innowacji. Poznaj projekty ekosystemu Constellation.love: InventorProof, MindMark, PolishAssets i więcej."
         path="/projekty"
+        image="/og/projekty.jpg"
       />
       <TopBanner />
       <Navbar />

@@ -70,7 +70,7 @@ const Ekosystem = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title={t("ecosystem.tag")} description={t("ecosystem.subtitle")} path="/ekosystem" />
+      <SEOHead title={t("ecosystem.tag")} description={t("ecosystem.subtitle")} path="/ekosystem" image="/og/ekosystem.jpg" />
       <header className="fixed top-0 left-0 right-0 z-50 glass-surface border-b border-border/50">
         <div className="container flex items-center h-16 gap-4">
           <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">

@@ -52,7 +52,7 @@ const FAQ = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title="FAQ" description={t("faq.subtitle")} path="/faq" />
+      <SEOHead title="FAQ" description={t("faq.subtitle")} path="/faq" image="/og/oferta.jpg" />
       <div className="glass-surface border-b border-border/50">
         <div className="container flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 font-bold text-lg">

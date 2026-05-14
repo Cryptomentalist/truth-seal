@@ -53,7 +53,7 @@ const GrantsPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead title={t("nav.grants")} description={t("grants.subtitle")} path="/dotacje" />
+      <SEOHead title={t("nav.grants")} description={t("grants.subtitle")} path="/dotacje" image="/og/dotacje.jpg" />
       <div className="glass-surface border-b border-border/50 sticky top-0 z-50">
         <div className="container flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 font-bold text-lg">

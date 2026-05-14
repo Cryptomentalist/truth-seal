@@ -15,6 +15,7 @@ const Misja = () => {
         title="Misja & ESG"
         description="Misja ekosystemu Constellation.love — neuroróżnorodność, ESG, zrównoważony rozwój i Gospodarka Fraktalna."
         path="/misja"
+        image="/og/misja.jpg"
       />
       <TopBanner />
       <Navbar />
