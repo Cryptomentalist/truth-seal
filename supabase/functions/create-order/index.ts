@@ -87,6 +87,11 @@ Deno.serve(async (req) => {
     return json({ error: "consent_digital_required" }, 400);
   }
 
+  if (!allNoShip) {
+    const addrErrors = validateAddress({ street: b.street, zip: b.zip, city: b.city, phone: b.phone });
+    if (addrErrors.length) return json({ error: "invalid_address", fields: addrErrors }, 400);
+  }
+
   const orderNo = `KON-${new Date().getFullYear()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
 
   const supabase = createClient(
@@ -94,6 +99,10 @@ Deno.serve(async (req) => {
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     { auth: { persistSession: false } },
   );
+
+  // Nie wysyłamy na adresy z listy wykluczeń (bounce/skarga/rezygnacja)
+  const suppressed = await isSuppressed(supabase, email);
+
 
   const { data: order, error: dbError } = await supabase
     .from("shop_orders")
