@@ -42,6 +42,64 @@ Deno.serve(async (req) => {
   // deno-lint-ignore no-explicit-any
   const shipment: any = data.shipment ?? {}
 
+  // ---- Tryb testowy -------------------------------------------------------
+  // Aktywny, gdy payload zawiera `test: true`, w URL jest ?test=1, albo gdy
+  // globalnie ustawiono PRINTFUL_TEST_MODE=true. W tym trybie nic nie jest
+  // zapisywane w bazie — zwracamy odczytane dane, a e-maile lecą wyłącznie na
+  // adres podany w `testEmail`.
+  const url = new URL(req.url)
+  const globalTestMode = (Deno.env.get('PRINTFUL_TEST_MODE') ?? '').toLowerCase() === 'true'
+  const isTest =
+    payload.test === true || url.searchParams.get('test') === '1' || globalTestMode
+
+  if (isTest) {
+    const supabaseTest = createClient(supabaseUrl, serviceKey)
+    const testEmail = String((payload as Record<string, unknown>).testEmail ?? '').trim().toLowerCase()
+    const parsed = {
+      type,
+      printfulOrderId: pfOrder.id ? String(pfOrder.id) : null,
+      externalId: pfOrder.external_id ? String(pfOrder.external_id) : null,
+      printfulStatus: pfOrder.status ?? null,
+      trackingNumber: shipment.tracking_number ?? null,
+      trackingUrl: shipment.tracking_url ?? null,
+      wouldSetStatus:
+        type === 'package_shipped' || pfOrder.status === 'fulfilled' ? 'shipped' : null,
+    }
+    console.log('printful-webhook TEST MODE', JSON.stringify(parsed))
+
+    let notifications = 0
+    if (testEmail) {
+      if (!validEmail(testEmail) || (await isSuppressed(supabaseTest, testEmail))) {
+        return json({ ok: true, testMode: true, parsed, notifications: 0, skipped: 'recipient_not_mailable' })
+      }
+      const lang = (String((payload as Record<string, unknown>).lang ?? 'pl') === 'en' ? 'en' : 'pl') as 'pl' | 'en'
+      const data = testTemplateData(lang)
+      const stamp = Date.now()
+      const templates = parsed.trackingNumber
+        ? ['order-shipped', 'order-tracking']
+        : ['order-shipped']
+      const results = await Promise.allSettled(
+        templates.map((templateName) =>
+          supabaseTest.functions.invoke('send-transactional-email', {
+            body: {
+              templateName,
+              recipientEmail: testEmail,
+              idempotencyKey: `test-${templateName}-${stamp}`,
+              templateData: data,
+            },
+          }),
+        ),
+      )
+      results.forEach((r) => {
+        if (r.status === 'rejected') console.error('Test notification failed', r.reason)
+        else notifications += 1
+      })
+    }
+
+    return json({ ok: true, testMode: true, parsed, notifications })
+  }
+  // -------------------------------------------------------------------------
+
   const printfulOrderId = pfOrder.id ? String(pfOrder.id) : null
   const externalId = pfOrder.external_id ? String(pfOrder.external_id) : null
   if (!printfulOrderId && !externalId) return json({ ok: true, skipped: 'no order id' })
