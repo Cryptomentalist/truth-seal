@@ -180,6 +180,15 @@ const Sklep = () => {
             <p style={{ fontFamily: F.body, fontSize: "1rem", color: C.ink2, lineHeight: 1.7, maxWidth: 620, marginTop: 18 }}>
               {t.hero_2}
             </p>
+            <p style={{ fontFamily: F.body, fontSize: "1rem", color: C.ink2, lineHeight: 1.7, maxWidth: 620, marginTop: 14 }}>
+              {t.hero_3}
+            </p>
+            <p style={{ fontFamily: F.body, fontSize: "1rem", color: C.ink2, lineHeight: 1.7, maxWidth: 620, marginTop: 14 }}>
+              {t.hero_4}
+            </p>
+            <p style={{ fontFamily: F.body, fontSize: "1rem", color: C.ink2, lineHeight: 1.7, maxWidth: 620, marginTop: 14 }}>
+              {t.hero_5}
+            </p>
             <div className="flex flex-wrap items-center gap-6 mt-8">
               <Btn onClick={() => document.getElementById("cat")?.scrollIntoView({ behavior: "smooth" })}>{t.hero_cta}</Btn>
               <div>
