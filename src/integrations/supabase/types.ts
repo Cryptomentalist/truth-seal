@@ -101,6 +101,59 @@ export type Database = {
         }
         Relationships: []
       }
+      invoices: {
+        Row: {
+          access_token: string
+          created_at: string
+          currency: string
+          email_error: string | null
+          email_sent_at: string | null
+          id: string
+          issued_at: string
+          number: string
+          order_id: string
+          pdf_path: string | null
+          total: number
+          updated_at: string
+        }
+        Insert: {
+          access_token: string
+          created_at?: string
+          currency?: string
+          email_error?: string | null
+          email_sent_at?: string | null
+          id?: string
+          issued_at?: string
+          number: string
+          order_id: string
+          pdf_path?: string | null
+          total: number
+          updated_at?: string
+        }
+        Update: {
+          access_token?: string
+          created_at?: string
+          currency?: string
+          email_error?: string | null
+          email_sent_at?: string | null
+          id?: string
+          issued_at?: string
+          number?: string
+          order_id?: string
+          pdf_path?: string | null
+          total?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoices_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "shop_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shop_orders: {
         Row: {
           city: string | null
@@ -290,6 +343,7 @@ export type Database = {
         }
         Returns: number
       }
+      next_invoice_number: { Args: never; Returns: string }
       read_email_batch: {
         Args: { batch_size: number; queue_name: string; vt: number }
         Returns: {

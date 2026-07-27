@@ -17,6 +17,7 @@ import PolishAssets from "./pages/PolishAssets";
 import Ciekawostki from "./pages/Ciekawostki";
 import Sklep from "./pages/Sklep";
 import Unsubscribe from "./pages/Unsubscribe";
+import Faktura from "./pages/Faktura";
 import AdminLogin from "./pages/AdminLogin";
 import AdminEmails from "./pages/AdminEmails";
 import NotFound from "./pages/NotFound";
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/ciekawostki" element={<Ciekawostki />} />
           <Route path="/sklep" element={<Sklep />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
+          <Route path="/faktura/:token" element={<Faktura />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/emaile" element={<AdminEmails />} />
 
