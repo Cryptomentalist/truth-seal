@@ -12,8 +12,10 @@ import {
   Text,
 } from 'npm:@react-email/components@0.0.22'
 import type { TemplateEntry } from './registry.ts'
+import { OrderSummary } from './order-summary.tsx'
+import type { OrderSummaryProps } from './order-summary.tsx'
 
-interface Props {
+interface Props extends OrderSummaryProps {
   name?: string
   orderNo?: string
   lang?: string
@@ -23,7 +25,7 @@ interface Props {
 
 const isEn = (lang?: string) => (lang || 'pl').toLowerCase().startsWith('en')
 
-const Email = ({ name, orderNo, lang, trackingNumber, trackingUrl }: Props) => {
+const Email = ({ name, orderNo, lang, trackingNumber, trackingUrl, ...summary }: Props) => {
   const en = isEn(lang)
   const greeting = name ? (en ? `Hi ${name},` : `Cześć ${name},`) : en ? 'Hi,' : 'Cześć,'
   return (
@@ -63,6 +65,7 @@ const Email = ({ name, orderNo, lang, trackingNumber, trackingUrl }: Props) => {
                 : 'Numer śledzenia prześlemy, gdy tylko otrzymamy go od przewoźnika.'}
             </Text>
           )}
+          <OrderSummary {...summary} en={en} />
           <Hr style={hr} />
           <Text style={muted}>
             {en
@@ -89,6 +92,13 @@ export const template = {
     lang: 'pl',
     trackingNumber: 'PL123456789',
     trackingUrl: 'https://example.com/track/PL123456789',
+    items: [
+      { name: 'Koszulka Konstelacja', qty: 1, price: 129 },
+    ],
+    subtotal: 129,
+    shipping: 15,
+    total: 144,
+    currency: 'PLN',
   },
 } satisfies TemplateEntry
 
