@@ -102,6 +102,8 @@ Deno.serve(async (req) => {
 
   // Nie wysyłamy na adresy z listy wykluczeń (bounce/skarga/rezygnacja)
   const suppressed = await isSuppressed(supabase, email);
+  if (suppressed) return json({ error: "email_suppressed" }, 400);
+
 
 
   const { data: order, error: dbError } = await supabase
