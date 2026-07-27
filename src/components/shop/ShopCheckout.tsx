@@ -15,6 +15,12 @@ export interface CheckoutData {
   nip: string;
 }
 
+export interface CheckoutSubmit extends CheckoutData {
+  shippingMethod: string;
+  paymentMethod: string;
+  consentNews: boolean;
+}
+
 interface Props {
   lang: ShopLang;
   t: ShopStrings;
@@ -25,7 +31,7 @@ interface Props {
   hasDigital: boolean;
   allNoShip: boolean;
   onBack: () => void;
-  onDone: (data: CheckoutData) => void;
+  onDone: (data: CheckoutSubmit) => Promise<void> | void;
 }
 
 const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, allNoShip, onBack, onDone }: Props) => {
@@ -36,7 +42,21 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
   const [cDigital, setCDigital] = useState(false);
   const [cNews, setCNews] = useState(false);
   const [pay, setPay] = useState("blik");
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
   const set = (k: keyof CheckoutData) => (v: string) => setF((s) => ({ ...s, [k]: v }));
+
+  const submit = async () => {
+    setErr("");
+    setBusy(true);
+    try {
+      await onDone({ ...f, shippingMethod: ship, paymentMethod: pay, consentNews: cNews });
+    } catch (e) {
+      setErr(e instanceof Error ? e.message : String(e));
+      setBusy(false);
+    }
+  };
+
 
   const ready =
     !!f.email && !!f.name && cRules && (!hasDigital || cDigital) && (allNoShip || (!!f.street && !!f.zip && !!f.city));
@@ -145,10 +165,14 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
           </div>
 
           <div className="mt-8">
-            <Btn full disabled={!ready} onClick={() => onDone(f)}>
-              {t.pay} · {money(total)}
+            <Btn full disabled={!ready || busy} onClick={submit}>
+              {busy ? (lang === "pl" ? "Przetwarzanie…" : "Processing…") : `${t.pay} · ${money(total)}`}
             </Btn>
+            {err && (
+              <p style={{ fontFamily: F.mono, fontSize: "0.72rem", color: "#B3261E", marginTop: 10 }}>{err}</p>
+            )}
           </div>
+
         </div>
 
         <aside>

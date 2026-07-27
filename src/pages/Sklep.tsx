@@ -6,8 +6,11 @@ import { T, type ShopLang } from "@/data/shopStrings";
 import { useShopCart } from "@/hooks/useShopCart";
 import { Btn, Impact, Motif, Price, Row, money } from "@/components/shop/ShopUI";
 import ShopProductPage from "@/components/shop/ShopProductPage";
-import ShopCheckout, { type CheckoutData } from "@/components/shop/ShopCheckout";
+import ShopCheckout, { type CheckoutSubmit } from "@/components/shop/ShopCheckout";
 import { useTranslation } from "react-i18next";
+import { supabase } from "@/integrations/supabase/client";
+import { FunctionsHttpError } from "@supabase/supabase-js";
+
 
 type View = "home" | "checkout" | "done";
 
@@ -56,9 +59,37 @@ const Sklep = () => {
     })),
   };
 
-  const placeOrder = (data: CheckoutData) => {
+  const placeOrder = async (data: CheckoutSubmit) => {
+    const { data: res, error } = await supabase.functions.invoke("create-order", {
+      body: {
+        email: data.email,
+        name: data.name,
+        street: data.street,
+        zip: data.zip,
+        city: data.city,
+        phone: data.phone,
+        cname: data.cname,
+        nip: data.nip,
+        shippingMethod: data.shippingMethod,
+        paymentMethod: data.paymentMethod,
+        consentNews: data.consentNews,
+        lang,
+        items: cart.map((l) => ({ pid: l.pid, vid: l.vid, qty: l.qty })),
+      },
+    });
+
+    if (error) {
+      const details = error instanceof FunctionsHttpError ? await error.context.text() : error.message;
+      console.error("create-order failed:", details);
+      throw new Error(
+        lang === "pl"
+          ? "Nie udało się zapisać zamówienia. Spróbuj ponownie lub napisz do nas."
+          : "We could not save your order. Please try again or email us.",
+      );
+    }
+
     setOrder({
-      number: `KON-${String(Math.floor(Math.random() * 9000) + 1000)}`,
+      number: res.orderNo as string,
       items: cart.map((l) => ({ pid: l.pid, vid: l.vid, qty: l.qty })),
       total,
       email: data.email,
@@ -67,6 +98,7 @@ const Sklep = () => {
     setView("done");
     window.scrollTo(0, 0);
   };
+
 
   return (
     <div style={{ background: C.paper, minHeight: "100vh", color: C.indigo }}>
