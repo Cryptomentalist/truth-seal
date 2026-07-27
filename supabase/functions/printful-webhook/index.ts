@@ -99,8 +99,17 @@ Deno.serve(async (req) => {
 
   const sends: Promise<unknown>[] = []
 
+  // Walidacja adresu i lista wykluczeń przed wysyłką powiadomień
+  const recipient = String(order.email || '').trim().toLowerCase()
+  const canEmail = validEmail(recipient) && !(await isSuppressed(supabase, recipient))
+  if (!canEmail) {
+    console.warn('Skipping notifications: recipient not mailable', order.order_no)
+    return json({ ok: true, notifications: 0, skipped: 'recipient_not_mailable' })
+  }
+
   // 1. Status changed to "shipped"
   if (becomesShipped && order.status !== 'shipped') {
+
     sends.push(
       supabase.functions.invoke('send-transactional-email', {
         body: {
