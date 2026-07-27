@@ -12,7 +12,8 @@
     "ciekawostki": "Fun Facts",
     "faq": "FAQ",
     "kontakt": "Contact",
-    "secureCta": "Secure IP"
+    "secureCta": "Secure IP",
+    "sklep": "Charity SHOP"
   },
   "topBanner": {
     "protectIP": "Protect your IP",
@@ -214,5 +215,39 @@
   "oferta": {
     "seoTitle": "Offer — InventorProof",
     "seoDesc": "Cryptographic proof of invention existence at the pre-patent stage. Blockchain protects your IP before anyone sees it."
+  },
+  "sklep": {
+    "seoTitle": "Charity SHOP",
+    "seoDesc": "A supporter shop for Konstelacja Sp. z o.o. — buy an object and fund the protection of Polish inventions.",
+    "back": "Back",
+    "kicker": "Supporter shop",
+    "title": "Konstelacja Supporter Shop",
+    "lead": "You buy a well-made object and at the same time fund work you believe in. Every product has one price and one concrete sentence naming what your purchase funds.",
+    "sort": "Sort",
+    "sortNewest": "Newest",
+    "sortAsc": "Price ascending",
+    "sortDesc": "Price descending",
+    "cart": "Cart",
+    "cartEmpty": "Your cart is empty.",
+    "cartEmptyHint": "Start with the 18 Steps poster — it funds prints for a technical school.",
+    "total": "Total",
+    "vatNote": "Price includes VAT. Shipping is calculated at checkout; digital items never trigger a shipping charge.",
+    "checkoutSoon": "Payments (BLIK, Przelewy24, card) — coming soon",
+    "addToCart": "Add to cart",
+    "outOfStock": "Out of stock",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "remove": "Remove from cart",
+    "lowStock": "Last items: {{n}}",
+    "podNote": "Made to order (print-on-demand). Standard design — the 14-day withdrawal right applies.",
+    "digitalNote": "Digital product. A separate consent is required to begin delivery before the 14-day period ends and to waive the withdrawal right.",
+    "legalTitle": "Compliance layer",
+    "legalLead": "Purchases are made from Konstelacja Sp. z o.o. as the seller. The documents below are being prepared and will be published before payments go live.",
+    "legalRules": "Shop rules — required acceptance, accepted version stored on the order",
+    "legalPrivacy": "Privacy policy (GDPR) — controller, processors, retention periods",
+    "legalShipping": "Delivery and payments — Poland / EU / rest of world, courier and parcel locker",
+    "legalReturns": "Returns and complaints — downloadable 14-day withdrawal form",
+    "legalOmnibus": "Omnibus — price history and lowest price in the 30 days before a reduction",
+    "legalGpsr": "GPSR — manufacturer/importer identification and care information per product"
   }
 }
