@@ -114,7 +114,7 @@ Deno.serve(async (req) => {
       supabase.functions.invoke('send-transactional-email', {
         body: {
           templateName: 'order-shipped',
-          recipientEmail: order.email,
+          recipientEmail: recipient,
           idempotencyKey: `order-shipped-${order.id}`,
           templateData,
         },
@@ -128,7 +128,7 @@ Deno.serve(async (req) => {
       supabase.functions.invoke('send-transactional-email', {
         body: {
           templateName: 'order-tracking',
-          recipientEmail: order.email,
+          recipientEmail: recipient,
           idempotencyKey: `order-tracking-${order.id}-${trackingNumber}`,
           templateData: { ...templateData, trackingNumber },
         },
