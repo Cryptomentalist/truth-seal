@@ -57,7 +57,7 @@ const Email = ({ name, orderNo, lang, trackingNumber, trackingUrl, ...summary }:
               {en ? 'Track your parcel' : 'Śledź przesyłkę'}
             </Button>
           ) : null}
-          <OrderSummary en={en} {...summary} />
+          <OrderSummary {...summary} en={en} />
           <Hr style={hr} />
           <Text style={muted}>
             {en

@@ -65,7 +65,7 @@ const Email = ({ name, orderNo, lang, trackingNumber, trackingUrl, ...summary }:
                 : 'Numer śledzenia prześlemy, gdy tylko otrzymamy go od przewoźnika.'}
             </Text>
           )}
-          <OrderSummary en={en} {...summary} />
+          <OrderSummary {...summary} en={en} />
           <Hr style={hr} />
           <Text style={muted}>
             {en
