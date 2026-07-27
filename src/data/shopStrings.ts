@@ -4,6 +4,11 @@ export const T = {
     hero_1: "Kupujesz rzecz. Finansujesz pracę.",
     hero_2:
       "Każdy przedmiot w tym sklepie wspiera konkretną godzinę badań, testów i budowania odpornych ekosystemów. Przy każdym produkcie piszemy dokładnie co.",
+    hero_3: "Zaangażuje się w działania pro społeczne.",
+    hero_4:
+      "Aktualnie pracujemy nad programem na rzecz zmiany postrzegania Polski i Polaków na arenie międzynarodowej.",
+    hero_5:
+      "Czas by doceniono nasz wkład w rozwój Europy. Stop. Polak już nie jeździ na zmywak.",
     hero_cta: "Zobacz katalog",
     funded: "Sfinansowano dotąd",
     all: "Wszystko", apparel: "Odzież", drinkware: "Kubki", print: "Druk", book: "Książki", digital: "Cyfrowe", support: "Wsparcie",
@@ -54,6 +59,11 @@ export const T = {
     hero_1: "You buy an object. You fund the work.",
     hero_2:
       "Every item here funds a specific hour of research, testing and ecosystem building. We name exactly what, on every product.",
+    hero_3: "You get involved in pro-social activities.",
+    hero_4:
+      "We are currently working on a program to change the perception of Poland and Poles on the international stage.",
+    hero_5:
+      "It is time our contribution to Europe's development was appreciated. Stop. The Pole is no longer a dishwasher.",
     hero_cta: "See the catalogue",
     funded: "Funded so far",
     all: "Everything", apparel: "Apparel", drinkware: "Drinkware", print: "Print", book: "Books", digital: "Digital", support: "Support",
