@@ -86,6 +86,15 @@ Deno.serve(async (req) => {
     lang: order.lang,
     trackingNumber: trackingNumber ?? order.tracking_number ?? undefined,
     trackingUrl: trackingUrl ?? order.tracking_url ?? undefined,
+    items: Array.isArray(order.items) ? order.items : [],
+    subtotal: order.subtotal,
+    shipping: order.shipping,
+    total: order.total,
+    currency: order.currency,
+    shippingMethod: order.shipping_method,
+    city: order.city,
+    zip: order.zip,
+    street: order.street,
   }
 
   const sends: Promise<unknown>[] = []
