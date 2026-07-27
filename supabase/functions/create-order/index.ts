@@ -1,0 +1,168 @@
+import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
+import { createClient } from "npm:@supabase/supabase-js@2";
+import { z } from "npm:zod@3.23.8";
+import { findProduct, findVariant } from "../_shared/catalog.ts";
+
+const BodySchema = z.object({
+  email: z.string().email().max(255),
+  name: z.string().min(1).max(255),
+  street: z.string().max(255).optional().default(""),
+  zip: z.string().max(20).optional().default(""),
+  city: z.string().max(120).optional().default(""),
+  phone: z.string().max(40).optional().default(""),
+  cname: z.string().max(255).optional().default(""),
+  nip: z.string().max(40).optional().default(""),
+  shippingMethod: z.enum(["courier", "locker"]).optional().default("courier"),
+  paymentMethod: z.enum(["blik", "p24", "card", "wallet"]).optional().default("blik"),
+  lang: z.enum(["pl", "en"]).optional().default("pl"),
+  consentNews: z.boolean().optional().default(false),
+  items: z
+    .array(
+      z.object({
+        pid: z.string().max(64),
+        vid: z.string().max(64),
+        qty: z.number().int().min(1).max(20),
+      }),
+    )
+    .min(1)
+    .max(30),
+});
+
+const json = (body: unknown, status = 200) =>
+  new Response(JSON.stringify(body), {
+    status,
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
+  });
+
+Deno.serve(async (req) => {
+  if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
+  if (req.method !== "POST") return json({ error: "Method not allowed" }, 405);
+
+  let raw: unknown;
+  try {
+    raw = await req.json();
+  } catch {
+    return json({ error: "Invalid JSON" }, 400);
+  }
+
+  const parsed = BodySchema.safeParse(raw);
+  if (!parsed.success) return json({ error: parsed.error.flatten().fieldErrors }, 400);
+  const b = parsed.data;
+
+  // --- wycena po stronie serwera ---
+  const lines: { pid: string; vid: string; qty: number; name: string; variant: string; price: number; pf?: number }[] = [];
+  for (const it of b.items) {
+    const p = findProduct(it.pid);
+    if (!p) return json({ error: `Unknown product: ${it.pid}` }, 400);
+    const v = findVariant(p, it.vid);
+    if (!v) return json({ error: `Unknown variant: ${it.vid}` }, 400);
+    lines.push({ pid: p.id, vid: v.id, qty: it.qty, name: p.name, variant: v.label, price: p.price, pf: v.pf });
+  }
+
+  const subtotal = lines.reduce((s, l) => s + l.price * l.qty, 0);
+  const allNoShip = b.items.every((it) => {
+    const p = findProduct(it.pid)!;
+    return !!(p.digital || p.noship);
+  });
+  const shipping = allNoShip || subtotal >= 250 ? 0 : b.shippingMethod === "locker" ? 12 : 16;
+  const total = subtotal + shipping;
+
+  if (!allNoShip && (!b.street || !b.zip || !b.city)) {
+    return json({ error: "Shipping address is required" }, 400);
+  }
+
+  const orderNo = `KON-${new Date().getFullYear()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
+
+  const supabase = createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    { auth: { persistSession: false } },
+  );
+
+  const { data: order, error: dbError } = await supabase
+    .from("shop_orders")
+    .insert({
+      order_no: orderNo,
+      email: b.email,
+      name: b.name,
+      phone: b.phone || null,
+      street: b.street || null,
+      zip: b.zip || null,
+      city: b.city || null,
+      company_name: b.cname || null,
+      tax_id: b.nip || null,
+      items: lines,
+      subtotal,
+      shipping,
+      total,
+      shipping_method: allNoShip ? null : b.shippingMethod,
+      payment_method: b.paymentMethod,
+      lang: b.lang,
+      consent_news: b.consentNews,
+      status: "pending",
+    })
+    .select("id, order_no")
+    .single();
+
+  if (dbError) {
+    console.error("Order insert failed:", dbError.message);
+    return json({ error: "Could not save order" }, 500);
+  }
+
+  // --- Printful: draft zamówienia dla pozycji POD ---
+  const podItems = lines.filter((l) => typeof l.pf === "number").map((l) => ({ sync_variant_id: l.pf, quantity: l.qty }));
+  let printful: { id?: string; status?: string; error?: string; skipped?: boolean } = {};
+
+  if (podItems.length === 0) {
+    printful = { skipped: true };
+  } else {
+    const key = Deno.env.get("PRINTFUL_API_KEY");
+    if (!key) {
+      printful = { error: "PRINTFUL_API_KEY is not configured" };
+    } else {
+      try {
+        const res = await fetch("https://api.printful.com/orders", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+          body: JSON.stringify({
+            external_id: orderNo,
+            confirm: false, // draft — potwierdzamy dopiero po opłaceniu
+            recipient: {
+              name: b.name,
+              address1: b.street,
+              city: b.city,
+              zip: b.zip,
+              country_code: "PL",
+              email: b.email,
+              phone: b.phone || undefined,
+            },
+            items: podItems,
+          }),
+        });
+        const body = await res.text();
+        if (!res.ok) {
+          console.error(`Printful request failed [${res.status}]: ${body}`);
+          printful = { error: `[${res.status}] ${body}`.slice(0, 900) };
+        } else {
+          const parsedBody = JSON.parse(body);
+          printful = { id: String(parsedBody?.result?.id ?? ""), status: parsedBody?.result?.status ?? "draft" };
+        }
+      } catch (e) {
+        console.error("Printful call threw:", e);
+        printful = { error: String(e).slice(0, 900) };
+      }
+    }
+  }
+
+  await supabase
+    .from("shop_orders")
+    .update({
+      printful_order_id: printful.id || null,
+      printful_status: printful.status || null,
+      printful_error: printful.error || null,
+      status: printful.error ? "pending_pod_error" : "pending",
+    })
+    .eq("id", order.id);
+
+  return json({ orderNo: order.order_no, subtotal, shipping, total, pod: printful });
+});
