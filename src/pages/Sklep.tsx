@@ -73,6 +73,9 @@ const Sklep = () => {
         shippingMethod: data.shippingMethod,
         paymentMethod: data.paymentMethod,
         consentNews: data.consentNews,
+        consentRules: data.consentRules,
+        consentPrivacy: data.consentPrivacy,
+        consentDigital: data.consentDigital,
         lang,
         items: cart.map((l) => ({ pid: l.pid, vid: l.vid, qty: l.qty })),
       },
@@ -81,12 +84,28 @@ const Sklep = () => {
     if (error) {
       const details = error instanceof FunctionsHttpError ? await error.context.text() : error.message;
       console.error("create-order failed:", details);
+      const code = (() => {
+        try {
+          return JSON.parse(details ?? "{}")?.error as string | undefined;
+        } catch {
+          return undefined;
+        }
+      })();
+      const known: Record<string, string> = {
+        email_suppressed: t.err_email_suppressed,
+        invalid_email: t.err_invalid_email,
+        invalid_address: t.err_invalid_address,
+        consent_required: t.err_consent,
+        consent_digital_required: t.err_consent,
+      };
       throw new Error(
-        lang === "pl"
-          ? "Nie udało się zapisać zamówienia. Spróbuj ponownie lub napisz do nas."
-          : "We could not save your order. Please try again or email us.",
+        (typeof code === "string" && known[code]) ||
+          (lang === "pl"
+            ? "Nie udało się zapisać zamówienia. Spróbuj ponownie lub napisz do nas."
+            : "We could not save your order. Please try again or email us."),
       );
     }
+
 
     setOrder({
       number: res.orderNo as string,
