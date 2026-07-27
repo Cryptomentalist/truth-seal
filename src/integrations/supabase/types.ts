@@ -105,7 +105,14 @@ export type Database = {
         Row: {
           city: string | null
           company_name: string | null
+          consent_at: string | null
+          consent_digital: boolean
+          consent_ip: string | null
           consent_news: boolean
+          consent_privacy: boolean
+          consent_rules: boolean
+          consent_user_agent: string | null
+          consent_version: string | null
           country_code: string
           created_at: string
           currency: string
@@ -135,7 +142,14 @@ export type Database = {
         Insert: {
           city?: string | null
           company_name?: string | null
+          consent_at?: string | null
+          consent_digital?: boolean
+          consent_ip?: string | null
           consent_news?: boolean
+          consent_privacy?: boolean
+          consent_rules?: boolean
+          consent_user_agent?: string | null
+          consent_version?: string | null
           country_code?: string
           created_at?: string
           currency?: string
@@ -165,7 +179,14 @@ export type Database = {
         Update: {
           city?: string | null
           company_name?: string | null
+          consent_at?: string | null
+          consent_digital?: boolean
+          consent_ip?: string | null
           consent_news?: boolean
+          consent_privacy?: boolean
+          consent_rules?: boolean
+          consent_user_agent?: string | null
+          consent_version?: string | null
           country_code?: string
           created_at?: string
           currency?: string

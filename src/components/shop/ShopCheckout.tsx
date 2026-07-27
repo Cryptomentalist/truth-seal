@@ -3,6 +3,13 @@ import { C, F, PRODUCTS } from "@/data/shopProducts";
 import type { ShopLang, ShopStrings } from "@/data/shopStrings";
 import type { CartLine } from "@/hooks/useShopCart";
 import { Btn, Check, Field, H, Motif, Price, Row, money } from "@/components/shop/ShopUI";
+import {
+  normalizeEmail,
+  normalizePhone,
+  normalizeZip,
+  validateCheckout,
+  type FieldErrors,
+} from "@/lib/shopValidation";
 
 export interface CheckoutData {
   email: string;
@@ -19,6 +26,9 @@ export interface CheckoutSubmit extends CheckoutData {
   shippingMethod: string;
   paymentMethod: string;
   consentNews: boolean;
+  consentRules: boolean;
+  consentPrivacy: boolean;
+  consentDigital: boolean;
 }
 
 interface Props {
@@ -39,27 +49,67 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
   const [ship, setShip] = useState("courier");
   const [inv, setInv] = useState(false);
   const [cRules, setCRules] = useState(false);
+  const [cPrivacy, setCPrivacy] = useState(false);
   const [cDigital, setCDigital] = useState(false);
   const [cNews, setCNews] = useState(false);
   const [pay, setPay] = useState("blik");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [touched, setTouched] = useState(false);
   const set = (k: keyof CheckoutData) => (v: string) => setF((s) => ({ ...s, [k]: v }));
+
+  const consents = { rules: cRules, privacy: cPrivacy, digital: cDigital, news: cNews };
+  const opts = { lang, needsAddress: !allNoShip, needsDigital: hasDigital, invoice: inv };
+
+  const revalidate = (next?: Partial<CheckoutData>) => {
+    const values = { ...f, ...next };
+    const e = validateCheckout(values, consents, opts);
+    setErrors(e);
+    return e;
+  };
 
   const submit = async () => {
     setErr("");
+    setTouched(true);
+    const normalized: CheckoutData = {
+      ...f,
+      email: normalizeEmail(f.email),
+      name: f.name.trim(),
+      street: f.street.trim(),
+      city: f.city.trim(),
+      zip: normalizeZip(f.zip),
+      phone: normalizePhone(f.phone),
+      cname: f.cname.trim(),
+      nip: f.nip.trim(),
+    };
+    setF(normalized);
+    const e = validateCheckout(normalized, consents, opts);
+    setErrors(e);
+    if (Object.keys(e).length > 0) {
+      setErr(t.validation_intro);
+      return;
+    }
     setBusy(true);
     try {
-      await onDone({ ...f, shippingMethod: ship, paymentMethod: pay, consentNews: cNews });
-    } catch (e) {
-      setErr(e instanceof Error ? e.message : String(e));
+      await onDone({
+        ...normalized,
+        shippingMethod: ship,
+        paymentMethod: pay,
+        consentNews: cNews,
+        consentRules: cRules,
+        consentPrivacy: cPrivacy,
+        consentDigital: cDigital,
+      });
+    } catch (e2) {
+      setErr(e2 instanceof Error ? e2.message : String(e2));
       setBusy(false);
     }
   };
 
+  const show = (k: keyof FieldErrors) => (touched ? errors[k] : undefined);
 
-  const ready =
-    !!f.email && !!f.name && cRules && (!hasDigital || cDigital) && (allNoShip || (!!f.street && !!f.zip && !!f.city));
+  const ready = cRules && cPrivacy && (!hasDigital || cDigital);
 
   const methods: [string, string][] = [
     ["blik", "BLIK"],
@@ -67,6 +117,7 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
     ["card", lang === "pl" ? "Karta płatnicza" : "Card"],
     ["wallet", "Apple Pay / Google Pay"],
   ];
+
 
   return (
     <section className="mx-auto px-5 py-10" style={{ maxWidth: 1080 }}>
@@ -79,21 +130,86 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
         <div>
           <H>{t.co_contact}</H>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field id="co-email" label={t.email} type="email" value={f.email} onChange={set("email")} required />
-            <Field id="co-name" label={t.name} value={f.name} onChange={set("name")} required />
+            <Field
+              id="co-email"
+              label={t.email}
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              value={f.email}
+              onChange={set("email")}
+              onBlur={() => {
+                const v = normalizeEmail(f.email);
+                setF((s) => ({ ...s, email: v }));
+                revalidate({ email: v });
+                setTouched(true);
+              }}
+              error={show("email")}
+              hint={t.hint_email}
+              required
+            />
+            <Field
+              id="co-name"
+              label={t.name}
+              autoComplete="name"
+              value={f.name}
+              onChange={set("name")}
+              onBlur={() => { revalidate(); setTouched(true); }}
+              error={show("name")}
+              required
+            />
           </div>
 
           {!allNoShip && (
             <>
               <H mt={34}>{t.co_addr}</H>
               <div className="grid gap-4">
-                <Field id="co-street" label={t.street} value={f.street} onChange={set("street")} required />
+                <Field
+                  id="co-street"
+                  label={t.street}
+                  autoComplete="street-address"
+                  value={f.street}
+                  onChange={set("street")}
+                  onBlur={() => { revalidate(); setTouched(true); }}
+                  error={show("street")}
+                  required
+                />
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field id="co-zip" label={t.zip} value={f.zip} onChange={set("zip")} required />
-                  <Field id="co-city" label={t.city} value={f.city} onChange={set("city")} required />
+                  <Field
+                    id="co-zip"
+                    label={t.zip}
+                    inputMode="numeric"
+                    autoComplete="postal-code"
+                    value={f.zip}
+                    onChange={(v) => set("zip")(normalizeZip(v))}
+                    onBlur={() => { revalidate(); setTouched(true); }}
+                    error={show("zip")}
+                    hint={t.hint_zip}
+                    required
+                  />
+                  <Field
+                    id="co-city"
+                    label={t.city}
+                    autoComplete="address-level2"
+                    value={f.city}
+                    onChange={set("city")}
+                    onBlur={() => { revalidate(); setTouched(true); }}
+                    error={show("city")}
+                    required
+                  />
                 </div>
-                <Field id="co-phone" label={t.phone} value={f.phone} onChange={set("phone")} />
+                <Field
+                  id="co-phone"
+                  label={t.phone}
+                  inputMode="tel"
+                  autoComplete="tel"
+                  value={f.phone}
+                  onChange={set("phone")}
+                  onBlur={() => { revalidate(); setTouched(true); }}
+                  error={show("phone")}
+                />
               </div>
+
 
               <H mt={34}>{t.co_ship}</H>
               <div className="grid gap-3">
@@ -147,22 +263,77 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
             </Check>
             {inv && (
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field id="co-cname" label={t.inv_name} value={f.cname} onChange={set("cname")} />
-                <Field id="co-nip" label={t.inv_nip} value={f.nip} onChange={set("nip")} />
+                <Field
+                  id="co-cname"
+                  label={t.inv_name}
+                  value={f.cname}
+                  onChange={set("cname")}
+                  onBlur={() => { revalidate(); setTouched(true); }}
+                  error={show("cname")}
+                />
+                <Field
+                  id="co-nip"
+                  label={t.inv_nip}
+                  inputMode="numeric"
+                  value={f.nip}
+                  onChange={set("nip")}
+                  onBlur={() => { revalidate(); setTouched(true); }}
+                  error={show("nip")}
+                />
               </div>
             )}
-            <Check id="co-rules" checked={cRules} onChange={setCRules}>
-              {t.consent_rules} <span style={{ color: C.amber }}>*</span>
-            </Check>
-            {hasDigital && (
-              <Check id="co-digital" checked={cDigital} onChange={setCDigital}>
-                {t.consent_digital} <span style={{ color: C.amber }}>*</span>
-              </Check>
-            )}
-            <Check id="co-news" checked={cNews} onChange={setCNews}>
-              {t.consent_news}
-            </Check>
           </div>
+
+          <H mt={34}>{t.consent_title}</H>
+          <p style={{ fontFamily: F.body, fontSize: "0.74rem", color: C.ink2, lineHeight: 1.6, marginBottom: 14 }}>
+            {t.consent_admin}
+          </p>
+          <div className="grid gap-3">
+            <div>
+              <Check id="co-rules" checked={cRules} onChange={(v) => { setCRules(v); }}>
+                {t.consent_rules} <span style={{ color: C.amber }}>*</span>
+              </Check>
+              {touched && !cRules && (
+                <p role="alert" style={{ fontFamily: F.body, fontSize: "0.72rem", color: "#B3261E", marginTop: 4, paddingLeft: 28 }}>
+                  {t.consent_required}
+                </p>
+              )}
+            </div>
+            <div>
+              <Check id="co-privacy" checked={cPrivacy} onChange={setCPrivacy}>
+                {t.consent_privacy} <span style={{ color: C.amber }}>*</span>
+              </Check>
+              {touched && !cPrivacy && (
+                <p role="alert" style={{ fontFamily: F.body, fontSize: "0.72rem", color: "#B3261E", marginTop: 4, paddingLeft: 28 }}>
+                  {t.consent_required}
+                </p>
+              )}
+            </div>
+            {hasDigital && (
+              <div>
+                <Check id="co-digital" checked={cDigital} onChange={setCDigital}>
+                  {t.consent_digital} <span style={{ color: C.amber }}>*</span>
+                </Check>
+                {touched && !cDigital && (
+                  <p role="alert" style={{ fontFamily: F.body, fontSize: "0.72rem", color: "#B3261E", marginTop: 4, paddingLeft: 28 }}>
+                    {t.consent_required}
+                  </p>
+                )}
+              </div>
+            )}
+            <div>
+              <Check id="co-news" checked={cNews} onChange={setCNews}>
+                {t.consent_news}
+              </Check>
+              <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, lineHeight: 1.6, marginTop: 4, paddingLeft: 28 }}>
+                {t.consent_news_detail}
+              </p>
+            </div>
+            <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, lineHeight: 1.6, marginTop: 4 }}>
+              {t.consent_tx_note}
+            </p>
+          </div>
+
 
           <div className="mt-8">
             <Btn full disabled={!ready || busy} onClick={submit}>

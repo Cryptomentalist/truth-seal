@@ -1,5 +1,6 @@
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
+import { isSuppressed, validEmail } from '../_shared/customer-validation.ts'
 
 // Receives Printful webhook events, updates the order row and sends
 // automatic customer notifications (shipped / tracking number).
@@ -99,13 +100,22 @@ Deno.serve(async (req) => {
 
   const sends: Promise<unknown>[] = []
 
+  // Walidacja adresu i lista wykluczeń przed wysyłką powiadomień
+  const recipient = String(order.email || '').trim().toLowerCase()
+  const canEmail = validEmail(recipient) && !(await isSuppressed(supabase, recipient))
+  if (!canEmail) {
+    console.warn('Skipping notifications: recipient not mailable', order.order_no)
+    return json({ ok: true, notifications: 0, skipped: 'recipient_not_mailable' })
+  }
+
   // 1. Status changed to "shipped"
   if (becomesShipped && order.status !== 'shipped') {
+
     sends.push(
       supabase.functions.invoke('send-transactional-email', {
         body: {
           templateName: 'order-shipped',
-          recipientEmail: order.email,
+          recipientEmail: recipient,
           idempotencyKey: `order-shipped-${order.id}`,
           templateData,
         },
@@ -119,7 +129,7 @@ Deno.serve(async (req) => {
       supabase.functions.invoke('send-transactional-email', {
         body: {
           templateName: 'order-tracking',
-          recipientEmail: order.email,
+          recipientEmail: recipient,
           idempotencyKey: `order-tracking-${order.id}-${trackingNumber}`,
           templateData: { ...templateData, trackingNumber },
         },

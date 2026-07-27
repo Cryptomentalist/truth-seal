@@ -13,6 +13,7 @@ import {
 } from 'npm:@react-email/components@0.0.22'
 import type { TemplateEntry } from './registry.ts'
 import { OrderSummary } from './order-summary.tsx'
+import { ConsentFooter } from './consent-footer.tsx'
 import type { OrderSummaryProps } from './order-summary.tsx'
 
 interface Props extends OrderSummaryProps {
@@ -72,7 +73,7 @@ const Email = ({ name, orderNo, lang, trackingNumber, trackingUrl, ...summary }:
               ? 'Thank you for supporting our charitable mission.'
               : 'Dziękujemy za wsparcie naszej misji charytatywnej.'}
           </Text>
-          <Text style={muted}>Fundacja Konstelacja.org · ul. Morska 30B/5, 84-240 Reda</Text>
+          <ConsentFooter en={en} />
         </Container>
       </Body>
     </Html>
