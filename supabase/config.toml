@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.printful-webhook]
 verify_jwt = false
+
+[functions.admin-email-test]
+verify_jwt = false
