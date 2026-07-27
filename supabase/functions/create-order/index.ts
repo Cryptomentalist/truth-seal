@@ -2,6 +2,9 @@ import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "npm:zod@3.23.8";
 import { findProduct, findVariant } from "../_shared/catalog.ts";
+import { isSuppressed, validEmail, validateAddress } from "../_shared/customer-validation.ts";
+
+export const CONSENT_VERSION = "2026-07-27";
 
 const BodySchema = z.object({
   email: z.string().email().max(255),
@@ -16,6 +19,9 @@ const BodySchema = z.object({
   paymentMethod: z.enum(["blik", "p24", "card", "wallet"]).optional().default("blik"),
   lang: z.enum(["pl", "en"]).optional().default("pl"),
   consentNews: z.boolean().optional().default(false),
+  consentRules: z.boolean().optional().default(false),
+  consentPrivacy: z.boolean().optional().default(false),
+  consentDigital: z.boolean().optional().default(false),
   items: z
     .array(
       z.object({
@@ -48,6 +54,15 @@ Deno.serve(async (req) => {
   const parsed = BodySchema.safeParse(raw);
   if (!parsed.success) return json({ error: parsed.error.flatten().fieldErrors }, 400);
   const b = parsed.data;
+  const email = b.email.trim().toLowerCase();
+
+  // --- zgody (D1/D4/D5) ---
+  if (!b.consentRules || !b.consentPrivacy) {
+    return json({ error: "consent_required" }, 400);
+  }
+
+  // --- walidacja adresu klienta przed wysyłką ---
+  if (!validEmail(email)) return json({ error: "invalid_email" }, 400);
 
   // --- wycena po stronie serwera ---
   const lines: { pid: string; vid: string; qty: number; name: string; variant: string; price: number; pf?: number }[] = [];
@@ -67,8 +82,9 @@ Deno.serve(async (req) => {
   const shipping = allNoShip || subtotal >= 250 ? 0 : b.shippingMethod === "locker" ? 12 : 16;
   const total = subtotal + shipping;
 
-  if (!allNoShip && (!b.street || !b.zip || !b.city)) {
-    return json({ error: "Shipping address is required" }, 400);
+  const requiresDigitalConsent = b.items.some((it) => !!findProduct(it.pid)?.digital);
+  if (requiresDigitalConsent && !b.consentDigital) {
+    return json({ error: "consent_digital_required" }, 400);
   }
 
   const orderNo = `KON-${new Date().getFullYear()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
@@ -83,7 +99,7 @@ Deno.serve(async (req) => {
     .from("shop_orders")
     .insert({
       order_no: orderNo,
-      email: b.email,
+      email,
       name: b.name,
       phone: b.phone || null,
       street: b.street || null,
@@ -99,6 +115,13 @@ Deno.serve(async (req) => {
       payment_method: b.paymentMethod,
       lang: b.lang,
       consent_news: b.consentNews,
+      consent_rules: b.consentRules,
+      consent_privacy: b.consentPrivacy,
+      consent_digital: b.consentDigital,
+      consent_version: CONSENT_VERSION,
+      consent_at: new Date().toISOString(),
+      consent_ip: req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null,
+      consent_user_agent: (req.headers.get("user-agent") || "").slice(0, 300) || null,
       status: "pending",
     })
     .select("id, order_no")
@@ -133,7 +156,7 @@ Deno.serve(async (req) => {
               city: b.city,
               zip: b.zip,
               country_code: "PL",
-              email: b.email,
+              email,
               phone: b.phone || undefined,
             },
             items: podItems,
