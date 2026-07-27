@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/table";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { toast } from "sonner";
-import { RefreshCw, LogOut } from "lucide-react";
+import { RefreshCw, LogOut, Send, Webhook } from "lucide-react";
 
 interface LogRow {
   id: string;
@@ -85,6 +85,43 @@ const AdminEmails = () => {
   const [template, setTemplate] = useState("all");
   const [status, setStatus] = useState("all");
   const [page, setPage] = useState(0);
+
+  // Testy konfiguracji nadawcy i webhooków
+  const [testEmail, setTestEmail] = useState("");
+  const [testTemplate, setTestTemplate] = useState("order-shipped");
+  const [testLang, setTestLang] = useState("pl");
+  const [testing, setTesting] = useState<null | "email" | "webhook">(null);
+  const [testResult, setTestResult] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (session?.user?.email && !testEmail) setTestEmail(session.user.email);
+  }, [session, testEmail]);
+
+  const runTest = async (action: "send_test_email" | "simulate_webhook") => {
+    setTesting(action === "send_test_email" ? "email" : "webhook");
+    setTestResult(null);
+    const { data, error } = await supabase.functions.invoke("admin-email-test", {
+      body: {
+        action,
+        recipientEmail: testEmail.trim(),
+        templateName: testTemplate,
+        lang: testLang,
+      },
+    });
+    setTesting(null);
+    if (error) {
+      toast.error(`Test nie powiódł się: ${error.message}`);
+      setTestResult(error.message);
+      return;
+    }
+    setTestResult(JSON.stringify(data, null, 2));
+    toast.success(
+      action === "send_test_email"
+        ? `Testowy e-mail wysłany na ${testEmail.trim()}`
+        : "Symulacja webhooka Printful wykonana (tryb testowy)",
+    );
+    setTimeout(load, 1500);
+  };
 
   useEffect(() => {
     if (!loading && !session) navigate("/admin", { replace: true });
@@ -231,6 +268,73 @@ const AdminEmails = () => {
             </Button>
           </div>
         </header>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">Tryb testowy — nadawca, treść i webhooki</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="grid gap-4 md:grid-cols-3">
+              <div className="space-y-1">
+                <Label htmlFor="test-email">Adres testowy</Label>
+                <Input
+                  id="test-email"
+                  type="email"
+                  value={testEmail}
+                  onChange={(e) => setTestEmail(e.target.value)}
+                  placeholder="ty@twojadomena.pl"
+                />
+              </div>
+              <div className="space-y-1">
+                <Label>Szablon</Label>
+                <Select value={testTemplate} onValueChange={setTestTemplate}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="order-shipped">Zamówienie wysłane</SelectItem>
+                    <SelectItem value="order-tracking">Numer śledzenia</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-1">
+                <Label>Język</Label>
+                <Select value={testLang} onValueChange={setTestLang}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="pl">Polski</SelectItem>
+                    <SelectItem value="en">English</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button
+                onClick={() => runTest("send_test_email")}
+                disabled={testing !== null || !testEmail.trim()}
+              >
+                <Send className="mr-2 h-4 w-4" />
+                {testing === "email" ? "Wysyłanie…" : "Wyślij testowy e-mail"}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => runTest("simulate_webhook")}
+                disabled={testing !== null || !testEmail.trim()}
+              >
+                <Webhook className="mr-2 h-4 w-4" />
+                {testing === "webhook" ? "Symulacja…" : "Symuluj webhook Printful"}
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Testy używają przykładowego zamówienia i nie zmieniają danych w bazie.
+              Symulacja webhooka sprawdza całą ścieżkę Printful → status → e-mail
+              (tryb testowy: bez zapisu zamówienia).
+            </p>
+            {testResult && (
+              <pre className="max-h-56 overflow-auto rounded-md bg-muted p-3 text-xs">
+                {testResult}
+              </pre>
+            )}
+          </CardContent>
+        </Card>
 
         <Card>
           <CardContent className="flex flex-wrap items-end gap-4 pt-6">
