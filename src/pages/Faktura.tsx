@@ -70,6 +70,7 @@ const Faktura = () => {
   return (
     <div className="min-h-screen bg-background py-16 px-4">
       <SEOHead
+        path={`/faktura/${token ?? ""}`}
         title={t("Faktura — Konstelacja.org", "Invoice — Konstelacja.org")}
         description={t(
           "Panel klienta — podgląd i pobranie faktury do zamówienia w sklepie charytatywnym Konstelacja.org.",
