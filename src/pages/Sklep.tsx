@@ -6,8 +6,11 @@ import { T, type ShopLang } from "@/data/shopStrings";
 import { useShopCart } from "@/hooks/useShopCart";
 import { Btn, Impact, Motif, Price, Row, money } from "@/components/shop/ShopUI";
 import ShopProductPage from "@/components/shop/ShopProductPage";
-import ShopCheckout, { type CheckoutData } from "@/components/shop/ShopCheckout";
+import ShopCheckout, { type CheckoutSubmit } from "@/components/shop/ShopCheckout";
 import { useTranslation } from "react-i18next";
+import { supabase } from "@/integrations/supabase/client";
+import { FunctionsHttpError } from "@supabase/supabase-js";
+
 
 type View = "home" | "checkout" | "done";
 
