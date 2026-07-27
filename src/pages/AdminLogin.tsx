@@ -87,8 +87,15 @@ const AdminLogin = () => {
               />
             </div>
             <Button type="submit" className="w-full" disabled={busy}>
-              {busy ? "Logowanie…" : "Zaloguj się"}
+              {busy ? "Przetwarzanie…" : mode === "login" ? "Zaloguj się" : "Utwórz konto"}
             </Button>
+            <button
+              type="button"
+              className="w-full text-xs text-muted-foreground underline"
+              onClick={() => setMode(mode === "login" ? "signup" : "login")}
+            >
+              {mode === "login" ? "Nie masz konta? Utwórz konto" : "Masz już konto? Zaloguj się"}
+            </button>
           </form>
         </CardContent>
       </Card>
