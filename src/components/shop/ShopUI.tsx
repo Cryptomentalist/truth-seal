@@ -84,6 +84,11 @@ export function Field({
   type = "text",
   required,
   id,
+  error,
+  hint,
+  onBlur,
+  autoComplete,
+  inputMode,
 }: {
   label: string;
   value: string;
@@ -91,6 +96,11 @@ export function Field({
   type?: string;
   required?: boolean;
   id: string;
+  error?: string;
+  hint?: string;
+  onBlur?: () => void;
+  autoComplete?: string;
+  inputMode?: "text" | "email" | "tel" | "numeric";
 }) {
   return (
     <div>
@@ -104,21 +114,36 @@ export function Field({
         value={value}
         required={required}
         onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
+        autoComplete={autoComplete}
+        inputMode={inputMode}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-err` : hint ? `${id}-hint` : undefined}
         className="w-full"
         style={{
           fontFamily: F.body,
           fontSize: "0.95rem",
           color: C.indigo,
           background: C.surface,
-          border: `1px solid ${C.rule}`,
+          border: `1px solid ${error ? "#B3261E" : C.rule}`,
           borderRadius: 8,
           padding: "11px 12px",
           outline: "none",
         }}
       />
+      {error ? (
+        <p id={`${id}-err`} role="alert" style={{ fontFamily: F.body, fontSize: "0.72rem", color: "#B3261E", marginTop: 5 }}>
+          {error}
+        </p>
+      ) : hint ? (
+        <p id={`${id}-hint`} style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, marginTop: 5 }}>
+          {hint}
+        </p>
+      ) : null}
     </div>
   );
 }
+
 
 export function Check({
   checked,
