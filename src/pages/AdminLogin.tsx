@@ -20,9 +20,26 @@ const AdminLogin = () => {
     if (session) navigate("/admin/emaile", { replace: true });
   }, [session, navigate]);
 
+  const [mode, setMode] = useState<"login" | "signup">("login");
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
+    if (mode === "signup") {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { emailRedirectTo: `${window.location.origin}/admin` },
+      });
+      setBusy(false);
+      if (error) {
+        toast.error(error.message);
+        return;
+      }
+      toast.success("Konto utworzone. Poproś o nadanie uprawnień administratora.");
+      setMode("login");
+      return;
+    }
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setBusy(false);
     if (error) {
@@ -31,6 +48,7 @@ const AdminLogin = () => {
     }
     navigate("/admin/emaile", { replace: true });
   };
+
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-background px-4">
