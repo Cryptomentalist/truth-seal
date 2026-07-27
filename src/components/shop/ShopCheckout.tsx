@@ -3,6 +3,13 @@ import { C, F, PRODUCTS } from "@/data/shopProducts";
 import type { ShopLang, ShopStrings } from "@/data/shopStrings";
 import type { CartLine } from "@/hooks/useShopCart";
 import { Btn, Check, Field, H, Motif, Price, Row, money } from "@/components/shop/ShopUI";
+import {
+  normalizeEmail,
+  normalizePhone,
+  normalizeZip,
+  validateCheckout,
+  type FieldErrors,
+} from "@/lib/shopValidation";
 
 export interface CheckoutData {
   email: string;
@@ -19,6 +26,9 @@ export interface CheckoutSubmit extends CheckoutData {
   shippingMethod: string;
   paymentMethod: string;
   consentNews: boolean;
+  consentRules: boolean;
+  consentPrivacy: boolean;
+  consentDigital: boolean;
 }
 
 interface Props {
@@ -39,27 +49,67 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
   const [ship, setShip] = useState("courier");
   const [inv, setInv] = useState(false);
   const [cRules, setCRules] = useState(false);
+  const [cPrivacy, setCPrivacy] = useState(false);
   const [cDigital, setCDigital] = useState(false);
   const [cNews, setCNews] = useState(false);
   const [pay, setPay] = useState("blik");
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const [touched, setTouched] = useState(false);
   const set = (k: keyof CheckoutData) => (v: string) => setF((s) => ({ ...s, [k]: v }));
+
+  const consents = { rules: cRules, privacy: cPrivacy, digital: cDigital, news: cNews };
+  const opts = { lang, needsAddress: !allNoShip, needsDigital: hasDigital, invoice: inv };
+
+  const revalidate = (next?: Partial<CheckoutData>) => {
+    const values = { ...f, ...next };
+    const e = validateCheckout(values, consents, opts);
+    setErrors(e);
+    return e;
+  };
 
   const submit = async () => {
     setErr("");
+    setTouched(true);
+    const normalized: CheckoutData = {
+      ...f,
+      email: normalizeEmail(f.email),
+      name: f.name.trim(),
+      street: f.street.trim(),
+      city: f.city.trim(),
+      zip: normalizeZip(f.zip),
+      phone: normalizePhone(f.phone),
+      cname: f.cname.trim(),
+      nip: f.nip.trim(),
+    };
+    setF(normalized);
+    const e = validateCheckout(normalized, consents, opts);
+    setErrors(e);
+    if (Object.keys(e).length > 0) {
+      setErr(t.validation_intro);
+      return;
+    }
     setBusy(true);
     try {
-      await onDone({ ...f, shippingMethod: ship, paymentMethod: pay, consentNews: cNews });
-    } catch (e) {
-      setErr(e instanceof Error ? e.message : String(e));
+      await onDone({
+        ...normalized,
+        shippingMethod: ship,
+        paymentMethod: pay,
+        consentNews: cNews,
+        consentRules: cRules,
+        consentPrivacy: cPrivacy,
+        consentDigital: cDigital,
+      });
+    } catch (e2) {
+      setErr(e2 instanceof Error ? e2.message : String(e2));
       setBusy(false);
     }
   };
 
+  const show = (k: keyof FieldErrors) => (touched ? errors[k] : undefined);
 
-  const ready =
-    !!f.email && !!f.name && cRules && (!hasDigital || cDigital) && (allNoShip || (!!f.street && !!f.zip && !!f.city));
+  const ready = cRules && cPrivacy && (!hasDigital || cDigital);
 
   const methods: [string, string][] = [
     ["blik", "BLIK"],
@@ -67,6 +117,7 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
     ["card", lang === "pl" ? "Karta płatnicza" : "Card"],
     ["wallet", "Apple Pay / Google Pay"],
   ];
+
 
   return (
     <section className="mx-auto px-5 py-10" style={{ maxWidth: 1080 }}>
