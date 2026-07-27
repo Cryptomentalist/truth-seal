@@ -19,4 +19,5 @@ export interface TemplateEntry {
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'order-shipped': orderShipped,
   'order-tracking': orderTracking,
+  'invoice-issued': invoiceIssued,
 }
