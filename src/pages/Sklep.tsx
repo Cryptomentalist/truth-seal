@@ -355,6 +355,15 @@ const Sklep = () => {
             <p style={{ fontFamily: F.mono, fontSize: "0.68rem", color: C.ink2, marginTop: 10 }}>
               KRS [[ ]] · NIP [[ ]] · REGON [[ ]]
             </p>
+
+            <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, marginTop: 20, marginBottom: 10 }}>{t.foundation}</p>
+            <p style={{ fontFamily: F.body, fontSize: "0.85rem", color: C.indigo, lineHeight: 1.7 }}>
+              Fundacja Konstelacja.org
+              <br />
+              Ul. Morska 30B/5
+              <br />
+              84-240 Reda
+            </p>
           </div>
           <div>
             <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, marginBottom: 10 }}>Info</p>
