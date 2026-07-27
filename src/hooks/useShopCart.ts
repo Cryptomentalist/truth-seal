@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
-import { SHOP_PRODUCTS } from "@/data/shopProducts";
+import { PRODUCTS } from "@/data/shopProducts";
 
 export interface CartLine {
-  id: string;
-  slug: string;
-  variant?: string;
+  key: string;
+  pid: string;
+  vid: string;
   qty: number;
+  price: number;
 }
 
-const KEY = "konstelacja_shop_cart_v1";
+const KEY = "konstelacja_shop_cart_v2";
 
 const read = (): CartLine[] => {
   try {
@@ -16,52 +17,64 @@ const read = (): CartLine[] => {
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
-    return parsed.filter(
-      (l) => l && typeof l.slug === "string" && SHOP_PRODUCTS.some((p) => p.slug === l.slug),
-    );
+    return parsed.filter((l) => {
+      const p = PRODUCTS.find((x) => x.id === l?.pid);
+      return !!p && p.variants.some((v) => v.id === l.vid) && typeof l.qty === "number";
+    });
   } catch {
     return [];
   }
 };
 
 export const useShopCart = () => {
-  const [items, setItems] = useState<CartLine[]>(read);
+  const [cart, setCart] = useState<CartLine[]>(read);
 
   useEffect(() => {
     try {
-      localStorage.setItem(KEY, JSON.stringify(items));
+      localStorage.setItem(KEY, JSON.stringify(cart));
     } catch {
       /* storage niedostępny — koszyk działa tylko w pamięci */
     }
-  }, [items]);
+  }, [cart]);
 
-  const add = useCallback((slug: string, variant?: string) => {
-    const id = variant ? `${slug}__${variant}` : slug;
-    setItems((prev) => {
-      const found = prev.find((l) => l.id === id);
-      if (found) return prev.map((l) => (l.id === id ? { ...l, qty: l.qty + 1 } : l));
-      return [...prev, { id, slug, variant, qty: 1 }];
+  const add = useCallback((pid: string, vid: string, qty: number) => {
+    const p = PRODUCTS.find((x) => x.id === pid);
+    if (!p) return;
+    const key = `${pid}::${vid}`;
+    setCart((c) => {
+      const i = c.findIndex((l) => l.key === key);
+      if (i >= 0) {
+        const n = [...c];
+        n[i] = { ...n[i], qty: n[i].qty + qty };
+        return n;
+      }
+      return [...c, { key, pid, vid, qty, price: p.price }];
     });
   }, []);
 
-  const setQty = useCallback((id: string, qty: number) => {
-    setItems((prev) =>
-      qty <= 0 ? prev.filter((l) => l.id !== id) : prev.map((l) => (l.id === id ? { ...l, qty } : l)),
-    );
+  const setQty = useCallback((key: string, q: number) => {
+    setCart((c) => (q <= 0 ? c.filter((l) => l.key !== key) : c.map((l) => (l.key === key ? { ...l, qty: q } : l))));
   }, []);
 
-  const remove = useCallback((id: string) => {
-    setItems((prev) => prev.filter((l) => l.id !== id));
-  }, []);
+  const clear = useCallback(() => setCart([]), []);
 
-  const clear = useCallback(() => setItems([]), []);
-
-  const total = items.reduce((sum, l) => {
-    const p = SHOP_PRODUCTS.find((x) => x.slug === l.slug);
-    return sum + (p ? p.price * l.qty : 0);
+  // ceny zawsze z katalogu, nigdy z przeglądarki
+  const subtotal = cart.reduce((s, l) => {
+    const p = PRODUCTS.find((x) => x.id === l.pid);
+    return s + (p ? p.price * l.qty : 0);
   }, 0);
 
-  const count = items.reduce((sum, l) => sum + l.qty, 0);
+  const allNoShip =
+    cart.length > 0 &&
+    cart.every((l) => {
+      const p = PRODUCTS.find((x) => x.id === l.pid);
+      return !!(p?.digital || p?.noship);
+    });
 
-  return { items, add, setQty, remove, clear, total, count };
+  const hasDigital = cart.some((l) => PRODUCTS.find((p) => p.id === l.pid)?.digital);
+  const shipping = allNoShip || subtotal === 0 ? 0 : subtotal >= 250 ? 0 : 16;
+  const total = subtotal + shipping;
+  const count = cart.reduce((s, l) => s + l.qty, 0);
+
+  return { cart, add, setQty, clear, subtotal, shipping, total, count, allNoShip, hasDigital };
 };
