@@ -11,5 +11,6 @@
   <url><loc>https://constellation.love/platforma-erp-ai</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://constellation.love/polishassets</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://constellation.love/ciekawostki</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://constellation.love/sklep</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://constellation.love/faq</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
 </urlset>

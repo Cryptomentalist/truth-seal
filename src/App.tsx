@@ -15,6 +15,7 @@ import Misja from "./pages/Misja";
 import PlatformaERP from "./pages/PlatformaERP";
 import PolishAssets from "./pages/PolishAssets";
 import Ciekawostki from "./pages/Ciekawostki";
+import Sklep from "./pages/Sklep";
 import NotFound from "./pages/NotFound";
 
 
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/platforma-erp-ai" element={<PlatformaERP />} />
           <Route path="/polishassets" element={<PolishAssets />} />
           <Route path="/ciekawostki" element={<Ciekawostki />} />
+          <Route path="/sklep" element={<Sklep />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
