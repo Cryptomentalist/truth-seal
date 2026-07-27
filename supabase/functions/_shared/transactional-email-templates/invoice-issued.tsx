@@ -74,7 +74,7 @@ const Email = ({ name, orderNo, lang, invoiceNumber, invoiceUrl, issuedAt, ...su
               : 'Link otwiera panel klienta, w którym faktura pozostaje dostępna do pobrania.'}
           </Text>
 
-          <ConsentFooter lang={lang} />
+          <ConsentFooter en={en} />
         </Container>
       </Body>
     </Html>
