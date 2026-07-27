@@ -263,22 +263,77 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
             </Check>
             {inv && (
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field id="co-cname" label={t.inv_name} value={f.cname} onChange={set("cname")} />
-                <Field id="co-nip" label={t.inv_nip} value={f.nip} onChange={set("nip")} />
+                <Field
+                  id="co-cname"
+                  label={t.inv_name}
+                  value={f.cname}
+                  onChange={set("cname")}
+                  onBlur={() => { revalidate(); setTouched(true); }}
+                  error={show("cname")}
+                />
+                <Field
+                  id="co-nip"
+                  label={t.inv_nip}
+                  inputMode="numeric"
+                  value={f.nip}
+                  onChange={set("nip")}
+                  onBlur={() => { revalidate(); setTouched(true); }}
+                  error={show("nip")}
+                />
               </div>
             )}
-            <Check id="co-rules" checked={cRules} onChange={setCRules}>
-              {t.consent_rules} <span style={{ color: C.amber }}>*</span>
-            </Check>
-            {hasDigital && (
-              <Check id="co-digital" checked={cDigital} onChange={setCDigital}>
-                {t.consent_digital} <span style={{ color: C.amber }}>*</span>
-              </Check>
-            )}
-            <Check id="co-news" checked={cNews} onChange={setCNews}>
-              {t.consent_news}
-            </Check>
           </div>
+
+          <H mt={34}>{t.consent_title}</H>
+          <p style={{ fontFamily: F.body, fontSize: "0.74rem", color: C.ink2, lineHeight: 1.6, marginBottom: 14 }}>
+            {t.consent_admin}
+          </p>
+          <div className="grid gap-3">
+            <div>
+              <Check id="co-rules" checked={cRules} onChange={(v) => { setCRules(v); }}>
+                {t.consent_rules} <span style={{ color: C.amber }}>*</span>
+              </Check>
+              {touched && !cRules && (
+                <p role="alert" style={{ fontFamily: F.body, fontSize: "0.72rem", color: "#B3261E", marginTop: 4, paddingLeft: 28 }}>
+                  {t.consent_required}
+                </p>
+              )}
+            </div>
+            <div>
+              <Check id="co-privacy" checked={cPrivacy} onChange={setCPrivacy}>
+                {t.consent_privacy} <span style={{ color: C.amber }}>*</span>
+              </Check>
+              {touched && !cPrivacy && (
+                <p role="alert" style={{ fontFamily: F.body, fontSize: "0.72rem", color: "#B3261E", marginTop: 4, paddingLeft: 28 }}>
+                  {t.consent_required}
+                </p>
+              )}
+            </div>
+            {hasDigital && (
+              <div>
+                <Check id="co-digital" checked={cDigital} onChange={setCDigital}>
+                  {t.consent_digital} <span style={{ color: C.amber }}>*</span>
+                </Check>
+                {touched && !cDigital && (
+                  <p role="alert" style={{ fontFamily: F.body, fontSize: "0.72rem", color: "#B3261E", marginTop: 4, paddingLeft: 28 }}>
+                    {t.consent_required}
+                  </p>
+                )}
+              </div>
+            )}
+            <div>
+              <Check id="co-news" checked={cNews} onChange={setCNews}>
+                {t.consent_news}
+              </Check>
+              <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, lineHeight: 1.6, marginTop: 4, paddingLeft: 28 }}>
+                {t.consent_news_detail}
+              </p>
+            </div>
+            <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, lineHeight: 1.6, marginTop: 4 }}>
+              {t.consent_tx_note}
+            </p>
+          </div>
+
 
           <div className="mt-8">
             <Btn full disabled={!ready || busy} onClick={submit}>
