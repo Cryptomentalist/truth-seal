@@ -130,21 +130,86 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
         <div>
           <H>{t.co_contact}</H>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field id="co-email" label={t.email} type="email" value={f.email} onChange={set("email")} required />
-            <Field id="co-name" label={t.name} value={f.name} onChange={set("name")} required />
+            <Field
+              id="co-email"
+              label={t.email}
+              type="email"
+              inputMode="email"
+              autoComplete="email"
+              value={f.email}
+              onChange={set("email")}
+              onBlur={() => {
+                const v = normalizeEmail(f.email);
+                setF((s) => ({ ...s, email: v }));
+                revalidate({ email: v });
+                setTouched(true);
+              }}
+              error={show("email")}
+              hint={t.hint_email}
+              required
+            />
+            <Field
+              id="co-name"
+              label={t.name}
+              autoComplete="name"
+              value={f.name}
+              onChange={set("name")}
+              onBlur={() => { revalidate(); setTouched(true); }}
+              error={show("name")}
+              required
+            />
           </div>
 
           {!allNoShip && (
             <>
               <H mt={34}>{t.co_addr}</H>
               <div className="grid gap-4">
-                <Field id="co-street" label={t.street} value={f.street} onChange={set("street")} required />
+                <Field
+                  id="co-street"
+                  label={t.street}
+                  autoComplete="street-address"
+                  value={f.street}
+                  onChange={set("street")}
+                  onBlur={() => { revalidate(); setTouched(true); }}
+                  error={show("street")}
+                  required
+                />
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field id="co-zip" label={t.zip} value={f.zip} onChange={set("zip")} required />
-                  <Field id="co-city" label={t.city} value={f.city} onChange={set("city")} required />
+                  <Field
+                    id="co-zip"
+                    label={t.zip}
+                    inputMode="numeric"
+                    autoComplete="postal-code"
+                    value={f.zip}
+                    onChange={(v) => set("zip")(normalizeZip(v))}
+                    onBlur={() => { revalidate(); setTouched(true); }}
+                    error={show("zip")}
+                    hint={t.hint_zip}
+                    required
+                  />
+                  <Field
+                    id="co-city"
+                    label={t.city}
+                    autoComplete="address-level2"
+                    value={f.city}
+                    onChange={set("city")}
+                    onBlur={() => { revalidate(); setTouched(true); }}
+                    error={show("city")}
+                    required
+                  />
                 </div>
-                <Field id="co-phone" label={t.phone} value={f.phone} onChange={set("phone")} />
+                <Field
+                  id="co-phone"
+                  label={t.phone}
+                  inputMode="tel"
+                  autoComplete="tel"
+                  value={f.phone}
+                  onChange={set("phone")}
+                  onBlur={() => { revalidate(); setTouched(true); }}
+                  error={show("phone")}
+                />
               </div>
+
 
               <H mt={34}>{t.co_ship}</H>
               <div className="grid gap-3">
