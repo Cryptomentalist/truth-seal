@@ -1,299 +1,381 @@
 import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ShoppingBag, Minus, Plus, Trash2, Info } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import TopBanner from "@/components/TopBanner";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import SEOHead from "@/components/SEOHead";
-import { useTranslation } from "react-i18next";
-import { SHOP_PRODUCTS, SHOP_CATEGORIES, type ShopCategory } from "@/data/shopProducts";
+import { C, CATS, F, PRODUCTS, type ShopProduct } from "@/data/shopProducts";
+import { T, type ShopLang } from "@/data/shopStrings";
 import { useShopCart } from "@/hooks/useShopCart";
+import { Btn, Impact, Motif, Price, Row, money } from "@/components/shop/ShopUI";
+import ShopProductPage from "@/components/shop/ShopProductPage";
+import ShopCheckout, { type CheckoutData } from "@/components/shop/ShopCheckout";
+import { useTranslation } from "react-i18next";
 
-const formatPrice = (v: number) =>
-  new Intl.NumberFormat("pl-PL", { style: "currency", currency: "PLN", minimumFractionDigits: 0 }).format(v);
+type View = "home" | "checkout" | "done";
+
+interface Order {
+  number: string;
+  items: { pid: string; vid: string; qty: number }[];
+  total: number;
+  email: string;
+}
 
 const Sklep = () => {
-  const { t, i18n } = useTranslation();
-  const isPl = !i18n.language?.startsWith("en");
-  const [filter, setFilter] = useState<ShopCategory | "all">("all");
-  const [sort, setSort] = useState<"default" | "asc" | "desc">("default");
-  const { items, add, setQty, remove, total, count } = useShopCart();
+  const { i18n } = useTranslation();
+  const lang: ShopLang = i18n.language?.startsWith("en") ? "en" : "pl";
+  const t = T[lang];
 
-  const products = useMemo(() => {
-    let list = SHOP_PRODUCTS.filter((p) => filter === "all" || p.category === filter);
-    if (sort === "asc") list = [...list].sort((a, b) => a.price - b.price);
-    if (sort === "desc") list = [...list].sort((a, b) => b.price - a.price);
-    return list;
-  }, [filter, sort]);
+  const [view, setView] = useState<View>("home");
+  const [active, setActive] = useState<ShopProduct | null>(null);
+  const [cat, setCat] = useState<(typeof CATS)[number]>("all");
+  const [cartOpen, setCartOpen] = useState(false);
+  const [order, setOrder] = useState<Order | null>(null);
+
+  const { cart, add, setQty, clear, subtotal, shipping, total, count, allNoShip, hasDigital } = useShopCart();
+
+  const list = useMemo(() => (cat === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.cat === cat)), [cat]);
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: isPl ? "Sklep Charytatywny Konstelacja" : "Konstelacja Supporter Shop",
-    itemListElement: SHOP_PRODUCTS.map((p, i) => ({
+    name: lang === "pl" ? "Sklep Konstelacja" : "Konstelacja Supporter Shop",
+    itemListElement: PRODUCTS.map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
       item: {
         "@type": "Product",
-        name: isPl ? p.namePl : p.nameEn,
-        description: isPl ? p.descPl : p.descEn,
+        name: p[lang].name,
+        description: p[lang].desc,
         offers: {
           "@type": "Offer",
           price: p.price,
           priceCurrency: "PLN",
-          availability:
-            p.stock === 0 ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+          availability: p.variants.some((v) => v.stock > 0)
+            ? "https://schema.org/InStock"
+            : "https://schema.org/OutOfStock",
         },
       },
     })),
   };
 
+  const placeOrder = (data: CheckoutData) => {
+    setOrder({
+      number: `KON-${String(Math.floor(Math.random() * 9000) + 1000)}`,
+      items: cart.map((l) => ({ pid: l.pid, vid: l.vid, qty: l.qty })),
+      total,
+      email: data.email,
+    });
+    clear();
+    setView("done");
+    window.scrollTo(0, 0);
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div style={{ background: C.paper, minHeight: "100vh", color: C.indigo }}>
       <SEOHead
-        title={t("sklep.seoTitle")}
-        description={t("sklep.seoDesc")}
+        title={lang === "pl" ? "Sklep — kupujesz rzecz, finansujesz pracę" : "Shop — buy an object, fund the work"}
+        description={t.hero_2}
         path="/sklep"
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <TopBanner />
-      <Navbar />
+      <style>{`@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500&display=swap');`}</style>
 
-      <main className="pt-32 sm:pt-36 pb-20 px-4">
-        <div className="container max-w-5xl">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8"
+      {/* Header */}
+      <header style={{ borderBottom: `1px solid ${C.rule}`, background: C.paper, position: "sticky", top: 0, zIndex: 30 }}>
+        <div className="mx-auto px-5 flex items-center justify-between" style={{ maxWidth: 1080, height: 62 }}>
+          <button
+            onClick={() => {
+              setView("home");
+              setActive(null);
+            }}
+            className="flex items-center gap-2.5"
           >
-            <ArrowLeft className="w-4 h-4" /> {t("sklep.back")}
-          </Link>
-
-          {/* Hero — misja w dwóch zdaniach */}
-          <motion.header
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-10"
-          >
-            <p className="font-mono text-xs uppercase tracking-widest text-accent mb-3">
-              {t("sklep.kicker")}
-            </p>
-            <h1 className="text-3xl sm:text-5xl font-bold mb-4 break-words">
-              {t("sklep.title")}
-            </h1>
-            <p className="text-muted-foreground max-w-2xl leading-relaxed">
-              {t("sklep.lead")}
-            </p>
-          </motion.header>
-
-          {/* Filtry + sortowanie + koszyk */}
-          <div className="flex flex-wrap items-center gap-2 mb-8 border-y border-border/50 py-4">
-            {SHOP_CATEGORIES.map((c) => (
-              <button
-                key={c.key}
-                onClick={() => setFilter(c.key)}
-                className={`text-xs px-3 py-1.5 rounded-full border transition-colors whitespace-normal ${
-                  filter === c.key
-                    ? "border-primary text-primary bg-primary/10"
-                    : "border-border/60 text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {isPl ? c.pl : c.en}
-              </button>
-            ))}
-            <select
-              value={sort}
-              onChange={(e) => setSort(e.target.value as typeof sort)}
-              className="ml-auto text-xs bg-transparent border border-border/60 rounded-full px-3 py-1.5"
-              aria-label={t("sklep.sort")}
+            <span style={{ width: 9, height: 9, borderRadius: 99, background: C.amber, display: "inline-block" }} />
+            <span style={{ fontFamily: F.display, fontSize: "1.05rem", color: C.indigo }}>Konstelacja</span>
+          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/"
+              style={{ fontFamily: F.body, fontSize: "0.8rem", color: C.ink2, padding: "7px 10px" }}
             >
-              <option value="default">{t("sklep.sortNewest")}</option>
-              <option value="asc">{t("sklep.sortAsc")}</option>
-              <option value="desc">{t("sklep.sortDesc")}</option>
-            </select>
-
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="hero" size="sm" className="whitespace-normal">
-                  <ShoppingBag className="w-4 h-4 mr-1.5" />
-                  {t("sklep.cart")} ({count})
-                </Button>
-              </SheetTrigger>
-              <SheetContent className="w-full sm:max-w-md overflow-y-auto">
-                <SheetHeader>
-                  <SheetTitle>{t("sklep.cart")}</SheetTitle>
-                </SheetHeader>
-                {items.length === 0 ? (
-                  <div className="py-10 text-sm text-muted-foreground">
-                    <p className="mb-4">{t("sklep.cartEmpty")}</p>
-                    <p className="font-mono text-xs text-accent">{t("sklep.cartEmptyHint")}</p>
-                  </div>
-                ) : (
-                  <div className="py-6 space-y-5">
-                    {items.map((line) => {
-                      const p = SHOP_PRODUCTS.find((x) => x.slug === line.slug)!;
-                      return (
-                        <div key={line.id} className="flex gap-3 border-b border-border/40 pb-4">
-                          <div className="text-2xl">{p.emoji}</div>
-                          <div className="flex-1 min-w-0">
-                            <p className="text-sm font-medium break-words">
-                              {isPl ? p.namePl : p.nameEn}
-                              {line.variant ? ` · ${line.variant}` : ""}
-                            </p>
-                            <p className="font-mono text-[11px] text-accent mt-1 break-words">
-                              {isPl ? p.impactPl : p.impactEn}
-                            </p>
-                            <div className="flex items-center gap-2 mt-2">
-                              <button
-                                onClick={() => setQty(line.id, line.qty - 1)}
-                                aria-label={t("sklep.decrease")}
-                                className="p-1 border border-border/60 rounded"
-                              >
-                                <Minus className="w-3 h-3" />
-                              </button>
-                              <span className="font-mono text-xs w-6 text-center">{line.qty}</span>
-                              <button
-                                onClick={() => setQty(line.id, line.qty + 1)}
-                                aria-label={t("sklep.increase")}
-                                className="p-1 border border-border/60 rounded"
-                              >
-                                <Plus className="w-3 h-3" />
-                              </button>
-                              <button
-                                onClick={() => remove(line.id)}
-                                aria-label={t("sklep.remove")}
-                                className="p-1 ml-2 text-muted-foreground hover:text-destructive"
-                              >
-                                <Trash2 className="w-3.5 h-3.5" />
-                              </button>
-                              <span className="ml-auto font-mono text-sm">
-                                {formatPrice(p.price * line.qty)}
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                    <div className="flex items-center justify-between pt-2">
-                      <span className="text-sm text-muted-foreground">{t("sklep.total")}</span>
-                      <span className="font-mono text-lg font-bold">{formatPrice(total)}</span>
-                    </div>
-                    <p className="text-[11px] text-muted-foreground">{t("sklep.vatNote")}</p>
-                    <Button variant="hero" className="w-full whitespace-normal" disabled>
-                      {t("sklep.checkoutSoon")}
-                    </Button>
-                  </div>
-                )}
-              </SheetContent>
-            </Sheet>
+              konstelacja.org
+            </Link>
+            <button
+              onClick={() => {
+                const next = lang === "pl" ? "en" : "pl";
+                i18n.changeLanguage(next);
+                document.documentElement.lang = next;
+              }}
+              style={{ fontFamily: F.mono, fontSize: "0.7rem", color: C.ink2, padding: "7px 10px", borderRadius: 7, border: `1px solid ${C.rule}` }}
+            >
+              {lang === "pl" ? "EN" : "PL"}
+            </button>
+            <button
+              onClick={() => setCartOpen(true)}
+              style={{ fontFamily: F.body, fontSize: "0.85rem", color: C.indigo, padding: "7px 13px", borderRadius: 7, border: `1px solid ${C.rule}` }}
+            >
+              {t.nav_cart}
+              {count > 0 && <span style={{ fontFamily: F.mono, color: C.amber }}> · {count}</span>}
+            </button>
           </div>
+        </div>
+      </header>
 
-          {/* Katalog — max 2 kolumny */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {products.map((p, i) => (
-              <motion.article
-                key={p.slug}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.04 }}
-                className="glass-surface rounded-lg p-6 flex flex-col"
-              >
-                <div className="text-5xl mb-4" aria-hidden="true">
-                  {p.emoji}
-                </div>
-                <h2 className="text-lg font-bold mb-2 break-words">{isPl ? p.namePl : p.nameEn}</h2>
-                <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
-                  {isPl ? p.descPl : p.descEn}
-                </p>
-                <p className="font-mono text-xs text-accent mb-4 break-words">
-                  {isPl ? p.impactPl : p.impactEn}
-                </p>
-
-                <ul className="text-xs text-muted-foreground space-y-1 mb-4">
-                  {(isPl ? p.specPl : p.specEn).map((s) => (
-                    <li key={s}>· {s}</li>
-                  ))}
-                </ul>
-
-                {p.variants && (
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {p.variants.map((v) => (
-                      <span
-                        key={v}
-                        className="text-[11px] font-mono px-2 py-1 border border-border/60 rounded"
-                      >
-                        {v}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                {p.fulfilment === "pod" && (
-                  <p className="text-[11px] text-muted-foreground mb-3 flex gap-1.5">
-                    <Info className="w-3.5 h-3.5 flex-shrink-0 mt-px" />
-                    {t("sklep.podNote")}
-                  </p>
-                )}
-                {p.fulfilment === "digital" && (
-                  <p className="text-[11px] text-muted-foreground mb-3 flex gap-1.5">
-                    <Info className="w-3.5 h-3.5 flex-shrink-0 mt-px" />
-                    {t("sklep.digitalNote")}
-                  </p>
-                )}
-                {typeof p.stock === "number" && p.stock <= 15 && p.stock > 0 && (
-                  <p className="text-[11px] font-mono text-accent mb-3">
-                    {t("sklep.lowStock", { n: p.stock })}
-                  </p>
-                )}
-
-                <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-border/40">
-                  <span className="font-mono text-xl font-bold">{formatPrice(p.price)}</span>
-                  <Button
-                    variant="hero"
-                    size="sm"
-                    className="whitespace-normal"
-                    disabled={p.stock === 0}
-                    onClick={() => add(p.slug, p.variants?.[0])}
-                  >
-                    {p.stock === 0 ? t("sklep.outOfStock") : t("sklep.addToCart")}
-                  </Button>
-                </div>
-              </motion.article>
-            ))}
-          </div>
-
-          {/* Warstwa compliance */}
-          <section className="mt-16 glass-surface rounded-lg p-6">
-            <h2 className="text-xl font-bold mb-4">{t("sklep.legalTitle")}</h2>
-            <p className="text-sm text-muted-foreground mb-4">{t("sklep.legalLead")}</p>
-            <ul className="grid sm:grid-cols-2 gap-2 text-sm text-muted-foreground">
-              {["legalRules", "legalPrivacy", "legalShipping", "legalReturns", "legalOmnibus", "legalGpsr"].map(
-                (k) => (
-                  <li key={k} className="flex gap-2">
-                    <span className="text-accent">·</span>
-                    <span>{t(`sklep.${k}`)}</span>
-                  </li>
-                ),
-              )}
-            </ul>
-            <div className="mt-6 pt-4 border-t border-border/40 font-mono text-xs text-muted-foreground space-y-1">
-              <p>Konstelacja Sp. z o.o. · ul. Morska 34/17, 84-240 Reda, Polska</p>
-              <p>KRS [[ ]] · NIP [[ ]] · REGON [[ ]] · e-mail [[ ]] · tel [[ ]]</p>
+      {/* HOME + KATALOG */}
+      {view === "home" && !active && (
+        <>
+          <section className="mx-auto px-5 py-14" style={{ maxWidth: 1080 }}>
+            <h1 style={{ fontFamily: F.display, fontSize: "clamp(1.9rem, 6vw, 3rem)", lineHeight: 1.15, maxWidth: 720 }}>
+              {t.hero_1}
+            </h1>
+            <p style={{ fontFamily: F.body, fontSize: "1rem", color: C.ink2, lineHeight: 1.7, maxWidth: 620, marginTop: 18 }}>
+              {t.hero_2}
+            </p>
+            <div className="flex flex-wrap items-center gap-6 mt-8">
+              <Btn onClick={() => document.getElementById("cat")?.scrollIntoView({ behavior: "smooth" })}>{t.hero_cta}</Btn>
+              <div>
+                <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2 }}>{t.funded}</p>
+                <p style={{ fontFamily: F.mono, fontSize: "1.15rem", color: C.amber }}>[[ ]] zł</p>
+              </div>
             </div>
           </section>
-        </div>
-      </main>
 
-      <Footer />
+          <section id="cat" className="mx-auto px-5 pb-20" style={{ maxWidth: 1080 }}>
+            <div className="flex flex-wrap gap-2 mb-8">
+              {CATS.map((c) => (
+                <button
+                  key={c}
+                  onClick={() => setCat(c)}
+                  aria-pressed={cat === c}
+                  style={{
+                    fontFamily: F.body,
+                    fontSize: "0.8rem",
+                    padding: "7px 14px",
+                    borderRadius: 99,
+                    border: `1px solid ${cat === c ? C.indigo : C.rule}`,
+                    background: cat === c ? C.indigo : "transparent",
+                    color: cat === c ? C.paper : C.ink2,
+                  }}
+                >
+                  {t[c]}
+                </button>
+              ))}
+            </div>
+
+            <div className="grid gap-7 md:grid-cols-2">
+              {list.map((p) => {
+                const low = p.variants.some((v) => v.stock <= 6) && p.cat !== "digital" && p.cat !== "support";
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => {
+                      setActive(p);
+                      window.scrollTo(0, 0);
+                    }}
+                    className="text-left"
+                    style={{ border: `1px solid ${C.rule}`, borderRadius: 12, padding: 14, background: C.surface }}
+                  >
+                    <Motif p={p} small />
+                    <div className="pt-4">
+                      <div className="flex justify-between gap-4 items-start">
+                        <p style={{ fontFamily: F.display, fontSize: "1.02rem", color: C.indigo, lineHeight: 1.35 }}>{p[lang].name}</p>
+                        <Price v={p.price} />
+                      </div>
+                      <div className="mt-2">
+                        <Impact text={p[lang].impact} />
+                      </div>
+                      {low && (
+                        <p style={{ fontFamily: F.mono, fontSize: "0.66rem", color: C.ink2, marginTop: 8 }}>{t.stock_low}</p>
+                      )}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        </>
+      )}
+
+      {/* PRODUKT */}
+      {view === "home" && active && (
+        <ShopProductPage
+          p={active}
+          lang={lang}
+          t={t}
+          onBack={() => setActive(null)}
+          onAdd={(v, q) => {
+            add(active.id, v, q);
+            setCartOpen(true);
+          }}
+        />
+      )}
+
+      {/* CHECKOUT */}
+      {view === "checkout" && (
+        <ShopCheckout
+          lang={lang}
+          t={t}
+          cart={cart}
+          subtotal={subtotal}
+          shipping={shipping}
+          total={total}
+          hasDigital={hasDigital}
+          allNoShip={allNoShip}
+          onBack={() => setView("home")}
+          onDone={placeOrder}
+        />
+      )}
+
+      {/* POTWIERDZENIE */}
+      {view === "done" && order && (
+        <section className="mx-auto px-5 py-16" style={{ maxWidth: 640 }}>
+          <p style={{ fontFamily: F.mono, fontSize: "0.72rem", color: C.amber }}>
+            ✓ {t.ok_order.toUpperCase()} {order.number}
+          </p>
+          <h1 style={{ fontFamily: F.display, fontSize: "2rem", margin: "12px 0 10px" }}>{t.ok_title}</h1>
+          <p style={{ fontFamily: F.body, fontSize: "0.95rem", color: C.ink2, lineHeight: 1.7 }}>{t.ok_sub}</p>
+
+          <div style={{ border: `1px solid ${C.rule}`, borderRadius: 10, padding: 18, marginTop: 26, background: C.surface }}>
+            <p style={{ fontFamily: F.body, fontSize: "0.8rem", color: C.ink2, marginBottom: 12 }}>{t.ok_funded}</p>
+            {order.items.map((l) => {
+              const p = PRODUCTS.find((x) => x.id === l.pid)!;
+              return (
+                <div key={`${l.pid}-${l.vid}`} className="py-2">
+                  <Impact text={p[lang].impact} size="0.75rem" />
+                </div>
+              );
+            })}
+            <div className="pt-3 mt-3" style={{ borderTop: `1px solid ${C.rule}` }}>
+              <Row label={t.total} value={money(order.total)} />
+            </div>
+          </div>
+
+          <div className="mt-8">
+            <Btn
+              kind="ghost"
+              onClick={() => {
+                setOrder(null);
+                setView("home");
+              }}
+            >
+              {t.ok_back}
+            </Btn>
+          </div>
+        </section>
+      )}
+
+      {/* KOSZYK */}
+      {cartOpen && (
+        <div className="fixed inset-0 z-50 flex justify-end" style={{ background: "rgba(21,26,46,0.35)" }} onClick={() => setCartOpen(false)}>
+          <div
+            className="h-full w-full sm:max-w-md flex flex-col"
+            style={{ background: C.paper, borderLeft: `1px solid ${C.rule}` }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between px-5" style={{ height: 62, borderBottom: `1px solid ${C.rule}` }}>
+              <span style={{ fontFamily: F.display, fontSize: "1.05rem" }}>{t.cart_title}</span>
+              <button onClick={() => setCartOpen(false)} aria-label="✕" style={{ fontFamily: F.mono, fontSize: "0.85rem", color: C.ink2, padding: 6 }}>
+                ✕
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-5 py-4">
+              {cart.length === 0 ? (
+                <div className="py-10">
+                  <p style={{ fontFamily: F.body, fontSize: "0.95rem", color: C.indigo }}>{t.cart_empty}</p>
+                  <p style={{ fontFamily: F.body, fontSize: "0.85rem", color: C.ink2, marginTop: 8 }}>{t.cart_empty_cta}</p>
+                </div>
+              ) : (
+                cart.map((l) => {
+                  const p = PRODUCTS.find((x) => x.id === l.pid)!;
+                  const v = p.variants.find((x) => x.id === l.vid)!;
+                  return (
+                    <div key={l.key} className="flex gap-3 py-4" style={{ borderBottom: `1px solid ${C.rule}` }}>
+                      <div style={{ width: 64, flexShrink: 0 }}>
+                        <Motif p={p} small />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p style={{ fontFamily: F.body, fontSize: "0.85rem", color: C.indigo }}>{p[lang].name}</p>
+                        <p style={{ fontFamily: F.mono, fontSize: "0.68rem", color: C.ink2, marginTop: 2 }}>{v[lang]}</p>
+                        <div className="flex items-center justify-between mt-2">
+                          <div className="flex items-center" style={{ border: `1px solid ${C.rule}`, borderRadius: 7 }}>
+                            <button onClick={() => setQty(l.key, l.qty - 1)} aria-label={t.remove} style={{ padding: "3px 9px", fontFamily: F.mono, color: C.ink2 }}>
+                              −
+                            </button>
+                            <span style={{ fontFamily: F.mono, fontSize: "0.8rem", minWidth: 20, textAlign: "center" }}>{l.qty}</span>
+                            <button onClick={() => setQty(l.key, l.qty + 1)} aria-label={t.qty} style={{ padding: "3px 9px", fontFamily: F.mono, color: C.ink2 }}>
+                              +
+                            </button>
+                          </div>
+                          <Price v={p.price * l.qty} size="0.85rem" />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
+            {cart.length > 0 && (
+              <div className="px-5 py-4" style={{ borderTop: `1px solid ${C.rule}` }}>
+                <Row label={t.subtotal} value={money(subtotal)} />
+                <Row label={t.shipping} value={shipping === 0 ? t.free : money(shipping)} />
+                <div className="flex justify-between items-center py-2">
+                  <span style={{ fontFamily: F.body, fontSize: "0.9rem" }}>{t.total}</span>
+                  <Price v={total} size="1.05rem" />
+                </div>
+                <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, marginBottom: 12 }}>{t.vat_note}</p>
+                <Btn
+                  full
+                  onClick={() => {
+                    setCartOpen(false);
+                    setActive(null);
+                    setView("checkout");
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  {t.checkout}
+                </Btn>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Stopka */}
+      <footer style={{ borderTop: `1px solid ${C.rule}`, marginTop: 40 }}>
+        <div className="mx-auto px-5 py-12 grid gap-10 sm:grid-cols-3" style={{ maxWidth: 1080 }}>
+          <div>
+            <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, marginBottom: 10 }}>{t.seller}</p>
+            <p style={{ fontFamily: F.body, fontSize: "0.85rem", color: C.indigo, lineHeight: 1.7 }}>
+              Konstelacja Sp. z o.o.
+              <br />
+              ul. Morska 34/17
+              <br />
+              84-240 Reda, Polska
+            </p>
+            <p style={{ fontFamily: F.mono, fontSize: "0.68rem", color: C.ink2, marginTop: 10 }}>
+              KRS [[ ]] · NIP [[ ]] · REGON [[ ]]
+            </p>
+          </div>
+          <div>
+            <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, marginBottom: 10 }}>Info</p>
+            {[t.legal, t.privacy, t.returns, t.delivery, t.contact].map((x) => (
+              <p key={x} style={{ fontFamily: F.body, fontSize: "0.85rem", color: C.indigo, lineHeight: 1.9 }}>
+                {x} <span style={{ fontFamily: F.mono, fontSize: "0.66rem", color: C.ink2 }}>[[ ]]</span>
+              </p>
+            ))}
+          </div>
+          <div>
+            <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, marginBottom: 10 }}>{t.integrate}</p>
+            <p style={{ fontFamily: F.mono, fontSize: "0.7rem", color: C.ink2, lineHeight: 2 }}>
+              Stripe Checkout — BLIK, P24, karty
+              <br />
+              Fakturownia / wFirma — faktury
+              <br />
+              Printful / Printify — druk i wysyłka
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
