@@ -1,145 +1,178 @@
-export type ShopCategory = "apparel" | "drinkware" | "print" | "book" | "digital" | "support";
+export type ShopCat = "apparel" | "drinkware" | "print" | "book" | "digital" | "support";
 
-export interface ShopProduct {
-  slug: string;
-  category: ShopCategory;
-  namePl: string;
-  nameEn: string;
-  descPl: string;
-  descEn: string;
-  impactPl: string;
-  impactEn: string;
-  /** cena brutto w PLN — jedna, jedyna, wszędzie ta sama */
-  price: number;
-  variants?: string[];
-  specPl: string[];
-  specEn: string[];
-  /** POD = produkcja na zamówienie, own = magazyn własny, digital = plik */
-  fulfilment: "pod" | "own" | "digital" | "none";
-  stock?: number;
-  emoji: string;
+export interface ShopVariant {
+  id: string;
+  pl: string;
+  en: string;
+  stock: number;
 }
 
-export const SHOP_PRODUCTS: ShopProduct[] = [
+export interface ShopCopy {
+  name: string;
+  desc: string;
+  impact: string;
+  spec: [string, string][];
+}
+
+export interface ShopProduct {
+  id: string;
+  cat: ShopCat;
+  price: number;
+  tint: string;
+  slogan: string;
+  digital?: boolean;
+  noship?: boolean;
+  pl: ShopCopy;
+  en: ShopCopy;
+  variants: ShopVariant[];
+}
+
+export const PRODUCTS: ShopProduct[] = [
   {
-    slug: "koszulka-patriotyzm-zapobiegawczy",
-    category: "apparel",
-    namePl: "Koszulka „Patriotyzm zapobiegawczy”",
-    nameEn: '"Preventive Patriotism" T-shirt',
-    descPl:
-      "Bawełna organiczna 180 g/m². Nadruk wykonywany na zamówienie u dostawcy print-on-demand.",
-    descEn:
-      "Organic cotton 180 gsm. Printed to order by our print-on-demand supplier.",
-    impactPl: "Ten zakup finansuje jedną godzinę pracy nad ochroną polskich wynalazków.",
-    impactEn: "This purchase funds one hour of work protecting Polish inventions.",
-    price: 129,
-    variants: ["S", "M", "L", "XL", "XXL"],
-    specPl: ["100% bawełna organiczna", "180 g/m²", "Tabela rozmiarów w cm", "Produkcja na zamówienie"],
-    specEn: ["100% organic cotton", "180 gsm", "Size chart in cm", "Made to order"],
-    fulfilment: "pod",
-    emoji: "👕",
-  },
-  {
-    slug: "bluza-konstelacja",
-    category: "apparel",
-    namePl: "Bluza Konstelacja",
-    nameEn: "Konstelacja Hoodie",
-    descPl: "Bluza z kapturem, gruba dzianina 300 g/m², haftowane logo.",
-    descEn: "Hooded sweatshirt, heavy 300 gsm knit, embroidered logo.",
-    impactPl: "Ten zakup finansuje trzy godziny mentoringu dla młodego wynalazcy.",
-    impactEn: "This purchase funds three hours of mentoring for a young inventor.",
-    price: 269,
-    variants: ["S", "M", "L", "XL"],
-    specPl: ["Mieszanka bawełna/poliester", "300 g/m²", "Produkcja na zamówienie"],
-    specEn: ["Cotton/polyester blend", "300 gsm", "Made to order"],
-    fulfilment: "pod",
-    emoji: "🧥",
-  },
-  {
-    slug: "kubek-mindmark",
-    category: "drinkware",
-    namePl: "Kubek MindMark™",
-    nameEn: "MindMark™ Mug",
-    descPl: "Ceramiczny kubek 330 ml, nadruk odporny na zmywarkę.",
-    descEn: "Ceramic mug, 330 ml, dishwasher-safe print.",
-    impactPl: "Ten zakup finansuje jeden znacznik czasu MindMark dla wynalazcy bez budżetu.",
-    impactEn: "This purchase funds one MindMark timestamp for an inventor without a budget.",
-    price: 69,
-    specPl: ["Pojemność 330 ml", "Wysokość 95 mm, średnica 82 mm", "Ceramika"],
-    specEn: ["Capacity 330 ml", "Height 95 mm, diameter 82 mm", "Ceramic"],
-    fulfilment: "pod",
-    emoji: "☕",
-  },
-  {
-    slug: "plakat-18-krokow",
-    category: "print",
-    namePl: "Plakat „18 kroków do skalowania wynalazku”",
-    nameEn: '"18 Steps to Scale Your Invention" Poster',
-    descPl: "Mapa drogowa wynalazcy na papierze matowym 200 g/m².",
-    descEn: "The inventor's roadmap on 200 gsm matte paper.",
-    impactPl: "Ten zakup finansuje wydruk pięciu plakatów dla szkoły technicznej.",
-    impactEn: "This purchase funds five posters printed for a technical school.",
-    price: 89,
-    variants: ["A2 (42×59,4 cm)", "A1 (59,4×84,1 cm)"],
-    specPl: ["Papier matowy 200 g/m²", "Druk pigmentowy", "Wysyłka w tubie"],
-    specEn: ["200 gsm matte paper", "Pigment print", "Shipped in a tube"],
-    fulfilment: "pod",
-    emoji: "🗺️",
-  },
-  {
-    slug: "ksiazka-gospodarka-fraktalna",
-    category: "book",
-    namePl: "Książka: Gospodarka Fraktalna",
-    nameEn: "Book: Fractal Economy",
-    descPl: "Doktryna gospodarki fraktalnej — trzy poziomy mechanizmu, sześć filarów.",
-    descEn: "The fractal economy doctrine — a three-level mechanism, six pillars.",
-    impactPl: "Ten zakup finansuje jeden egzemplarz przekazany bibliotece publicznej.",
-    impactEn: "This purchase funds one copy donated to a public library.",
+    id: "mug-cww",
+    cat: "drinkware",
     price: 79,
-    specPl: ["Format 145×205 mm", "Oprawa miękka", "Waga 380 g"],
-    specEn: ["Format 145×205 mm", "Paperback", "Weight 380 g"],
-    fulfilment: "own",
-    stock: 12,
-    emoji: "📘",
+    tint: "#2A3352",
+    slogan: "COPY WHAT WORKS",
+    pl: {
+      name: "Kubek — Copy what works",
+      desc: "Zasada, na której stoi cała architektura Fractal88: jeśli model działa, kopiuj go i skaluj. Kubek z nadrukiem odpornym na zmywarkę.",
+      impact: "Finansuje godzinę pracy nad testami wdrożeń AI.",
+      spec: [["Pojemność", "330 ml"], ["Wysokość", "9,5 cm"], ["Średnica", "8 cm"], ["Materiał", "Ceramika"]],
+    },
+    en: {
+      name: "Mug — Copy what works",
+      desc: "The principle the whole Fractal88 architecture rests on: when a model works, copy it and scale it. Dishwasher-safe print.",
+      impact: "Funds one hour of work on AI deployment testing.",
+      spec: [["Capacity", "330 ml"], ["Height", "9.5 cm"], ["Diameter", "8 cm"], ["Material", "Ceramic"]],
+    },
+    variants: [
+      { id: "v1", pl: "Granat", en: "Navy", stock: 40 },
+      { id: "v2", pl: "Piaskowy", en: "Sand", stock: 6 },
+    ],
   },
   {
-    slug: "przewodnik-pre-patent",
-    category: "digital",
-    namePl: "Przewodnik PDF: Ochrona pre-patentowa",
-    nameEn: "PDF Guide: Pre-patent Protection",
-    descPl: "Kompletny przewodnik po zabezpieczeniu pomysłu zanim trafi do urzędu patentowego.",
-    descEn: "A complete guide to securing your idea before it reaches the patent office.",
-    impactPl: "Ten zakup finansuje jedną godzinę konsultacji pro bono dla wynalazcy.",
-    impactEn: "This purchase funds one hour of pro bono consultation for an inventor.",
-    price: 49,
-    specPl: ["PDF, 48 stron", "Pobranie natychmiastowe", "Bez wysyłki"],
-    specEn: ["PDF, 48 pages", "Instant download", "No shipping"],
-    fulfilment: "digital",
-    emoji: "📄",
+    id: "tee-comp",
+    cat: "apparel",
+    price: 149,
+    tint: "#151A2E",
+    slogan: "COMPLEMENTARITY\nOVER COMPETITION",
+    pl: {
+      name: "T-shirt — Complementarity over competition",
+      desc: "Wewnątrz ekosystemu zasoby są komplementarne. Konkurencja zostaje między ekosystemami. Bawełna organiczna, 180 g/m².",
+      impact: "Finansuje dzień pracy badacza w programie doktoratów wdrożeniowych.",
+      spec: [["Materiał", "100% bawełna organiczna"], ["Gramatura", "180 g/m²"], ["Krój", "Unisex, regular"], ["Pranie", "30°C, na lewej stronie"]],
+    },
+    en: {
+      name: "T-shirt — Complementarity over competition",
+      desc: "Inside the ecosystem, resources complement each other. Competition happens between ecosystems. Organic cotton, 180 gsm.",
+      impact: "Funds one researcher day in the implementation doctorate programme.",
+      spec: [["Material", "100% organic cotton"], ["Weight", "180 gsm"], ["Fit", "Unisex, regular"], ["Wash", "30°C, inside out"]],
+    },
+    variants: [
+      { id: "s", pl: "S", en: "S", stock: 12 },
+      { id: "m", pl: "M", en: "M", stock: 20 },
+      { id: "l", pl: "L", en: "L", stock: 18 },
+      { id: "xl", pl: "XL", en: "XL", stock: 4 },
+    ],
   },
   {
-    slug: "wsparcie-bezposrednie",
-    category: "support",
-    namePl: "Wsparcie bezpośrednie",
-    nameEn: "Direct Support",
-    descPl: "Bez przedmiotu. Dla osób, które chcą wesprzeć pracę, a nie dostać kubek.",
-    descEn: "No object. For people who want the work, not the mug.",
-    impactPl: "Ta wpłata finansuje bezpośrednio pracę zespołu nad ochroną polskiej myśli technicznej.",
-    impactEn: "This contribution funds the team's work protecting Polish technical thought directly.",
+    id: "poster-pyr",
+    cat: "print",
+    price: 119,
+    tint: "#3A2F1E",
+    slogan: "AI ECOSYSTEM\nPYRAMID",
+    pl: {
+      name: "Plakat — Piramida ekosystemu AI",
+      desc: "Pięć warstw odporności: potrzeby, kompetencje, ekosystemy biznesowe, badania, warstwa cywilizacyjna. Druk pigmentowy na papierze 250 g.",
+      impact: "Finansuje przygotowanie jednego pakietu dowodowego z wdrożenia.",
+      spec: [["Format", "50 × 70 cm"], ["Papier", "Matowy, 250 g/m²"], ["Druk", "Pigmentowy, archiwalny"], ["Wysyłka", "W tubie"]],
+    },
+    en: {
+      name: "Poster — AI Ecosystem Pyramid",
+      desc: "Five layers of resilience: needs, skills, business ecosystems, research, civilisation layer. Pigment print on 250 gsm stock.",
+      impact: "Funds the preparation of one deployment evidence pack.",
+      spec: [["Size", "50 × 70 cm"], ["Paper", "Matte, 250 gsm"], ["Print", "Pigment, archival"], ["Shipping", "In a tube"]],
+    },
+    variants: [{ id: "v1", pl: "50 × 70 cm", en: "50 × 70 cm", stock: 25 }],
+  },
+  {
+    id: "book-zw",
+    cat: "book",
+    price: 69,
+    tint: "#4A3A2A",
+    slogan: "ZIARNO\nI WIATR",
+    pl: {
+      name: "Ziarno i wiatr",
+      desc: "Efekt Wydmy: jak pojedyncze ziarna układają się w struktury, które przetrwają wiatr. Rzecz o odporności organizacji i o tym, dlaczego kopiowanie tego, co działa, jest strategią, a nie brakiem ambicji.",
+      impact: "Finansuje dwie godziny pracy nad badaniami do kolejnego rozdziału.",
+      spec: [["Oprawa", "Miękka ze skrzydełkami"], ["Stron", "[[ ]]"], ["Format", "145 × 205 mm"], ["ISBN", "[[ ]]"]],
+    },
+    en: {
+      name: "The Grain and the Wind",
+      desc: "The Dune Effect: how single grains arrange into structures that outlast the wind. On organisational resilience, and why copying what works is a strategy rather than a lack of ambition.",
+      impact: "Funds two hours of research toward the next chapter.",
+      spec: [["Binding", "Paperback with flaps"], ["Pages", "[[ ]]"], ["Format", "145 × 205 mm"], ["ISBN", "[[ ]]"]],
+    },
+    variants: [{ id: "v1", pl: "Wydanie polskie", en: "Polish edition", stock: 60 }],
+  },
+  {
+    id: "geo-guide",
+    cat: "digital",
+    price: 149,
+    tint: "#1E3A34",
+    slogan: "GEO\nPRZEWODNIK",
+    digital: true,
+    pl: {
+      name: "GEO — przewodnik po widoczności w AI",
+      desc: "Jak pisać tak, żeby modele językowe cytowały Twoją firmę. Praktyczny przewodnik PDF z checklistami i przykładami. Dostęp natychmiast po opłaceniu.",
+      impact: "Finansuje utrzymanie otwartej biblioteki dowodów przez tydzień.",
+      spec: [["Format", "PDF"], ["Stron", "[[ ]]"], ["Aktualizacje", "Dożywotnie"], ["Język", "Polski"]],
+    },
+    en: {
+      name: "GEO — a guide to AI visibility",
+      desc: "How to write so language models cite your company. A practical PDF with checklists and worked examples. Access immediately after payment.",
+      impact: "Funds one week of hosting for the open evidence library.",
+      spec: [["Format", "PDF"], ["Pages", "[[ ]]"], ["Updates", "Lifetime"], ["Language", "Polish"]],
+    },
+    variants: [{ id: "v1", pl: "Plik PDF", en: "PDF file", stock: 999 }],
+  },
+  {
+    id: "support",
+    cat: "support",
     price: 100,
-    specPl: ["Brak wysyłki", "Możliwa faktura na firmę"],
-    specEn: ["No shipping", "Company invoice available"],
-    fulfilment: "none",
-    emoji: "⭐",
+    tint: "#2E2440",
+    slogan: "WSPARCIE\nBEZPOŚREDNIE",
+    noship: true,
+    pl: {
+      name: "Wsparcie bezpośrednie",
+      desc: "Dla osób, które chcą wesprzeć pracę, a nie potrzebują kolejnego kubka. Bez wysyłki, bez przedmiotu — całość idzie na badania.",
+      impact: "Finansuje bezpośrednio bieżące prace badawcze.",
+      spec: [["Wysyłka", "Brak"], ["Potwierdzenie", "E-mail"], ["Faktura", "Na życzenie"]],
+    },
+    en: {
+      name: "Direct support",
+      desc: "For people who want to back the work without another mug. No shipping, no object — all of it goes to research.",
+      impact: "Funds current research work directly.",
+      spec: [["Shipping", "None"], ["Confirmation", "Email"], ["Invoice", "On request"]],
+    },
+    variants: [{ id: "v1", pl: "100 zł", en: "100 zł", stock: 999 }],
   },
 ];
 
-export const SHOP_CATEGORIES: { key: ShopCategory | "all"; pl: string; en: string }[] = [
-  { key: "all", pl: "Wszystko", en: "All" },
-  { key: "apparel", pl: "Odzież", en: "Apparel" },
-  { key: "drinkware", pl: "Kubki", en: "Drinkware" },
-  { key: "print", pl: "Plakaty", en: "Prints" },
-  { key: "book", pl: "Książki", en: "Books" },
-  { key: "digital", pl: "Cyfrowe", en: "Digital" },
-  { key: "support", pl: "Wsparcie", en: "Support" },
-];
+export const CATS = ["all", "apparel", "drinkware", "print", "book", "digital", "support"] as const;
+
+export const C = {
+  paper: "#FCFCFA",
+  surface: "#FFFFFF",
+  indigo: "#151A2E",
+  ink2: "#4A5170",
+  rule: "#E3E1DA",
+  amber: "#D4A017",
+};
+
+export const F = {
+  display: "'Fraunces', Georgia, 'Times New Roman', serif",
+  body: "'Inter', system-ui, -apple-system, sans-serif",
+  mono: "'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace",
+};
