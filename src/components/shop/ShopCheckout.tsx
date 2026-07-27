@@ -165,10 +165,14 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
           </div>
 
           <div className="mt-8">
-            <Btn full disabled={!ready} onClick={() => onDone(f)}>
-              {t.pay} · {money(total)}
+            <Btn full disabled={!ready || busy} onClick={submit}>
+              {busy ? (lang === "pl" ? "Przetwarzanie…" : "Processing…") : `${t.pay} · ${money(total)}`}
             </Btn>
+            {err && (
+              <p style={{ fontFamily: F.mono, fontSize: "0.72rem", color: "#B3261E", marginTop: 10 }}>{err}</p>
+            )}
           </div>
+
         </div>
 
         <aside>
