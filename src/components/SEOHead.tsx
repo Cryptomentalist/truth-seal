@@ -6,12 +6,13 @@ interface SEOHeadProps {
   path: string;
   type?: string;
   image?: string; // absolute URL or path starting with "/"
+  noindex?: boolean;
 }
 
 const BASE_URL = "https://konstelacja.org";
 const DEFAULT_IMAGE = "/og/home.jpg";
 
-const SEOHead = ({ title, description, path, type = "website", image }: SEOHeadProps) => {
+const SEOHead = ({ title, description, path, type = "website", image, noindex = false }: SEOHeadProps) => {
   useEffect(() => {
     const fullTitle = `${title} — Constellation.love`;
     document.title = fullTitle;
@@ -49,7 +50,9 @@ const SEOHead = ({ title, description, path, type = "website", image }: SEOHeadP
       document.head.appendChild(canonical);
     }
     canonical.setAttribute("href", `${BASE_URL}${path}`);
-  }, [title, description, path, type, image]);
+
+    setMeta("name", "robots", noindex ? "noindex, nofollow" : "index, follow");
+  }, [title, description, path, type, image, noindex]);
 
   return null;
 };
