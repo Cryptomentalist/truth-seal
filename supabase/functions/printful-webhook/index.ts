@@ -1,5 +1,6 @@
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
+import { isSuppressed, validEmail } from '../_shared/customer-validation.ts'
 
 // Receives Printful webhook events, updates the order row and sends
 // automatic customer notifications (shipped / tracking number).
