@@ -198,5 +198,31 @@ Deno.serve(async (req) => {
     })
     .eq("id", order.id);
 
-  return json({ orderNo: order.order_no, subtotal, shipping, total, pod: printful });
+  // --- faktura PDF + e-mail z linkiem do panelu klienta ---
+  let invoiceNumber: string | null = null;
+  let invoicePanelUrl: string | null = null;
+  try {
+    const { data: inv, error: invErr } = await supabase.functions.invoke("generate-invoice", {
+      body: { orderId: order.id },
+      headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` },
+    });
+    if (invErr) {
+      console.error("Invoice generation failed:", invErr.message);
+    } else {
+      invoiceNumber = inv?.invoiceNumber ?? null;
+      invoicePanelUrl = inv?.panelUrl ?? null;
+    }
+  } catch (e) {
+    console.error("Invoice generation threw:", e);
+  }
+
+  return json({
+    orderNo: order.order_no,
+    subtotal,
+    shipping,
+    total,
+    pod: printful,
+    invoiceNumber,
+    invoiceUrl: invoicePanelUrl,
+  });
 });
