@@ -14,7 +14,99 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      shop_orders: {
+        Row: {
+          city: string | null
+          company_name: string | null
+          consent_news: boolean
+          country_code: string
+          created_at: string
+          currency: string
+          email: string
+          id: string
+          items: Json
+          lang: string
+          name: string
+          order_no: string
+          payment_method: string | null
+          phone: string | null
+          printful_error: string | null
+          printful_order_id: string | null
+          printful_status: string | null
+          shipping: number
+          shipping_method: string | null
+          status: string
+          street: string | null
+          subtotal: number
+          tax_id: string | null
+          total: number
+          tracking_number: string | null
+          tracking_url: string | null
+          updated_at: string
+          zip: string | null
+        }
+        Insert: {
+          city?: string | null
+          company_name?: string | null
+          consent_news?: boolean
+          country_code?: string
+          created_at?: string
+          currency?: string
+          email: string
+          id?: string
+          items: Json
+          lang?: string
+          name: string
+          order_no: string
+          payment_method?: string | null
+          phone?: string | null
+          printful_error?: string | null
+          printful_order_id?: string | null
+          printful_status?: string | null
+          shipping?: number
+          shipping_method?: string | null
+          status?: string
+          street?: string | null
+          subtotal: number
+          tax_id?: string | null
+          total: number
+          tracking_number?: string | null
+          tracking_url?: string | null
+          updated_at?: string
+          zip?: string | null
+        }
+        Update: {
+          city?: string | null
+          company_name?: string | null
+          consent_news?: boolean
+          country_code?: string
+          created_at?: string
+          currency?: string
+          email?: string
+          id?: string
+          items?: Json
+          lang?: string
+          name?: string
+          order_no?: string
+          payment_method?: string | null
+          phone?: string | null
+          printful_error?: string | null
+          printful_order_id?: string | null
+          printful_status?: string | null
+          shipping?: number
+          shipping_method?: string | null
+          status?: string
+          street?: string | null
+          subtotal?: number
+          tax_id?: string | null
+          total?: number
+          tracking_number?: string | null
+          tracking_url?: string | null
+          updated_at?: string
+          zip?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
