@@ -21,6 +21,25 @@ export const T = {
     consent_digital:
       "Wyrażam zgodę na dostarczenie treści cyfrowej przed upływem 14 dni na odstąpienie i przyjmuję do wiadomości, że tracę prawo odstąpienia.",
     consent_news: "Chcę otrzymywać informacje o nowych projektach. (opcjonalnie)",
+    consent_privacy:
+      "Zapoznałam/em się z informacją o przetwarzaniu danych (RODO) i wyrażam zgodę na przetwarzanie moich danych w celu realizacji zamówienia.",
+    consent_news_detail:
+      "Zgoda dobrowolna, niezależna od zamówienia. Możesz ją wycofać w każdej chwili — klikając link rezygnacji w stopce każdej wiadomości lub pisząc na kontakt@konstelacja.org.",
+    consent_title: "Zgody i informacja RODO",
+    consent_admin:
+      "Administrator danych: Fundacja Konstelacja.org, ul. Morska 30B/5, 84-240 Reda. Dane (imię, nazwisko, e-mail, adres, telefon) przetwarzamy w celu realizacji zamówienia i wysyłki, a przy zgodzie marketingowej — do informowania o projektach. Masz prawo dostępu, sprostowania, usunięcia, ograniczenia i sprzeciwu.",
+    consent_tx_note:
+      "Niezależnie od zgód marketingowych wyślemy Ci wiadomości transakcyjne dotyczące zamówienia (potwierdzenie, wysyłka, numer śledzenia). Każda wiadomość zawiera dane nadawcy i link rezygnacji z wiadomości marketingowych.",
+    consent_required: "Ta zgoda jest wymagana.",
+    validation_title: "Sprawdź dane",
+    validation_intro: "Popraw zaznaczone pola — bez poprawnego adresu nie wyślemy paczki ani powiadomień e-mail.",
+    err_email_suppressed:
+      "Ten adres e-mail został wcześniej wypisany lub odrzucił nasze wiadomości. Podaj inny adres.",
+    err_invalid_email: "Podany adres e-mail jest nieprawidłowy.",
+    err_invalid_address: "Adres dostawy jest niekompletny lub nieprawidłowy.",
+    err_consent: "Wymagane zgody nie zostały zaznaczone.",
+    hint_zip: "Format 00-000",
+    hint_email: "Na ten adres wyślemy potwierdzenie i numer śledzenia.",
     pay: "Zapłać", req: "Wymagane",
     ok_title: "Dziękujemy.", ok_sub: "Zamówienie przyjęte. Potwierdzenie wysłaliśmy na Twój adres e-mail.",
     ok_order: "Numer zamówienia", ok_funded: "Co właśnie sfinansowałaś/eś", ok_back: "Wróć do sklepu",
@@ -52,6 +71,25 @@ export const T = {
     consent_digital:
       "I consent to digital delivery beginning before the 14-day withdrawal period ends, and accept that I lose the right of withdrawal.",
     consent_news: "Send me news about new projects. (optional)",
+    consent_privacy:
+      "I have read the data processing notice (GDPR) and consent to my data being processed to fulfil this order.",
+    consent_news_detail:
+      "Optional and independent from your order. You can withdraw it at any time — via the unsubscribe link in the footer of every message or by writing to kontakt@konstelacja.org.",
+    consent_title: "Consents and GDPR notice",
+    consent_admin:
+      "Data controller: Fundacja Konstelacja.org, ul. Morska 30B/5, 84-240 Reda, Poland. We process your data (name, email, address, phone) to fulfil and ship the order and, with marketing consent, to share project news. You may access, rectify, erase, restrict or object to processing.",
+    consent_tx_note:
+      "Regardless of marketing consent we will send transactional messages about this order (confirmation, shipping, tracking). Every message carries our sender details and an unsubscribe link for marketing messages.",
+    consent_required: "This consent is required.",
+    validation_title: "Check your details",
+    validation_intro: "Fix the highlighted fields — without a valid address we cannot ship or email you.",
+    err_email_suppressed:
+      "This email address previously unsubscribed or bounced. Please use a different one.",
+    err_invalid_email: "The email address is invalid.",
+    err_invalid_address: "The delivery address is incomplete or invalid.",
+    err_consent: "Required consents were not accepted.",
+    hint_zip: "Format 00-000",
+    hint_email: "We send the confirmation and tracking number here.",
     pay: "Pay", req: "Required",
     ok_title: "Thank you.", ok_sub: "Order received. A confirmation is on its way to your inbox.",
     ok_order: "Order number", ok_funded: "What you just funded", ok_back: "Back to the shop",
