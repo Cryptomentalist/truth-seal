@@ -16,7 +16,9 @@ import PlatformaERP from "./pages/PlatformaERP";
 import PolishAssets from "./pages/PolishAssets";
 import Ciekawostki from "./pages/Ciekawostki";
 import Sklep from "./pages/Sklep";
+import Unsubscribe from "./pages/Unsubscribe";
 import NotFound from "./pages/NotFound";
+
 
 
 const queryClient = new QueryClient();
@@ -42,6 +44,8 @@ const App = () => (
           <Route path="/polishassets" element={<PolishAssets />} />
           <Route path="/ciekawostki" element={<Ciekawostki />} />
           <Route path="/sklep" element={<Sklep />} />
+          <Route path="/unsubscribe" element={<Unsubscribe />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
