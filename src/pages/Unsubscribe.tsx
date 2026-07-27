@@ -50,7 +50,7 @@ const Unsubscribe = () => {
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-background px-4">
-      <SEOHead title="Rezygnacja z e-maili | Konstelacja.org" description="Zarządzaj swoimi preferencjami e-mail w Konstelacja.org." />
+      <SEOHead title="Rezygnacja z e-maili | Konstelacja.org" description="Zarządzaj swoimi preferencjami e-mail w Konstelacja.org." path="/unsubscribe" />
       <div className="max-w-md w-full text-center border border-border rounded-2xl p-8 bg-card">
         <h1 className="text-2xl font-semibold mb-4 break-words">Rezygnacja z e-maili</h1>
         <p className="text-muted-foreground mb-6">{messages[state]}</p>
