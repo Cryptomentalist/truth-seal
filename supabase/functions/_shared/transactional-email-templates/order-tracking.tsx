@@ -64,7 +64,8 @@ const Email = ({ name, orderNo, lang, trackingNumber, trackingUrl, ...summary }:
               ? 'Delivery status can take a few hours to appear on the carrier site.'
               : 'Status doręczenia może pojawić się u przewoźnika po kilku godzinach.'}
           </Text>
-          <Text style={muted}>Fundacja Konstelacja.org · ul. Morska 30B/5, 84-240 Reda</Text>
+          <ConsentFooter en={en} />
+
         </Container>
       </Body>
     </Html>
