@@ -13,7 +13,7 @@
     "faq": "FAQ",
     "kontakt": "Kontakt",
     "secureCta": "Zabezpiecz IP",
-    "sklep": "SKLEP Charytatywny"
+    "sklep": "Sklep"
   },
   "topBanner": {
     "protectIP": "Chroń swoje IP",
@@ -220,39 +220,5 @@
   "oferta": {
     "seoTitle": "Oferta — InventorProof",
     "seoDesc": "Kryptograficzny dowód istnienia wynalazku na etapie pre-patentowym. Blockchain chroni Twoje IP zanim ktokolwiek je zobaczy."
-  },
-  "sklep": {
-    "seoTitle": "SKLEP Charytatywny",
-    "seoDesc": "Sklep wspierający Konstelacja Sp. z o.o. — kupujesz przedmiot i jednocześnie finansujesz ochronę polskich wynalazków.",
-    "back": "Powrót",
-    "kicker": "Sklep wspierający",
-    "title": "SKLEP Charytatywny Konstelacja",
-    "lead": "Kupujesz dobrze zrobiony przedmiot i jednocześnie finansujesz pracę, w którą wierzysz. Każdy produkt ma jedną cenę i jedno konkretne zdanie mówiące, co ten zakup finansuje.",
-    "sort": "Sortowanie",
-    "sortNewest": "Najnowsze",
-    "sortAsc": "Cena rosnąco",
-    "sortDesc": "Cena malejąco",
-    "cart": "Koszyk",
-    "cartEmpty": "Koszyk jest pusty.",
-    "cartEmptyHint": "Zacznij od plakatu 18 kroków — finansuje wydruki dla szkoły technicznej.",
-    "total": "Razem",
-    "vatNote": "Cena zawiera VAT. Koszt dostawy liczony jest na etapie zamówienia; produkty cyfrowe nie generują kosztu wysyłki.",
-    "checkoutSoon": "Płatności (BLIK, Przelewy24, karta) — w przygotowaniu",
-    "addToCart": "Dodaj do koszyka",
-    "outOfStock": "Brak w magazynie",
-    "decrease": "Zmniejsz ilość",
-    "increase": "Zwiększ ilość",
-    "remove": "Usuń z koszyka",
-    "lowStock": "Ostatnie sztuki: {{n}}",
-    "podNote": "Produkcja na zamówienie (print-on-demand). Standardowy wzór — prawo odstąpienia w ciągu 14 dni przysługuje.",
-    "digitalNote": "Produkt cyfrowy. Przy zakupie wymagana osobna zgoda na rozpoczęcie pobierania przed upływem 14 dni i utratę prawa odstąpienia.",
-    "legalTitle": "Warstwa formalna",
-    "legalLead": "Zakupy realizuje Konstelacja Sp. z o.o. jako sprzedawca. Poniższe dokumenty są przygotowywane i zostaną udostępnione przed uruchomieniem płatności.",
-    "legalRules": "Regulamin sklepu — akceptacja obowiązkowa, wersja zapisywana przy zamówieniu",
-    "legalPrivacy": "Polityka prywatności (RODO) — administrator, procesorzy, okresy przechowywania",
-    "legalShipping": "Dostawa i płatności — strefy PL / UE / świat, kurier i paczkomat",
-    "legalReturns": "Zwroty i reklamacje — formularz odstąpienia (14 dni) do pobrania",
-    "legalOmnibus": "Omnibus — historia cen i najniższa cena z 30 dni przed obniżką",
-    "legalGpsr": "GPSR — dane producenta/importera i informacje o pielęgnacji przy każdym produkcie"
   }
 }
