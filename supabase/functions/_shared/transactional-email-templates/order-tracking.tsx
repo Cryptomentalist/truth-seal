@@ -13,6 +13,7 @@ import {
 } from 'npm:@react-email/components@0.0.22'
 import type { TemplateEntry } from './registry.ts'
 import { OrderSummary } from './order-summary.tsx'
+import { ConsentFooter } from './consent-footer.tsx'
 import type { OrderSummaryProps } from './order-summary.tsx'
 
 interface Props extends OrderSummaryProps {
