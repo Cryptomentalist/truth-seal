@@ -64,4 +64,4 @@ export const T = {
 } as const;
 
 export type ShopLang = keyof typeof T;
-export type ShopStrings = (typeof T)["pl"];
+export type ShopStrings = Record<keyof (typeof T)["pl"], string>;
