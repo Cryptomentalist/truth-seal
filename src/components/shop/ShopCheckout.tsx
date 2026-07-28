@@ -110,7 +110,8 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
   };
 
   // dostawa liczona zgodnie z wybraną metodą — identycznie jak na serwerze
-  const shipCost = allNoShip || subtotal >= 250 ? 0 : ship === "locker" ? 12 : 16;
+  const shipCost =
+    cart.length === 0 || subtotal === 0 || allNoShip || subtotal >= 250 ? 0 : ship === "locker" ? 12 : 16;
   const grandTotal = subtotal + shipCost;
 
   const show = (k: keyof FieldErrors) => (touched ? errors[k] : undefined);
