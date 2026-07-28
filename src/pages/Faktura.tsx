@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Download, FileText, Loader2, AlertCircle } from "lucide-react";
+import { Download, FileText, Loader2, AlertCircle, Lock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import SEOHead from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ interface InvoiceResponse {
     currency: string;
     downloadUrl: string | null;
   };
+  downloads?: { pid: string; name: string; url: string | null; locked: boolean }[];
   order: {
     orderNo: string;
     name: string;
@@ -153,6 +154,40 @@ const Faktura = () => {
                 )}
               </Button>
             </div>
+
+            {(data.downloads?.length ?? 0) > 0 && (
+              <div className="rounded-xl border border-border bg-card p-6">
+                <p className="mb-4 text-xs uppercase tracking-widest text-muted-foreground">
+                  {t("Produkty cyfrowe", "Digital products")}
+                </p>
+                <ul className="space-y-3">
+                  {data.downloads!.map((d) => (
+                    <li key={d.pid} className="flex flex-wrap items-center justify-between gap-3">
+                      <span className="text-sm text-foreground break-words">{d.name}</span>
+                      {d.url ? (
+                        <Button asChild size="sm" className="whitespace-normal">
+                          <a href={d.url} target="_blank" rel="noopener noreferrer">
+                            <Download className="mr-2 h-4 w-4" />
+                            {t("Pobierz plik", "Download file")}
+                          </a>
+                        </Button>
+                      ) : (
+                        <span className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <Lock className="h-4 w-4" />
+                          {t("Dostępne po zaksięgowaniu płatności", "Available once payment clears")}
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-4 text-xs text-muted-foreground">
+                  {t(
+                    "Plik przechowujemy w prywatnym, szyfrowanym magazynie. Link do pobrania jest podpisany i ważny 60 minut — po wygaśnięciu odśwież tę stronę.",
+                    "The file is kept in private, encrypted storage. The download link is signed and valid for 60 minutes — refresh this page once it expires.",
+                  )}
+                </p>
+              </div>
+            )}
 
             {data.order && (
               <div className="rounded-xl border border-border bg-card p-6">

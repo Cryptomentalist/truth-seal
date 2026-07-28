@@ -138,6 +138,27 @@ export const PRODUCTS: ShopProduct[] = [
     variants: [{ id: "v1", pl: "Plik PDF", en: "PDF file", stock: 999 }],
   },
   {
+    id: "ebook-claude",
+    cat: "digital",
+    price: 89,
+    tint: "#B45A42",
+    slogan: "CLAUDE,\nPRACTICALLY",
+    digital: true,
+    pl: {
+      name: "Claude, Practically — e-book (PDF)",
+      desc: "Praktyczny przewodnik po pracy z Claude we własnym tempie: od pierwszych promptów po powtarzalne procesy w firmie. Plik jest zaszyfrowanym zasobem prywatnym — link do pobrania odblokowuje się w panelu klienta dopiero po zaksięgowaniu płatności.",
+      impact: "Finansuje dzień pracy nad materiałami edukacyjnymi o AI.",
+      spec: [["Format", "PDF (A4)"], ["Język", "Angielski"], ["Dostęp", "Panel klienta po opłaceniu"], ["Aktualizacje", "Dożywotnie"]],
+    },
+    en: {
+      name: "Claude, Practically — ebook (PDF)",
+      desc: "A practical guide to working with Claude at your own pace: from first prompts to repeatable processes at work. The file is kept in private, encrypted storage — the download link unlocks in your customer panel only once payment clears.",
+      impact: "Funds one day of work on AI education materials.",
+      spec: [["Format", "PDF (A4)"], ["Language", "English"], ["Access", "Customer panel after payment"], ["Updates", "Lifetime"]],
+    },
+    variants: [{ id: "v1", pl: "Plik PDF (EN)", en: "PDF file (EN)", stock: 999 }],
+  },
+  {
     id: "support",
     cat: "support",
     price: 100,
