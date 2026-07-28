@@ -110,7 +110,7 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
 
   const show = (k: keyof FieldErrors) => (touched ? errors[k] : undefined);
 
-  const ready = cRules && cPrivacy && (!hasDigital || cDigital);
+  const ready = cart.length > 0 && cRules && cPrivacy && (!hasDigital || cDigital);
 
   const methods: [string, string][] = [
     ["blik", "BLIK"],
