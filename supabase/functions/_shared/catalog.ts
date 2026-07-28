@@ -13,8 +13,14 @@ export interface ServerProduct {
   price: number;
   digital?: boolean;
   noship?: boolean;
+  /** Ścieżka pliku w prywatnym buckecie `digital-products` — wydawana wyłącznie po opłaceniu. */
+  file?: string;
   variants: ServerVariant[];
 }
+
+/** Statusy zamówienia, przy których plik cyfrowy może zostać udostępniony. */
+export const PAID_STATUSES = ["paid", "processing", "fulfilled", "shipped", "delivered", "completed"];
+export const isPaid = (status?: string | null) => PAID_STATUSES.includes((status || "").toLowerCase());
 
 export const SERVER_CATALOG: ServerProduct[] = [
   {
@@ -55,6 +61,14 @@ export const SERVER_CATALOG: ServerProduct[] = [
     price: 149,
     digital: true,
     variants: [{ id: "v1", label: "Plik PDF" }],
+  },
+  {
+    id: "ebook-claude",
+    name: "Claude, Practically — At Your Pace (e-book PDF)",
+    price: 89,
+    digital: true,
+    file: "ebook-claude/claude-practically-at-your-pace.pdf",
+    variants: [{ id: "v1", label: "Plik PDF (EN)" }],
   },
   {
     id: "support",
