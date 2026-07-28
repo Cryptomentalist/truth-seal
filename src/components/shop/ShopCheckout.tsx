@@ -357,6 +357,7 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
             {cart.map((l) => {
               const p = PRODUCTS.find((x) => x.id === l.pid)!;
               const v = p.variants.find((x) => x.id === l.vid)!;
+              const atMax = l.qty >= v.stock;
               return (
                 <div key={l.key} className="flex gap-3 items-center py-3" style={{ borderBottom: `1px solid ${C.rule}` }}>
                   <div style={{ width: 52, flexShrink: 0 }}>
@@ -381,9 +382,10 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
                           </span>
                           <button
                             type="button"
+                            disabled={atMax}
                             onClick={() => onSetQty(l.key, l.qty + 1)}
                             aria-label={lang === "pl" ? "Zwiększ ilość" : "Increase quantity"}
-                            style={{ padding: "1px 8px", fontFamily: F.mono, color: C.ink2 }}
+                            style={{ padding: "1px 8px", fontFamily: F.mono, color: C.ink2, opacity: atMax ? 0.35 : 1, cursor: atMax ? "not-allowed" : "pointer" }}
                           >
                             +
                           </button>
@@ -397,7 +399,13 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
                         </button>
                       </div>
                     )}
+                    {atMax && !p.digital && !p.noship && (
+                      <p style={{ fontFamily: F.mono, fontSize: "0.64rem", color: C.amber, marginTop: 4 }}>
+                        {lang === "pl" ? `Dostępne maks. ${v.stock} szt.` : `Max ${v.stock} available`}
+                      </p>
+                    )}
                   </div>
+
                   <Price v={p.price * l.qty} size="0.82rem" />
                 </div>
               );

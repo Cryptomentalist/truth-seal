@@ -74,13 +74,18 @@ const ShopProductPage = ({ p, lang, t, onBack, onAdd }: Props) => {
                 −
               </button>
               <span style={{ fontFamily: F.mono, fontSize: "0.9rem", color: C.indigo, minWidth: 24, textAlign: "center" }}>{q}</span>
-              <button onClick={() => setQ(q + 1)} aria-label={t.qty} style={{ padding: "10px 14px", fontFamily: F.mono, color: C.ink2 }}>
+              <button
+                onClick={() => setQ(Math.min(variant.stock, q + 1))}
+                disabled={q >= variant.stock}
+                aria-label={t.qty}
+                style={{ padding: "10px 14px", fontFamily: F.mono, color: C.ink2, opacity: q >= variant.stock ? 0.35 : 1, cursor: q >= variant.stock ? "not-allowed" : "pointer" }}
+              >
                 +
               </button>
             </div>
             <Btn
               onClick={() => {
-                onAdd(v, q);
+                onAdd(v, Math.min(q, variant.stock));
                 setDone(true);
                 setTimeout(() => setDone(false), 1600);
               }}
@@ -89,6 +94,7 @@ const ShopProductPage = ({ p, lang, t, onBack, onAdd }: Props) => {
               {done ? `✓ ${t.added}` : t.add}
             </Btn>
           </div>
+
 
           <p style={{ fontFamily: F.body, fontSize: "0.78rem", color: C.ink2, marginTop: 14 }}>
             {p.digital ? t.digital_est : t.delivery_est}
