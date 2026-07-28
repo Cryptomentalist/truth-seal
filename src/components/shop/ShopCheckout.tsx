@@ -349,6 +349,11 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
 
         <aside>
           <div style={{ border: `1px solid ${C.rule}`, borderRadius: 10, padding: 18, background: C.surface }}>
+            {cart.length === 0 && (
+              <p style={{ fontFamily: F.body, fontSize: "0.82rem", color: C.ink2 }}>
+                {lang === "pl" ? "Koszyk jest pusty." : "Your cart is empty."}
+              </p>
+            )}
             {cart.map((l) => {
               const p = PRODUCTS.find((x) => x.id === l.pid)!;
               const v = p.variants.find((x) => x.id === l.vid)!;
@@ -359,9 +364,39 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
                   </div>
                   <div className="flex-1 min-w-0">
                     <p style={{ fontFamily: F.body, fontSize: "0.82rem", color: C.indigo }}>{p[lang].name}</p>
-                    <p style={{ fontFamily: F.mono, fontSize: "0.68rem", color: C.ink2 }}>
-                      {v[lang]} · ×{l.qty}
-                    </p>
+                    <p style={{ fontFamily: F.mono, fontSize: "0.68rem", color: C.ink2 }}>{v[lang]}</p>
+                    {onSetQty && (
+                      <div className="flex items-center gap-2 mt-1.5">
+                        <div className="flex items-center" style={{ border: `1px solid ${C.rule}`, borderRadius: 6 }}>
+                          <button
+                            type="button"
+                            onClick={() => onSetQty(l.key, l.qty - 1)}
+                            aria-label={lang === "pl" ? "Zmniejsz ilość" : "Decrease quantity"}
+                            style={{ padding: "1px 8px", fontFamily: F.mono, color: C.ink2 }}
+                          >
+                            −
+                          </button>
+                          <span style={{ fontFamily: F.mono, fontSize: "0.72rem", color: C.indigo, minWidth: 18, textAlign: "center" }}>
+                            {l.qty}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => onSetQty(l.key, l.qty + 1)}
+                            aria-label={lang === "pl" ? "Zwiększ ilość" : "Increase quantity"}
+                            style={{ padding: "1px 8px", fontFamily: F.mono, color: C.ink2 }}
+                          >
+                            +
+                          </button>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => onSetQty(l.key, 0)}
+                          style={{ fontFamily: F.mono, fontSize: "0.68rem", color: "#B3261E", textDecoration: "underline" }}
+                        >
+                          {lang === "pl" ? "Usuń" : "Remove"}
+                        </button>
+                      </div>
+                    )}
                   </div>
                   <Price v={p.price * l.qty} size="0.82rem" />
                 </div>
