@@ -50,6 +50,8 @@ const Sklep = () => {
       });
     } else if (linkStatus === "invalid") {
       toast.error(t.cart_link_invalid, { description: t.cart_link_invalid_desc, duration: 10000 });
+    } else if (linkStatus === "merged") {
+      toast.success(t.cart_merged, { description: t.cart_merged_desc, duration: 8000 });
     } else if (linkStatus === "ok") {
       toast.success(t.cart_restored);
     }

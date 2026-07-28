@@ -24,7 +24,9 @@ export const T = {
     rm_restored: "Przywrócono produkt do koszyka",
     save_cart: "Zapisz koszyk (link)", save_cart_copied: "Link do koszyka skopiowany — otwórz go, by wrócić do zakupów",
     save_cart_hint: "Koszyk zapisuje się w tej przeglądarce. Skopiuj link, by kontynuować na innym urządzeniu.",
-    cart_restored: "Koszyk przywrócony z zapisanego linku",
+   cart_restored: "Koszyk przywrócony z zapisanego linku",
+   cart_merged: "Koszyki zostały scalone",
+   cart_merged_desc: "Pozycje z linku dodaliśmy do Twojego koszyka — nic nie zostało nadpisane.",
     save_cart_ttl: "Link jest ważny {{h}} godz. od skopiowania.",
     cart_link_expired: "Link do koszyka wygasł",
     cart_link_expired_desc:
@@ -92,7 +94,9 @@ export const T = {
     rm_restored: "Item restored to your cart",
     save_cart: "Save cart (link)", save_cart_copied: "Cart link copied — open it any time to continue",
     save_cart_hint: "Your cart is kept in this browser. Copy the link to continue on another device.",
-    cart_restored: "Cart restored from your saved link",
+   cart_restored: "Cart restored from your saved link",
+   cart_merged: "Carts merged",
+   cart_merged_desc: "Items from the link were added to your cart — nothing was overwritten.",
     save_cart_ttl: "The link stays valid for {{h}} hours after copying.",
     cart_link_expired: "This cart link has expired",
     cart_link_expired_desc:
