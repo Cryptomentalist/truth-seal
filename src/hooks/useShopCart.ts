@@ -29,38 +29,69 @@ export const maxQty = (pid: string, vid: string): number => {
   return v ? Math.max(0, v.stock) : 0;
 };
 
-const read = (): CartLine[] => {
+/** Podsumowanie korekt po odświeżeniu koszyka względem aktualnego katalogu. */
+export interface CartAdjust {
+  removed: number;   // pozycje niedostępne / wyprzedane
+  reduced: number;   // pozycje z przyciętą ilością (mniejszy stan magazynowy)
+  repriced: number;  // pozycje z inną ceną niż zapisana
+}
+
+export const emptyAdjust: CartAdjust = { removed: 0, reduced: 0, repriced: 0 };
+export const hasAdjust = (a: CartAdjust) => a.removed + a.reduced + a.repriced > 0;
+export const mergeAdjust = (a: CartAdjust, b: CartAdjust): CartAdjust => ({
+  removed: a.removed + b.removed,
+  reduced: a.reduced + b.reduced,
+  repriced: a.repriced + b.repriced,
+});
+
+/**
+ * Odświeża pozycje względem aktualnego katalogu: aktualna cena, stan magazynowy
+ * (przycięcie ilości), usunięcie pozycji, których już nie ma lub są wyprzedane.
+ */
+export const refreshLines = (
+  raw: Array<{ pid: string; vid: string; qty: number; price?: number }>,
+): { lines: CartLine[]; adjust: CartAdjust } => {
+  const adjust: CartAdjust = { ...emptyAdjust };
+  const lines: CartLine[] = [];
+  for (const l of raw) {
+    const p = PRODUCTS.find((x) => x.id === l?.pid);
+    const v = p?.variants.find((x) => x.id === l?.vid);
+    const want = Math.floor(Number(l?.qty));
+    if (!p || !v || !Number.isFinite(want) || want <= 0) {
+      adjust.removed += 1;
+      continue;
+    }
+    const max = maxQty(l.pid, l.vid);
+    if (max <= 0) {
+      adjust.removed += 1;
+      continue;
+    }
+    const qty = Math.min(want, max);
+    if (qty < want) adjust.reduced += 1;
+    if (typeof l.price === "number" && l.price !== p.price) adjust.repriced += 1;
+    lines.push({ key: `${l.pid}::${l.vid}`, pid: l.pid, vid: l.vid, qty, price: p.price });
+  }
+  return { lines, adjust };
+};
+
+const read = (): { lines: CartLine[]; adjust: CartAdjust } => {
   try {
     const raw = localStorage.getItem(KEY);
-    if (!raw) return [];
+    if (!raw) return { lines: [], adjust: { ...emptyAdjust } };
     const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return [];
-    return parsed
-      .filter((l) => {
-        const p = PRODUCTS.find((x) => x.id === l?.pid);
-        return !!p && p.variants.some((v) => v.id === l.vid) && typeof l.qty === "number";
-      })
-      .map((l) => ({ ...l, qty: Math.min(l.qty, maxQty(l.pid, l.vid)) }))
-      .filter((l) => l.qty > 0);
+    if (!Array.isArray(parsed)) return { lines: [], adjust: { ...emptyAdjust } };
+    return refreshLines(parsed);
   } catch {
-    return [];
+    return { lines: [], adjust: { ...emptyAdjust } };
   }
 };
 
 /** Zamienia surowe pozycje (pid/vid/qty) na prawidłowe linie koszyka. */
-const normalize = (lines: CartCodeLine[]): CartLine[] =>
-  lines
-    .map((l) => {
-      const p = PRODUCTS.find((x) => x.id === l.pid);
-      if (!p || !p.variants.some((v) => v.id === l.vid)) return null;
-      const qty = Math.min(Math.max(0, Math.floor(l.qty)), maxQty(l.pid, l.vid));
-      if (qty <= 0) return null;
-      return { key: `${l.pid}::${l.vid}`, pid: l.pid, vid: l.vid, qty, price: p.price };
-    })
-    .filter((l): l is CartLine => !!l);
+const normalize = (lines: CartCodeLine[]) => refreshLines(lines);
 
 /** Status linku wykryty przy starcie: null = brak linku w adresie. */
 export type CartLinkStatus = CartDecodeStatus | "merged" | null;
+
 
 /**
  * Scala dwa koszyki: ilości tej samej pozycji sumują się (do stanu magazynowego),
@@ -86,8 +117,11 @@ const readToken = (): string | null => {
 };
 
 export const useShopCart = () => {
-  const [cart, setCart] = useState<CartLine[]>(read);
+  const initial = useState(read)[0];
+  const [cart, setCart] = useState<CartLine[]>(initial.lines);
   const [linkStatus, setLinkStatus] = useState<CartLinkStatus>(null);
+  // korekty wykryte przy wczytaniu koszyka (localStorage lub link)
+  const [cartAdjust, setCartAdjust] = useState<CartAdjust>(initial.adjust);
 
   // koszyk z podpisanego linku scalamy z lokalnym (bez nadpisywania pozycji)
   useEffect(() => {
@@ -113,19 +147,27 @@ export const useShopCart = () => {
         return;
       }
       const restored = normalize(res.lines);
-      if (!restored.length) {
-        setLinkStatus("invalid");
+      if (!restored.lines.length) {
+        setLinkStatus(restored.adjust.removed > 0 ? "ok" : "invalid");
+        setCartAdjust((a) => mergeAdjust(a, restored.adjust));
         return;
       }
       setCart((local) => {
+        // po scaleniu jeszcze raz odświeżamy ceny i stany magazynowe
+        const merged = refreshLines(mergeCarts(local, restored.lines));
         setLinkStatus(local.length ? "merged" : "ok");
-        return mergeCarts(local, restored);
+        setCartAdjust((a) => mergeAdjust(mergeAdjust(a, restored.adjust), merged.adjust));
+        return merged.lines;
       });
     })();
     return () => {
       cancelled = true;
     };
   }, []);
+
+  const clearCartAdjust = useCallback(() => setCartAdjust({ ...emptyAdjust }), []);
+
+
 
 
 
@@ -191,7 +233,7 @@ export const useShopCart = () => {
 
   return {
     cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital,
-    linkStatus, linkTtlHours: CART_LINK_TTL_HOURS,
+    linkStatus, linkTtlHours: CART_LINK_TTL_HOURS, cartAdjust, clearCartAdjust,
   };
 };
 
