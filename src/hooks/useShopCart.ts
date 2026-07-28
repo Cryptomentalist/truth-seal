@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { PRODUCTS } from "@/data/shopProducts";
+import { CART_PARAM, buildCartLink, decodeCart, type CartCodeLine } from "@/lib/cartLink";
+
 
 export interface CartLine {
   key: string;
