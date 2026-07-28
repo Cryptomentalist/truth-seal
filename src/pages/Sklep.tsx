@@ -459,7 +459,9 @@ const Sklep = () => {
                     const link = cartLink();
                     try {
                       await navigator.clipboard.writeText(link);
-                      toast.success(t.save_cart_copied);
+                      toast.success(t.save_cart_copied, {
+                        description: t.save_cart_ttl.replace("{{h}}", String(linkTtlHours)),
+                      });
                     } catch {
                       window.prompt(t.save_cart, link);
                     }
@@ -469,7 +471,10 @@ const Sklep = () => {
                 >
                   {t.save_cart}
                 </button>
-                <p style={{ fontFamily: F.body, fontSize: "0.68rem", color: C.ink2, marginTop: 6 }}>{t.save_cart_hint}</p>
+                <p style={{ fontFamily: F.body, fontSize: "0.68rem", color: C.ink2, marginTop: 6 }}>
+                  {t.save_cart_hint} {t.save_cart_ttl.replace("{{h}}", String(linkTtlHours))}
+                </p>
+
               </div>
             )}
           </div>
