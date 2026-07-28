@@ -93,6 +93,13 @@ export const T = {
     save_cart: "Save cart (link)", save_cart_copied: "Cart link copied — open it any time to continue",
     save_cart_hint: "Your cart is kept in this browser. Copy the link to continue on another device.",
     cart_restored: "Cart restored from your saved link",
+    save_cart_ttl: "The link stays valid for {{h}} hours after copying.",
+    cart_link_expired: "This cart link has expired",
+    cart_link_expired_desc:
+      "Saved links are valid for {{h}} hours. Add the items again and save a new link — the cart stored in this browser is unchanged.",
+    cart_link_invalid: "Invalid cart link",
+    cart_link_invalid_desc: "The link is broken or incomplete. Copy it again or add the items manually.",
+
     co_title: "Order", co_contact: "Contact", co_addr: "Delivery address", co_ship: "Shipping method", co_pay: "Payment",
     email: "Email", name: "Full name", street: "Street and number", zip: "Postcode", city: "City", phone: "Phone",
     inv: "I need a company invoice", inv_name: "Company name", inv_nip: "VAT ID",
