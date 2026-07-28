@@ -4,10 +4,11 @@ import {
   CART_LINK_TTL_HOURS,
   CART_PARAM,
   buildCartLink,
-  decodeCartResult,
+  verifyCart,
   type CartCodeLine,
   type CartDecodeStatus,
 } from "@/lib/cartLink";
+
 
 
 
@@ -75,38 +76,23 @@ export const mergeCarts = (base: CartLine[], incoming: CartLine[]): CartLine[] =
   return out.filter((l) => l.qty > 0);
 };
 
-/** Koszyk z linku jest scalany z zapisem lokalnym (bez nadpisywania pozycji). */
-const initial = (): { lines: CartLine[]; linkStatus: CartLinkStatus } => {
-  const local = read();
+/** Token z adresu (jeśli jest) — weryfikowany później po stronie serwera. */
+const readToken = (): string | null => {
   try {
-    const code = new URLSearchParams(window.location.search).get(CART_PARAM);
-    if (code) {
-      const res = decodeCartResult(code);
-      if (res.status === "ok") {
-        const restored = normalize(res.lines);
-        if (restored.length) {
-          return {
-            lines: mergeCarts(local, restored),
-            linkStatus: local.length ? "merged" : "ok",
-          };
-        }
-        return { lines: local, linkStatus: "invalid" };
-      }
-      return { lines: local, linkStatus: res.status };
-    }
+    return new URLSearchParams(window.location.search).get(CART_PARAM);
   } catch {
-    /* brak URL API — ignorujemy */
+    return null;
   }
-  return { lines: local, linkStatus: null };
 };
 
 export const useShopCart = () => {
-  const [{ lines: initialLines, linkStatus }] = useState(initial);
-  const [cart, setCart] = useState<CartLine[]>(initialLines);
+  const [cart, setCart] = useState<CartLine[]>(read);
+  const [linkStatus, setLinkStatus] = useState<CartLinkStatus>(null);
 
-
-  // po przywróceniu koszyka z linku czyścimy parametr z adresu
+  // koszyk z podpisanego linku scalamy z lokalnym (bez nadpisywania pozycji)
   useEffect(() => {
+    const token = readToken();
+    // parametr znika z adresu od razu — token nie zostaje w historii przeglądarki
     try {
       const url = new URL(window.location.href);
       if (url.searchParams.has(CART_PARAM)) {
@@ -116,7 +102,31 @@ export const useShopCart = () => {
     } catch {
       /* ignore */
     }
+    if (!token) return;
+
+    let cancelled = false;
+    void (async () => {
+      const res = await verifyCart(token);
+      if (cancelled) return;
+      if (res.status !== "ok") {
+        setLinkStatus(res.status);
+        return;
+      }
+      const restored = normalize(res.lines);
+      if (!restored.length) {
+        setLinkStatus("invalid");
+        return;
+      }
+      setCart((local) => {
+        setLinkStatus(local.length ? "merged" : "ok");
+        return mergeCarts(local, restored);
+      });
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
+
 
 
 

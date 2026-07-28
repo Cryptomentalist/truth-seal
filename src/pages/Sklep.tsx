@@ -477,7 +477,11 @@ const Sklep = () => {
                 <button
                   type="button"
                   onClick={async () => {
-                    const link = cartLink();
+                    const link = await cartLink();
+                    if (!link) {
+                      toast.error(t.save_cart_error);
+                      return;
+                    }
                     try {
                       await navigator.clipboard.writeText(link);
                       toast.success(t.save_cart_copied, {
@@ -487,6 +491,7 @@ const Sklep = () => {
                       window.prompt(t.save_cart, link);
                     }
                   }}
+
                   className="w-full"
                   style={{ fontFamily: F.mono, fontSize: "0.72rem", color: C.ink2, textDecoration: "underline", marginTop: 10 }}
                 >
