@@ -385,6 +385,27 @@ const Sklep = () => {
         />
       )}
 
+      {/* PŁATNOŚĆ */}
+      {view === "pay" && order?.id && (
+        <section className="mx-auto px-5 py-10" style={{ maxWidth: 760 }}>
+          <PaymentTestModeBanner />
+          <p style={{ fontFamily: F.mono, fontSize: "0.72rem", color: C.amber, marginTop: 16 }}>
+            {t.ok_order.toUpperCase()} {order.number}
+          </p>
+          <h1 style={{ fontFamily: F.display, fontSize: "1.7rem", color: C.indigo, margin: "10px 0 6px" }}>
+            {lang === "pl" ? "Płatność" : "Payment"}
+          </h1>
+          <p style={{ fontFamily: F.body, fontSize: "0.86rem", color: C.ink2, marginBottom: 22 }}>
+            {lang === "pl"
+              ? "Wybierz BLIK, Przelewy24, kartę lub portfel — płatność obsługuje Stripe."
+              : "Pay with BLIK, Przelewy24, card or a wallet — securely handled by Stripe."}
+          </p>
+          <ShopPayment orderId={order.id} returnUrl={`${window.location.origin}/sklep?paid=1&session_id={CHECKOUT_SESSION_ID}`} />
+        </section>
+      )}
+
+
+
       {/* POTWIERDZENIE */}
       {view === "done" && order && (
         <section className="mx-auto px-5 py-16" style={{ maxWidth: 640 }}>
