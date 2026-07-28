@@ -117,8 +117,11 @@ const readToken = (): string | null => {
 };
 
 export const useShopCart = () => {
-  const [cart, setCart] = useState<CartLine[]>(read);
+  const initial = useState(read)[0];
+  const [cart, setCart] = useState<CartLine[]>(initial.lines);
   const [linkStatus, setLinkStatus] = useState<CartLinkStatus>(null);
+  // korekty wykryte przy wczytaniu koszyka (localStorage lub link)
+  const [cartAdjust, setCartAdjust] = useState<CartAdjust>(initial.adjust);
 
   // koszyk z podpisanego linku scalamy z lokalnym (bez nadpisywania pozycji)
   useEffect(() => {
@@ -144,19 +147,27 @@ export const useShopCart = () => {
         return;
       }
       const restored = normalize(res.lines);
-      if (!restored.length) {
-        setLinkStatus("invalid");
+      if (!restored.lines.length) {
+        setLinkStatus(restored.adjust.removed > 0 ? "ok" : "invalid");
+        setCartAdjust((a) => mergeAdjust(a, restored.adjust));
         return;
       }
       setCart((local) => {
+        // po scaleniu jeszcze raz odświeżamy ceny i stany magazynowe
+        const merged = refreshLines(mergeCarts(local, restored.lines));
         setLinkStatus(local.length ? "merged" : "ok");
-        return mergeCarts(local, restored);
+        setCartAdjust((a) => mergeAdjust(mergeAdjust(a, restored.adjust), merged.adjust));
+        return merged.lines;
       });
     })();
     return () => {
       cancelled = true;
     };
   }, []);
+
+  const clearCartAdjust = useCallback(() => setCartAdjust({ ...emptyAdjust }), []);
+
+
 
 
 
