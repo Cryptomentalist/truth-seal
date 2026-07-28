@@ -66,13 +66,21 @@ Deno.serve(async (req) => {
 
   // --- wycena po stronie serwera ---
   const lines: { pid: string; vid: string; qty: number; name: string; variant: string; price: number; pf?: number }[] = [];
+  const wanted = new Map<string, number>();
   for (const it of b.items) {
     const p = findProduct(it.pid);
     if (!p) return json({ error: `Unknown product: ${it.pid}` }, 400);
     const v = findVariant(p, it.vid);
     if (!v) return json({ error: `Unknown variant: ${it.vid}` }, 400);
+    const key = `${p.id}::${v.id}`;
+    const qty = (wanted.get(key) ?? 0) + it.qty;
+    wanted.set(key, qty);
+    if (qty > v.stock) {
+      return json({ error: "out_of_stock", pid: p.id, vid: v.id, available: v.stock }, 400);
+    }
     lines.push({ pid: p.id, vid: v.id, qty: it.qty, name: p.name, variant: v.label, price: p.price, pf: v.pf });
   }
+
 
   const subtotal = lines.reduce((s, l) => s + l.price * l.qty, 0);
   const allNoShip = b.items.every((it) => {
