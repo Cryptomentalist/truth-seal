@@ -103,6 +103,10 @@ export const T = {
    cart_restored: "Cart restored from your saved link",
    cart_merged: "Carts merged",
    cart_merged_desc: "Items from the link were added to your cart — nothing was overwritten.",
+   cart_adj_title: "We refreshed your cart",
+   cart_adj_removed: "Unavailable items removed: {{n}}.",
+   cart_adj_reduced: "Quantities reduced to available stock: {{n}} item(s).",
+   cart_adj_repriced: "Prices updated: {{n}} item(s).",
     save_cart_ttl: "The link stays valid for {{h}} hours after copying.",
     cart_link_expired: "This cart link has expired",
     cart_link_expired_desc:
