@@ -233,7 +233,7 @@ export const useShopCart = () => {
 
   return {
     cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital,
-    linkStatus, linkTtlHours: CART_LINK_TTL_HOURS,
+    linkStatus, linkTtlHours: CART_LINK_TTL_HOURS, cartAdjust, clearCartAdjust,
   };
 };
 
