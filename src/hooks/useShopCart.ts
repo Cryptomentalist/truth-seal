@@ -1,6 +1,14 @@
 import { useCallback, useEffect, useState } from "react";
 import { PRODUCTS } from "@/data/shopProducts";
-import { CART_PARAM, buildCartLink, decodeCart, type CartCodeLine } from "@/lib/cartLink";
+import {
+  CART_LINK_TTL_HOURS,
+  CART_PARAM,
+  buildCartLink,
+  decodeCartResult,
+  type CartCodeLine,
+  type CartDecodeStatus,
+} from "@/lib/cartLink";
+
 
 
 export interface CartLine {
@@ -50,22 +58,31 @@ const normalize = (lines: CartCodeLine[]): CartLine[] =>
     })
     .filter((l): l is CartLine => !!l);
 
+/** Status linku wykryty przy starcie: null = brak linku w adresie. */
+export type CartLinkStatus = CartDecodeStatus | null;
+
 /** Koszyk z linku (?cart=...) ma pierwszeństwo nad zapisanym lokalnie. */
-const initial = (): CartLine[] => {
+const initial = (): { lines: CartLine[]; linkStatus: CartLinkStatus } => {
   try {
     const code = new URLSearchParams(window.location.search).get(CART_PARAM);
     if (code) {
-      const restored = normalize(decodeCart(code));
-      if (restored.length) return restored;
+      const res = decodeCartResult(code);
+      if (res.status === "ok") {
+        const restored = normalize(res.lines);
+        if (restored.length) return { lines: restored, linkStatus: "ok" };
+        return { lines: read(), linkStatus: "invalid" };
+      }
+      return { lines: read(), linkStatus: res.status };
     }
   } catch {
     /* brak URL API — ignorujemy */
   }
-  return read();
+  return { lines: read(), linkStatus: null };
 };
 
 export const useShopCart = () => {
-  const [cart, setCart] = useState<CartLine[]>(initial);
+  const [{ lines: initialLines, linkStatus }] = useState(initial);
+  const [cart, setCart] = useState<CartLine[]>(initialLines);
 
   // po przywróceniu koszyka z linku czyścimy parametr z adresu
   useEffect(() => {
@@ -79,6 +96,7 @@ export const useShopCart = () => {
       /* ignore */
     }
   }, []);
+
 
 
   useEffect(() => {
@@ -140,5 +158,9 @@ export const useShopCart = () => {
   const total = subtotal + shipping;
   const count = cart.reduce((s, l) => s + l.qty, 0);
 
-  return { cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital };
+  return {
+    cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital,
+    linkStatus, linkTtlHours: CART_LINK_TTL_HOURS,
+  };
 };
+

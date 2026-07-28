@@ -25,6 +25,13 @@ export const T = {
     save_cart: "Zapisz koszyk (link)", save_cart_copied: "Link do koszyka skopiowany — otwórz go, by wrócić do zakupów",
     save_cart_hint: "Koszyk zapisuje się w tej przeglądarce. Skopiuj link, by kontynuować na innym urządzeniu.",
     cart_restored: "Koszyk przywrócony z zapisanego linku",
+    save_cart_ttl: "Link jest ważny {{h}} godz. od skopiowania.",
+    cart_link_expired: "Link do koszyka wygasł",
+    cart_link_expired_desc:
+      "Zapisane linki są ważne {{h}} godz. Dodaj produkty ponownie i zapisz nowy link — Twój poprzedni koszyk w tej przeglądarce pozostał bez zmian.",
+    cart_link_invalid: "Nieprawidłowy link do koszyka",
+    cart_link_invalid_desc: "Link jest uszkodzony lub niekompletny. Skopiuj go jeszcze raz albo dodaj produkty ponownie.",
+
     co_title: "Zamówienie", co_contact: "Kontakt", co_addr: "Adres dostawy", co_ship: "Sposób dostawy", co_pay: "Płatność",
     email: "E-mail", name: "Imię i nazwisko", street: "Ulica i numer", zip: "Kod pocztowy", city: "Miejscowość", phone: "Telefon",
     inv: "Chcę fakturę na firmę", inv_name: "Nazwa firmy", inv_nip: "NIP",
@@ -86,6 +93,13 @@ export const T = {
     save_cart: "Save cart (link)", save_cart_copied: "Cart link copied — open it any time to continue",
     save_cart_hint: "Your cart is kept in this browser. Copy the link to continue on another device.",
     cart_restored: "Cart restored from your saved link",
+    save_cart_ttl: "The link stays valid for {{h}} hours after copying.",
+    cart_link_expired: "This cart link has expired",
+    cart_link_expired_desc:
+      "Saved links are valid for {{h}} hours. Add the items again and save a new link — the cart stored in this browser is unchanged.",
+    cart_link_invalid: "Invalid cart link",
+    cart_link_invalid_desc: "The link is broken or incomplete. Copy it again or add the items manually.",
+
     co_title: "Order", co_contact: "Contact", co_addr: "Delivery address", co_ship: "Shipping method", co_pay: "Payment",
     email: "Email", name: "Full name", street: "Street and number", zip: "Postcode", city: "City", phone: "Phone",
     inv: "I need a company invoice", inv_name: "Company name", inv_nip: "VAT ID",

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { C, CATS, F, PRODUCTS, type ShopProduct } from "@/data/shopProducts";
@@ -36,7 +36,26 @@ const Sklep = () => {
 
   const [pendingRemove, setPendingRemove] = useState<CartLine | null>(null);
 
-  const { cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital } = useShopCart();
+  const {
+    cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital,
+    linkStatus, linkTtlHours,
+  } = useShopCart();
+
+  // komunikat, gdy link do koszyka jest nieważny
+  useEffect(() => {
+    if (linkStatus === "expired") {
+      toast.error(t.cart_link_expired, {
+        description: t.cart_link_expired_desc.replace("{{h}}", String(linkTtlHours)),
+        duration: 10000,
+      });
+    } else if (linkStatus === "invalid") {
+      toast.error(t.cart_link_invalid, { description: t.cart_link_invalid_desc, duration: 10000 });
+    } else if (linkStatus === "ok") {
+      toast.success(t.cart_restored);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [linkStatus]);
+
 
   const lineLabel = (l: CartLine) => {
     const p = PRODUCTS.find((x) => x.id === l.pid);
@@ -459,7 +478,9 @@ const Sklep = () => {
                     const link = cartLink();
                     try {
                       await navigator.clipboard.writeText(link);
-                      toast.success(t.save_cart_copied);
+                      toast.success(t.save_cart_copied, {
+                        description: t.save_cart_ttl.replace("{{h}}", String(linkTtlHours)),
+                      });
                     } catch {
                       window.prompt(t.save_cart, link);
                     }
@@ -469,7 +490,10 @@ const Sklep = () => {
                 >
                   {t.save_cart}
                 </button>
-                <p style={{ fontFamily: F.body, fontSize: "0.68rem", color: C.ink2, marginTop: 6 }}>{t.save_cart_hint}</p>
+                <p style={{ fontFamily: F.body, fontSize: "0.68rem", color: C.ink2, marginTop: 6 }}>
+                  {t.save_cart_hint} {t.save_cart_ttl.replace("{{h}}", String(linkTtlHours))}
+                </p>
+
               </div>
             )}
           </div>
