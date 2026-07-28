@@ -5,6 +5,8 @@ export interface ServerVariant {
   id: string;
   label: string;
   pf?: number;
+  /** Stan magazynowy — zamówienie ponad tę wartość jest odrzucane. */
+  stock: number;
 }
 
 export interface ServerProduct {
@@ -28,8 +30,8 @@ export const SERVER_CATALOG: ServerProduct[] = [
     name: "Kubek — Copy what works",
     price: 79,
     variants: [
-      { id: "v1", label: "Granat" },
-      { id: "v2", label: "Piaskowy" },
+      { id: "v1", label: "Granat", stock: 40 },
+      { id: "v2", label: "Piaskowy", stock: 6 },
     ],
   },
   {
@@ -37,30 +39,30 @@ export const SERVER_CATALOG: ServerProduct[] = [
     name: "T-shirt — Complementarity over competition",
     price: 149,
     variants: [
-      { id: "s", label: "S" },
-      { id: "m", label: "M" },
-      { id: "l", label: "L" },
-      { id: "xl", label: "XL" },
+      { id: "s", label: "S", stock: 12 },
+      { id: "m", label: "M", stock: 20 },
+      { id: "l", label: "L", stock: 18 },
+      { id: "xl", label: "XL", stock: 4 },
     ],
   },
   {
     id: "poster-pyr",
     name: "Plakat — Piramida ekosystemu AI",
     price: 119,
-    variants: [{ id: "v1", label: "50 × 70 cm" }],
+    variants: [{ id: "v1", label: "50 × 70 cm", stock: 25 }],
   },
   {
     id: "book-zw",
     name: "Ziarno i wiatr",
     price: 69,
-    variants: [{ id: "v1", label: "Wydanie polskie" }],
+    variants: [{ id: "v1", label: "Wydanie polskie", stock: 60 }],
   },
   {
     id: "geo-guide",
     name: "GEO — przewodnik po widoczności w AI",
     price: 149,
     digital: true,
-    variants: [{ id: "v1", label: "Plik PDF" }],
+    variants: [{ id: "v1", label: "Plik PDF", stock: 999 }],
   },
   {
     id: "ebook-claude",
@@ -68,14 +70,14 @@ export const SERVER_CATALOG: ServerProduct[] = [
     price: 89,
     digital: true,
     file: "ebook-claude/claude-practically-at-your-pace.pdf",
-    variants: [{ id: "v1", label: "Plik PDF (EN)" }],
+    variants: [{ id: "v1", label: "Plik PDF (EN)", stock: 999 }],
   },
   {
     id: "support",
     name: "Wsparcie bezpośrednie",
     price: 100,
     noship: true,
-    variants: [{ id: "v1", label: "100 zł" }],
+    variants: [{ id: "v1", label: "100 zł", stock: 999 }],
   },
 ];
 
