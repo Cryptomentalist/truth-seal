@@ -8,20 +8,26 @@ import { Btn, Impact, Motif, Price, Row, money } from "@/components/shop/ShopUI"
 import ShopProductPage from "@/components/shop/ShopProductPage";
 import ShopCheckout, { type CheckoutSubmit } from "@/components/shop/ShopCheckout";
 import RemoveConfirmDialog from "@/components/shop/RemoveConfirmDialog";
+import ShopPayment from "@/components/shop/ShopPayment";
+import PaymentTestModeBanner from "@/components/PaymentTestModeBanner";
+import { hasPaymentsToken } from "@/lib/stripe";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { FunctionsHttpError } from "@supabase/supabase-js";
 
 
-type View = "home" | "checkout" | "done";
+
+type View = "home" | "checkout" | "pay" | "done";
 
 interface Order {
+  id?: string;
   number: string;
   items: { pid: string; vid: string; qty: number }[];
   total: number;
   email: string;
 }
+
 
 const Sklep = () => {
   const { i18n } = useTranslation();
@@ -40,6 +46,20 @@ const Sklep = () => {
     cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital,
     linkStatus, linkTtlHours, cartAdjust, clearCartAdjust,
   } = useShopCart();
+
+  // powrót ze Stripe: ?paid=1 → ekran potwierdzenia
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("paid") !== "1") return;
+    try {
+      const saved = sessionStorage.getItem("kon_order");
+      if (saved) setOrder(JSON.parse(saved) as Order);
+    } catch { /* pomijamy */ }
+    setView("done");
+    window.history.replaceState({}, "", "/sklep");
+    window.scrollTo(0, 0);
+  }, []);
+
 
   // komunikat, gdy link do koszyka jest nieważny
   useEffect(() => {
@@ -177,16 +197,22 @@ const Sklep = () => {
     }
 
 
-    setOrder({
+    const placed: Order = {
+      id: res.orderId as string | undefined,
       number: res.orderNo as string,
       items: cart.map((l) => ({ pid: l.pid, vid: l.vid, qty: l.qty })),
       total,
       email: data.email,
-    });
+    };
+    setOrder(placed);
+    try {
+      sessionStorage.setItem("kon_order", JSON.stringify(placed));
+    } catch { /* brak sessionStorage — pomijamy */ }
     clear();
-    setView("done");
+    setView(placed.id && hasPaymentsToken ? "pay" : "done");
     window.scrollTo(0, 0);
   };
+
 
 
   return (
@@ -358,6 +384,27 @@ const Sklep = () => {
           onDone={placeOrder}
         />
       )}
+
+      {/* PŁATNOŚĆ */}
+      {view === "pay" && order?.id && (
+        <section className="mx-auto px-5 py-10" style={{ maxWidth: 760 }}>
+          <PaymentTestModeBanner />
+          <p style={{ fontFamily: F.mono, fontSize: "0.72rem", color: C.amber, marginTop: 16 }}>
+            {t.ok_order.toUpperCase()} {order.number}
+          </p>
+          <h1 style={{ fontFamily: F.display, fontSize: "1.7rem", color: C.indigo, margin: "10px 0 6px" }}>
+            {lang === "pl" ? "Płatność" : "Payment"}
+          </h1>
+          <p style={{ fontFamily: F.body, fontSize: "0.86rem", color: C.ink2, marginBottom: 22 }}>
+            {lang === "pl"
+              ? "Wybierz BLIK, Przelewy24, kartę lub portfel — płatność obsługuje Stripe."
+              : "Pay with BLIK, Przelewy24, card or a wallet — securely handled by Stripe."}
+          </p>
+          <ShopPayment orderId={order.id} returnUrl={`${window.location.origin}/sklep?paid=1&session_id={CHECKOUT_SESSION_ID}`} />
+        </section>
+      )}
+
+
 
       {/* POTWIERDZENIE */}
       {view === "done" && order && (
