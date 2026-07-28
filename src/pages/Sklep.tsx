@@ -47,6 +47,20 @@ const Sklep = () => {
     linkStatus, linkTtlHours, cartAdjust, clearCartAdjust,
   } = useShopCart();
 
+  // powrót ze Stripe: ?paid=1 → ekran potwierdzenia
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("paid") !== "1") return;
+    try {
+      const saved = sessionStorage.getItem("kon_order");
+      if (saved) setOrder(JSON.parse(saved) as Order);
+    } catch { /* pomijamy */ }
+    setView("done");
+    window.history.replaceState({}, "", "/sklep");
+    window.scrollTo(0, 0);
+  }, []);
+
+
   // komunikat, gdy link do koszyka jest nieważny
   useEffect(() => {
     if (linkStatus === "expired") {
