@@ -116,6 +116,12 @@ export const useShopCart = () => {
 
   const clear = useCallback(() => setCart([]), []);
 
+  /** Link przywracający aktualny koszyk na innym urządzeniu / po powrocie. */
+  const cartLink = useCallback(
+    () => buildCartLink(cart.map((l) => ({ pid: l.pid, vid: l.vid, qty: l.qty }))),
+    [cart],
+  );
+
   // ceny zawsze z katalogu, nigdy z przeglądarki
   const subtotal = cart.reduce((s, l) => {
     const p = PRODUCTS.find((x) => x.id === l.pid);
@@ -134,5 +140,5 @@ export const useShopCart = () => {
   const total = subtotal + shipping;
   const count = cart.reduce((s, l) => s + l.qty, 0);
 
-  return { cart, add, setQty, clear, subtotal, shipping, total, count, allNoShip, hasDigital };
+  return { cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital };
 };
