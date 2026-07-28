@@ -109,6 +109,10 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
     }
   };
 
+  // dostawa liczona zgodnie z wybraną metodą — identycznie jak na serwerze
+  const shipCost = allNoShip || subtotal >= 250 ? 0 : ship === "locker" ? 12 : 16;
+  const grandTotal = subtotal + shipCost;
+
   const show = (k: keyof FieldErrors) => (touched ? errors[k] : undefined);
 
   const ready = cart.length > 0 && cRules && cPrivacy && (!hasDigital || cDigital);
@@ -339,7 +343,7 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
 
           <div className="mt-8">
             <Btn full disabled={!ready || busy} onClick={submit}>
-              {busy ? (lang === "pl" ? "Przetwarzanie…" : "Processing…") : `${t.pay} · ${money(total)}`}
+              {busy ? (lang === "pl" ? "Przetwarzanie…" : "Processing…") : `${t.pay} · ${money(grandTotal)}`}
             </Btn>
             {err && (
               <p style={{ fontFamily: F.mono, fontSize: "0.72rem", color: "#B3261E", marginTop: 10 }}>{err}</p>
@@ -413,10 +417,10 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
             })}
             <div className="pt-3">
               <Row label={t.subtotal} value={money(subtotal)} />
-              <Row label={t.shipping} value={shipping === 0 ? t.free : money(shipping)} />
+              <Row label={t.shipping} value={shipCost === 0 ? t.free : money(shipCost)} />
               <div className="flex justify-between items-center pt-3" style={{ borderTop: `1px solid ${C.rule}` }}>
                 <span style={{ fontFamily: F.body, fontSize: "0.9rem", color: C.indigo }}>{t.total}</span>
-                <Price v={total} size="1.05rem" />
+                <Price v={grandTotal} size="1.05rem" />
               </div>
               <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.ink2, marginTop: 8 }}>{t.vat_note}</p>
             </div>
