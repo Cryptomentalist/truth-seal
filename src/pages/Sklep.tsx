@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { C, CATS, F, PRODUCTS, type ShopProduct } from "@/data/shopProducts";
 import { T, type ShopLang } from "@/data/shopStrings";
-import { useShopCart } from "@/hooks/useShopCart";
+import { useShopCart, type CartLine } from "@/hooks/useShopCart";
 import { Btn, Impact, Motif, Price, Row, money } from "@/components/shop/ShopUI";
 import ShopProductPage from "@/components/shop/ShopProductPage";
 import ShopCheckout, { type CheckoutSubmit } from "@/components/shop/ShopCheckout";
+import RemoveConfirmDialog from "@/components/shop/RemoveConfirmDialog";
+import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { FunctionsHttpError } from "@supabase/supabase-js";
@@ -32,7 +34,33 @@ const Sklep = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [order, setOrder] = useState<Order | null>(null);
 
+  const [pendingRemove, setPendingRemove] = useState<CartLine | null>(null);
+
   const { cart, add, setQty, clear, subtotal, shipping, total, count, allNoShip, hasDigital } = useShopCart();
+
+  const lineLabel = (l: CartLine) => {
+    const p = PRODUCTS.find((x) => x.id === l.pid);
+    const v = p?.variants.find((x) => x.id === l.vid);
+    return p ? `${p[lang].name}${v ? ` — ${v[lang]}` : ""}` : "";
+  };
+
+  const confirmRemove = () => {
+    const l = pendingRemove;
+    setPendingRemove(null);
+    if (!l) return;
+    setQty(l.key, 0);
+    toast(t.rm_done, {
+      description: lineLabel(l),
+      duration: 8000,
+      action: {
+        label: t.rm_undo,
+        onClick: () => {
+          add(l.pid, l.vid, l.qty);
+          toast.success(t.rm_restored);
+        },
+      },
+    });
+  };
 
   const list = useMemo(() => (cat === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.cat === cat)), [cat]);
 
@@ -286,6 +314,10 @@ const Sklep = () => {
           allNoShip={allNoShip}
           onBack={() => setView("home")}
           onSetQty={setQty}
+          onRemove={(key) => {
+            const line = cart.find((l) => l.key === key);
+            if (line) setPendingRemove(line);
+          }}
           onDone={placeOrder}
         />
       )}
@@ -364,7 +396,7 @@ const Sklep = () => {
                         <p style={{ fontFamily: F.mono, fontSize: "0.68rem", color: C.ink2, marginTop: 2 }}>{v[lang]}</p>
                         <div className="flex items-center justify-between mt-2">
                           <div className="flex items-center" style={{ border: `1px solid ${C.rule}`, borderRadius: 7 }}>
-                            <button onClick={() => setQty(l.key, l.qty - 1)} aria-label={t.remove} style={{ padding: "3px 9px", fontFamily: F.mono, color: C.ink2 }}>
+                            <button onClick={() => (l.qty <= 1 ? setPendingRemove(l) : setQty(l.key, l.qty - 1))} aria-label={l.qty <= 1 ? t.remove : t.qty} style={{ padding: "3px 9px", fontFamily: F.mono, color: C.ink2 }}>
                               −
                             </button>
                             <span style={{ fontFamily: F.mono, fontSize: "0.8rem", minWidth: 20, textAlign: "center" }}>{l.qty}</span>
@@ -377,7 +409,16 @@ const Sklep = () => {
                               +
                             </button>
                           </div>
-                          <Price v={p.price * l.qty} size="0.85rem" />
+                          <div className="flex items-center gap-3">
+                            <button
+                              type="button"
+                              onClick={() => setPendingRemove(l)}
+                              style={{ fontFamily: F.mono, fontSize: "0.68rem", color: "#B3261E", textDecoration: "underline" }}
+                            >
+                              {t.remove}
+                            </button>
+                            <Price v={p.price * l.qty} size="0.85rem" />
+                          </div>
                         </div>
                         {atMax && !p.digital && !p.noship && (
                           <p style={{ fontFamily: F.mono, fontSize: "0.64rem", color: C.amber, marginTop: 4 }}>
