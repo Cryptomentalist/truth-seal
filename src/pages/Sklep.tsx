@@ -280,6 +280,7 @@ const Sklep = () => {
           hasDigital={hasDigital}
           allNoShip={allNoShip}
           onBack={() => setView("home")}
+          onSetQty={setQty}
           onDone={placeOrder}
         />
       )}
