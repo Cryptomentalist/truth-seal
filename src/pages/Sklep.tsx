@@ -38,7 +38,7 @@ const Sklep = () => {
 
   const {
     cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital,
-    linkStatus, linkTtlHours,
+    linkStatus, linkTtlHours, cartAdjust, clearCartAdjust,
   } = useShopCart();
 
   // komunikat, gdy link do koszyka jest nieważny
@@ -57,6 +57,22 @@ const Sklep = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [linkStatus]);
+
+  // korekty po odświeżeniu koszyka: ceny, stany magazynowe, niedostępne pozycje
+  useEffect(() => {
+    const parts: string[] = [];
+    if (cartAdjust.removed)
+      parts.push(t.cart_adj_removed.replace("{{n}}", String(cartAdjust.removed)));
+    if (cartAdjust.reduced)
+      parts.push(t.cart_adj_reduced.replace("{{n}}", String(cartAdjust.reduced)));
+    if (cartAdjust.repriced)
+      parts.push(t.cart_adj_repriced.replace("{{n}}", String(cartAdjust.repriced)));
+    if (!parts.length) return;
+    toast.warning(t.cart_adj_title, { description: parts.join(" "), duration: 10000 });
+    clearCartAdjust();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartAdjust]);
+
 
 
   const lineLabel = (l: CartLine) => {
