@@ -14,14 +14,16 @@ import { supabase } from "@/integrations/supabase/client";
 import { FunctionsHttpError } from "@supabase/supabase-js";
 
 
-type View = "home" | "checkout" | "done";
+type View = "home" | "checkout" | "pay" | "done";
 
 interface Order {
+  id?: string;
   number: string;
   items: { pid: string; vid: string; qty: number }[];
   total: number;
   email: string;
 }
+
 
 const Sklep = () => {
   const { i18n } = useTranslation();
@@ -177,16 +179,22 @@ const Sklep = () => {
     }
 
 
-    setOrder({
+    const placed: Order = {
+      id: res.orderId as string | undefined,
       number: res.orderNo as string,
       items: cart.map((l) => ({ pid: l.pid, vid: l.vid, qty: l.qty })),
       total,
       email: data.email,
-    });
+    };
+    setOrder(placed);
+    try {
+      sessionStorage.setItem("kon_order", JSON.stringify(placed));
+    } catch { /* brak sessionStorage — pomijamy */ }
     clear();
-    setView("done");
+    setView(placed.id && hasPaymentsToken ? "pay" : "done");
     window.scrollTo(0, 0);
   };
+
 
 
   return (
