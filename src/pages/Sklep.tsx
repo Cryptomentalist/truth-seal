@@ -504,6 +504,14 @@ const Sklep = () => {
           </div>
         </div>
       </footer>
+
+      <RemoveConfirmDialog
+        open={!!pendingRemove}
+        t={t}
+        itemName={pendingRemove ? lineLabel(pendingRemove) : undefined}
+        onCancel={() => setPendingRemove(null)}
+        onConfirm={confirmRemove}
+      />
     </div>
   );
 };
