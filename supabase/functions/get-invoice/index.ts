@@ -1,8 +1,10 @@
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "npm:zod@3.23.8";
+import { findProduct, isPaid } from "../_shared/catalog.ts";
 
 const BUCKET = "invoices";
+const DIGITAL_BUCKET = "digital-products";
 const TokenSchema = z.string().regex(/^[a-zA-Z0-9]{16,64}$/);
 
 const json = (body: unknown, status = 200) =>
@@ -61,6 +63,25 @@ Deno.serve(async (req) => {
     downloadUrl = signed?.signedUrl ?? null;
   }
 
+  // --- pliki cyfrowe: link podpisany wydajemy dopiero po zaksięgowaniu płatności ---
+  const orderItems = Array.isArray(order?.items) ? (order!.items as { pid?: string; qty?: number }[]) : [];
+  const paid = isPaid(order?.status);
+  const downloads: { pid: string; name: string; url: string | null; locked: boolean }[] = [];
+  for (const it of orderItems) {
+    const product = it?.pid ? findProduct(it.pid) : undefined;
+    if (!product?.digital || !product.file) continue;
+    if (downloads.some((d) => d.pid === product.id)) continue;
+    let url: string | null = null;
+    if (paid) {
+      const { data: signed, error: sErr } = await supabase.storage
+        .from(DIGITAL_BUCKET)
+        .createSignedUrl(product.file, 60 * 60, { download: product.file.split("/").pop() });
+      if (sErr) console.error("Digital signed URL failed:", sErr.message);
+      url = signed?.signedUrl ?? null;
+    }
+    downloads.push({ pid: product.id, name: product.name, url, locked: !paid });
+  }
+
   const maskEmail = (e?: string | null) =>
     e ? e.replace(/^(.).*(@.*)$/, (_m, a, b) => `${a}***${b}`) : null;
 
@@ -72,6 +93,7 @@ Deno.serve(async (req) => {
       currency: invoice.currency,
       downloadUrl,
     },
+    downloads,
     order: order
       ? {
           orderNo: order.order_no,
