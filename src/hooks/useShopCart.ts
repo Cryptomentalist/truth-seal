@@ -59,30 +59,51 @@ const normalize = (lines: CartCodeLine[]): CartLine[] =>
     .filter((l): l is CartLine => !!l);
 
 /** Status linku wykryty przy starcie: null = brak linku w adresie. */
-export type CartLinkStatus = CartDecodeStatus | null;
+export type CartLinkStatus = CartDecodeStatus | "merged" | null;
 
-/** Koszyk z linku (?cart=...) ma pierwszeństwo nad zapisanym lokalnie. */
+/**
+ * Scala dwa koszyki: ilości tej samej pozycji sumują się (do stanu magazynowego),
+ * pozycje unikalne trafiają do wyniku. Nic nie jest nadpisywane.
+ */
+export const mergeCarts = (base: CartLine[], incoming: CartLine[]): CartLine[] => {
+  const out = base.map((l) => ({ ...l }));
+  for (const l of incoming) {
+    const i = out.findIndex((x) => x.key === l.key);
+    if (i >= 0) out[i] = { ...out[i], qty: Math.min(out[i].qty + l.qty, maxQty(l.pid, l.vid)) };
+    else out.push({ ...l });
+  }
+  return out.filter((l) => l.qty > 0);
+};
+
+/** Koszyk z linku jest scalany z zapisem lokalnym (bez nadpisywania pozycji). */
 const initial = (): { lines: CartLine[]; linkStatus: CartLinkStatus } => {
+  const local = read();
   try {
     const code = new URLSearchParams(window.location.search).get(CART_PARAM);
     if (code) {
       const res = decodeCartResult(code);
       if (res.status === "ok") {
         const restored = normalize(res.lines);
-        if (restored.length) return { lines: restored, linkStatus: "ok" };
-        return { lines: read(), linkStatus: "invalid" };
+        if (restored.length) {
+          return {
+            lines: mergeCarts(local, restored),
+            linkStatus: local.length ? "merged" : "ok",
+          };
+        }
+        return { lines: local, linkStatus: "invalid" };
       }
-      return { lines: read(), linkStatus: res.status };
+      return { lines: local, linkStatus: res.status };
     }
   } catch {
     /* brak URL API — ignorujemy */
   }
-  return { lines: read(), linkStatus: null };
+  return { lines: local, linkStatus: null };
 };
 
 export const useShopCart = () => {
   const [{ lines: initialLines, linkStatus }] = useState(initial);
   const [cart, setCart] = useState<CartLine[]>(initialLines);
+
 
   // po przywróceniu koszyka z linku czyścimy parametr z adresu
   useEffect(() => {
