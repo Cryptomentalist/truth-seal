@@ -94,7 +94,9 @@ export const T = {
     rm_restored: "Item restored to your cart",
     save_cart: "Save cart (link)", save_cart_copied: "Cart link copied — open it any time to continue",
     save_cart_hint: "Your cart is kept in this browser. Copy the link to continue on another device.",
-    cart_restored: "Cart restored from your saved link",
+   cart_restored: "Cart restored from your saved link",
+   cart_merged: "Carts merged",
+   cart_merged_desc: "Items from the link were added to your cart — nothing was overwritten.",
     save_cart_ttl: "The link stays valid for {{h}} hours after copying.",
     cart_link_expired: "This cart link has expired",
     cart_link_expired_desc:
