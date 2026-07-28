@@ -158,5 +158,9 @@ export const useShopCart = () => {
   const total = subtotal + shipping;
   const count = cart.reduce((s, l) => s + l.qty, 0);
 
-  return { cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital };
+  return {
+    cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital,
+    linkStatus, linkTtlHours: CART_LINK_TTL_HOURS,
+  };
 };
+
