@@ -36,7 +36,26 @@ const Sklep = () => {
 
   const [pendingRemove, setPendingRemove] = useState<CartLine | null>(null);
 
-  const { cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital } = useShopCart();
+  const {
+    cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital,
+    linkStatus, linkTtlHours,
+  } = useShopCart();
+
+  // komunikat, gdy link do koszyka jest nieważny
+  useEffect(() => {
+    if (linkStatus === "expired") {
+      toast.error(t.cart_link_expired, {
+        description: t.cart_link_expired_desc.replace("{{h}}", String(linkTtlHours)),
+        duration: 10000,
+      });
+    } else if (linkStatus === "invalid") {
+      toast.error(t.cart_link_invalid, { description: t.cart_link_invalid_desc, duration: 10000 });
+    } else if (linkStatus === "ok") {
+      toast.success(t.cart_restored);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [linkStatus]);
+
 
   const lineLabel = (l: CartLine) => {
     const p = PRODUCTS.find((x) => x.id === l.pid);
