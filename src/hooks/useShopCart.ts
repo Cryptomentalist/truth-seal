@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { PRODUCTS } from "@/data/shopProducts";
+import { CART_PARAM, buildCartLink, decodeCart, type CartCodeLine } from "@/lib/cartLink";
+
 
 export interface CartLine {
   key: string;
@@ -36,8 +38,48 @@ const read = (): CartLine[] => {
   }
 };
 
+/** Zamienia surowe pozycje (pid/vid/qty) na prawidłowe linie koszyka. */
+const normalize = (lines: CartCodeLine[]): CartLine[] =>
+  lines
+    .map((l) => {
+      const p = PRODUCTS.find((x) => x.id === l.pid);
+      if (!p || !p.variants.some((v) => v.id === l.vid)) return null;
+      const qty = Math.min(Math.max(0, Math.floor(l.qty)), maxQty(l.pid, l.vid));
+      if (qty <= 0) return null;
+      return { key: `${l.pid}::${l.vid}`, pid: l.pid, vid: l.vid, qty, price: p.price };
+    })
+    .filter((l): l is CartLine => !!l);
+
+/** Koszyk z linku (?cart=...) ma pierwszeństwo nad zapisanym lokalnie. */
+const initial = (): CartLine[] => {
+  try {
+    const code = new URLSearchParams(window.location.search).get(CART_PARAM);
+    if (code) {
+      const restored = normalize(decodeCart(code));
+      if (restored.length) return restored;
+    }
+  } catch {
+    /* brak URL API — ignorujemy */
+  }
+  return read();
+};
+
 export const useShopCart = () => {
-  const [cart, setCart] = useState<CartLine[]>(read);
+  const [cart, setCart] = useState<CartLine[]>(initial);
+
+  // po przywróceniu koszyka z linku czyścimy parametr z adresu
+  useEffect(() => {
+    try {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has(CART_PARAM)) {
+        url.searchParams.delete(CART_PARAM);
+        window.history.replaceState({}, "", url.toString());
+      }
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
 
   useEffect(() => {
     try {
@@ -74,6 +116,12 @@ export const useShopCart = () => {
 
   const clear = useCallback(() => setCart([]), []);
 
+  /** Link przywracający aktualny koszyk na innym urządzeniu / po powrocie. */
+  const cartLink = useCallback(
+    () => buildCartLink(cart.map((l) => ({ pid: l.pid, vid: l.vid, qty: l.qty }))),
+    [cart],
+  );
+
   // ceny zawsze z katalogu, nigdy z przeglądarki
   const subtotal = cart.reduce((s, l) => {
     const p = PRODUCTS.find((x) => x.id === l.pid);
@@ -92,5 +140,5 @@ export const useShopCart = () => {
   const total = subtotal + shipping;
   const count = cart.reduce((s, l) => s + l.qty, 0);
 
-  return { cart, add, setQty, clear, subtotal, shipping, total, count, allNoShip, hasDigital };
+  return { cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital };
 };

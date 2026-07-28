@@ -36,7 +36,7 @@ const Sklep = () => {
 
   const [pendingRemove, setPendingRemove] = useState<CartLine | null>(null);
 
-  const { cart, add, setQty, clear, subtotal, shipping, total, count, allNoShip, hasDigital } = useShopCart();
+  const { cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital } = useShopCart();
 
   const lineLabel = (l: CartLine) => {
     const p = PRODUCTS.find((x) => x.id === l.pid);
@@ -453,6 +453,23 @@ const Sklep = () => {
                 >
                   {t.checkout}
                 </Btn>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const link = cartLink();
+                    try {
+                      await navigator.clipboard.writeText(link);
+                      toast.success(t.save_cart_copied);
+                    } catch {
+                      window.prompt(t.save_cart, link);
+                    }
+                  }}
+                  className="w-full"
+                  style={{ fontFamily: F.mono, fontSize: "0.72rem", color: C.ink2, textDecoration: "underline", marginTop: 10 }}
+                >
+                  {t.save_cart}
+                </button>
+                <p style={{ fontFamily: F.body, fontSize: "0.68rem", color: C.ink2, marginTop: 6 }}>{t.save_cart_hint}</p>
               </div>
             )}
           </div>
