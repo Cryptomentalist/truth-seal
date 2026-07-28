@@ -42,10 +42,11 @@ interface Props {
   allNoShip: boolean;
   onBack: () => void;
   onSetQty?: (key: string, qty: number) => void;
+  onRemove?: (key: string) => void;
   onDone: (data: CheckoutSubmit) => Promise<void> | void;
 }
 
-const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, allNoShip, onBack, onSetQty, onDone }: Props) => {
+const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, allNoShip, onBack, onSetQty, onRemove, onDone }: Props) => {
   const [f, setF] = useState<CheckoutData>({ email: "", name: "", street: "", zip: "", city: "", phone: "", cname: "", nip: "" });
   const [ship, setShip] = useState("courier");
   const [inv, setInv] = useState(false);
@@ -371,7 +372,7 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
                         <div className="flex items-center" style={{ border: `1px solid ${C.rule}`, borderRadius: 6 }}>
                           <button
                             type="button"
-                            onClick={() => onSetQty(l.key, l.qty - 1)}
+                            onClick={() => (l.qty <= 1 && onRemove ? onRemove(l.key) : onSetQty(l.key, l.qty - 1))}
                             aria-label={lang === "pl" ? "Zmniejsz ilość" : "Decrease quantity"}
                             style={{ padding: "1px 8px", fontFamily: F.mono, color: C.ink2 }}
                           >
@@ -392,7 +393,7 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
                         </div>
                         <button
                           type="button"
-                          onClick={() => onSetQty(l.key, 0)}
+                          onClick={() => (onRemove ? onRemove(l.key) : onSetQty(l.key, 0))}
                           style={{ fontFamily: F.mono, fontSize: "0.68rem", color: "#B3261E", textDecoration: "underline" }}
                         >
                           {lang === "pl" ? "Usuń" : "Remove"}
