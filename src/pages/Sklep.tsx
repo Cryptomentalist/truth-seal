@@ -97,6 +97,11 @@ const Sklep = () => {
         invalid_address: t.err_invalid_address,
         consent_required: t.err_consent,
         consent_digital_required: t.err_consent,
+        out_of_stock:
+          lang === "pl"
+            ? "Część pozycji przekracza dostępny stan magazynowy. Zmniejsz ilość w koszyku."
+            : "Some items exceed available stock. Please reduce the quantity in your cart.",
+
       };
       throw new Error(
         (typeof code === "string" && known[code]) ||
@@ -348,6 +353,7 @@ const Sklep = () => {
                 cart.map((l) => {
                   const p = PRODUCTS.find((x) => x.id === l.pid)!;
                   const v = p.variants.find((x) => x.id === l.vid)!;
+                  const atMax = l.qty >= v.stock;
                   return (
                     <div key={l.key} className="flex gap-3 py-4" style={{ borderBottom: `1px solid ${C.rule}` }}>
                       <div style={{ width: 64, flexShrink: 0 }}>
@@ -362,16 +368,27 @@ const Sklep = () => {
                               −
                             </button>
                             <span style={{ fontFamily: F.mono, fontSize: "0.8rem", minWidth: 20, textAlign: "center" }}>{l.qty}</span>
-                            <button onClick={() => setQty(l.key, l.qty + 1)} aria-label={t.qty} style={{ padding: "3px 9px", fontFamily: F.mono, color: C.ink2 }}>
+                            <button
+                              onClick={() => setQty(l.key, l.qty + 1)}
+                              disabled={atMax}
+                              aria-label={t.qty}
+                              style={{ padding: "3px 9px", fontFamily: F.mono, color: C.ink2, opacity: atMax ? 0.35 : 1, cursor: atMax ? "not-allowed" : "pointer" }}
+                            >
                               +
                             </button>
                           </div>
                           <Price v={p.price * l.qty} size="0.85rem" />
                         </div>
+                        {atMax && !p.digital && !p.noship && (
+                          <p style={{ fontFamily: F.mono, fontSize: "0.64rem", color: C.amber, marginTop: 4 }}>
+                            {lang === "pl" ? `Dostępne maks. ${v.stock} szt.` : `Max ${v.stock} available`}
+                          </p>
+                        )}
                       </div>
                     </div>
                   );
                 })
+
               )}
             </div>
 
