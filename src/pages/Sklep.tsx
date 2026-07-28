@@ -8,10 +8,14 @@ import { Btn, Impact, Motif, Price, Row, money } from "@/components/shop/ShopUI"
 import ShopProductPage from "@/components/shop/ShopProductPage";
 import ShopCheckout, { type CheckoutSubmit } from "@/components/shop/ShopCheckout";
 import RemoveConfirmDialog from "@/components/shop/RemoveConfirmDialog";
+import ShopPayment from "@/components/shop/ShopPayment";
+import PaymentTestModeBanner from "@/components/PaymentTestModeBanner";
+import { hasPaymentsToken } from "@/lib/stripe";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@/integrations/supabase/client";
 import { FunctionsHttpError } from "@supabase/supabase-js";
+
 
 
 type View = "home" | "checkout" | "pay" | "done";
