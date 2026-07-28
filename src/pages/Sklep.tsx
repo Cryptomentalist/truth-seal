@@ -97,6 +97,11 @@ const Sklep = () => {
         invalid_address: t.err_invalid_address,
         consent_required: t.err_consent,
         consent_digital_required: t.err_consent,
+        out_of_stock:
+          lang === "pl"
+            ? "Część pozycji przekracza dostępny stan magazynowy. Zmniejsz ilość w koszyku."
+            : "Some items exceed available stock. Please reduce the quantity in your cart.",
+
       };
       throw new Error(
         (typeof code === "string" && known[code]) ||
