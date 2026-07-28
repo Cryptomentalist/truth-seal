@@ -41,10 +41,11 @@ interface Props {
   hasDigital: boolean;
   allNoShip: boolean;
   onBack: () => void;
+  onSetQty?: (key: string, qty: number) => void;
   onDone: (data: CheckoutSubmit) => Promise<void> | void;
 }
 
-const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, allNoShip, onBack, onDone }: Props) => {
+const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, allNoShip, onBack, onSetQty, onDone }: Props) => {
   const [f, setF] = useState<CheckoutData>({ email: "", name: "", street: "", zip: "", city: "", phone: "", cname: "", nip: "" });
   const [ship, setShip] = useState("courier");
   const [inv, setInv] = useState(false);
