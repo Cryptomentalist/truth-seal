@@ -25,6 +25,13 @@ export const T = {
     save_cart: "Zapisz koszyk (link)", save_cart_copied: "Link do koszyka skopiowany — otwórz go, by wrócić do zakupów",
     save_cart_hint: "Koszyk zapisuje się w tej przeglądarce. Skopiuj link, by kontynuować na innym urządzeniu.",
     cart_restored: "Koszyk przywrócony z zapisanego linku",
+    save_cart_ttl: "Link jest ważny {{h}} godz. od skopiowania.",
+    cart_link_expired: "Link do koszyka wygasł",
+    cart_link_expired_desc:
+      "Zapisane linki są ważne {{h}} godz. Dodaj produkty ponownie i zapisz nowy link — Twój poprzedni koszyk w tej przeglądarce pozostał bez zmian.",
+    cart_link_invalid: "Nieprawidłowy link do koszyka",
+    cart_link_invalid_desc: "Link jest uszkodzony lub niekompletny. Skopiuj go jeszcze raz albo dodaj produkty ponownie.",
+
     co_title: "Zamówienie", co_contact: "Kontakt", co_addr: "Adres dostawy", co_ship: "Sposób dostawy", co_pay: "Płatność",
     email: "E-mail", name: "Imię i nazwisko", street: "Ulica i numer", zip: "Kod pocztowy", city: "Miejscowość", phone: "Telefon",
     inv: "Chcę fakturę na firmę", inv_name: "Nazwa firmy", inv_nip: "NIP",
