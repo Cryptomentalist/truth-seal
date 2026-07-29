@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import SubscriptionPayment from "@/components/shop/SubscriptionPayment";
-import PaymentTestModeBanner from "@/components/shop/PaymentTestModeBanner";
+import PaymentTestModeBanner from "@/components/PaymentTestModeBanner";
 import { useSubscription } from "@/hooks/useSubscription";
 import { supabase } from "@/integrations/supabase/client";
 import { getStripeEnvironment, hasPaymentsToken } from "@/lib/stripe";
