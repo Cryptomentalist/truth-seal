@@ -154,6 +154,30 @@ export type Database = {
           },
         ]
       }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       shop_orders: {
         Row: {
           city: string | null
@@ -175,8 +199,10 @@ export type Database = {
           lang: string
           name: string
           order_no: string
+          paid_at: string | null
           payment_method: string | null
           phone: string | null
+          printful_confirmed_at: string | null
           printful_error: string | null
           printful_order_id: string | null
           printful_status: string | null
@@ -184,12 +210,14 @@ export type Database = {
           shipping_method: string | null
           status: string
           street: string | null
+          stripe_session_id: string | null
           subtotal: number
           tax_id: string | null
           total: number
           tracking_number: string | null
           tracking_url: string | null
           updated_at: string
+          user_id: string | null
           zip: string | null
         }
         Insert: {
@@ -212,8 +240,10 @@ export type Database = {
           lang?: string
           name: string
           order_no: string
+          paid_at?: string | null
           payment_method?: string | null
           phone?: string | null
+          printful_confirmed_at?: string | null
           printful_error?: string | null
           printful_order_id?: string | null
           printful_status?: string | null
@@ -221,12 +251,14 @@ export type Database = {
           shipping_method?: string | null
           status?: string
           street?: string | null
+          stripe_session_id?: string | null
           subtotal: number
           tax_id?: string | null
           total: number
           tracking_number?: string | null
           tracking_url?: string | null
           updated_at?: string
+          user_id?: string | null
           zip?: string | null
         }
         Update: {
@@ -249,8 +281,10 @@ export type Database = {
           lang?: string
           name?: string
           order_no?: string
+          paid_at?: string | null
           payment_method?: string | null
           phone?: string | null
+          printful_confirmed_at?: string | null
           printful_error?: string | null
           printful_order_id?: string | null
           printful_status?: string | null
@@ -258,12 +292,14 @@ export type Database = {
           shipping_method?: string | null
           status?: string
           street?: string | null
+          stripe_session_id?: string | null
           subtotal?: number
           tax_id?: string | null
           total?: number
           tracking_number?: string | null
           tracking_url?: string | null
           updated_at?: string
+          user_id?: string | null
           zip?: string | null
         }
         Relationships: []

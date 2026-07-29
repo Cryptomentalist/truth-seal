@@ -133,7 +133,7 @@ const Klub = () => {
                       z każdego urządzenia.
                     </p>
                     <Button asChild className="w-full whitespace-normal">
-                      <Link to="/admin">Zaloguj się / załóż konto</Link>
+                      <Link to="/konto">Zaloguj się / załóż konto</Link>
                     </Button>
                   </>
                 ) : isActive ? (

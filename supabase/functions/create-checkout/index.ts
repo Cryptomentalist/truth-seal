@@ -38,7 +38,7 @@ Deno.serve(async (req) => {
 
   const { data: order, error } = await supabase
     .from("shop_orders")
-    .select("id, order_no, email, name, items, subtotal, shipping, total, currency, status, lang")
+    .select("id, order_no, email, name, items, subtotal, shipping, total, currency, status, lang, user_id")
     .eq("id", orderId)
     .maybeSingle();
 
@@ -108,16 +108,51 @@ Deno.serve(async (req) => {
       }
     }
 
+    // Zalogowany kupujący dostaje trwałego klienta u dostawcy płatności —
+    // dzięki temu zakupy da się połączyć z kontem (raporty, portal, zwroty).
+    let customerId: string | undefined;
+    const userId = (order as any).user_id as string | null;
+    if (userId && /^[a-zA-Z0-9-]+$/.test(userId)) {
+      try {
+        const found = await stripe.customers.search({
+          query: `metadata['userId']:'${userId}'`,
+          limit: 1,
+        });
+        if (found.data.length) {
+          customerId = found.data[0].id;
+        } else {
+          const existing = await stripe.customers.list({ email: order.email, limit: 1 });
+          if (existing.data.length) {
+            customerId = existing.data[0].id;
+            await stripe.customers.update(customerId, {
+              metadata: { ...existing.data[0].metadata, userId },
+            });
+          } else {
+            customerId = (
+              await stripe.customers.create({ email: order.email, metadata: { userId } })
+            ).id;
+          }
+        }
+      } catch (e) {
+        console.error("Customer resolution failed, continuing as guest:", e);
+      }
+    }
+
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
       mode: "payment",
       ui_mode: "embedded_page",
       return_url: returnUrl,
-      customer_email: order.email,
+      ...(customerId ? { customer: customerId } : { customer_email: order.email }),
       client_reference_id: order.order_no,
       payment_intent_data: { description: `Konstelacja ${order.order_no}` },
-      metadata: { orderId: order.id, orderNo: order.order_no },
+      metadata: {
+        orderId: order.id,
+        orderNo: order.order_no,
+        ...(userId ? { userId } : {}),
+      },
     });
+
 
     return json({ clientSecret: session.client_secret });
   } catch (e) {

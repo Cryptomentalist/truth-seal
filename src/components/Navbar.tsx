@@ -34,8 +34,10 @@ const Navbar = () => {
     { label: t("nav.erp"), href: "/platforma-erp-ai" },
     { label: t("nav.ciekawostki"), href: "/ciekawostki" },
     { label: t("nav.sklep"), href: "/sklep" },
+    { label: t("nav.konto", "Moje konto"), href: "/konto" },
     { label: t("nav.faq"), href: "/faq" },
     { label: t("nav.kontakt"), href: "/oferta#kontakt" },
+
   ];
 
   return (

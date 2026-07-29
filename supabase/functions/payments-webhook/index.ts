@@ -22,22 +22,50 @@ async function markPaid(session: any) {
   }
 
   const supabase = getSupabase();
+
+  // Idempotentnie: podnosimy status tylko z etapów przedpłatnych, żeby retry
+  // webhooka nie cofnął zamówienia z „wysłane" do „opłacone".
   const query = supabase
     .from("shop_orders")
-    .update({ status: "paid", updated_at: new Date().toISOString() });
+    .update({
+      status: "paid",
+      paid_at: new Date().toISOString(),
+      stripe_session_id: session?.id ?? null,
+      updated_at: new Date().toISOString(),
+    })
+    .in("status", ["pending", "pending_pod_error", "expired"]);
 
+  const cols = "id, order_no, email, lang, printful_order_id, printful_confirmed_at";
   const { data, error } = orderId
-    ? await query.eq("id", orderId).select("id, order_no, email, lang").maybeSingle()
-    : await query.eq("order_no", orderNo).select("id, order_no, email, lang").maybeSingle();
+    ? await query.eq("id", orderId).select(cols).maybeSingle()
+    : await query.eq("order_no", orderNo).select(cols).maybeSingle();
 
   if (error) {
     console.error("Failed to mark order paid:", error.message);
     return;
   }
-  console.log("Order marked paid:", data?.order_no);
+  if (!data) {
+    console.log("Order already processed, skipping:", orderId || orderNo);
+    return;
+  }
+  console.log("Order marked paid:", data.order_no);
 
-  // Potwierdzenie zamówienia / faktura e-mailem (idempotentnie po numerze zamówienia)
-  if (data?.email) {
+  // --- faktura PDF (numer nadawany dopiero po zaksięgowaniu płatności) ---
+  try {
+    const { error: invErr } = await supabase.functions.invoke("generate-invoice", {
+      body: { orderId: data.id },
+      headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` },
+    });
+    if (invErr) console.error("Invoice generation failed:", invErr.message);
+  } catch (e) {
+    console.error("Invoice generation threw:", e);
+  }
+
+  // --- Printful: potwierdzamy draft, dopiero teraz rusza produkcja ---
+  await confirmPrintful(data);
+
+  // Potwierdzenie zamówienia / faktura e-mailem (idempotentnie po zamówieniu)
+  if (data.email) {
     const { error: mailErr } = await supabase.functions.invoke("send-transactional-email", {
       body: {
         templateName: "invoice-issued",
@@ -50,6 +78,43 @@ async function markPaid(session: any) {
     if (mailErr) console.error("Paid confirmation email failed:", mailErr.message);
   }
 }
+
+/** Potwierdzenie draftu w Printful — bez tego opłacone zamówienie nigdy nie trafia do produkcji. */
+async function confirmPrintful(order: any) {
+  if (!order?.printful_order_id || order.printful_confirmed_at) return;
+  const key = Deno.env.get("PRINTFUL_API_KEY");
+  if (!key) {
+    console.error("PRINTFUL_API_KEY missing — cannot confirm order", order.order_no);
+    return;
+  }
+  try {
+    const res = await fetch(
+      `https://api.printful.com/orders/${encodeURIComponent(order.printful_order_id)}/confirm`,
+      { method: "POST", headers: { Authorization: `Bearer ${key}` } },
+    );
+    const body = await res.text();
+    if (!res.ok) {
+      console.error(`Printful confirm failed [${res.status}]: ${body}`);
+      await getSupabase()
+        .from("shop_orders")
+        .update({ printful_error: `[confirm ${res.status}] ${body}`.slice(0, 900) })
+        .eq("id", order.id);
+      return;
+    }
+    const parsed = JSON.parse(body);
+    await getSupabase()
+      .from("shop_orders")
+      .update({
+        printful_confirmed_at: new Date().toISOString(),
+        printful_status: parsed?.result?.status ?? "pending",
+        printful_error: null,
+      })
+      .eq("id", order.id);
+  } catch (e) {
+    console.error("Printful confirm threw:", e);
+  }
+}
+
 /** Nieopłacona sesja wygasła — zamówienie oznaczamy jako wygasłe (po ~24h). */
 async function markExpired(session: any) {
   const orderId = session?.metadata?.orderId;
