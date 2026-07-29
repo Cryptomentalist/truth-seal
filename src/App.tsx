@@ -16,6 +16,7 @@ import PlatformaERP from "./pages/PlatformaERP";
 import PolishAssets from "./pages/PolishAssets";
 import Ciekawostki from "./pages/Ciekawostki";
 import Sklep from "./pages/Sklep";
+import Klub from "./pages/Klub";
 import Unsubscribe from "./pages/Unsubscribe";
 import Faktura from "./pages/Faktura";
 import AdminLogin from "./pages/AdminLogin";
