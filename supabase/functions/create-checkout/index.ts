@@ -50,7 +50,18 @@ Deno.serve(async (req) => {
   const currency = (order.currency || "PLN").toLowerCase();
   const lines = Array.isArray(order.items) ? (order.items as any[]) : [];
 
-  const lineItems = lines.map((l) => ({
+  // Mapowanie katalogu sklepu na zarejestrowane ceny (lookup_key) u dostawcy płatności.
+  const PRICE_LOOKUP: Record<string, string> = {
+    "mug-cww": "mug_cww_one",
+    "tee-comp": "tee_comp_one",
+    "poster-pyr": "poster_pyr_one",
+    "book-zw": "book_zw_one",
+    "geo-guide": "geo_guide_one",
+    "ebook-claude": "ebook_claude_one",
+    support: "support_direct_one",
+  };
+
+  const lineItems: any[] = lines.map((l) => ({
     price_data: {
       currency,
       product_data: { name: `${l.name}${l.variant ? ` — ${l.variant}` : ""}`.slice(0, 250) },
