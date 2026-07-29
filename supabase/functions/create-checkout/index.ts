@@ -50,7 +50,18 @@ Deno.serve(async (req) => {
   const currency = (order.currency || "PLN").toLowerCase();
   const lines = Array.isArray(order.items) ? (order.items as any[]) : [];
 
-  const lineItems = lines.map((l) => ({
+  // Mapowanie katalogu sklepu na zarejestrowane ceny (lookup_key) u dostawcy płatności.
+  const PRICE_LOOKUP: Record<string, string> = {
+    "mug-cww": "mug_cww_one",
+    "tee-comp": "tee_comp_one",
+    "poster-pyr": "poster_pyr_one",
+    "book-zw": "book_zw_one",
+    "geo-guide": "geo_guide_one",
+    "ebook-claude": "ebook_claude_one",
+    support: "support_direct_one",
+  };
+
+  const lineItems: any[] = lines.map((l) => ({
     price_data: {
       currency,
       product_data: { name: `${l.name}${l.variant ? ` — ${l.variant}` : ""}`.slice(0, 250) },
@@ -74,6 +85,29 @@ Deno.serve(async (req) => {
 
   try {
     const stripe = createStripeClient(environment as StripeEnv);
+
+    // Jeśli pozycja ma odpowiednik w katalogu dostawcy (ta sama kwota i waluta),
+    // używamy zarejestrowanej ceny — dzięki temu raporty i kody podatkowe są poprawne.
+    const wantedKeys = [...new Set(lines.map((l) => PRICE_LOOKUP[String(l.pid)]).filter(Boolean))] as string[];
+    if (wantedKeys.length) {
+      try {
+        const found = await stripe.prices.list({ lookup_keys: wantedKeys, limit: 100 });
+        const byKey = new Map(found.data.map((p) => [p.lookup_key as string, p]));
+        lines.forEach((l, i) => {
+          const price = byKey.get(PRICE_LOOKUP[String(l.pid)] ?? "");
+          if (
+            price &&
+            price.currency === currency &&
+            price.unit_amount === Math.round(Number(l.price) * 100)
+          ) {
+            lineItems[i] = { price: price.id, quantity: Number(l.qty) || 1 };
+          }
+        });
+      } catch (e) {
+        console.error("Price lookup failed, falling back to price_data:", e);
+      }
+    }
+
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
       mode: "payment",
