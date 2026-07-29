@@ -20,6 +20,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
+import { lovable } from "@/integrations/lovable";
 import { useSubscription } from "@/hooks/useSubscription";
 import { getStripeEnvironment, hasPaymentsToken } from "@/lib/stripe";
 
@@ -148,11 +149,10 @@ const Konto = () => {
   };
 
   const signInWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: `${window.location.origin}/konto` },
+    const { error } = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: `${window.location.origin}/konto`,
     });
-    if (error) toast.error(error.message);
+    if (error) toast.error(error.message ?? "Nie udało się zalogować przez Google.");
   };
 
   const resetPassword = async () => {
