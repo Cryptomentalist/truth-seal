@@ -112,14 +112,35 @@ Deno.serve(async (req) => {
   const suppressed = await isSuppressed(supabase, email);
   if (suppressed) return json({ error: "email_suppressed" }, 400);
 
-
+  // Zakup jako gość jest dozwolony; gdy klient jest zalogowany, wiążemy
+  // zamówienie z jego kontem (historia zamówień, faktury, pobrania).
+  let userId: string | null = null;
+  const authHeader = req.headers.get("Authorization");
+  if (authHeader?.startsWith("Bearer ")) {
+    try {
+      const authClient = createClient(
+        Deno.env.get("SUPABASE_URL")!,
+        Deno.env.get("SUPABASE_ANON_KEY")!,
+        { auth: { persistSession: false } },
+      );
+      const { data: claimsData } = await authClient.auth.getClaims(
+        authHeader.replace("Bearer ", ""),
+      );
+      const sub = claimsData?.claims?.sub;
+      if (typeof sub === "string") userId = sub;
+    } catch (e) {
+      console.error("Optional auth resolution failed:", e);
+    }
+  }
 
   const { data: order, error: dbError } = await supabase
     .from("shop_orders")
     .insert({
       order_no: orderNo,
+      user_id: userId,
       email,
       name: b.name,
+
       phone: b.phone || null,
       street: b.street || null,
       zip: b.zip || null,
@@ -206,23 +227,8 @@ Deno.serve(async (req) => {
     })
     .eq("id", order.id);
 
-  // --- faktura PDF + e-mail z linkiem do panelu klienta ---
-  let invoiceNumber: string | null = null;
-  let invoicePanelUrl: string | null = null;
-  try {
-    const { data: inv, error: invErr } = await supabase.functions.invoke("generate-invoice", {
-      body: { orderId: order.id },
-      headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` },
-    });
-    if (invErr) {
-      console.error("Invoice generation failed:", invErr.message);
-    } else {
-      invoiceNumber = inv?.invoiceNumber ?? null;
-      invoicePanelUrl = inv?.panelUrl ?? null;
-    }
-  } catch (e) {
-    console.error("Invoice generation threw:", e);
-  }
+  // Faktura powstaje dopiero po zaksięgowaniu płatności (payments-webhook),
+  // żeby nieopłacone zamówienia nie zużywały numeracji.
 
   return json({
     orderId: order.id,
@@ -232,7 +238,6 @@ Deno.serve(async (req) => {
     shipping,
     total,
     pod: printful,
-    invoiceNumber,
-    invoiceUrl: invoicePanelUrl,
   });
 });
+

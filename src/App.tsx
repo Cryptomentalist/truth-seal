@@ -16,6 +16,8 @@ import PlatformaERP from "./pages/PlatformaERP";
 import PolishAssets from "./pages/PolishAssets";
 import Ciekawostki from "./pages/Ciekawostki";
 import Sklep from "./pages/Sklep";
+import Konto from "./pages/Konto";
+import ResetPassword from "./pages/ResetPassword";
 import Klub from "./pages/Klub";
 import Unsubscribe from "./pages/Unsubscribe";
 import Faktura from "./pages/Faktura";
@@ -49,6 +51,8 @@ const App = () => (
           <Route path="/ciekawostki" element={<Ciekawostki />} />
           <Route path="/sklep" element={<Sklep />} />
           <Route path="/klub" element={<Klub />} />
+          <Route path="/konto" element={<Konto />} />
+          <Route path="/reset-hasla" element={<ResetPassword />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/faktura/:token" element={<Faktura />} />
           <Route path="/admin" element={<AdminLogin />} />
