@@ -50,6 +50,73 @@ async function markPaid(session: any) {
     if (mailErr) console.error("Paid confirmation email failed:", mailErr.message);
   }
 }
+/** Nieopłacona sesja wygasła — zamówienie oznaczamy jako wygasłe (po ~24h). */
+async function markExpired(session: any) {
+  const orderId = session?.metadata?.orderId;
+  if (!orderId) return;
+  const { error } = await getSupabase()
+    .from("shop_orders")
+    .update({ status: "expired", updated_at: new Date().toISOString() })
+    .eq("id", orderId)
+    .eq("status", "pending");
+  if (error) console.error("Failed to expire order:", error.message);
+}
+
+function subRow(sub: any, env: StripeEnv) {
+  const item = sub.items?.data?.[0];
+  const priceId = item?.price?.lookup_key
+    || item?.price?.metadata?.lovable_external_id
+    || item?.price?.id;
+  const periodStart = item?.current_period_start ?? sub.current_period_start;
+  const periodEnd = item?.current_period_end ?? sub.current_period_end;
+  return {
+    stripe_subscription_id: sub.id,
+    stripe_customer_id: sub.customer,
+    product_id: item?.price?.product,
+    price_id: priceId,
+    status: sub.status,
+    current_period_start: periodStart ? new Date(periodStart * 1000).toISOString() : null,
+    current_period_end: periodEnd ? new Date(periodEnd * 1000).toISOString() : null,
+    cancel_at_period_end: Boolean(sub.cancel_at_period_end),
+    environment: env,
+    updated_at: new Date().toISOString(),
+  };
+}
+
+async function upsertSubscription(sub: any, env: StripeEnv) {
+  const userId = sub?.metadata?.userId;
+  if (!userId) {
+    console.error("Subscription without userId metadata:", sub?.id);
+    return;
+  }
+  const { error } = await getSupabase()
+    .from("subscriptions")
+    .upsert({ user_id: userId, ...subRow(sub, env) }, { onConflict: "stripe_subscription_id" });
+  if (error) console.error("Subscription upsert failed:", error.message);
+}
+
+async function updateSubscription(sub: any, env: StripeEnv) {
+  const { error } = await getSupabase()
+    .from("subscriptions")
+    .update(subRow(sub, env))
+    .eq("stripe_subscription_id", sub.id)
+    .eq("environment", env);
+  if (error) console.error("Subscription update failed:", error.message);
+}
+
+/**
+ * Anulowanie: dostęp zostaje do końca opłaconego okresu — nie kasujemy daty
+ * `current_period_end`, tylko oznaczamy status jako anulowany.
+ */
+async function cancelSubscription(sub: any, env: StripeEnv) {
+  const { error } = await getSupabase()
+    .from("subscriptions")
+    .update({ status: "canceled", updated_at: new Date().toISOString() })
+    .eq("stripe_subscription_id", sub.id)
+    .eq("environment", env);
+  if (error) console.error("Subscription cancel failed:", error.message);
+}
+
 
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
@@ -68,8 +135,22 @@ Deno.serve(async (req) => {
     const event = await verifyWebhook(req, env);
     switch (event.type) {
       case "checkout.session.completed":
-      case "checkout.session.async_payment_succeeded":
-        await markPaid(event.data.object);
+      case "checkout.session.async_payment_succeeded": {
+        const session: any = event.data.object;
+        if (session?.mode !== "subscription") await markPaid(session);
+        break;
+      }
+      case "checkout.session.expired":
+        await markExpired(event.data.object);
+        break;
+      case "customer.subscription.created":
+        await upsertSubscription(event.data.object, env);
+        break;
+      case "customer.subscription.updated":
+        await updateSubscription(event.data.object, env);
+        break;
+      case "customer.subscription.deleted":
+        await cancelSubscription(event.data.object, env);
         break;
       default:
         console.log("Unhandled event:", event.type);

@@ -16,6 +16,7 @@ import PlatformaERP from "./pages/PlatformaERP";
 import PolishAssets from "./pages/PolishAssets";
 import Ciekawostki from "./pages/Ciekawostki";
 import Sklep from "./pages/Sklep";
+import Klub from "./pages/Klub";
 import Unsubscribe from "./pages/Unsubscribe";
 import Faktura from "./pages/Faktura";
 import AdminLogin from "./pages/AdminLogin";
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/polishassets" element={<PolishAssets />} />
           <Route path="/ciekawostki" element={<Ciekawostki />} />
           <Route path="/sklep" element={<Sklep />} />
+          <Route path="/klub" element={<Klub />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/faktura/:token" element={<Faktura />} />
           <Route path="/admin" element={<AdminLogin />} />
