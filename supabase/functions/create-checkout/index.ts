@@ -85,6 +85,29 @@ Deno.serve(async (req) => {
 
   try {
     const stripe = createStripeClient(environment as StripeEnv);
+
+    // Jeśli pozycja ma odpowiednik w katalogu dostawcy (ta sama kwota i waluta),
+    // używamy zarejestrowanej ceny — dzięki temu raporty i kody podatkowe są poprawne.
+    const wantedKeys = [...new Set(lines.map((l) => PRICE_LOOKUP[String(l.pid)]).filter(Boolean))] as string[];
+    if (wantedKeys.length) {
+      try {
+        const found = await stripe.prices.list({ lookup_keys: wantedKeys, limit: 100 });
+        const byKey = new Map(found.data.map((p) => [p.lookup_key as string, p]));
+        lines.forEach((l, i) => {
+          const price = byKey.get(PRICE_LOOKUP[String(l.pid)] ?? "");
+          if (
+            price &&
+            price.currency === currency &&
+            price.unit_amount === Math.round(Number(l.price) * 100)
+          ) {
+            lineItems[i] = { price: price.id, quantity: Number(l.qty) || 1 };
+          }
+        });
+      } catch (e) {
+        console.error("Price lookup failed, falling back to price_data:", e);
+      }
+    }
+
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
       mode: "payment",
