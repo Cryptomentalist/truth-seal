@@ -23,4 +23,7 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'order-shipped': orderShipped,
   'order-tracking': orderTracking,
   'invoice-issued': invoiceIssued,
+  'payment-failed': paymentFailed,
+  'order-refunded': orderRefunded,
+  'club-notice': clubNotice,
 }
