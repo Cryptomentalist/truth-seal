@@ -437,11 +437,23 @@ Deno.serve(async (req) => {
       case "checkout.session.completed":
       case "checkout.session.async_payment_succeeded": {
         const session: any = event.data.object;
-        if (session?.mode !== "subscription") await markPaid(session);
+        // BLIK/P24 zamykają formularz zanim bank potwierdzi przelew — wtedy
+        // czekamy na `async_payment_succeeded`, żeby nie ruszyć produkcji za wcześnie.
+        const settled = ["paid", "no_payment_required"].includes(session?.payment_status);
+        if (session?.mode !== "subscription" && settled) await markPaid(session);
         break;
       }
+      case "checkout.session.async_payment_failed":
+        await markPaymentFailed(event.data.object);
+        break;
       case "checkout.session.expired":
         await markExpired(event.data.object);
+        break;
+      case "charge.refunded":
+        await handleRefund(event.data.object, env);
+        break;
+      case "invoice.payment_failed":
+        await handleInvoiceFailed(event.data.object, env);
         break;
       case "customer.subscription.created":
         await upsertSubscription(event.data.object, env);
