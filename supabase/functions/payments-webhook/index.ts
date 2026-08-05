@@ -141,6 +141,157 @@ async function markExpired(session: any) {
   if (error) console.error("Failed to expire order:", error.message);
 }
 
+/** Anulowanie draftu w Printful — nic nie może wisieć u producenta po nieudanej płatności. */
+async function cancelPrintful(order: any) {
+  if (!order?.printful_order_id || order.printful_confirmed_at) return;
+  const key = Deno.env.get("PRINTFUL_API_KEY");
+  if (!key) return;
+  try {
+    const res = await fetch(
+      `https://api.printful.com/orders/${encodeURIComponent(order.printful_order_id)}`,
+      { method: "DELETE", headers: { Authorization: `Bearer ${key}` } },
+    );
+    if (!res.ok) {
+      console.error(`Printful cancel failed [${res.status}]: ${await res.text()}`);
+      return;
+    }
+    await getSupabase()
+      .from("shop_orders")
+      .update({ printful_status: "canceled" })
+      .eq("id", order.id);
+  } catch (e) {
+    console.error("Printful cancel threw:", e);
+  }
+}
+
+/**
+ * BLIK/Przelewy24 potrafią odmówić już po zamknięciu formularza — wtedy
+ * zamówienie musi wypaść z kolejki, a draft u producenta zniknąć.
+ */
+async function markPaymentFailed(session: any) {
+  const orderId = session?.metadata?.orderId;
+  const orderNo = session?.metadata?.orderNo || session?.client_reference_id;
+  if (!orderId && !orderNo) return;
+
+  const base = getSupabase()
+    .from("shop_orders")
+    .update({ status: "payment_failed", updated_at: new Date().toISOString() })
+    .in("status", ["pending", "pending_pod_error", "expired"]);
+
+  const cols = "id, order_no, email, name, lang, printful_order_id, printful_confirmed_at";
+  const { data, error } = orderId
+    ? await base.eq("id", orderId).select(cols).maybeSingle()
+    : await base.eq("order_no", orderNo).select(cols).maybeSingle();
+
+  if (error) {
+    console.error("Failed to mark payment failed:", error.message);
+    return;
+  }
+  if (!data) return;
+
+  await cancelPrintful(data);
+
+  if (data.email) {
+    await sendMail("payment-failed", data.email as string, `order-failed-${data.id}`, {
+      name: data.name,
+      orderNo: data.order_no,
+      lang: data.lang,
+      retryUrl: `${SITE_URL}/sklep`,
+    });
+  }
+}
+
+/**
+ * Zwrot wykonany w panelu dostawcy płatności. Pliki cyfrowe zostają u klienta
+ * — zmieniamy tylko status zamówienia i wysyłamy potwierdzenie.
+ */
+async function handleRefund(charge: any, env: StripeEnv) {
+  const paymentIntent = charge?.payment_intent;
+  if (!paymentIntent) return;
+
+  let orderId: string | undefined;
+  let orderNo: string | undefined;
+  try {
+    const stripe = createStripeClient(env);
+    const sessions = await stripe.checkout.sessions.list({ payment_intent: paymentIntent, limit: 1 });
+    const session: any = sessions.data[0];
+    orderId = session?.metadata?.orderId;
+    orderNo = session?.metadata?.orderNo || session?.client_reference_id;
+    if (!orderId && !orderNo && session?.id) {
+      const { data } = await getSupabase()
+        .from("shop_orders").select("id").eq("stripe_session_id", session.id).maybeSingle();
+      orderId = data?.id as string | undefined;
+    }
+  } catch (e) {
+    console.error("Refund lookup failed:", e);
+    return;
+  }
+  if (!orderId && !orderNo) {
+    console.error("Refund without order reference, charge:", charge?.id);
+    return;
+  }
+
+  const partial = Number(charge?.amount_refunded ?? 0) < Number(charge?.amount ?? 0);
+  const base = getSupabase()
+    .from("shop_orders")
+    .update({
+      status: partial ? "partially_refunded" : "refunded",
+      updated_at: new Date().toISOString(),
+    })
+    .not("status", "in", '("refunded")');
+
+  const cols = "id, order_no, email, name, lang, currency";
+  const { data, error } = orderId
+    ? await base.eq("id", orderId).select(cols).maybeSingle()
+    : await base.eq("order_no", orderNo!).select(cols).maybeSingle();
+
+  if (error) {
+    console.error("Failed to mark order refunded:", error.message);
+    return;
+  }
+  if (!data?.email) return;
+
+  await sendMail("order-refunded", data.email as string, `order-refund-${data.id}-${charge?.amount_refunded}`, {
+    name: data.name,
+    orderNo: data.order_no,
+    lang: data.lang,
+    amount: Number(charge?.amount_refunded ?? 0) / 100,
+    currency: (charge?.currency ?? data.currency ?? "PLN").toUpperCase(),
+    partial,
+  });
+}
+
+/** Adres i imię członka Klubu — potrzebne do e-maili cyklu życia subskrypcji. */
+async function memberContact(userId?: string | null) {
+  if (!userId) return null;
+  const { data } = await getSupabase()
+    .from("profiles").select("email, full_name").eq("id", userId).maybeSingle();
+  if (!data?.email) return null;
+  return { email: data.email as string, name: (data.full_name as string | null) ?? undefined };
+}
+
+const dateLabel = (iso?: string | null) =>
+  iso ? new Date(iso).toLocaleDateString("pl-PL") : undefined;
+
+async function clubMail(
+  userId: string | null | undefined,
+  variant: "welcome" | "payment_failed" | "canceled" | "expired",
+  idempotencyKey: string,
+  extra: Record<string, unknown> = {},
+) {
+  const contact = await memberContact(userId);
+  if (!contact) return;
+  await sendMail("club-notice", contact.email, idempotencyKey, {
+    name: contact.name,
+    lang: "pl",
+    variant,
+    actionUrl: variant === "payment_failed" ? `${SITE_URL}/klub` : `${SITE_URL}/konto`,
+    ...extra,
+  });
+}
+
+
+
 function subRow(sub: any, env: StripeEnv) {
   const item = sub.items?.data?.[0];
   const priceId = item?.price?.lookup_key
