@@ -90,6 +90,19 @@ const Konto = () => {
 
   const loadData = useCallback(async () => {
     setDataLoading(true);
+
+    // Zakupy złożone bez konta, na ten sam potwierdzony adres, dopisujemy do historii.
+    try {
+      const { data: claim } = await supabase.functions.invoke("claim-orders");
+      if ((claim?.claimed ?? 0) > 0) {
+        toast.success(
+          `Dopisaliśmy do konta ${claim.claimed} wcześniejsze zamówienie${claim.claimed > 1 ? "/-nia" : ""}.`,
+        );
+      }
+    } catch (e) {
+      console.error("claim-orders failed:", e);
+    }
+
     const [{ data: ord }, { data: inv }] = await Promise.all([
       supabase
         .from("shop_orders")
