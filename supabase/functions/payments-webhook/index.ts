@@ -1,5 +1,19 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { type StripeEnv, verifyWebhook } from "../_shared/stripe.ts";
+import { type StripeEnv, createStripeClient, verifyWebhook } from "../_shared/stripe.ts";
+
+const SITE_URL = "https://konstelacja.org";
+
+function sendMail(templateName: string, recipientEmail: string, idempotencyKey: string, templateData: Record<string, unknown>) {
+  return getSupabase()
+    .functions.invoke("send-transactional-email", {
+      body: { templateName, recipientEmail, idempotencyKey, templateData },
+      headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` },
+    })
+    .then(({ error }) => {
+      if (error) console.error(`Email ${templateName} failed:`, error.message);
+    })
+    .catch((e) => console.error(`Email ${templateName} threw:`, e));
+}
 
 let _supabase: ReturnType<typeof createClient> | null = null;
 function getSupabase() {
@@ -127,6 +141,157 @@ async function markExpired(session: any) {
   if (error) console.error("Failed to expire order:", error.message);
 }
 
+/** Anulowanie draftu w Printful — nic nie może wisieć u producenta po nieudanej płatności. */
+async function cancelPrintful(order: any) {
+  if (!order?.printful_order_id || order.printful_confirmed_at) return;
+  const key = Deno.env.get("PRINTFUL_API_KEY");
+  if (!key) return;
+  try {
+    const res = await fetch(
+      `https://api.printful.com/orders/${encodeURIComponent(order.printful_order_id)}`,
+      { method: "DELETE", headers: { Authorization: `Bearer ${key}` } },
+    );
+    if (!res.ok) {
+      console.error(`Printful cancel failed [${res.status}]: ${await res.text()}`);
+      return;
+    }
+    await getSupabase()
+      .from("shop_orders")
+      .update({ printful_status: "canceled" })
+      .eq("id", order.id);
+  } catch (e) {
+    console.error("Printful cancel threw:", e);
+  }
+}
+
+/**
+ * BLIK/Przelewy24 potrafią odmówić już po zamknięciu formularza — wtedy
+ * zamówienie musi wypaść z kolejki, a draft u producenta zniknąć.
+ */
+async function markPaymentFailed(session: any) {
+  const orderId = session?.metadata?.orderId;
+  const orderNo = session?.metadata?.orderNo || session?.client_reference_id;
+  if (!orderId && !orderNo) return;
+
+  const base = getSupabase()
+    .from("shop_orders")
+    .update({ status: "payment_failed", updated_at: new Date().toISOString() })
+    .in("status", ["pending", "pending_pod_error", "expired"]);
+
+  const cols = "id, order_no, email, name, lang, printful_order_id, printful_confirmed_at";
+  const { data, error } = orderId
+    ? await base.eq("id", orderId).select(cols).maybeSingle()
+    : await base.eq("order_no", orderNo).select(cols).maybeSingle();
+
+  if (error) {
+    console.error("Failed to mark payment failed:", error.message);
+    return;
+  }
+  if (!data) return;
+
+  await cancelPrintful(data);
+
+  if (data.email) {
+    await sendMail("payment-failed", data.email as string, `order-failed-${data.id}`, {
+      name: data.name,
+      orderNo: data.order_no,
+      lang: data.lang,
+      retryUrl: `${SITE_URL}/sklep`,
+    });
+  }
+}
+
+/**
+ * Zwrot wykonany w panelu dostawcy płatności. Pliki cyfrowe zostają u klienta
+ * — zmieniamy tylko status zamówienia i wysyłamy potwierdzenie.
+ */
+async function handleRefund(charge: any, env: StripeEnv) {
+  const paymentIntent = charge?.payment_intent;
+  if (!paymentIntent) return;
+
+  let orderId: string | undefined;
+  let orderNo: string | undefined;
+  try {
+    const stripe = createStripeClient(env);
+    const sessions = await stripe.checkout.sessions.list({ payment_intent: paymentIntent, limit: 1 });
+    const session: any = sessions.data[0];
+    orderId = session?.metadata?.orderId;
+    orderNo = session?.metadata?.orderNo || session?.client_reference_id;
+    if (!orderId && !orderNo && session?.id) {
+      const { data } = await getSupabase()
+        .from("shop_orders").select("id").eq("stripe_session_id", session.id).maybeSingle();
+      orderId = data?.id as string | undefined;
+    }
+  } catch (e) {
+    console.error("Refund lookup failed:", e);
+    return;
+  }
+  if (!orderId && !orderNo) {
+    console.error("Refund without order reference, charge:", charge?.id);
+    return;
+  }
+
+  const partial = Number(charge?.amount_refunded ?? 0) < Number(charge?.amount ?? 0);
+  const base = getSupabase()
+    .from("shop_orders")
+    .update({
+      status: partial ? "partially_refunded" : "refunded",
+      updated_at: new Date().toISOString(),
+    })
+    .not("status", "in", '("refunded")');
+
+  const cols = "id, order_no, email, name, lang, currency";
+  const { data, error } = orderId
+    ? await base.eq("id", orderId).select(cols).maybeSingle()
+    : await base.eq("order_no", orderNo!).select(cols).maybeSingle();
+
+  if (error) {
+    console.error("Failed to mark order refunded:", error.message);
+    return;
+  }
+  if (!data?.email) return;
+
+  await sendMail("order-refunded", data.email as string, `order-refund-${data.id}-${charge?.amount_refunded}`, {
+    name: data.name,
+    orderNo: data.order_no,
+    lang: data.lang,
+    amount: Number(charge?.amount_refunded ?? 0) / 100,
+    currency: (charge?.currency ?? data.currency ?? "PLN").toUpperCase(),
+    partial,
+  });
+}
+
+/** Adres i imię członka Klubu — potrzebne do e-maili cyklu życia subskrypcji. */
+async function memberContact(userId?: string | null) {
+  if (!userId) return null;
+  const { data } = await getSupabase()
+    .from("profiles").select("email, full_name").eq("id", userId).maybeSingle();
+  if (!data?.email) return null;
+  return { email: data.email as string, name: (data.full_name as string | null) ?? undefined };
+}
+
+const dateLabel = (iso?: string | null) =>
+  iso ? new Date(iso).toLocaleDateString("pl-PL") : undefined;
+
+async function clubMail(
+  userId: string | null | undefined,
+  variant: "welcome" | "payment_failed" | "canceled" | "expired",
+  idempotencyKey: string,
+  extra: Record<string, unknown> = {},
+) {
+  const contact = await memberContact(userId);
+  if (!contact) return;
+  await sendMail("club-notice", contact.email, idempotencyKey, {
+    name: contact.name,
+    lang: "pl",
+    variant,
+    actionUrl: variant === "payment_failed" ? `${SITE_URL}/klub` : `${SITE_URL}/konto`,
+    ...extra,
+  });
+}
+
+
+
 function subRow(sub: any, env: StripeEnv) {
   const item = sub.items?.data?.[0];
   const priceId = item?.price?.lookup_key
@@ -157,29 +322,99 @@ async function upsertSubscription(sub: any, env: StripeEnv) {
   const { error } = await getSupabase()
     .from("subscriptions")
     .upsert({ user_id: userId, ...subRow(sub, env) }, { onConflict: "stripe_subscription_id" });
-  if (error) console.error("Subscription upsert failed:", error.message);
+  if (error) {
+    console.error("Subscription upsert failed:", error.message);
+    return;
+  }
+  if (["active", "trialing"].includes(sub.status)) {
+    const row = subRow(sub, env);
+    await clubMail(userId, "welcome", `club-welcome-${sub.id}`, {
+      accessUntil: dateLabel(row.current_period_end),
+    });
+  }
 }
 
+/**
+ * Aktualizacja: `upsert`, bo zdarzenie „created" potrafi przepaść — wtedy
+ * wiersz i tak musi powstać. Wysyłamy też potwierdzenie anulowania.
+ */
 async function updateSubscription(sub: any, env: StripeEnv) {
-  const { error } = await getSupabase()
+  const supabase = getSupabase();
+  const { data: prev } = await supabase
     .from("subscriptions")
-    .update(subRow(sub, env))
+    .select("user_id, cancel_at_period_end")
     .eq("stripe_subscription_id", sub.id)
-    .eq("environment", env);
-  if (error) console.error("Subscription update failed:", error.message);
+    .eq("environment", env)
+    .maybeSingle();
+
+  const userId = sub?.metadata?.userId ?? prev?.user_id;
+  if (!userId) {
+    console.error("Subscription update without resolvable user:", sub?.id);
+    return;
+  }
+
+  const row = subRow(sub, env);
+  const { error } = await supabase
+    .from("subscriptions")
+    .upsert({ user_id: userId, ...row }, { onConflict: "stripe_subscription_id" });
+  if (error) {
+    console.error("Subscription update failed:", error.message);
+    return;
+  }
+
+  if (row.cancel_at_period_end && !prev?.cancel_at_period_end) {
+    await clubMail(userId as string, "canceled", `club-canceled-${sub.id}-${row.current_period_end}`, {
+      accessUntil: dateLabel(row.current_period_end),
+    });
+  }
 }
+
+/** Nieudana płatność odnowieniowa — prosimy o aktualizację karty, zanim dostęp wygaśnie. */
+async function handleInvoiceFailed(invoice: any, env: StripeEnv) {
+  const subId = invoice?.subscription
+    ?? invoice?.parent?.subscription_details?.subscription
+    ?? invoice?.lines?.data?.[0]?.parent?.subscription_item_details?.subscription;
+  if (!subId) return;
+  const { data } = await getSupabase()
+    .from("subscriptions")
+    .select("user_id, current_period_end")
+    .eq("stripe_subscription_id", subId)
+    .eq("environment", env)
+    .maybeSingle();
+  if (!data?.user_id) return;
+  await clubMail(data.user_id as string, "payment_failed", `club-dunning-${invoice?.id}`, {
+    accessUntil: dateLabel(data.current_period_end as string | null),
+  });
+}
+
 
 /**
  * Anulowanie: dostęp zostaje do końca opłaconego okresu — nie kasujemy daty
  * `current_period_end`, tylko oznaczamy status jako anulowany.
  */
 async function cancelSubscription(sub: any, env: StripeEnv) {
-  const { error } = await getSupabase()
+  const supabase = getSupabase();
+  const { data, error } = await supabase
     .from("subscriptions")
     .update({ status: "canceled", updated_at: new Date().toISOString() })
     .eq("stripe_subscription_id", sub.id)
-    .eq("environment", env);
-  if (error) console.error("Subscription cancel failed:", error.message);
+    .eq("environment", env)
+    .select("user_id, current_period_end")
+    .maybeSingle();
+  if (error) {
+    console.error("Subscription cancel failed:", error.message);
+    return;
+  }
+  const userId = (data?.user_id as string | undefined) ?? sub?.metadata?.userId;
+  const endsAt = (data?.current_period_end as string | null) ?? null;
+  // Okres już się skończył → dostęp faktycznie wygasł; inaczej to zwykłe anulowanie.
+  const expired = !endsAt || new Date(endsAt).getTime() <= Date.now();
+  await clubMail(
+    userId,
+    expired ? "expired" : "canceled",
+    `club-${expired ? "expired" : "canceled"}-${sub.id}`,
+    { accessUntil: expired ? undefined : dateLabel(endsAt) },
+  );
 }
 
 
@@ -202,11 +437,23 @@ Deno.serve(async (req) => {
       case "checkout.session.completed":
       case "checkout.session.async_payment_succeeded": {
         const session: any = event.data.object;
-        if (session?.mode !== "subscription") await markPaid(session);
+        // BLIK/P24 zamykają formularz zanim bank potwierdzi przelew — wtedy
+        // czekamy na `async_payment_succeeded`, żeby nie ruszyć produkcji za wcześnie.
+        const settled = ["paid", "no_payment_required"].includes(session?.payment_status);
+        if (session?.mode !== "subscription" && settled) await markPaid(session);
         break;
       }
+      case "checkout.session.async_payment_failed":
+        await markPaymentFailed(event.data.object);
+        break;
       case "checkout.session.expired":
         await markExpired(event.data.object);
+        break;
+      case "charge.refunded":
+        await handleRefund(event.data.object, env);
+        break;
+      case "invoice.payment_failed":
+        await handleInvoiceFailed(event.data.object, env);
         break;
       case "customer.subscription.created":
         await upsertSubscription(event.data.object, env);

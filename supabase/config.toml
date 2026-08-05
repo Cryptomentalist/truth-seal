@@ -39,3 +39,6 @@ verify_jwt = false
 
 [functions.create-order]
 verify_jwt = false
+
+[functions.claim-orders]
+verify_jwt = false
