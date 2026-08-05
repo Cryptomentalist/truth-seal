@@ -322,17 +322,71 @@ async function upsertSubscription(sub: any, env: StripeEnv) {
   const { error } = await getSupabase()
     .from("subscriptions")
     .upsert({ user_id: userId, ...subRow(sub, env) }, { onConflict: "stripe_subscription_id" });
-  if (error) console.error("Subscription upsert failed:", error.message);
+  if (error) {
+    console.error("Subscription upsert failed:", error.message);
+    return;
+  }
+  if (["active", "trialing"].includes(sub.status)) {
+    const row = subRow(sub, env);
+    await clubMail(userId, "welcome", `club-welcome-${sub.id}`, {
+      accessUntil: dateLabel(row.current_period_end),
+    });
+  }
 }
 
+/**
+ * Aktualizacja: `upsert`, bo zdarzenie „created" potrafi przepaść — wtedy
+ * wiersz i tak musi powstać. Wysyłamy też potwierdzenie anulowania.
+ */
 async function updateSubscription(sub: any, env: StripeEnv) {
-  const { error } = await getSupabase()
+  const supabase = getSupabase();
+  const { data: prev } = await supabase
     .from("subscriptions")
-    .update(subRow(sub, env))
+    .select("user_id, cancel_at_period_end")
     .eq("stripe_subscription_id", sub.id)
-    .eq("environment", env);
-  if (error) console.error("Subscription update failed:", error.message);
+    .eq("environment", env)
+    .maybeSingle();
+
+  const userId = sub?.metadata?.userId ?? prev?.user_id;
+  if (!userId) {
+    console.error("Subscription update without resolvable user:", sub?.id);
+    return;
+  }
+
+  const row = subRow(sub, env);
+  const { error } = await supabase
+    .from("subscriptions")
+    .upsert({ user_id: userId, ...row }, { onConflict: "stripe_subscription_id" });
+  if (error) {
+    console.error("Subscription update failed:", error.message);
+    return;
+  }
+
+  if (row.cancel_at_period_end && !prev?.cancel_at_period_end) {
+    await clubMail(userId as string, "canceled", `club-canceled-${sub.id}-${row.current_period_end}`, {
+      accessUntil: dateLabel(row.current_period_end),
+    });
+  }
 }
+
+/** Nieudana płatność odnowieniowa — prosimy o aktualizację karty, zanim dostęp wygaśnie. */
+async function handleInvoiceFailed(invoice: any, env: StripeEnv) {
+  const subId = invoice?.subscription
+    ?? invoice?.parent?.subscription_details?.subscription
+    ?? invoice?.lines?.data?.[0]?.parent?.subscription_item_details?.subscription;
+  if (!subId) return;
+  const { data } = await getSupabase()
+    .from("subscriptions")
+    .select("user_id, current_period_end")
+    .eq("stripe_subscription_id", subId)
+    .eq("environment", env)
+    .maybeSingle();
+  if (!data?.user_id) return;
+  await clubMail(data.user_id as string, "payment_failed", `club-dunning-${invoice?.id}`, {
+    accessUntil: dateLabel(data.current_period_end as string | null),
+  });
+}
+
 
 /**
  * Anulowanie: dostęp zostaje do końca opłaconego okresu — nie kasujemy daty
