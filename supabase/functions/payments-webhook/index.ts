@@ -393,12 +393,28 @@ async function handleInvoiceFailed(invoice: any, env: StripeEnv) {
  * `current_period_end`, tylko oznaczamy status jako anulowany.
  */
 async function cancelSubscription(sub: any, env: StripeEnv) {
-  const { error } = await getSupabase()
+  const supabase = getSupabase();
+  const { data, error } = await supabase
     .from("subscriptions")
     .update({ status: "canceled", updated_at: new Date().toISOString() })
     .eq("stripe_subscription_id", sub.id)
-    .eq("environment", env);
-  if (error) console.error("Subscription cancel failed:", error.message);
+    .eq("environment", env)
+    .select("user_id, current_period_end")
+    .maybeSingle();
+  if (error) {
+    console.error("Subscription cancel failed:", error.message);
+    return;
+  }
+  const userId = (data?.user_id as string | undefined) ?? sub?.metadata?.userId;
+  const endsAt = (data?.current_period_end as string | null) ?? null;
+  // Okres już się skończył → dostęp faktycznie wygasł; inaczej to zwykłe anulowanie.
+  const expired = !endsAt || new Date(endsAt).getTime() <= Date.now();
+  await clubMail(
+    userId,
+    expired ? "expired" : "canceled",
+    `club-${expired ? "expired" : "canceled"}-${sub.id}`,
+    { accessUntil: expired ? undefined : dateLabel(endsAt) },
+  );
 }
 
 
