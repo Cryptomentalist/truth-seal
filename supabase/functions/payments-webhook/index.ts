@@ -1,5 +1,19 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
-import { type StripeEnv, verifyWebhook } from "../_shared/stripe.ts";
+import { type StripeEnv, createStripeClient, verifyWebhook } from "../_shared/stripe.ts";
+
+const SITE_URL = "https://konstelacja.org";
+
+function sendMail(templateName: string, recipientEmail: string, idempotencyKey: string, templateData: Record<string, unknown>) {
+  return getSupabase()
+    .functions.invoke("send-transactional-email", {
+      body: { templateName, recipientEmail, idempotencyKey, templateData },
+      headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` },
+    })
+    .then(({ error }) => {
+      if (error) console.error(`Email ${templateName} failed:`, error.message);
+    })
+    .catch((e) => console.error(`Email ${templateName} threw:`, e));
+}
 
 let _supabase: ReturnType<typeof createClient> | null = null;
 function getSupabase() {
