@@ -290,6 +290,7 @@ const AdminEmails = () => {
                 <Select value={testTemplate} onValueChange={setTestTemplate}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="order-confirmation">Potwierdzenie zakupu</SelectItem>
                     <SelectItem value="order-shipped">Zamówienie wysłane</SelectItem>
                     <SelectItem value="order-tracking">Numer śledzenia</SelectItem>
                   </SelectContent>

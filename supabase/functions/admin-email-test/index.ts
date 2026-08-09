@@ -14,7 +14,7 @@ const json = (data: Record<string, unknown>, status = 200) =>
     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   })
 
-const ALLOWED_TEMPLATES = ['order-shipped', 'order-tracking']
+const ALLOWED_TEMPLATES = ['order-shipped', 'order-tracking', 'order-confirmation']
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders })
