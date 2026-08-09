@@ -27,6 +27,58 @@ function getSupabase() {
   return _supabase;
 }
 
+const ORDER_COLS =
+  "id, order_no, email, name, lang, items, subtotal, shipping, total, currency, shipping_method, street, zip, city, status, printful_order_id, printful_confirmed_at, confirmation_email_sent_at";
+
+/**
+ * Potwierdzenie zakupu wysyłamy niezależnie od tego, czy to pierwsze przejście
+ * statusu, czy retry webhooka — kupujący musi dostać wiadomość zawsze.
+ * Znacznik `confirmation_email_sent_at` gwarantuje dokładnie jedną wysyłkę,
+ * a przy błędzie wysyłki zostaje pusty, więc kolejne zdarzenie ją ponowi.
+ */
+async function sendOrderConfirmation(order: any, fallbackEmail?: string | null) {
+  if (order?.confirmation_email_sent_at) return;
+  const recipient = String(order?.email || fallbackEmail || "").trim();
+  if (!recipient.includes("@")) {
+    console.error("Cannot send order confirmation — no recipient", order?.order_no);
+    return;
+  }
+  const items = Array.isArray(order?.items) ? order.items : [];
+  const { error } = await getSupabase().functions.invoke("send-transactional-email", {
+    body: {
+      templateName: "order-confirmation",
+      recipientEmail: recipient,
+      idempotencyKey: `order-confirmation-${order.id}`,
+      templateData: {
+        name: order.name,
+        orderNo: order.order_no,
+        lang: order.lang,
+        accountUrl: `${SITE_URL}/konto`,
+        hasDigital: items.some((i: any) => i?.type === "digital" || i?.digital === true),
+        items,
+        subtotal: Number(order.subtotal || 0),
+        shipping: Number(order.shipping || 0),
+        total: Number(order.total || 0),
+        currency: order.currency || "PLN",
+        shippingMethod: order.shipping_method,
+        street: order.street,
+        zip: order.zip,
+        city: order.city,
+      },
+    },
+    headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` },
+  });
+  if (error) {
+    console.error("Order confirmation email failed:", error.message);
+    return;
+  }
+  await getSupabase()
+    .from("shop_orders")
+    .update({ confirmation_email_sent_at: new Date().toISOString() })
+    .eq("id", order.id);
+  console.log("Order confirmation email queued:", order.order_no);
+}
+
 async function markPaid(session: any) {
   const orderId = session?.metadata?.orderId;
   const orderNo = session?.metadata?.orderNo || session?.client_reference_id;
@@ -36,38 +88,47 @@ async function markPaid(session: any) {
   }
 
   const supabase = getSupabase();
+  const sessionEmail = session?.customer_details?.email ?? session?.customer_email ?? null;
+
+  // Najpierw odczyt — dzięki temu retry webhooka (albo zamówienie już opłacone
+  // inną ścieżką) nadal domknie e-mail, fakturę i produkcję.
+  const lookup = supabase.from("shop_orders").select(ORDER_COLS);
+  const { data: order, error: readErr } = orderId
+    ? await lookup.eq("id", orderId).maybeSingle()
+    : await lookup.eq("order_no", orderNo).maybeSingle();
+
+  if (readErr || !order) {
+    console.error("Order not found for session:", orderId || orderNo, readErr?.message);
+    return;
+  }
 
   // Idempotentnie: podnosimy status tylko z etapów przedpłatnych, żeby retry
   // webhooka nie cofnął zamówienia z „wysłane" do „opłacone".
-  const query = supabase
-    .from("shop_orders")
-    .update({
-      status: "paid",
-      paid_at: new Date().toISOString(),
-      stripe_session_id: session?.id ?? null,
-      updated_at: new Date().toISOString(),
-    })
-    .in("status", ["pending", "pending_pod_error", "expired"]);
-
-  const cols = "id, order_no, email, lang, printful_order_id, printful_confirmed_at";
-  const { data, error } = orderId
-    ? await query.eq("id", orderId).select(cols).maybeSingle()
-    : await query.eq("order_no", orderNo).select(cols).maybeSingle();
-
-  if (error) {
-    console.error("Failed to mark order paid:", error.message);
-    return;
+  if (["pending", "pending_pod_error", "expired"].includes(String(order.status))) {
+    const { error } = await supabase
+      .from("shop_orders")
+      .update({
+        status: "paid",
+        paid_at: new Date().toISOString(),
+        stripe_session_id: session?.id ?? null,
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", order.id);
+    if (error) {
+      console.error("Failed to mark order paid:", error.message);
+      return;
+    }
+    console.log("Order marked paid:", order.order_no);
   }
-  if (!data) {
-    console.log("Order already processed, skipping:", orderId || orderNo);
-    return;
-  }
-  console.log("Order marked paid:", data.order_no);
+
+  // Potwierdzenie zakupu idzie jako pierwsze — nie może zależeć od faktury
+  // ani od Printfula, których błędy wcześniej blokowały wiadomość.
+  await sendOrderConfirmation(order, sessionEmail);
 
   // --- faktura PDF (numer nadawany dopiero po zaksięgowaniu płatności) ---
   try {
     const { error: invErr } = await supabase.functions.invoke("generate-invoice", {
-      body: { orderId: data.id },
+      body: { orderId: order.id },
       headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` },
     });
     if (invErr) console.error("Invoice generation failed:", invErr.message);
@@ -76,21 +137,7 @@ async function markPaid(session: any) {
   }
 
   // --- Printful: potwierdzamy draft, dopiero teraz rusza produkcja ---
-  await confirmPrintful(data);
-
-  // Potwierdzenie zamówienia / faktura e-mailem (idempotentnie po zamówieniu)
-  if (data.email) {
-    const { error: mailErr } = await supabase.functions.invoke("send-transactional-email", {
-      body: {
-        templateName: "invoice-issued",
-        recipientEmail: data.email,
-        idempotencyKey: `order-paid-${data.id}`,
-        templateData: { orderNo: data.order_no, lang: data.lang },
-      },
-      headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` },
-    });
-    if (mailErr) console.error("Paid confirmation email failed:", mailErr.message);
-  }
+  await confirmPrintful(order);
 }
 
 /** Potwierdzenie draftu w Printful — bez tego opłacone zamówienie nigdy nie trafia do produkcji. */
