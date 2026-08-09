@@ -110,11 +110,16 @@ export type Database = {
           email_sent_at: string | null
           id: string
           issued_at: string
+          kind: string
           number: string
-          order_id: string
+          order_id: string | null
           pdf_path: string | null
+          period_end: string | null
+          period_start: string | null
+          stripe_invoice_id: string | null
           total: number
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           access_token: string
@@ -124,11 +129,16 @@ export type Database = {
           email_sent_at?: string | null
           id?: string
           issued_at?: string
+          kind?: string
           number: string
-          order_id: string
+          order_id?: string | null
           pdf_path?: string | null
+          period_end?: string | null
+          period_start?: string | null
+          stripe_invoice_id?: string | null
           total: number
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           access_token?: string
@@ -138,11 +148,16 @@ export type Database = {
           email_sent_at?: string | null
           id?: string
           issued_at?: string
+          kind?: string
           number?: string
-          order_id?: string
+          order_id?: string | null
           pdf_path?: string | null
+          period_end?: string | null
+          period_start?: string | null
+          stripe_invoice_id?: string | null
           total?: number
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: [
           {
