@@ -197,6 +197,7 @@ export type Database = {
         Row: {
           city: string | null
           company_name: string | null
+          confirmation_email_sent_at: string | null
           consent_at: string | null
           consent_digital: boolean
           consent_ip: string | null
@@ -238,6 +239,7 @@ export type Database = {
         Insert: {
           city?: string | null
           company_name?: string | null
+          confirmation_email_sent_at?: string | null
           consent_at?: string | null
           consent_digital?: boolean
           consent_ip?: string | null
@@ -279,6 +281,7 @@ export type Database = {
         Update: {
           city?: string | null
           company_name?: string | null
+          confirmation_email_sent_at?: string | null
           consent_at?: string | null
           consent_digital?: boolean
           consent_ip?: string | null

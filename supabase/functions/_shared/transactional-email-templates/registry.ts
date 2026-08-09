@@ -2,6 +2,7 @@ import type * as React from 'npm:react@18.3.1'
 
 import { template as orderShipped } from './order-shipped.tsx'
 import { template as orderTracking } from './order-tracking.tsx'
+import { template as orderConfirmation } from './order-confirmation.tsx'
 import { template as invoiceIssued } from './invoice-issued.tsx'
 import { template as paymentFailed } from './payment-failed.tsx'
 import { template as orderRefunded } from './order-refunded.tsx'
@@ -22,6 +23,7 @@ export interface TemplateEntry {
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'order-shipped': orderShipped,
   'order-tracking': orderTracking,
+  'order-confirmation': orderConfirmation,
   'invoice-issued': invoiceIssued,
   'payment-failed': paymentFailed,
   'order-refunded': orderRefunded,
