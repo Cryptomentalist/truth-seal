@@ -418,6 +418,102 @@ async function cancelSubscription(sub: any, env: StripeEnv) {
 }
 
 
+/**
+ * Zabezpieczenie na wypadek zgubionego zdarzenia `customer.subscription.created`:
+ * po zamknięciu sesji subskrypcyjnej dociągamy subskrypcję z API i zapisujemy wiersz,
+ * żeby nikt nie zapłacił bez odblokowanego dostępu.
+ */
+async function ensureSubscriptionFromSession(session: any, env: StripeEnv) {
+  const subId = typeof session?.subscription === "string"
+    ? session.subscription
+    : session?.subscription?.id;
+  if (!subId) return;
+  const { data: existing } = await getSupabase()
+    .from("subscriptions")
+    .select("id")
+    .eq("stripe_subscription_id", subId)
+    .eq("environment", env)
+    .maybeSingle();
+  if (existing) return;
+  try {
+    const stripe = createStripeClient(env);
+    const sub: any = await stripe.subscriptions.retrieve(subId);
+    if (!sub.metadata?.userId && session?.metadata?.userId) {
+      sub.metadata = { ...(sub.metadata ?? {}), userId: session.metadata.userId };
+    }
+    await upsertSubscription(sub, env);
+  } catch (e) {
+    console.error("ensureSubscriptionFromSession failed:", e);
+  }
+}
+
+/** Spór/chargeback — odnotowujemy status zamówienia, bez automatycznych powiadomień. */
+async function handleDispute(dispute: any, env: StripeEnv) {
+  const paymentIntent = typeof dispute?.payment_intent === "string"
+    ? dispute.payment_intent
+    : dispute?.payment_intent?.id;
+  if (!paymentIntent) return;
+  const closedWon = dispute?.status === "won";
+  try {
+    const stripe = createStripeClient(env);
+    const sessions = await stripe.checkout.sessions.list({ payment_intent: paymentIntent, limit: 1 });
+    const session: any = sessions.data[0];
+    const orderId = session?.metadata?.orderId;
+    const orderNo = session?.metadata?.orderNo || session?.client_reference_id;
+    if (!orderId && !orderNo) return;
+    const base = getSupabase()
+      .from("shop_orders")
+      .update({ status: closedWon ? "paid" : "disputed", updated_at: new Date().toISOString() });
+    const { error } = orderId
+      ? await base.eq("id", orderId)
+      : await base.eq("order_no", orderNo);
+    if (error) console.error("Dispute status update failed:", error.message);
+  } catch (e) {
+    console.error("Dispute handling failed:", e);
+  }
+}
+
+/** Opłacony okres rozliczeniowy Klubu → faktura PDF z numerem i e-mail do członka. */
+async function handleInvoicePaid(invoice: any, env: StripeEnv) {
+  const subId = invoice?.subscription
+    ?? invoice?.parent?.subscription_details?.subscription
+    ?? invoice?.lines?.data?.[0]?.parent?.subscription_item_details?.subscription;
+  if (!subId) return; // faktury jednorazowe obsługuje ścieżka zamówień
+  if (Number(invoice?.amount_paid ?? 0) <= 0) return;
+
+  const { data: sub } = await getSupabase()
+    .from("subscriptions")
+    .select("user_id, price_id")
+    .eq("stripe_subscription_id", subId)
+    .eq("environment", env)
+    .maybeSingle();
+  if (!sub?.user_id) {
+    console.error("invoice.paid without known subscription:", subId);
+    return;
+  }
+
+  const line = invoice?.lines?.data?.[0];
+  const periodStart = line?.period?.start ? new Date(line.period.start * 1000).toISOString() : null;
+  const periodEnd = line?.period?.end ? new Date(line.period.end * 1000).toISOString() : null;
+  const planLabel = sub.price_id === "klub_yearly"
+    ? "Klub Konstelacji — plan roczny"
+    : "Klub Konstelacji — plan miesięczny";
+
+  const { error } = await getSupabase().functions.invoke("generate-club-invoice", {
+    body: {
+      stripeInvoiceId: String(invoice.id),
+      userId: sub.user_id,
+      total: Number(invoice.amount_paid ?? 0) / 100,
+      currency: String(invoice.currency ?? "pln").toUpperCase(),
+      periodStart,
+      periodEnd,
+      planLabel,
+    },
+    headers: { Authorization: `Bearer ${Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")}` },
+  });
+  if (error) console.error("Club invoice generation failed:", error.message);
+}
+
 Deno.serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
 
