@@ -48,11 +48,14 @@ Deno.serve(async (req) => {
   }
   if (!invoice) return json({ error: "not_found" }, 404);
 
-  const { data: order } = await supabase
-    .from("shop_orders")
-    .select("order_no, name, email, items, subtotal, shipping, total, currency, status, lang, tracking_number, tracking_url")
-    .eq("id", invoice.order_id)
-    .maybeSingle();
+  // Faktury klubowe nie mają zamówienia — pomijamy wtedy lookup i sekcję zamówienia.
+  const { data: order } = invoice.order_id
+    ? await supabase
+        .from("shop_orders")
+        .select("order_no, name, email, items, subtotal, shipping, total, currency, status, lang, tracking_number, tracking_url")
+        .eq("id", invoice.order_id)
+        .maybeSingle()
+    : { data: null };
 
   let downloadUrl: string | null = null;
   if (invoice.pdf_path) {

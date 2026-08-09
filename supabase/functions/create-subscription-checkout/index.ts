@@ -74,6 +74,13 @@ Deno.serve(async (req) => {
   if (!parsed.success) return json({ error: parsed.error.flatten().fieldErrors }, 400);
   const { priceId, returnUrl, environment } = parsed.data;
 
+  // Aktywny członek nie może kupić drugiego planu — kieruje go portal dostawcy płatności.
+  const { data: alreadyActive } = await supabase.rpc("has_active_subscription", {
+    user_uuid: String(claims.sub),
+    check_env: environment,
+  });
+  if (alreadyActive === true) return json({ error: "already_subscribed" }, 409);
+
   try {
     const stripe = createStripeClient(environment as StripeEnv);
 
