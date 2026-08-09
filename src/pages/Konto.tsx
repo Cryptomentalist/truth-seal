@@ -308,6 +308,17 @@ const Konto = () => {
                           ? " Subskrypcja nie odnowi się automatycznie."
                           : ""}
                       </p>
+                      {!subscription?.cancel_at_period_end &&
+                        subscription?.status !== "canceled" &&
+                        subscription?.current_period_end && (
+                          <p className="text-sm text-muted-foreground">
+                            Następne odnowienie:{" "}
+                            <span className="font-medium text-foreground">
+                              {new Date(subscription.current_period_end).toLocaleDateString("pl-PL")}
+                            </span>{" "}
+                            — {subscription.price_id === "klub_yearly" ? "290 zł / rok" : "29 zł / miesiąc"}
+                          </p>
+                        )}
                       {subscription?.status === "past_due" && (
                         <p className="text-sm text-destructive">
                           Ostatnia płatność się nie powiodła — zaktualizuj metodę płatności w panelu
