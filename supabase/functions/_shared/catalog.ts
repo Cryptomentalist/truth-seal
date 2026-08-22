@@ -73,6 +73,13 @@ export const SERVER_CATALOG: ServerProduct[] = [
     variants: [{ id: "v1", label: "Plik PDF (EN)", stock: 999 }],
   },
   {
+    id: "puzzle-site",
+    name: "Puzzle 369 — Twoja unikalna strona-wizytówka",
+    price: 1200,
+    noship: true,
+    variants: [{ id: "v1", label: "1 z 369 puzzli", stock: 369 }],
+  },
+  {
     id: "support",
     name: "Wsparcie bezpośrednie",
     price: 100,
