@@ -248,7 +248,7 @@ const Sklep = () => {
           <button
             onClick={() => {
               setView("home");
-              setActive(null);
+              navigate("/sklep");
             }}
             className="flex items-center gap-2.5"
           >
@@ -551,7 +551,7 @@ const Sklep = () => {
                   full
                   onClick={() => {
                     setCartOpen(false);
-                    setActive(null);
+                    if (productId) navigate("/sklep");
                     setView("checkout");
                     window.scrollTo(0, 0);
                   }}
