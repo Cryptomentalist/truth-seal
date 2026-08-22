@@ -49,6 +49,27 @@
     --glow-primary: 185 80% 50%;
     --glow-accent: 42 90% 55%;
     --surface-glass: 220 20% 12%;
+
+    /* Apple-style layered shadows */
+    --shadow-color: 220 45% 2%;
+    --shadow-card:
+      0 1px 1px hsl(var(--shadow-color) / 0.5),
+      0 2px 4px -1px hsl(var(--shadow-color) / 0.45),
+      0 8px 16px -6px hsl(var(--shadow-color) / 0.4),
+      0 24px 48px -20px hsl(var(--shadow-color) / 0.55),
+      0 0 0 1px hsl(var(--border) / 0.45),
+      inset 0 1px 0 0 hsl(210 40% 100% / 0.06);
+    --shadow-card-hover:
+      0 1px 1px hsl(var(--shadow-color) / 0.5),
+      0 4px 8px -2px hsl(var(--shadow-color) / 0.5),
+      0 16px 28px -10px hsl(var(--shadow-color) / 0.5),
+      0 40px 72px -28px hsl(var(--shadow-color) / 0.65),
+      0 0 0 1px hsl(var(--border) / 0.6),
+      inset 0 1px 0 0 hsl(210 40% 100% / 0.09);
+    --shadow-float:
+      0 2px 6px -1px hsl(var(--shadow-color) / 0.5),
+      0 12px 24px -8px hsl(var(--shadow-color) / 0.5),
+      0 32px 64px -24px hsl(var(--shadow-color) / 0.6);
   }
 }
 
@@ -82,6 +103,20 @@
 
   .glass-surface {
     @apply bg-card/60 backdrop-blur-xl border border-border/50;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Apple-style shadows */
+  .shadow-apple {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-apple-hover:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .shadow-float {
+    box-shadow: var(--shadow-float);
   }
 
   .section-padding {
@@ -135,19 +170,18 @@
   will-change: transform;
 }
 
-.depth-3d-on .glass-surface:hover,
-.depth-3d-on .tilt-3d:hover,
-.depth-3d-on [data-tilt], .depth-3d-on .card-3d:hover {
+.depth-3d-on :is(.glass-surface, .tilt-3d, [data-tilt], .card-3d) {
+  box-shadow: var(--shadow-card);
+}
+
+.depth-3d-on :is(.glass-surface, .tilt-3d, [data-tilt], .card-3d):hover {
   box-shadow:
-    0 18px 40px -18px hsl(220 40% 2% / 0.75),
-    0 2px 0 0 hsl(var(--border) / 0.6) inset,
+    var(--shadow-card-hover),
     0 0 40px -22px hsl(var(--glow-primary) / 0.55);
 }
 
 /* Delikatny refleks światła podążający za kursorem */
-.depth-3d-on .glass-surface::after,
-.depth-3d-on .tilt-3d::after,
-.depth-3d-on [data-tilt], .depth-3d-on .card-3d::after {
+.depth-3d-on :is(.glass-surface, .tilt-3d, [data-tilt], .card-3d)::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -162,9 +196,7 @@
   );
 }
 
-.depth-3d-on .glass-surface:hover::after,
-.depth-3d-on .tilt-3d:hover::after,
-.depth-3d-on [data-tilt], .depth-3d-on .card-3d:hover::after {
+.depth-3d-on :is(.glass-surface, .tilt-3d, [data-tilt], .card-3d):hover::after {
   opacity: 1;
 }
 
