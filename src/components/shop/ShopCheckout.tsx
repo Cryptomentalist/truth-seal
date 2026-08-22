@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { FunctionsHttpError } from "@supabase/supabase-js";
 import { C, F, PRODUCTS } from "@/data/shopProducts";
 import type { ShopLang, ShopStrings } from "@/data/shopStrings";
 import type { CartLine } from "@/hooks/useShopCart";
@@ -23,6 +25,7 @@ export interface CheckoutData {
 }
 
 export interface CheckoutSubmit extends CheckoutData {
+  discountCode: string;
   shippingMethod: string;
   paymentMethod: string;
   consentNews: boolean;
@@ -59,6 +62,63 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
   const [err, setErr] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [touched, setTouched] = useState(false);
+
+  // --- kod rabatowy (walidowany po stronie serwera) ---
+  const [codeInput, setCodeInput] = useState("");
+  const [discount, setDiscount] = useState<{ code: string; discount: number; freeShipping: boolean } | null>(null);
+  const [codeBusy, setCodeBusy] = useState(false);
+  const [codeErr, setCodeErr] = useState("");
+
+  // zmiana koszyka unieważnia policzony wcześniej rabat
+  const cartKey = cart.map((l) => `${l.key}:${l.qty}`).join("|");
+  useEffect(() => {
+    setDiscount(null);
+  }, [cartKey]);
+
+  const discountErrors: Record<string, { pl: string; en: string }> = {
+    code_not_found: { pl: "Nie znamy takiego kodu.", en: "We don't recognise this code." },
+    code_inactive: { pl: "Ten kod jest nieaktywny.", en: "This code is inactive." },
+    code_expired: { pl: "Ten kod stracił ważność.", en: "This code has expired." },
+    code_not_started: { pl: "Ten kod jeszcze nie obowiązuje.", en: "This code is not active yet." },
+    code_used_up: { pl: "Limit użyć tego kodu został wyczerpany.", en: "This code has reached its usage limit." },
+    code_min_subtotal: { pl: "Koszyk jest za mały dla tego kodu.", en: "Your cart is below this code's minimum." },
+  };
+
+  const applyCode = async () => {
+    const code = codeInput.trim().toUpperCase();
+    setCodeErr("");
+    if (!code) return;
+    if (!cart.length) return;
+    setCodeBusy(true);
+    const { data, error } = await supabase.functions.invoke("validate-discount", {
+      body: { code, items: cart.map((l) => ({ pid: l.pid, vid: l.vid, qty: l.qty })) },
+    });
+    setCodeBusy(false);
+    if (error) {
+      const details = error instanceof FunctionsHttpError ? await error.context.text() : error.message;
+      let key = "";
+      try {
+        key = String(JSON.parse(details ?? "{}")?.error ?? "");
+      } catch {
+        /* brak szczegółów */
+      }
+      setDiscount(null);
+      setCodeErr(discountErrors[key]?.[lang] ?? (lang === "pl" ? "Nie udało się sprawdzić kodu." : "Could not check this code."));
+      return;
+    }
+    setCodeInput(code);
+    setDiscount({
+      code: String(data.code),
+      discount: Number(data.discount) || 0,
+      freeShipping: !!data.freeShipping,
+    });
+  };
+
+  const clearCode = () => {
+    setDiscount(null);
+    setCodeInput("");
+    setCodeErr("");
+  };
   const set = (k: keyof CheckoutData) => (v: string) => setF((s) => ({ ...s, [k]: v }));
 
   const consents = { rules: cRules, privacy: cPrivacy, digital: cDigital, news: cNews };
@@ -96,6 +156,7 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
     try {
       await onDone({
         ...normalized,
+        discountCode: discount?.code ?? "",
         shippingMethod: ship,
         paymentMethod: pay,
         consentNews: cNews,
@@ -110,9 +171,11 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
   };
 
   // dostawa liczona zgodnie z wybraną metodą — identycznie jak na serwerze
-  const shipCost =
+  const baseShip =
     cart.length === 0 || subtotal === 0 || allNoShip || subtotal >= 250 ? 0 : ship === "locker" ? 12 : 16;
-  const grandTotal = subtotal + shipCost;
+  const shipCost = discount?.freeShipping ? 0 : baseShip;
+  const discountValue = Math.min(discount?.discount ?? 0, subtotal);
+  const grandTotal = Math.max(0, subtotal - discountValue + shipCost);
 
   const show = (k: keyof FieldErrors) => (touched ? errors[k] : undefined);
 
@@ -416,8 +479,80 @@ const ShopCheckout = ({ lang, t, cart, subtotal, shipping, total, hasDigital, al
                 </div>
               );
             })}
+            <div className="pt-4" style={{ borderBottom: `1px solid ${C.rule}`, paddingBottom: 16 }}>
+              <label
+                htmlFor="co-code"
+                style={{ fontFamily: F.mono, fontSize: "0.68rem", color: C.ink2, letterSpacing: "0.06em" }}
+              >
+                {lang === "pl" ? "KOD RABATOWY" : "DISCOUNT CODE"}
+              </label>
+              <div className="flex gap-2 mt-2">
+                <input
+                  id="co-code"
+                  value={codeInput}
+                  disabled={!!discount}
+                  onChange={(e) => setCodeInput(e.target.value.toUpperCase())}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      void applyCode();
+                    }
+                  }}
+                  placeholder={lang === "pl" ? "np. KONSTELACJA10" : "e.g. KONSTELACJA10"}
+                  style={{
+                    flex: 1,
+                    minWidth: 0,
+                    fontFamily: F.mono,
+                    fontSize: "0.78rem",
+                    color: C.indigo,
+                    background: "transparent",
+                    border: `1px solid ${C.rule}`,
+                    borderRadius: 8,
+                    padding: "9px 11px",
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => (discount ? clearCode() : void applyCode())}
+                  disabled={codeBusy || (!discount && !codeInput.trim())}
+                  style={{
+                    fontFamily: F.mono,
+                    fontSize: "0.72rem",
+                    color: C.indigo,
+                    border: `1px solid ${C.indigo}`,
+                    borderRadius: 8,
+                    padding: "9px 13px",
+                    opacity: codeBusy || (!discount && !codeInput.trim()) ? 0.45 : 1,
+                  }}
+                >
+                  {codeBusy
+                    ? "…"
+                    : discount
+                      ? lang === "pl" ? "Usuń" : "Remove"
+                      : lang === "pl" ? "Zastosuj" : "Apply"}
+                </button>
+              </div>
+              {codeErr && (
+                <p role="alert" style={{ fontFamily: F.body, fontSize: "0.72rem", color: "#B3261E", marginTop: 6 }}>
+                  {codeErr}
+                </p>
+              )}
+              {discount && (
+                <p style={{ fontFamily: F.body, fontSize: "0.72rem", color: C.indigo, marginTop: 6 }}>
+                  {lang === "pl" ? "Kod aktywny" : "Code applied"}: {discount.code}
+                  {discount.freeShipping ? (lang === "pl" ? " · darmowa dostawa" : " · free shipping") : ""}
+                </p>
+              )}
+            </div>
+
             <div className="pt-3">
               <Row label={t.subtotal} value={money(subtotal)} />
+              {discountValue > 0 && (
+                <Row
+                  label={`${lang === "pl" ? "Rabat" : "Discount"} (${discount?.code})`}
+                  value={`−${money(discountValue)}`}
+                />
+              )}
               <Row label={t.shipping} value={shipCost === 0 ? t.free : money(shipCost)} />
               <div className="flex justify-between items-center pt-3" style={{ borderTop: `1px solid ${C.rule}` }}>
                 <span style={{ fontFamily: F.body, fontSize: "0.9rem", color: C.indigo }}>{t.total}</span>
