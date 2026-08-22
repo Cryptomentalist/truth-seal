@@ -80,6 +80,13 @@ export const SERVER_CATALOG: ServerProduct[] = [
     variants: [{ id: "v1", label: "1 z 369 puzzli", stock: 369 }],
   },
   {
+    id: "puzzle-site-3",
+    name: "Puzzle 369 — pakiet dla 3 pierwszych osób",
+    price: 12,
+    noship: true,
+    variants: [{ id: "v1", label: "1 z 3 miejsc", stock: 3 }],
+  },
+  {
     id: "support",
     name: "Wsparcie bezpośrednie",
     price: 100,
