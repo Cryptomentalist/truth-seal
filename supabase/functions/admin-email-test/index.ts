@@ -73,8 +73,64 @@ Deno.serve(async (req) => {
     return json({ ok: res.ok, status: res.status, webhook: parsed as Record<string, unknown> })
   }
 
+  if (action === 'resend_order_confirmation') {
+    const orderNo = String(body.orderNo ?? '').trim().toUpperCase()
+    if (!orderNo) return json({ error: 'missing_order_no' }, 400)
+
+    const { data: order, error: orderErr } = await admin
+      .from('shop_orders')
+      .select('*')
+      .eq('order_no', orderNo)
+      .maybeSingle()
+
+    if (orderErr) return json({ error: 'lookup_failed' }, 500)
+    if (!order) return json({ error: 'order_not_found' }, 404)
+
+    const items = Array.isArray(order.items) ? (order.items as Record<string, unknown>[]) : []
+    const target = body.recipientEmail ? recipient : String(order.email ?? '').toLowerCase()
+    if (!validEmail(target)) return json({ error: 'invalid_email' }, 400)
+
+    const siteUrl = Deno.env.get('SITE_URL') ?? 'https://konstelacja.org'
+    const { data: sendData, error: sendErr } = await admin.functions.invoke('send-transactional-email', {
+      body: {
+        templateName: 'order-confirmation',
+        recipientEmail: target,
+        idempotencyKey: `order-confirmation-resend-${order.id}-${Date.now()}`,
+        templateData: {
+          name: order.name,
+          orderNo: order.order_no,
+          lang: order.lang,
+          accountUrl: `${siteUrl}/konto`,
+          hasDigital: items.some((i) => i?.type === 'digital' || i?.digital === true),
+          items,
+          subtotal: Number(order.subtotal || 0),
+          shipping: Number(order.shipping || 0),
+          total: Number(order.total || 0),
+          currency: order.currency || 'PLN',
+          shippingMethod: order.shipping_method,
+          street: order.street,
+          zip: order.zip,
+          city: order.city,
+        },
+      },
+    })
+
+    if (sendErr) {
+      console.error('Resend order confirmation failed', sendErr)
+      return json({ error: 'send_failed', detail: String(sendErr.message ?? sendErr) }, 502)
+    }
+
+    await admin
+      .from('shop_orders')
+      .update({ confirmation_email_sent_at: new Date().toISOString() })
+      .eq('id', order.id)
+
+    return json({ ok: true, recipient: target, orderNo: order.order_no, result: sendData ?? null })
+  }
+
   const templateName = String(body.templateName ?? 'order-shipped')
   if (!ALLOWED_TEMPLATES.includes(templateName)) return json({ error: 'unknown_template' }, 400)
+
 
   const { data, error } = await admin.functions.invoke('send-transactional-email', {
     body: {
