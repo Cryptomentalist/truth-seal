@@ -55,6 +55,20 @@ const NewIndex = () => {
               </p>
             </div>
 
+            {/* Instrukcja — warunek uzyskania bonu */}
+            <div className="rounded-2xl border-2 border-accent/50 bg-accent/10 p-4 sm:p-5 mb-7 text-center">
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-accent mb-2 flex items-center justify-center gap-2">
+                <Gift className="w-4 h-4 shrink-0" />
+                Jak otrzymać bon 300 zł?
+              </p>
+              <p className="text-sm sm:text-base text-foreground leading-relaxed max-w-3xl mx-auto">
+                Aby odebrać <strong className="text-accent">kupon 300 zł</strong>, wykonaj <strong>wszystkie 3 kroki</strong> poniżej. Brak dowodu wykonania = brak bonu. Numer bonu otrzymasz e-mailem po weryfikacji.
+              </p>
+              <p className="mt-3 text-[11px] sm:text-xs text-muted-foreground/80">
+                ✦ Ograniczona pula: pierwsze 60 osób · Jeden bon na osobę · Decyzja organizatora jest ostateczna
+              </p>
+            </div>
+
             {/* Kroki */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-8">
               {/* Krok 1 */}
