@@ -90,12 +90,34 @@ const AdminEmails = () => {
   const [testEmail, setTestEmail] = useState("");
   const [testTemplate, setTestTemplate] = useState("order-shipped");
   const [testLang, setTestLang] = useState("pl");
-  const [testing, setTesting] = useState<null | "email" | "webhook">(null);
+  const [testing, setTesting] = useState<null | "email" | "webhook" | "resend">(null);
   const [testResult, setTestResult] = useState<string | null>(null);
+  const [resendOrderNo, setResendOrderNo] = useState("");
 
   useEffect(() => {
     if (session?.user?.email && !testEmail) setTestEmail(session.user.email);
   }, [session, testEmail]);
+
+  const resendConfirmation = async () => {
+    setTesting("resend");
+    setTestResult(null);
+    const { data, error } = await supabase.functions.invoke("admin-email-test", {
+      body: {
+        action: "resend_order_confirmation",
+        orderNo: resendOrderNo.trim(),
+        recipientEmail: testEmail.trim() || undefined,
+      },
+    });
+    setTesting(null);
+    if (error) {
+      toast.error(`Nie udało się wysłać ponownie: ${error.message}`);
+      setTestResult(error.message);
+      return;
+    }
+    setTestResult(JSON.stringify(data, null, 2));
+    toast.success(`Potwierdzenie zamówienia wysłane ponownie`);
+    setTimeout(load, 1500);
+  };
 
   const runTest = async (action: "send_test_email" | "simulate_webhook") => {
     setTesting(action === "send_test_email" ? "email" : "webhook");
@@ -122,6 +144,7 @@ const AdminEmails = () => {
     );
     setTimeout(load, 1500);
   };
+
 
   useEffect(() => {
     if (!loading && !session) navigate("/admin", { replace: true });
