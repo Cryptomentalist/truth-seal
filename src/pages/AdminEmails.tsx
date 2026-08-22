@@ -350,11 +350,36 @@ const AdminEmails = () => {
                 {testing === "webhook" ? "Symulacja…" : "Symuluj webhook Printful"}
               </Button>
             </div>
+            <div className="rounded-md border p-3 space-y-2">
+              <Label htmlFor="resend-order">Wyślij ponownie prawdziwe potwierdzenie zamówienia</Label>
+              <div className="flex flex-wrap gap-2">
+                <Input
+                  id="resend-order"
+                  value={resendOrderNo}
+                  onChange={(e) => setResendOrderNo(e.target.value)}
+                  placeholder="KON-2026-XXXXXX"
+                  className="max-w-xs"
+                />
+                <Button
+                  variant="secondary"
+                  onClick={resendConfirmation}
+                  disabled={testing !== null || !resendOrderNo.trim()}
+                >
+                  <Send className="mr-2 h-4 w-4" />
+                  {testing === "resend" ? "Wysyłanie…" : "Wyślij ponownie"}
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Wysyła realne dane zamówienia. Jeśli pole „Adres testowy” jest wypełnione,
+                wiadomość pójdzie na ten adres — inaczej na adres z zamówienia.
+              </p>
+            </div>
             <p className="text-xs text-muted-foreground">
               Testy używają przykładowego zamówienia i nie zmieniają danych w bazie.
               Symulacja webhooka sprawdza całą ścieżkę Printful → status → e-mail
               (tryb testowy: bez zapisu zamówienia).
             </p>
+
             {testResult && (
               <pre className="max-h-56 overflow-auto rounded-md bg-muted p-3 text-xs">
                 {testResult}
