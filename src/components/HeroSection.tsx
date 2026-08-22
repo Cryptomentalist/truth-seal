@@ -8,7 +8,7 @@ const HeroSection = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-20">
+    <section className="scene-3d relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-20">
       {/* Background */}
       <div className="absolute inset-0">
         <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
@@ -35,7 +35,7 @@ const HeroSection = () => {
         transition={{ duration: 6, repeat: Infinity }}
       />
 
-      <div className="relative z-10 container max-w-5xl text-center">
+      <div className="layer-3d relative z-10 container max-w-5xl text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

@@ -28,6 +28,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminEmails from "./pages/AdminEmails";
 import AdminShop from "@/pages/AdminShop";
 import NotFound from "./pages/NotFound";
+import Depth3DProvider from "./components/Depth3DProvider";
 
 
 
@@ -38,6 +39,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <Depth3DProvider />
       <BrowserRouter>
         
         <Routes>

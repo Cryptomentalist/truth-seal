@@ -94,6 +94,93 @@
       linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
     background-size: 60px 60px;
   }
+
+  /* ---------- 3D depth system ---------- */
+  .scene-3d {
+    perspective: 1200px;
+    perspective-origin: 50% 40%;
+  }
+
+  .layer-3d {
+    transform-style: preserve-3d;
+  }
+
+  .depth-1 { transform: translateZ(20px); }
+  .depth-2 { transform: translateZ(45px); }
+  .depth-3 { transform: translateZ(80px); }
+
+  .tilt-3d {
+    transform-style: preserve-3d;
+  }
+}
+
+/* Globalna głębia 3D — aktywna tylko z myszką i bez reduced-motion */
+.depth-3d-on section,
+.depth-3d-on main {
+  perspective: 1400px;
+  perspective-origin: 50% 40%;
+}
+
+.depth-3d-on .glass-surface,
+.depth-3d-on .tilt-3d,
+.depth-3d-on [data-tilt], .depth-3d-on .card-3d {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateZ(0);
+  transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 350ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.depth-3d-on .glass-surface:hover,
+.depth-3d-on .tilt-3d:hover,
+.depth-3d-on [data-tilt], .depth-3d-on .card-3d:hover {
+  box-shadow:
+    0 18px 40px -18px hsl(220 40% 2% / 0.75),
+    0 2px 0 0 hsl(var(--border) / 0.6) inset,
+    0 0 40px -22px hsl(var(--glow-primary) / 0.55);
+}
+
+/* Delikatny refleks światła podążający za kursorem */
+.depth-3d-on .glass-surface::after,
+.depth-3d-on .tilt-3d::after,
+.depth-3d-on [data-tilt], .depth-3d-on .card-3d::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 350ms ease;
+  background: radial-gradient(
+    420px circle at var(--mx) var(--my),
+    hsl(var(--glow-primary) / 0.12),
+    transparent 60%
+  );
+}
+
+.depth-3d-on .glass-surface:hover::after,
+.depth-3d-on .tilt-3d:hover::after,
+.depth-3d-on [data-tilt], .depth-3d-on .card-3d:hover::after {
+  opacity: 1;
+}
+
+.depth-3d-on .glass-surface,
+.depth-3d-on .tilt-3d,
+.depth-3d-on [data-tilt], .depth-3d-on .card-3d {
+  position: relative;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .depth-3d-on .glass-surface,
+  .depth-3d-on .tilt-3d,
+  .depth-3d-on [data-tilt], .depth-3d-on .card-3d {
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 @media print {
