@@ -385,10 +385,13 @@ const Konto = () => {
               </Card>
 
               <Card>
-                <CardHeader>
+                <CardHeader className="flex flex-row flex-wrap items-center justify-between gap-2">
                   <CardTitle className="flex items-center gap-2 text-lg">
                     <Package className="w-5 h-5" /> Moje zamówienia
                   </CardTitle>
+                  <Button asChild size="sm" variant="outline" className="whitespace-normal">
+                    <Link to="/konto/zamowienia">Historia zamówień</Link>
+                  </Button>
                 </CardHeader>
                 <CardContent>
                   {dataLoading ? (
