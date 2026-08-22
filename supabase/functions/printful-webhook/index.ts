@@ -12,6 +12,41 @@ const json = (data: Record<string, unknown>, status = 200) =>
     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   })
 
+// Only https links on known carrier / Printful domains may be stored or emailed,
+// so a forged webhook cannot inject a phishing link into customer emails.
+const TRACKING_HOST_ALLOWLIST = [
+  'printful.com',
+  'poczta-polska.pl',
+  'emonitoring.poczta-polska.pl',
+  'inpost.pl',
+  'dhl.com',
+  'dpd.com.pl',
+  'dpd.com',
+  'ups.com',
+  'fedex.com',
+  'gls-group.eu',
+  'gls-group.com',
+  'usps.com',
+  'royalmail.com',
+  'tnt.com',
+]
+
+// deno-lint-ignore no-explicit-any
+function safeTrackingUrl(value: any): string | null {
+  if (typeof value !== 'string' || value.length > 2048) return null
+  let parsed: URL
+  try {
+    parsed = new URL(value)
+  } catch {
+    return null
+  }
+  if (parsed.protocol !== 'https:') return null
+  const host = parsed.hostname.toLowerCase()
+  const allowed = TRACKING_HOST_ALLOWLIST.some((d) => host === d || host.endsWith(`.${d}`))
+  return allowed ? parsed.toString() : null
+}
+
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders })
   if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405)
@@ -20,12 +55,16 @@ Deno.serve(async (req) => {
   const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
   if (!supabaseUrl || !serviceKey) return json({ error: 'Server configuration error' }, 500)
 
-  // Optional shared-secret protection (?secret=... configured in Printful)
+  // Mandatory shared-secret protection (?secret=... configured in Printful).
+  // Fails closed: if the secret is not configured, the endpoint is disabled.
   const expectedSecret = Deno.env.get('PRINTFUL_WEBHOOK_SECRET')
-  if (expectedSecret) {
-    const provided = new URL(req.url).searchParams.get('secret')
-    if (provided !== expectedSecret) return json({ error: 'Unauthorized' }, 401)
+  if (!expectedSecret) {
+    console.error('PRINTFUL_WEBHOOK_SECRET is not configured — rejecting webhook')
+    return json({ error: 'Webhook not configured' }, 503)
   }
+  const provided = new URL(req.url).searchParams.get('secret')
+  if (provided !== expectedSecret) return json({ error: 'Unauthorized' }, 401)
+
 
   let payload: Record<string, unknown>
   try {
@@ -118,8 +157,13 @@ Deno.serve(async (req) => {
   const order = rows?.[0]
   if (!order) return json({ ok: true, skipped: 'order not found' })
 
-  const trackingNumber: string | null = shipment.tracking_number ?? null
-  const trackingUrl: string | null = shipment.tracking_url ?? null
+  const rawTrackingNumber = shipment.tracking_number
+  const trackingNumber: string | null =
+    typeof rawTrackingNumber === 'string' && /^[A-Za-z0-9-]{4,40}$/.test(rawTrackingNumber.trim())
+      ? rawTrackingNumber.trim()
+      : null
+  const trackingUrl: string | null = safeTrackingUrl(shipment.tracking_url)
+
 
   const isShipmentEvent = type === 'package_shipped'
   const printfulStatus: string | null = pfOrder.status ?? (isShipmentEvent ? 'fulfilled' : null)
