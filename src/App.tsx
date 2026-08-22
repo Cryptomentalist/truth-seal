@@ -17,6 +17,7 @@ import PolishAssets from "./pages/PolishAssets";
 import Ciekawostki from "./pages/Ciekawostki";
 import Sklep from "./pages/Sklep";
 import Konto from "./pages/Konto";
+import KontoZamowienia from "./pages/KontoZamowienia";
 import Platnosci from "./pages/Platnosci";
 import ResetPassword from "./pages/ResetPassword";
 import Klub from "./pages/Klub";
