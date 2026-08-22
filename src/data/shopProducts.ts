@@ -184,6 +184,27 @@ export const PRODUCTS: ShopProduct[] = [
     variants: [{ id: "v1", pl: "1 z 369 puzzli", en: "1 of 369 pieces", stock: 369 }],
   },
   {
+    id: "puzzle-site-3",
+    cat: "service",
+    price: 12,
+    tint: "#3A2A52",
+    slogan: "PUZZLE\n3 × 12 zł",
+    noship: true,
+    pl: {
+      name: "Puzzle 369 — pakiet dla 3 pierwszych osób (12 zł)",
+      desc: "Tylko 3 miejsca. Ta sama usługa co Puzzle 369 (Twoja unikalna strona-wizytówka i miejsce w układance 369 osób), ale w cenie 12 zł zamiast 1200 zł. Warunek: promocja Konstelacja.org w social mediach — publikacja informacji o projekcie Puzzle 369 z oznaczeniem @Konstelacja.org i linkiem do konstelacja.org. Po zakupie wypełnij brief, żeby mogła powstać Twoja wirtualna wizytówka. Wyniki dopasowań: Sylwester 2026.",
+      impact: "Finansuje budowę wspólnej mapy dopasowań 369 osób i ich stron.",
+      spec: [["Cena", "12 zł zamiast 1200 zł"], ["Limit", "3 sztuki"], ["Warunek", "Post w social media o Konstelacja.org z linkiem i oznaczeniem"], ["Wyniki dopasowań", "Sylwester 2026"], ["Wymagane", "Wypełniony brief (ankieta)"], ["Wysyłka", "Brak — usługa"]],
+    },
+    en: {
+      name: "Puzzle 369 — first 3 people bundle (12 PLN)",
+      desc: "Only 3 spots. The same service as Puzzle 369 (your unique one-page site and a place in the 369-piece puzzle) for 12 PLN instead of 1200 PLN. Condition: promote Konstelacja.org on social media — post about the Puzzle 369 project tagging @Konstelacja.org with a link to konstelacja.org. After purchase, fill in the brief so your virtual card can be built. Match results: New Year's Eve 2026.",
+      impact: "Funds the shared matching map of 369 people and their pages.",
+      spec: [["Price", "12 PLN instead of 1200 PLN"], ["Limit", "3 units"], ["Condition", "Social media post about Konstelacja.org with link and tag"], ["Match results", "New Year's Eve 2026"], ["Required", "Completed brief (survey)"], ["Shipping", "None — service"]],
+    },
+    variants: [{ id: "v1", pl: "1 z 3 miejsc", en: "1 of 3 spots", stock: 3 }],
+  },
+  {
     id: "support",
     cat: "support",
     price: 100,
