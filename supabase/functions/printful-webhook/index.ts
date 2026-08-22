@@ -12,6 +12,41 @@ const json = (data: Record<string, unknown>, status = 200) =>
     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   })
 
+// Only https links on known carrier / Printful domains may be stored or emailed,
+// so a forged webhook cannot inject a phishing link into customer emails.
+const TRACKING_HOST_ALLOWLIST = [
+  'printful.com',
+  'poczta-polska.pl',
+  'emonitoring.poczta-polska.pl',
+  'inpost.pl',
+  'dhl.com',
+  'dpd.com.pl',
+  'dpd.com',
+  'ups.com',
+  'fedex.com',
+  'gls-group.eu',
+  'gls-group.com',
+  'usps.com',
+  'royalmail.com',
+  'tnt.com',
+]
+
+// deno-lint-ignore no-explicit-any
+function safeTrackingUrl(value: any): string | null {
+  if (typeof value !== 'string' || value.length > 2048) return null
+  let parsed: URL
+  try {
+    parsed = new URL(value)
+  } catch {
+    return null
+  }
+  if (parsed.protocol !== 'https:') return null
+  const host = parsed.hostname.toLowerCase()
+  const allowed = TRACKING_HOST_ALLOWLIST.some((d) => host === d || host.endsWith(`.${d}`))
+  return allowed ? parsed.toString() : null
+}
+
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders })
   if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405)
