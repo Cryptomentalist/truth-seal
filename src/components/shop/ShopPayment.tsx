@@ -25,6 +25,24 @@ const ShopPayment = ({ orderId, returnUrl }: Props) => {
 
   return (
     <div id="checkout">
+      {getStripeEnvironment() === "sandbox" && (
+        <div
+          style={{
+            marginBottom: 12,
+            padding: "10px 12px",
+            borderRadius: 10,
+            border: "1px solid #E0C56B",
+            background: "#FFF8E1",
+            color: "#4A3B00",
+            fontSize: 13,
+            lineHeight: 1.5,
+          }}
+        >
+          Tryb testowy płatności (podgląd). Prawdziwy kod BLIK z banku nie zadziała — bank nie
+          wyśle potwierdzenia. Realne płatności BLIK działają na opublikowanej stronie
+          konstelacja.org.
+        </div>
+      )}
       <EmbeddedCheckoutProvider stripe={getStripe()} options={{ fetchClientSecret }}>
         <EmbeddedCheckout />
       </EmbeddedCheckoutProvider>
