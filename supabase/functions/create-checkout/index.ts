@@ -163,6 +163,7 @@ Deno.serve(async (req) => {
       ...(discounts ? { discounts } : {}),
       mode: "payment",
       ui_mode: "embedded_page",
+      locale: order.lang === "en" ? "en" : "pl",
       return_url: returnUrl,
       ...(customerId ? { customer: customerId } : { customer_email: order.email }),
       client_reference_id: order.order_no,
