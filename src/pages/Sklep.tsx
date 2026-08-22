@@ -155,6 +155,7 @@ const Sklep = () => {
         phone: data.phone,
         cname: data.cname,
         nip: data.nip,
+        discountCode: data.discountCode,
         shippingMethod: data.shippingMethod,
         paymentMethod: data.paymentMethod,
         consentNews: data.consentNews,
