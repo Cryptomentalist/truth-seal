@@ -4,6 +4,7 @@ import { z } from "npm:zod@3.23.8";
 import { findProduct, findVariant } from "../_shared/catalog.ts";
 import { isSuppressed, validEmail, validateAddress } from "../_shared/customer-validation.ts";
 import { evaluateDiscount, fetchDiscount, normalizeCode } from "../_shared/discounts.ts";
+import { loadShopSettings } from "../_shared/shop-settings.ts";
 
 export const CONSENT_VERSION = "2026-07-27";
 
@@ -66,7 +67,14 @@ Deno.serve(async (req) => {
   // --- walidacja adresu klienta przed wysyłką ---
   if (!validEmail(email)) return json({ error: "invalid_email" }, 400);
 
-  // --- wycena po stronie serwera ---
+  const supabase = createClient(
+    Deno.env.get("SUPABASE_URL")!,
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
+    { auth: { persistSession: false } },
+  );
+
+  // --- wycena po stronie serwera (z nadpisaniami z panelu admina) ---
+  const settings = await loadShopSettings(supabase);
   const lines: { pid: string; vid: string; qty: number; name: string; variant: string; price: number; pf?: number }[] = [];
   const wanted = new Map<string, number>();
   for (const it of b.items) {
@@ -74,13 +82,15 @@ Deno.serve(async (req) => {
     if (!p) return json({ error: `Unknown product: ${it.pid}` }, 400);
     const v = findVariant(p, it.vid);
     if (!v) return json({ error: `Unknown variant: ${it.vid}` }, 400);
+    const block = settings.blocked(p.id);
+    if (block) return json({ error: block === "hidden" ? "product_unavailable" : "out_of_stock", pid: p.id, available: 0 }, 400);
     const key = `${p.id}::${v.id}`;
     const qty = (wanted.get(key) ?? 0) + it.qty;
     wanted.set(key, qty);
     if (qty > v.stock) {
       return json({ error: "out_of_stock", pid: p.id, vid: v.id, available: v.stock }, 400);
     }
-    lines.push({ pid: p.id, vid: v.id, qty: it.qty, name: p.name, variant: v.label, price: p.price, pf: v.pf });
+    lines.push({ pid: p.id, vid: v.id, qty: it.qty, name: p.name, variant: v.label, price: settings.price(p.id, p.price), pf: v.pf });
   }
 
 
@@ -102,12 +112,6 @@ Deno.serve(async (req) => {
   }
 
   const orderNo = `KON-${new Date().getFullYear()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
-
-  const supabase = createClient(
-    Deno.env.get("SUPABASE_URL")!,
-    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
-    { auth: { persistSession: false } },
-  );
 
   // --- kod rabatowy: zawsze przeliczany po stronie serwera ---
   const discountCode = normalizeCode(b.discountCode);
