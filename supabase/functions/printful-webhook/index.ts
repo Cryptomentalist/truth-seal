@@ -20,12 +20,16 @@ Deno.serve(async (req) => {
   const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
   if (!supabaseUrl || !serviceKey) return json({ error: 'Server configuration error' }, 500)
 
-  // Optional shared-secret protection (?secret=... configured in Printful)
+  // Mandatory shared-secret protection (?secret=... configured in Printful).
+  // Fails closed: if the secret is not configured, the endpoint is disabled.
   const expectedSecret = Deno.env.get('PRINTFUL_WEBHOOK_SECRET')
-  if (expectedSecret) {
-    const provided = new URL(req.url).searchParams.get('secret')
-    if (provided !== expectedSecret) return json({ error: 'Unauthorized' }, 401)
+  if (!expectedSecret) {
+    console.error('PRINTFUL_WEBHOOK_SECRET is not configured — rejecting webhook')
+    return json({ error: 'Webhook not configured' }, 503)
   }
+  const provided = new URL(req.url).searchParams.get('secret')
+  if (provided !== expectedSecret) return json({ error: 'Unauthorized' }, 401)
+
 
   let payload: Record<string, unknown>
   try {
