@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      discount_codes: {
+        Row: {
+          active: boolean
+          amount_off: number | null
+          code: string
+          created_at: string
+          description: string | null
+          expires_at: string | null
+          free_shipping: boolean
+          id: string
+          max_redemptions: number | null
+          min_subtotal: number
+          percent_off: number | null
+          starts_at: string | null
+          times_redeemed: number
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          amount_off?: number | null
+          code: string
+          created_at?: string
+          description?: string | null
+          expires_at?: string | null
+          free_shipping?: boolean
+          id?: string
+          max_redemptions?: number | null
+          min_subtotal?: number
+          percent_off?: number | null
+          starts_at?: string | null
+          times_redeemed?: number
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          amount_off?: number | null
+          code?: string
+          created_at?: string
+          description?: string | null
+          expires_at?: string | null
+          free_shipping?: boolean
+          id?: string
+          max_redemptions?: number | null
+          min_subtotal?: number
+          percent_off?: number | null
+          starts_at?: string | null
+          times_redeemed?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       email_send_log: {
         Row: {
           created_at: string
@@ -209,6 +260,8 @@ export type Database = {
           country_code: string
           created_at: string
           currency: string
+          discount: number
+          discount_code: string | null
           email: string
           id: string
           items: Json
@@ -251,6 +304,8 @@ export type Database = {
           country_code?: string
           created_at?: string
           currency?: string
+          discount?: number
+          discount_code?: string | null
           email: string
           id?: string
           items: Json
@@ -293,6 +348,8 @@ export type Database = {
           country_code?: string
           created_at?: string
           currency?: string
+          discount?: number
+          discount_code?: string | null
           email?: string
           id?: string
           items?: Json
@@ -458,6 +515,7 @@ export type Database = {
           read_ct: number
         }[]
       }
+      redeem_discount_code: { Args: { _code: string }; Returns: undefined }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user"
