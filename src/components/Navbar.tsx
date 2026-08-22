@@ -34,6 +34,7 @@ const Navbar = () => {
     { label: t("nav.erp"), href: "/platforma-erp-ai" },
     { label: t("nav.ciekawostki"), href: "/ciekawostki" },
     { label: t("nav.sklep"), href: "/sklep" },
+    { label: t("nav.puzzle", "Puzzle 369 — brief"), href: "/puzzle-brief" },
     { label: t("nav.konto", "Moje konto"), href: "/konto" },
     { label: t("nav.platnosci", "Płatności"), href: "/platnosci" },
     { label: t("nav.faq"), href: "/faq" },

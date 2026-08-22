@@ -21,6 +21,7 @@ import KontoZamowienia from "./pages/KontoZamowienia";
 import Platnosci from "./pages/Platnosci";
 import ResetPassword from "./pages/ResetPassword";
 import Klub from "./pages/Klub";
+import PuzzleBrief from "./pages/PuzzleBrief";
 import Unsubscribe from "./pages/Unsubscribe";
 import Faktura from "./pages/Faktura";
 import AdminLogin from "./pages/AdminLogin";
@@ -54,6 +55,7 @@ const App = () => (
           <Route path="/ciekawostki" element={<Ciekawostki />} />
           <Route path="/sklep" element={<Sklep />} />
           <Route path="/sklep/produkt/:productId" element={<Sklep />} />
+          <Route path="/puzzle-brief" element={<PuzzleBrief />} />
           <Route path="/klub" element={<Klub />} />
           <Route path="/konto" element={<Konto />} />
           <Route path="/konto/zamowienia" element={<KontoZamowienia />} />
