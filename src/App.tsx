@@ -24,6 +24,7 @@ import Unsubscribe from "./pages/Unsubscribe";
 import Faktura from "./pages/Faktura";
 import AdminLogin from "./pages/AdminLogin";
 import AdminEmails from "./pages/AdminEmails";
+import AdminShop from "@/pages/AdminShop";
 import NotFound from "./pages/NotFound";
 
 
@@ -60,6 +61,7 @@ const App = () => (
           <Route path="/faktura/:token" element={<Faktura />} />
           <Route path="/admin" element={<AdminLogin />} />
           <Route path="/admin/emaile" element={<AdminEmails />} />
+          <Route path="/admin/sklep" element={<AdminShop />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

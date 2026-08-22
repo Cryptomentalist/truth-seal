@@ -22,6 +22,10 @@ export interface ShopProduct {
   slogan: string;
   digital?: boolean;
   noship?: boolean;
+  /** Ukryty w sklepie (ustawienie z panelu admina). */
+  hidden?: boolean;
+  /** Oznaczony jako wyprzedany (ustawienie z panelu admina). */
+  soldOut?: boolean;
   pl: ShopCopy;
   en: ShopCopy;
   variants: ShopVariant[];
@@ -197,3 +201,42 @@ export const F = {
   body: "'Inter', system-ui, -apple-system, sans-serif",
   mono: "'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace",
 };
+
+/* ---- Ustawienia sklepu z panelu admina (ceny, widoczność, wyprzedanie) ---- */
+
+export interface ProductSetting {
+  product_id: string;
+  price: number | null;
+  visible: boolean;
+  sold_out: boolean;
+}
+
+/** Bazowe ceny i stany — zachowane, aby nadpisania dało się cofnąć. */
+const BASE = PRODUCTS.map((p) => ({
+  id: p.id,
+  price: p.price,
+  stocks: p.variants.map((v) => v.stock),
+}));
+
+/**
+ * Nakłada ustawienia z bazy na katalog w pamięci przeglądarki.
+ * Ceny i tak są ponownie liczone po stronie serwera przy składaniu zamówienia.
+ */
+export const applyShopSettings = (
+  products: ProductSetting[],
+  categories: Record<string, boolean>,
+) => {
+  for (const p of PRODUCTS) {
+    const base = BASE.find((b) => b.id === p.id)!;
+    const s = products.find((x) => x.product_id === p.id);
+    p.price = s?.price != null ? Number(s.price) : base.price;
+    p.hidden = s ? !s.visible : false;
+    p.soldOut = s?.sold_out ?? false;
+    p.variants.forEach((v, i) => {
+      v.stock = p.soldOut ? 0 : base.stocks[i];
+    });
+    if (categories[p.cat] === false) p.hidden = true;
+  }
+};
+
+export const visibleProducts = () => PRODUCTS.filter((p) => !p.hidden);

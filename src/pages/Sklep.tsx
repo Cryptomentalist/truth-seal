@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
-import { C, CATS, F, PRODUCTS, type ShopProduct } from "@/data/shopProducts";
+import { C, CATS, F, PRODUCTS, visibleProducts, type ShopProduct } from "@/data/shopProducts";
+import { useShopSettings } from "@/hooks/useShopSettings";
 import { T, type ShopLang } from "@/data/shopStrings";
 import { useShopCart, type CartLine } from "@/hooks/useShopCart";
 import { Btn, Impact, Motif, Price, Row, money } from "@/components/shop/ShopUI";
@@ -36,12 +37,16 @@ const Sklep = () => {
 
   const navigate = useNavigate();
   const { productId } = useParams();
+  const { version, hiddenCats } = useShopSettings();
 
   const [view, setView] = useState<View>("home");
   // aktywny produkt wynika z adresu URL — każdy produkt ma własną stronę
-  const active: ShopProduct | null = productId
-    ? PRODUCTS.find((p) => p.id === productId) ?? null
-    : null;
+  const active: ShopProduct | null = useMemo(() => {
+    if (!productId) return null;
+    const p = PRODUCTS.find((x) => x.id === productId);
+    return p && !p.hidden ? p : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productId, version]);
   const [cat, setCat] = useState<(typeof CATS)[number]>("all");
   const [cartOpen, setCartOpen] = useState(false);
   const [order, setOrder] = useState<Order | null>(null);
@@ -135,13 +140,26 @@ const Sklep = () => {
     });
   };
 
-  const list = useMemo(() => (cat === "all" ? PRODUCTS : PRODUCTS.filter((p) => p.cat === cat)), [cat]);
+  const list = useMemo(() => {
+    const vis = visibleProducts();
+    return cat === "all" ? vis : vis.filter((p) => p.cat === cat);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cat, version]);
+
+  const cats = useMemo(
+    () => CATS.filter((c) => c === "all" || !hiddenCats.includes(c)),
+    [hiddenCats],
+  );
+
+  useEffect(() => {
+    if (cat !== "all" && hiddenCats.includes(cat)) setCat("all");
+  }, [cat, hiddenCats]);
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     name: lang === "pl" ? "Sklep Konstelacja" : "Konstelacja Supporter Shop",
-    itemListElement: PRODUCTS.map((p, i) => ({
+    itemListElement: visibleProducts().map((p, i) => ({
       "@type": "ListItem",
       position: i + 1,
       item: {
@@ -313,7 +331,7 @@ const Sklep = () => {
 
           <section id="cat" className="mx-auto px-5 pb-20" style={{ maxWidth: 1080 }}>
             <div className="flex flex-wrap gap-2 mb-8">
-              {CATS.map((c) => (
+              {cats.map((c) => (
                 <button
                   key={c}
                   onClick={() => setCat(c)}

@@ -255,6 +255,9 @@ const AdminEmails = () => {
               <RefreshCw className={`mr-2 h-4 w-4 ${fetching ? "animate-spin" : ""}`} />
               Odśwież
             </Button>
+            <Button variant="ghost" size="sm" onClick={() => navigate("/admin/sklep")}>
+              Sklep
+            </Button>
             <Button
               variant="ghost"
               size="sm"
