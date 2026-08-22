@@ -56,6 +56,7 @@ const App = () => (
           <Route path="/sklep/produkt/:productId" element={<Sklep />} />
           <Route path="/klub" element={<Klub />} />
           <Route path="/konto" element={<Konto />} />
+          <Route path="/konto/zamowienia" element={<KontoZamowienia />} />
           <Route path="/platnosci" element={<Platnosci />} />
           <Route path="/reset-hasla" element={<ResetPassword />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
