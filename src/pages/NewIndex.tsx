@@ -30,6 +30,124 @@ const NewIndex = () => {
         </p>
       </header>
 
+      {/* BONY Z MISJĄ — CTA na samej górze */}
+      <section className="container max-w-5xl px-4 pb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="relative rounded-3xl border-2 border-accent/40 bg-gradient-to-br from-accent/10 via-background to-primary/10 p-5 sm:p-8 md:p-10 overflow-hidden glow-primary"
+        >
+          <div className="absolute inset-0 grid-bg opacity-[0.07] pointer-events-none" />
+          <div className="relative z-10">
+            {/* Nagłówek */}
+            <div className="text-center mb-8">
+              <span className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-4 py-1.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-accent mb-5">
+                <Gift className="w-4 h-4" />
+                Bony z misją
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 leading-tight break-words">
+                Rozdajemy <span className="text-gradient-primary">Bony z misją</span> dla wzrostu na rynku pracy
+              </h2>
+              <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                Pierwsze 60 osób otrzyma <strong className="text-accent">kupon o wartości 300 zł</strong> na konsultację z psychologiem biznesu.
+              </p>
+            </div>
+
+            {/* Kroki */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 mb-8">
+              {/* Krok 1 */}
+              <div className="rounded-2xl border border-primary/20 bg-card/60 p-5 sm:p-6 text-center flex flex-col">
+                <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-4">
+                  <Linkedin className="w-6 h-6 text-primary" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-primary/70 mb-2">Krok 1</span>
+                <h3 className="text-base sm:text-lg font-bold mb-2 leading-snug break-words">
+                  Zaobserwuj founderkę na LinkedIn
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+                  Śledź działania Ady Margo Marglewskiej na rzecz innowacji i wzrostu gospodarczego.
+                </p>
+                <Button variant="hero" size="sm" asChild className="w-full">
+                  <a
+                    href="https://www.linkedin.com/in/ada-margo-marglewska-31699a251"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 whitespace-normal text-center text-xs sm:text-sm"
+                  >
+                    <Linkedin className="w-4 h-4 shrink-0" />
+                    Obserwuj na LinkedIn
+                  </a>
+                </Button>
+              </div>
+
+              {/* Krok 2 */}
+              <div className="rounded-2xl border border-accent/30 bg-card/60 p-5 sm:p-6 text-center flex flex-col ring-2 ring-accent/20">
+                <div className="w-12 h-12 rounded-xl bg-accent/15 flex items-center justify-center mx-auto mb-4">
+                  <FileSignature className="w-6 h-6 text-accent" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-accent/70 mb-2">Krok 2</span>
+                <h3 className="text-base sm:text-lg font-bold mb-2 leading-snug break-words">
+                  Podpisz petycję na ESGdistrict.com
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+                  Wesprzyj budowanie dzielnicy ESG — wymieralnego wpływu społecznego w biznesie.
+                </p>
+                <Button variant="heroOutline" size="sm" asChild className="w-full">
+                  <a
+                    href="https://esgdistrict.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 whitespace-normal text-center text-xs sm:text-sm"
+                  >
+                    <FileSignature className="w-4 h-4 shrink-0" />
+                    Podpisz petycję
+                  </a>
+                </Button>
+              </div>
+
+              {/* Krok 3 */}
+              <div className="rounded-2xl border border-primary/20 bg-card/60 p-5 sm:p-6 text-center flex flex-col">
+                <div className="w-12 h-12 rounded-xl bg-primary/15 flex items-center justify-center mx-auto mb-4">
+                  <Mail className="w-6 h-6 text-primary" />
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-primary/70 mb-2">Krok 3</span>
+                <h3 className="text-base sm:text-lg font-bold mb-2 leading-snug break-words">
+                  Umów konsultację — 300 zł za darmo
+                </h3>
+                <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+                  Wyślij e-mail, ustalimy termin. W temacie wpisz: <em>„Badanie potencjału"</em>.
+                </p>
+                <Button variant="hero" size="sm" asChild className="w-full">
+                  <a
+                    href="mailto:ada@ada-margo.com?subject=Badanie%20potencja%C5%82u"
+                    className="inline-flex items-center justify-center gap-2 whitespace-normal text-center text-xs sm:text-sm"
+                  >
+                    <Mail className="w-4 h-4 shrink-0" />
+                    ada@ada-margo.com
+                  </a>
+                </Button>
+              </div>
+            </div>
+
+            {/* DNA biznesu */}
+            <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5 sm:p-6 text-center">
+              <div className="flex items-center justify-center gap-2 mb-3">
+                <Dna className="w-5 h-5 text-accent" />
+                <h3 className="text-base sm:text-lg font-bold text-accent">Sprawdź swoje DNA biznesu</h3>
+              </div>
+              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                Jaka branża do Ciebie pasuje? Czy jesteś <strong className="text-foreground">wizjonerem</strong>, <strong className="text-foreground">wykonawcą</strong>, czy <strong className="text-foreground">artystą w biznesie</strong>? Nie masz pomysłu na biznes? Najpierw sprawdź kierunek — a my pomożemy Ci odnaleźć ścieżkę wzrostu.
+              </p>
+              <p className="mt-4 text-xs sm:text-sm text-muted-foreground/80">
+                ✦ Pierwsze 60 osób · Kupon <strong className="text-accent">300 zł</strong> · Konsultacja z psychologiem biznesu
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </section>
+
       {/* ESG & S-Impact Definition */}
       <section className="container max-w-4xl px-4 pb-16">
         <motion.div
