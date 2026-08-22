@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import SEOHead from "@/components/SEOHead";
 import { C, F, type ShopProduct } from "@/data/shopProducts";
 import type { ShopLang, ShopStrings } from "@/data/shopStrings";
 import { Btn, Impact, Motif, Price } from "@/components/shop/ShopUI";
@@ -17,9 +18,51 @@ const ShopProductPage = ({ p, lang, t, onBack, onAdd }: Props) => {
   const [done, setDone] = useState(false);
   const variant = p.variants.find((x) => x.id === v)!;
   const copy = p[lang];
+  const totalStock = p.variants.reduce((n, x) => n + x.stock, 0);
+  const alwaysAvailable = !!p.digital || !!p.noship;
+  const available = alwaysAvailable || totalStock > 0;
+  const availLabel = !available ? t.out_of_stock : alwaysAvailable ? t.digital_avail : t.in_stock;
+
+  // ilość nie może przekroczyć stanu wybranego wariantu
+  useEffect(() => {
+    setQ((cur) => Math.max(1, Math.min(cur, Math.max(1, variant.stock))));
+  }, [variant.stock]);
+
+  // dane strukturalne produktu dla wyszukiwarek
+  useEffect(() => {
+    const el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.text = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: copy.name,
+      description: copy.desc,
+      sku: p.id,
+      brand: { "@type": "Brand", name: "Constellation.love" },
+      offers: {
+        "@type": "Offer",
+        price: p.price.toFixed(2),
+        priceCurrency: "PLN",
+        url: `https://konstelacja.org/sklep/produkt/${p.id}`,
+        availability: available
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      },
+    });
+    document.head.appendChild(el);
+    return () => {
+      el.remove();
+    };
+  }, [p.id, copy.name, copy.desc, p.price, available]);
 
   return (
     <section className="mx-auto px-5 py-10" style={{ maxWidth: 1080 }}>
+      <SEOHead
+        title={copy.name}
+        description={copy.desc.slice(0, 155)}
+        path={`/sklep/produkt/${p.id}`}
+        type="product"
+      />
       <button onClick={onBack} style={{ fontFamily: F.body, fontSize: "0.85rem", color: C.ink2, marginBottom: 24 }}>
         ← {t.back}
       </button>
@@ -32,9 +75,13 @@ const ShopProductPage = ({ p, lang, t, onBack, onAdd }: Props) => {
             {copy.name}
           </h1>
           <Impact text={copy.impact} size="0.78rem" />
-          <div className="mt-4 mb-5">
+          <div className="mt-4 mb-3">
             <Price v={p.price} size="1.35rem" />
           </div>
+          <p style={{ fontFamily: F.mono, fontSize: "0.72rem", letterSpacing: "0.05em", color: available ? C.indigo : C.ink2, marginBottom: 18 }}>
+            <span style={{ color: C.ink2 }}>{t.availability}: </span>
+            {availLabel}
+          </p>
           <p style={{ fontFamily: F.body, fontSize: "0.95rem", color: C.ink2, lineHeight: 1.7 }}>{copy.desc}</p>
 
           <div className="mt-8">
@@ -61,7 +108,10 @@ const ShopProductPage = ({ p, lang, t, onBack, onAdd }: Props) => {
                 </button>
               ))}
             </div>
-            {variant.stock <= 6 && !p.digital && !p.noship && (
+            {variant.stock === 0 && (
+              <p style={{ fontFamily: F.body, fontSize: "0.78rem", color: C.ink2, marginTop: 10 }}>{t.sold_out_note}</p>
+            )}
+            {variant.stock > 0 && variant.stock <= 6 && !p.digital && !p.noship && (
               <p style={{ fontFamily: F.mono, fontSize: "0.7rem", color: C.amber, marginTop: 10 }}>
                 {t.stock_low} — {variant.stock}
               </p>
@@ -91,7 +141,7 @@ const ShopProductPage = ({ p, lang, t, onBack, onAdd }: Props) => {
               }}
               disabled={variant.stock === 0}
             >
-              {done ? `✓ ${t.added}` : t.add}
+              {done ? `✓ ${t.added}` : variant.stock === 0 ? t.out_of_stock : t.add}
             </Btn>
           </div>
 
