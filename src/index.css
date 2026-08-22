@@ -123,7 +123,7 @@
 
 .depth-3d-on .glass-surface,
 .depth-3d-on .tilt-3d,
-.depth-3d-on [data-tilt] {
+.depth-3d-on [data-tilt], .depth-3d-on .card-3d {
   --tilt-x: 0deg;
   --tilt-y: 0deg;
   --mx: 50%;
@@ -137,7 +137,7 @@
 
 .depth-3d-on .glass-surface:hover,
 .depth-3d-on .tilt-3d:hover,
-.depth-3d-on [data-tilt]:hover {
+.depth-3d-on [data-tilt], .depth-3d-on .card-3d:hover {
   box-shadow:
     0 18px 40px -18px hsl(220 40% 2% / 0.75),
     0 2px 0 0 hsl(var(--border) / 0.6) inset,
@@ -147,7 +147,7 @@
 /* Delikatny refleks światła podążający za kursorem */
 .depth-3d-on .glass-surface::after,
 .depth-3d-on .tilt-3d::after,
-.depth-3d-on [data-tilt]::after {
+.depth-3d-on [data-tilt], .depth-3d-on .card-3d::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -164,20 +164,20 @@
 
 .depth-3d-on .glass-surface:hover::after,
 .depth-3d-on .tilt-3d:hover::after,
-.depth-3d-on [data-tilt]:hover::after {
+.depth-3d-on [data-tilt], .depth-3d-on .card-3d:hover::after {
   opacity: 1;
 }
 
 .depth-3d-on .glass-surface,
 .depth-3d-on .tilt-3d,
-.depth-3d-on [data-tilt] {
+.depth-3d-on [data-tilt], .depth-3d-on .card-3d {
   position: relative;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .depth-3d-on .glass-surface,
   .depth-3d-on .tilt-3d,
-  .depth-3d-on [data-tilt] {
+  .depth-3d-on [data-tilt], .depth-3d-on .card-3d {
     transform: none !important;
     transition: none !important;
   }
