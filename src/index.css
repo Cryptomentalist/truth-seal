@@ -103,6 +103,20 @@
 
   .glass-surface {
     @apply bg-card/60 backdrop-blur-xl border border-border/50;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Apple-style shadows */
+  .shadow-apple {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-apple-hover:hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .shadow-float {
+    box-shadow: var(--shadow-float);
   }
 
   .section-padding {
