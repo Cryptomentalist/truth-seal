@@ -3,6 +3,7 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 import { z } from "npm:zod@3.23.8";
 import { findProduct, findVariant } from "../_shared/catalog.ts";
 import { isSuppressed, validEmail, validateAddress } from "../_shared/customer-validation.ts";
+import { evaluateDiscount, fetchDiscount, normalizeCode } from "../_shared/discounts.ts";
 
 export const CONSENT_VERSION = "2026-07-27";
 
@@ -18,6 +19,7 @@ const BodySchema = z.object({
   shippingMethod: z.enum(["courier", "locker"]).optional().default("courier"),
   paymentMethod: z.enum(["blik", "p24", "card", "wallet"]).optional().default("blik"),
   lang: z.enum(["pl", "en"]).optional().default("pl"),
+  discountCode: z.string().max(40).optional().default(""),
   consentNews: z.boolean().optional().default(false),
   consentRules: z.boolean().optional().default(false),
   consentPrivacy: z.boolean().optional().default(false),
@@ -87,8 +89,7 @@ Deno.serve(async (req) => {
     const p = findProduct(it.pid)!;
     return !!(p.digital || p.noship);
   });
-  const shipping = allNoShip || subtotal >= 250 ? 0 : b.shippingMethod === "locker" ? 12 : 16;
-  const total = subtotal + shipping;
+  let shipping = allNoShip || subtotal >= 250 ? 0 : b.shippingMethod === "locker" ? 12 : 16;
 
   const requiresDigitalConsent = b.items.some((it) => !!findProduct(it.pid)?.digital);
   if (requiresDigitalConsent && !b.consentDigital) {
@@ -107,6 +108,20 @@ Deno.serve(async (req) => {
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     { auth: { persistSession: false } },
   );
+
+  // --- kod rabatowy: zawsze przeliczany po stronie serwera ---
+  const discountCode = normalizeCode(b.discountCode);
+  let discount = 0;
+  let appliedCode: string | null = null;
+  if (discountCode) {
+    const row = await fetchDiscount(supabase, discountCode);
+    const res = evaluateDiscount(row, subtotal);
+    if (!res.ok) return json({ error: res.error, minSubtotal: res.minSubtotal }, 400);
+    discount = res.result.discount;
+    appliedCode = res.result.code;
+    if (res.result.freeShipping) shipping = 0;
+  }
+  const total = Math.round((subtotal - discount + shipping) * 100) / 100;
 
   // Nie wysyłamy na adresy z listy wykluczeń (bounce/skarga/rezygnacja)
   const suppressed = await isSuppressed(supabase, email);
@@ -149,6 +164,8 @@ Deno.serve(async (req) => {
       tax_id: b.nip || null,
       items: lines,
       subtotal,
+      discount,
+      discount_code: appliedCode,
       shipping,
       total,
       shipping_method: allNoShip ? null : b.shippingMethod,
@@ -227,6 +244,12 @@ Deno.serve(async (req) => {
     })
     .eq("id", order.id);
 
+  // Licznik użyć kodu rabatowego (limit max_redemptions).
+  if (appliedCode) {
+    const { error: redeemError } = await supabase.rpc("redeem_discount_code", { _code: appliedCode });
+    if (redeemError) console.error("redeem_discount_code failed:", redeemError.message);
+  }
+
   // Faktura powstaje dopiero po zaksięgowaniu płatności (payments-webhook),
   // żeby nieopłacone zamówienia nie zużywały numeracji.
 
@@ -235,6 +258,8 @@ Deno.serve(async (req) => {
     orderNo: order.order_no,
 
     subtotal,
+    discount,
+    discountCode: appliedCode,
     shipping,
     total,
     pod: printful,
