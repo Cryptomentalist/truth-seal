@@ -244,6 +244,69 @@ export type Database = {
         }
         Relationships: []
       }
+      puzzle_briefs: {
+        Row: {
+          about: string | null
+          city: string | null
+          color_pref: string | null
+          consent_publish: boolean
+          created_at: string
+          email: string
+          full_name: string
+          headline: string | null
+          id: string
+          interests: string[]
+          lang: string
+          links: string | null
+          looking_for: string | null
+          order_no: string | null
+          skills: string | null
+          style_pref: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          about?: string | null
+          city?: string | null
+          color_pref?: string | null
+          consent_publish?: boolean
+          created_at?: string
+          email: string
+          full_name: string
+          headline?: string | null
+          id?: string
+          interests?: string[]
+          lang?: string
+          links?: string | null
+          looking_for?: string | null
+          order_no?: string | null
+          skills?: string | null
+          style_pref?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          about?: string | null
+          city?: string | null
+          color_pref?: string | null
+          consent_publish?: boolean
+          created_at?: string
+          email?: string
+          full_name?: string
+          headline?: string | null
+          id?: string
+          interests?: string[]
+          lang?: string
+          links?: string | null
+          looking_for?: string | null
+          order_no?: string | null
+          skills?: string | null
+          style_pref?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       shop_category_settings: {
         Row: {
           cat: string
