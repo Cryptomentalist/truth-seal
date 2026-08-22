@@ -1,4 +1,4 @@
-export type ShopCat = "apparel" | "drinkware" | "print" | "book" | "digital" | "support";
+export type ShopCat = "apparel" | "drinkware" | "print" | "book" | "digital" | "support" | "service";
 
 export interface ShopVariant {
   id: string;
@@ -163,6 +163,27 @@ export const PRODUCTS: ShopProduct[] = [
     variants: [{ id: "v1", pl: "Plik PDF (EN)", en: "PDF file (EN)", stock: 999 }],
   },
   {
+    id: "puzzle-site",
+    cat: "service",
+    price: 1200,
+    tint: "#243A52",
+    slogan: "PUZZLE\n369",
+    noship: true,
+    pl: {
+      name: "Puzzle 369 — Twoja unikalna strona-wizytówka",
+      desc: "Limitowana edycja: 369 osób, 369 kawałków jednej układanki. Każdy dostaje własną, prostą stronę-wizytówkę zbudowaną na podstawie ankiety, a jednocześnie staje się puzzlem w większym obrazie. W Sylwestra 2026 ogłaszamy wyniki dopasowań — do kogo z tych 369 osób pasujesz. Cena katalogowa 1200 zł; z kodem PUZZLE369 (rabat 90%) zapłacisz 120 zł. Trzy pierwsze osoby, które użyją kodu PUZZLE3, płacą 12 zł (rabat 99%). Po zakupie wypełnij brief, żeby mogła powstać Twoja wirtualna wizytówka.",
+      impact: "Finansuje budowę wspólnej mapy dopasowań 369 osób i ich stron.",
+      spec: [["Limit", "369 sztuk"], ["Rabat", "PUZZLE369 = −90% (120 zł)"], ["Pierwsze 3 osoby", "PUZZLE3 = −99% (12 zł)"], ["Wyniki dopasowań", "Sylwester 2026"], ["Wymagane", "Wypełniony brief (ankieta)"], ["Wysyłka", "Brak — produkt cyfrowy/usługa"]],
+    },
+    en: {
+      name: "Puzzle 369 — your unique one-page site",
+      desc: "A limited run: 369 people, 369 pieces of one puzzle. Everyone gets a simple personal landing page built from a short survey — and becomes a piece of a bigger picture. On New Year's Eve 2026 we reveal the matches: who among the 369 fits you. List price 1200 PLN; with code PUZZLE369 (90% off) you pay 120 PLN. The first three people using PUZZLE3 pay 12 PLN (99% off). After purchase, fill in the brief so your virtual card can be built.",
+      impact: "Funds the shared matching map of 369 people and their pages.",
+      spec: [["Limit", "369 units"], ["Discount", "PUZZLE369 = −90% (120 PLN)"], ["First 3 people", "PUZZLE3 = −99% (12 PLN)"], ["Match results", "New Year's Eve 2026"], ["Required", "Completed brief (survey)"], ["Shipping", "None — service"]],
+    },
+    variants: [{ id: "v1", pl: "1 z 369 puzzli", en: "1 of 369 pieces", stock: 369 }],
+  },
+  {
     id: "support",
     cat: "support",
     price: 100,
@@ -185,7 +206,7 @@ export const PRODUCTS: ShopProduct[] = [
   },
 ];
 
-export const CATS = ["all", "apparel", "drinkware", "print", "book", "digital", "support"] as const;
+export const CATS = ["all", "service", "apparel", "drinkware", "print", "book", "digital", "support"] as const;
 
 export const C = {
   paper: "#FCFCFA",
