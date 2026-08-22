@@ -41,9 +41,12 @@ const Sklep = () => {
 
   const [view, setView] = useState<View>("home");
   // aktywny produkt wynika z adresu URL — każdy produkt ma własną stronę
-  const active: ShopProduct | null = productId
-    ? PRODUCTS.find((p) => p.id === productId) ?? null
-    : null;
+  const active: ShopProduct | null = useMemo(() => {
+    if (!productId) return null;
+    const p = PRODUCTS.find((x) => x.id === productId);
+    return p && !p.hidden ? p : null;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productId, version]);
   const [cat, setCat] = useState<(typeof CATS)[number]>("all");
   const [cartOpen, setCartOpen] = useState(false);
   const [order, setOrder] = useState<Order | null>(null);
