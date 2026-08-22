@@ -113,7 +113,7 @@ const FractalEconomySection = () => {
         <div className="mb-20">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="mb-10">
             <motion.p variants={fadeUp} custom={0} className="text-xs uppercase tracking-[0.2em] text-primary/70 mb-2">02 — Architektura · Sześć filarów</motion.p>
-            <motion.h3 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-bold leading-tight">
+            <motion.h3 variants={fadeUp} custom={1} className="text-xl md:text-2xl font-bold leading-snug">
               Środowisko dla rozwoju ESG;<br />nauki i biznesu: franchisingu,<br />mikrofirm, rynku pracy dla osób<br />neuroatypowych — w tym start-upów<br />i scale-upów.
             </motion.h3>
           </motion.div>
