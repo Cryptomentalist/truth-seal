@@ -17,6 +17,7 @@ import PolishAssets from "./pages/PolishAssets";
 import Ciekawostki from "./pages/Ciekawostki";
 import Sklep from "./pages/Sklep";
 import Konto from "./pages/Konto";
+import Platnosci from "./pages/Platnosci";
 import ResetPassword from "./pages/ResetPassword";
 import Klub from "./pages/Klub";
 import Unsubscribe from "./pages/Unsubscribe";
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/sklep" element={<Sklep />} />
           <Route path="/klub" element={<Klub />} />
           <Route path="/konto" element={<Konto />} />
+          <Route path="/platnosci" element={<Platnosci />} />
           <Route path="/reset-hasla" element={<ResetPassword />} />
           <Route path="/unsubscribe" element={<Unsubscribe />} />
           <Route path="/faktura/:token" element={<Faktura />} />
