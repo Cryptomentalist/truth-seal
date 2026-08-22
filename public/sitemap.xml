@@ -13,4 +13,11 @@
   <url><loc>https://konstelacja.org/ciekawostki</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
   <url><loc>https://konstelacja.org/sklep</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://konstelacja.org/faq</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://konstelacja.org/sklep/produkt/mug-cww</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://konstelacja.org/sklep/produkt/tee-comp</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://konstelacja.org/sklep/produkt/poster-pyr</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://konstelacja.org/sklep/produkt/book-zw</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://konstelacja.org/sklep/produkt/geo-guide</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://konstelacja.org/sklep/produkt/ebook-claude</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://konstelacja.org/sklep/produkt/support</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
 </urlset>

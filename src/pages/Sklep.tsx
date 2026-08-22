@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SEOHead from "@/components/SEOHead";
 import { C, CATS, F, PRODUCTS, type ShopProduct } from "@/data/shopProducts";
 import { T, type ShopLang } from "@/data/shopStrings";
@@ -34,8 +34,14 @@ const Sklep = () => {
   const lang: ShopLang = i18n.language?.startsWith("en") ? "en" : "pl";
   const t = T[lang];
 
+  const navigate = useNavigate();
+  const { productId } = useParams();
+
   const [view, setView] = useState<View>("home");
-  const [active, setActive] = useState<ShopProduct | null>(null);
+  // aktywny produkt wynika z adresu URL — każdy produkt ma własną stronę
+  const active: ShopProduct | null = productId
+    ? PRODUCTS.find((p) => p.id === productId) ?? null
+    : null;
   const [cat, setCat] = useState<(typeof CATS)[number]>("all");
   const [cartOpen, setCartOpen] = useState(false);
   const [order, setOrder] = useState<Order | null>(null);
@@ -46,6 +52,16 @@ const Sklep = () => {
     cart, add, setQty, clear, cartLink, subtotal, shipping, total, count, allNoShip, hasDigital,
     linkStatus, linkTtlHours, cartAdjust, clearCartAdjust,
   } = useShopCart();
+
+  // nieznany identyfikator produktu → wracamy do katalogu
+  useEffect(() => {
+    if (productId && !active) navigate("/sklep", { replace: true });
+  }, [productId, active, navigate]);
+
+  // wejście na stronę produktu zawsze zaczyna się od góry
+  useEffect(() => {
+    if (productId) window.scrollTo(0, 0);
+  }, [productId]);
 
   // powrót ze Stripe: ?paid=1 → ekran potwierdzenia
   useEffect(() => {
@@ -232,7 +248,7 @@ const Sklep = () => {
           <button
             onClick={() => {
               setView("home");
-              setActive(null);
+              navigate("/sklep");
             }}
             className="flex items-center gap-2.5"
           >
@@ -321,13 +337,11 @@ const Sklep = () => {
               {list.map((p) => {
                 const low = p.variants.some((v) => v.stock <= 6) && p.cat !== "digital" && p.cat !== "support";
                 return (
-                  <button
+                  <Link
                     key={p.id}
-                    onClick={() => {
-                      setActive(p);
-                      window.scrollTo(0, 0);
-                    }}
-                    className="text-left"
+                    to={`/sklep/produkt/${p.id}`}
+                    aria-label={p[lang].name}
+                    className="text-left block"
                     style={{ border: `1px solid ${C.rule}`, borderRadius: 12, padding: 14, background: C.surface }}
                   >
                     <Motif p={p} small />
@@ -343,7 +357,7 @@ const Sklep = () => {
                         <p style={{ fontFamily: F.mono, fontSize: "0.66rem", color: C.ink2, marginTop: 8 }}>{t.stock_low}</p>
                       )}
                     </div>
-                  </button>
+                  </Link>
                 );
               })}
             </div>
@@ -357,7 +371,7 @@ const Sklep = () => {
           p={active}
           lang={lang}
           t={t}
-          onBack={() => setActive(null)}
+          onBack={() => navigate("/sklep")}
           onAdd={(v, q) => {
             add(active.id, v, q);
             setCartOpen(true);
@@ -537,7 +551,7 @@ const Sklep = () => {
                   full
                   onClick={() => {
                     setCartOpen(false);
-                    setActive(null);
+                    if (productId) navigate("/sklep");
                     setView("checkout");
                     window.scrollTo(0, 0);
                   }}
