@@ -8,7 +8,7 @@ const HeroSection = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-20">
+    <section className="scene-3d relative min-h-screen flex items-center justify-center overflow-hidden pt-24 sm:pt-20">
       {/* Background */}
       <div className="absolute inset-0">
         <img src={heroBg} alt="" className="w-full h-full object-cover opacity-30" />
