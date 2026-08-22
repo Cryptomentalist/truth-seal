@@ -244,6 +244,24 @@ export type Database = {
         }
         Relationships: []
       }
+      shop_category_settings: {
+        Row: {
+          cat: string
+          updated_at: string
+          visible: boolean
+        }
+        Insert: {
+          cat: string
+          updated_at?: string
+          visible?: boolean
+        }
+        Update: {
+          cat?: string
+          updated_at?: string
+          visible?: boolean
+        }
+        Relationships: []
+      }
       shop_orders: {
         Row: {
           city: string | null
@@ -376,6 +394,30 @@ export type Database = {
           updated_at?: string
           user_id?: string | null
           zip?: string | null
+        }
+        Relationships: []
+      }
+      shop_product_settings: {
+        Row: {
+          price: number | null
+          product_id: string
+          sold_out: boolean
+          updated_at: string
+          visible: boolean
+        }
+        Insert: {
+          price?: number | null
+          product_id: string
+          sold_out?: boolean
+          updated_at?: string
+          visible?: boolean
+        }
+        Update: {
+          price?: number | null
+          product_id?: string
+          sold_out?: boolean
+          updated_at?: string
+          visible?: boolean
         }
         Relationships: []
       }
