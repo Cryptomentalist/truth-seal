@@ -169,6 +169,12 @@ const PuzzleBrief = () => {
           369 osób, 369 kawałków jednej układanki. Na podstawie tej ankiety powstanie Twoja prosta strona-wizytówka,
           a w Sylwestra 2026 pokażemy, do kogo z pozostałych osób pasujesz. Wypełnienie zajmuje ok. 5 minut.
         </p>
+        <p style={{ color: C.ink2, fontSize: 14, lineHeight: 1.6, maxWidth: 640, marginTop: 12 }}>
+          <strong style={{ color: C.indigo }}>Kupon limitowany — 3 sztuki:</strong> kod <code>PUZZLE3</code> obniża cenę
+          z 1200 zł do dokładnie 12 zł. Warunkiem tej ceny jest promocja Konstelacja.org w social mediach — publikacja
+          informacji o projekcie Puzzle 369 z oznaczeniem @Konstelacja.org i linkiem do konstelacja.org. Pozostałe
+          osoby korzystają z kodu <code>PUZZLE369</code> (−90%, czyli 120 zł).
+        </p>
 
         {done ? (
           <div
