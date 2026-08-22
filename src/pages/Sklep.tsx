@@ -430,7 +430,13 @@ const Sklep = () => {
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              to={`/platnosci?paid=1&order=${encodeURIComponent(order.number)}`}
+              style={{ fontFamily: F.mono, fontSize: "0.78rem", color: C.indigo, textDecoration: "underline" }}
+            >
+              {lang === "pl" ? "Status zamówienia i historia płatności" : "Order status & payment history"}
+            </Link>
             <Btn
               kind="ghost"
               onClick={() => {
