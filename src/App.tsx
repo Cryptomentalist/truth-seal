@@ -51,6 +51,7 @@ const App = () => (
           <Route path="/polishassets" element={<PolishAssets />} />
           <Route path="/ciekawostki" element={<Ciekawostki />} />
           <Route path="/sklep" element={<Sklep />} />
+          <Route path="/sklep/produkt/:productId" element={<Sklep />} />
           <Route path="/klub" element={<Klub />} />
           <Route path="/konto" element={<Konto />} />
           <Route path="/platnosci" element={<Platnosci />} />
