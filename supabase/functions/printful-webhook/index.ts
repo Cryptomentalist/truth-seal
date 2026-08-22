@@ -122,8 +122,13 @@ Deno.serve(async (req) => {
   const order = rows?.[0]
   if (!order) return json({ ok: true, skipped: 'order not found' })
 
-  const trackingNumber: string | null = shipment.tracking_number ?? null
-  const trackingUrl: string | null = shipment.tracking_url ?? null
+  const rawTrackingNumber = shipment.tracking_number
+  const trackingNumber: string | null =
+    typeof rawTrackingNumber === 'string' && /^[A-Za-z0-9-]{4,40}$/.test(rawTrackingNumber.trim())
+      ? rawTrackingNumber.trim()
+      : null
+  const trackingUrl: string | null = safeTrackingUrl(shipment.tracking_url)
+
 
   const isShipmentEvent = type === 'package_shipped'
   const printfulStatus: string | null = pfOrder.status ?? (isShipmentEvent ? 'fulfilled' : null)
