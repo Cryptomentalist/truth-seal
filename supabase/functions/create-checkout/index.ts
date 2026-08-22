@@ -38,7 +38,7 @@ Deno.serve(async (req) => {
 
   const { data: order, error } = await supabase
     .from("shop_orders")
-    .select("id, order_no, email, name, items, subtotal, shipping, total, currency, status, lang, user_id")
+    .select("id, order_no, email, name, items, subtotal, discount, discount_code, shipping, total, currency, status, lang, user_id")
     .eq("id", orderId)
     .maybeSingle();
 
@@ -138,8 +138,29 @@ Deno.serve(async (req) => {
       }
     }
 
+    // Rabat z kodu przenosimy na sesję jako jednorazowy kupon kwotowy —
+    // ceny katalogowe pozycji zostają nienaruszone (poprawne raporty i podatki).
+    const discountAmount = Math.round(Number((order as any).discount ?? 0) * 100);
+    let discounts: { coupon: string }[] | undefined;
+    if (discountAmount > 0) {
+      try {
+        const coupon = await stripe.coupons.create({
+          amount_off: discountAmount,
+          currency,
+          duration: "once",
+          name: `Kod ${(order as any).discount_code ?? "rabat"}`,
+          max_redemptions: 1,
+        });
+        discounts = [{ coupon: coupon.id }];
+      } catch (e) {
+        console.error("Coupon creation failed:", e);
+        return json({ error: "discount_error" }, 500);
+      }
+    }
+
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
+      ...(discounts ? { discounts } : {}),
       mode: "payment",
       ui_mode: "embedded_page",
       return_url: returnUrl,
