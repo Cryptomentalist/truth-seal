@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://constellation.love/sitemap.xml
+Sitemap: https://konstelacja.org/sitemap.xml
